@@ -51,12 +51,14 @@
         data = data['data']
       });
 
-      // function to return edit data for material //
+      // function to return edit data for purification //
       if ($scope.dataId == -1) {
         $scope.purification = {
           "sampleId": $scope.sampleId,
-          "designMethodDescription": ""
+          "designMethodDescription": "",
+          "purityBeans":[]
         };
+        $scope.purificationCopy = angular.copy($scope.purification);
       } else {
         $http({
           method: 'GET',
@@ -101,18 +103,18 @@
         $scope.instrumentFormIndex = null;
       };
 
-      // delete for material //
+      // delete for purification //
       $scope.deletePurification = function () {
         if (confirm("Are you sure you want to delete?")) {
           $http({
             method: 'POST',
-            url: '/caNanoLab/rest/synthesisMaterial/delete',
-            data: $scope.material
+            url: '/caNanoLab/rest/synthesisPurification/deletePurification',
+            data: $scope.purification
           }).
           then(function (data, status, headers, config) {
             data = data['data']
             $location.search({
-              'message': 'Synthesis Material successfully deleted.',
+              'message': 'Synthesis Purification successfully deleted.',
               'sampleId': $scope.sampleId
             }).path('/editSynthesis').replace();
           }).
@@ -130,11 +132,6 @@
       // deletes instrument from technique //
       $scope.deleteInstrument = function (index, parentIndex, instrument) {
         $scope.technique['instruments'].splice(index, 1);
-      };
-
-      // delete material element //
-      $scope.deleteMaterialElement = function (me, index) {
-        $scope.material.materialElements.splice(index, 1)
       };
 
       // gets abbreviation and desc for technique //
@@ -428,7 +425,7 @@
         $scope.instrumentFormIndex = null;
       };
 
-      // submit the entire synthesis material //
+      // submit the entire synthesis purification //
       $scope.savePurification = function () {
   
         $http({
@@ -470,61 +467,6 @@
 
       $scope.setPageTitle = () => $scope.dataId == -1 ? `Add ${$scope.sampleName.name} Synthesis - Purification` : `Edit ${$scope.sampleName.name} Synthesis - Purification`;
 
-
-
-      $scope.testSave = () => {
-        // $scope.fileMaterial = angular.copy($scope.material);
-        // $scope.fileMaterial['fileBeingEdited'] = { "uri": $scope.somefile.name, "title": "test", "type": "document", "uriExternal": false };
-        // $http({ method: 'POST', url: '/caNanoLab/rest/synthesisMaterial/saveFile', data: $scope.fileMaterial }).
-        //   then(function (data, status, headers, config) { data=data['data']
-        //     $location.search({ 'message': 'Synthesis Material successfully saved.', 'sampleId': $scope.sampleId }).path('/editSynthesis').replace();
-        //   }).
-        //   catch(function (data, status, headers, config) { data=data['data']
-        //     console.log('fail')
-        //   });
-
-        $http({
-          method: 'POST',
-          url: '/caNanoLab/rest/synthesisPurification/savePurification',
-          data: $scope.dummyData
-        }).
-        then(function (data, status, headers, config) {
-          data = data['data']
-          console.log(data)
-          // $location.search({ 'message': 'Synthesis Material successfully saved.', 'sampleId': $scope.sampleId }).path('/editSynthesis').replace();
-        }).
-        catch(function (data, status, headers, config) {
-          data = data['data']
-          console.log('fail')
-        });
-      };
-
-      $scope.testSave2 = () => {
-        // $scope.fileMaterial = angular.copy($scope.material);
-        // $scope.fileMaterial['fileBeingEdited'] = { "uri": $scope.somefile.name, "title": "test", "type": "document", "uriExternal": false };
-        // $http({ method: 'POST', url: '/caNanoLab/rest/synthesisMaterial/saveFile', data: $scope.fileMaterial }).
-        //   then(function (data, status, headers, config) { data=data['data']
-        //     $location.search({ 'message': 'Synthesis Material successfully saved.', 'sampleId': $scope.sampleId }).path('/editSynthesis').replace();
-        //   }).
-        //   catch(function (data, status, headers, config) { data=data['data']
-        //     console.log('fail')
-        //   });
-
-        $http({
-          method: 'POST',
-          url: '/caNanoLab/rest/synthesisPurification/savePurification',
-          data: $scope.dummyData3
-        }).
-        then(function (data, status, headers, config) {
-          data = data['data']
-          console.log(data)
-          // $location.search({ 'message': 'Synthesis Material successfully saved.', 'sampleId': $scope.sampleId }).path('/editSynthesis').replace();
-        }).
-        catch(function (data, status, headers, config) {
-          data = data['data']
-          console.log('fail')
-        });
-      };
 
 
 
@@ -1265,7 +1207,6 @@
 
       // saves finding info //
       $scope.saveFindingInfo = function () {
-
         $scope.loader = true;
         if ($scope.isNewFinding) {
           $scope.purification.purityBeans.push($scope.currentFinding);
@@ -1408,7 +1349,7 @@
       };
 
       // reset form //
-      $scope.reset = function () {
+      $scope.resetForm = function () {
         $scope.purification = angular.copy($scope.purificationCopy);
         $scope.domainFileUri = "";
         $scope.updateExperimentConfig = 0;

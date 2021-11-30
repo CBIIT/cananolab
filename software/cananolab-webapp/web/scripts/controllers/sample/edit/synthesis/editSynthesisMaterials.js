@@ -195,6 +195,11 @@ var app = angular.module('angularApp')
     };
   };
 
+  // reset form //
+  $scope.resetForm = function(){
+    $scope.material = angular.copy($scope.materialCopy)
+  };
+
   // save file //
   $scope.saveFile = function() {
     if ($scope.fileObject && !$scope.currentFile.uriExternal) {

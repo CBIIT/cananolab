@@ -1,6 +1,4 @@
 <div class="spacer">
-
-  **{{fObject}}**
   <form novalidate="" class="ng-pristine ng-valid">
     <table class="contentTitle" width="100%" border="0" summary="layout">
       <tbody>
@@ -813,13 +811,13 @@
     <div class="form__actions">
       <div class="form__action form__action--left">
         <!-- ngIf: nanoEntityId !== null --><button class="btn-canano btn-canano-danger ng-scope" type="button" value="Delete"
-          ng-click="deleteMaterial()" ng-if="synMaterialId!=-1">Delete</button>
+          ng-click="deletePurification()" ng-if="dataId!=-1">Delete</button>
         <!-- end ngIf: nanoEntityId !== null -->
       </div>
       <div class="form__action form__action--right">
         <input type="hidden" ng-model="nanoEntityForm.createdBy" class="ng-pristine ng-valid">
         <input type="hidden" ng-model="nanoEntityForm.createdDate" class="ng-pristine ng-valid">
-        <button class="btn-canano btn-canano-danger" type="reset" value="Reset" ng-click="resetForm()">Reset</button>
+        <button class="btn-canano btn-canano-danger" type="f" value="Reset" ng-click="resetForm()">Reset</button>
         <button ng-disabled="!purification.simpleProtocol.displayName || !purification.type" class="btn-canano btn-canano-primary ng-binding" type="submit"
           ng-click="savePurification()" ng-show="!addNewComposingElement">
           Update
