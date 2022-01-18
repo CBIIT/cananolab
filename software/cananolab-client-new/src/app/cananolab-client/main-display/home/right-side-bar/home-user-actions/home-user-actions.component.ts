@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Properties } from '../../../../../../assets/properties';
 
 @Component({
   selector: 'canano-home-user-actions',
@@ -6,6 +7,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./home-user-actions.component.scss']
 })
 export class HomeUserActionsComponent implements OnInit {
+    properties = Properties;
 
   constructor() { }
 

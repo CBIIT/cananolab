@@ -14,7 +14,7 @@ export class HomeHowToComponent implements OnInit {
 
   ngOnInit(): void {
   }
-    // @TODO this is dup code
+    // @TODO this is dupe code
     openWindow( pageURL, name, width = 700, height  = 900) {
         window.open( pageURL, name, 'alwaysRaised,dependent,toolbar,status,scrollbars,resizable,width=' + width + ',height=' + height );
     }

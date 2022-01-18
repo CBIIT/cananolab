@@ -16,8 +16,8 @@ import { Subject } from 'rxjs';
     styleUrls: ['./main-display-heading.component.scss']
 } )
 export class MainDisplayHeadingComponent implements OnInit, OnDestroy{
-   currentMenuChoice = '';
-    helpUrl = '';
+    @Input() helpUrl = '';
+    @Input() toolHeadingName = '';
 
     // For HTML access
     topMenuItems =  TopMenuItems;
@@ -30,7 +30,7 @@ export class MainDisplayHeadingComponent implements OnInit, OnDestroy{
     ngOnInit(): void {
         this.mainDisplayService.menuSelectionEmitter.pipe( takeUntil( this.ngUnsubscribe ) ).subscribe(
             ( data ) => {
-                this.currentMenuChoice = data;
+                this.toolHeadingName = data;
                 this.setHelpUrl( );
             } );
 
@@ -45,7 +45,7 @@ export class MainDisplayHeadingComponent implements OnInit, OnDestroy{
      * Sets the context sensitive Help link to the correct url for this tool (Top Menu selection)
      */
     setHelpUrl( ){
-        switch( this.currentMenuChoice ){
+        switch( this.toolHeadingName ){
 
             case TopMenuItems.HOME:
                 this.helpUrl = 'https://wiki.nci.nih.gov/display/caNanoLab/Getting+Started+in+caNanoLab#GettingStartedincaNanoLab-UsingtheWorkflowtoGetStarted';
@@ -64,7 +64,7 @@ export class MainDisplayHeadingComponent implements OnInit, OnDestroy{
                 break;
 
            case TopMenuItems.PUBLICATIONS:
-                this.helpUrl = 'https://wiki.nci.nih.gov/x/e4QfEQ)';
+                this.helpUrl = 'https://wiki.nci.nih.gov/x/e4QfEQ';
                 break;
 
            case TopMenuItems.GROUPS:

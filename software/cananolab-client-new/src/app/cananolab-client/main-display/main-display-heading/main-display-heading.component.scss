@@ -3,15 +3,17 @@
 @import "../../cananolab-client.component";
 
 $mainDisplayHeadingHeight: 28px;
+$mainDisplayHeadingMargin: 8px;
 
 .main-display-heading{
-   //  width: calc(100% - 30px);
-    // width: 1000px;
-    margin: 1px 0 0 1px;
     padding: 0;
+    margin: $mainDisplayHeadingMargin;
     height: $mainDisplayHeadingHeight;
-    // height: 58px;
     background-color: $menuHeadingBackgroundColor;
     color: #fff;
+    width: calc(100% - #{$mainDisplayHeadingMargin * 2});
+}
 
+.display-heading-button{
+    outline: none;
 }

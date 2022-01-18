@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { TopMainMenuService, TopMenuItems } from '../../top-main-menu/top-main-menu.service';
+import { Consts } from '../../../constants';
 
 @Component( {
     selector: 'canano-workflow',
@@ -7,8 +8,12 @@ import { TopMainMenuService, TopMenuItems } from '../../top-main-menu/top-main-m
     styleUrls: ['./workflow.component.scss']
 } )
 export class WorkflowComponent implements OnInit{
-    // For HTML access
-    topMenuItems = TopMenuItems;
+
+    /**
+     * These will be provided to canano-main-display-heading as @Input
+     */
+    helpUrl = Consts.HELP_URL_WORKFLOW;
+    toolHeadingName = 'Workflow';
 
     constructor( private topMainMenuService: TopMainMenuService ){
     }

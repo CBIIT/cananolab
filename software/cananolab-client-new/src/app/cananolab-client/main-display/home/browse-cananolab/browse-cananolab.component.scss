@@ -36,7 +36,13 @@
 }
 
 .home-page-right-td{
-    background-color: #e507ff;
-    padding: 0 0 0 4px;
+    background-color: #a447ff;
+    padding: 0 0 0 10px;
     border: solid $borderColor 1px;
+}
+
+.home-page-right-td-content{
+    background-color: #119500;
+    padding: 0;
+    margin-top: -4px;
 }

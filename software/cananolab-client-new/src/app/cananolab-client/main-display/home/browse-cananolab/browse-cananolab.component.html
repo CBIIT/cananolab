@@ -36,8 +36,8 @@
                     <div style="height: 5px"></div>
                     Search for nanotechnology protocols leveraged in performing nanomaterial characterization assays.
                 </td>
-                <td class="home-page-right-td">
-                    Place Holder0
+                <td class="home-page-right-td ">
+                    <div class="link-clicker">{{initData['numOfPublicProtocols']}}</div>
                 </td>
             </tr>
 
@@ -60,13 +60,20 @@
                         class="link-clicker"
                         (click)="onSearchSamplesClick()">Search Samples
                     </div>
-                    <div style="height: 5px"></div>
+                    <div style="height: 5px;"></div>
                     Search for information on nanomaterials including the composition of the nanomaterial, results of physico-chemical, <i>in vitro</i>, <i>in vivo</i> and other characterizations,
                     and associated publications. <br />
-                    See also <a href="#/advancedSampleSearch">Advanced Sample Search</a>
+                    See also <a routerLink="/home/advancedsample">Advanced Sample Search</a>
                 </td>
                 <td class="home-page-right-td">
-                    Place Holder1
+                    <div class="link-clicker">{{initData['numOfPublicSamples']}}</div>
+                    <div class="home-page-right-td-content">&nbsp;&nbsp;<span>{{initData['numOfPublicSources']}}</span> Sample Sources</div>
+                    <div class="home-page-right-td-content">&nbsp;&nbsp;<span>{{initData['numOfPublicSources']}}</span> Characterizations</div>
+                    <div class="home-page-right-td-content">&nbsp;&nbsp;&nbsp;&nbsp;<span>{{initData['numOfPublicPhysicoChemicalCharacterizations']}}</span> Physico-chemical</div>
+                    <div class="home-page-right-td-content">&nbsp;&nbsp;&nbsp;&nbsp;<span>{{initData['numOfPublicInvitroCharacterizations']}}</span> In Vitro</div>
+                    <div class="home-page-right-td-content">&nbsp;&nbsp;&nbsp;&nbsp;<span>{{initData['numOfPublicInvivoCharacterizations']}}</span> In Vivo</div>
+                    <div class="home-page-right-td-content">&nbsp;&nbsp;&nbsp;&nbsp;<span>{{initData['numOfPublicOtherCharacterizations']}}</span> Other</div>
+
                 </td>
             </tr>
 
@@ -84,18 +91,20 @@
                     </a>
                 </td>
                 <td class="home-page-center-td">
+                    <a routerLink="publications">Search Publications</a>
+<!--
                     <div
                         class="link-clicker"
                         (click)="onSearchPublicationsClick()">Search Publications
                     </div>
+-->
                     <div style="height: 5px"></div>
                     Search for information on nanotechnology publications including peer reviewed articles, reviews, and other types of reports related to the use of nanotechnology in biomedicine.
                 </td>
                 <td class="home-page-right-td">
-                    Place Holder0
+                    <div class="link-clicker">{{initData['numOfPublicPublications']}}</div>
                 </td>
             </tr>
-
 
         </table>
 

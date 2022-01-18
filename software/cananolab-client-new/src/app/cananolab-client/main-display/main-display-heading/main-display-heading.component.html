@@ -6,22 +6,20 @@
 
 
 <!-- The Main Menu Heading should not be shown for some Menu options, add them to this *ngIf.  -->
-<div *ngIf="currentMenuChoice !== topMenuItems.HOME"
-    class="main-display-heading"
->
+<div class="main-display-heading">
 
-    <span class="ml-1">{{currentMenuChoice}}</span>
+    <span class="pl-1">{{toolHeadingName}}</span>
 
-    <button
-        class="btn-canano float-right pt-0"
+    <span
+        class="float-right clicker mr-1"
         (click)="openHelpWindow('https://wiki.nci.nih.gov/display/caNanoLab/caNanoLab+Glossary')"
     >Glossary
-    </button>
+    </span>
 
-    <button
-        class="btn-canano float-right pt-0"
+    <span
+        class="float-right clicker mr-2"
     (click)="openHelpWindow(helpUrl)"
     >Help
-    </button>
+    </span>
 
 </div>
