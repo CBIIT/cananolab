@@ -7,6 +7,7 @@ $disabled-button-background: #333;
 .btn-canano{
     @extend .btn;
     outline: none;
+    background-color: #0073b9;
     color: #fff;
 }
 
@@ -66,10 +67,10 @@ $disabled-button-background: #333;
 }
 
 .canano-blue{
-    background-color: $canano-blue;
+    background-color: $canano-background-blue;
 
     &:hover{
-        color: $canano-blue;
+        color: $canano-background-blue;
         background-color: #82fffe;
     }
 }

@@ -27,12 +27,43 @@ import { HomeHowToComponent } from './cananolab-client/main-display/home/right-s
 import { HomeWhatsNewComponent } from './cananolab-client/main-display/home/right-side-bar/home-whats-new/home-whats-new.component';
 import { HomeKeepingUpWithCananolabComponent } from './cananolab-client/main-display/home/right-side-bar/home-keeping-up-with-cananolab/home-keeping-up-with-cananolab.component';
 import { LoginComponent } from './cananolab-client/main-display/home/right-side-bar/home-user-actions/login/login.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ApiService } from './cananolab-client/common/services/api.service';
 import { HttpClientModule } from '@angular/common/http';
 import { LeftNavigationMenuComponent } from './cananolab-client/left-navigation-menu/left-navigation-menu.component';
 import { TestComponent } from './cananolab-client/main-display/test/test.component';
 import { BrowseCananolabComponent } from './cananolab-client/main-display/home/browse-cananolab/browse-cananolab.component';
+import { AdvancedSampleComponent } from './cananolab-client/main-display/advanced-sample/advanced-sample.component';
+import { StatusDisplayComponent } from './cananolab-client/status-display/status-display.component';
+import { SubmitPublicationComponent } from './cananolab-client/main-display/publications/submit-publication/submit-publication.component';
+import { SearchPublicationComponent } from './cananolab-client/main-display/publications/search-publication/search-publication.component';
+import { SearchSamplesByPublicationComponent } from './cananolab-client/main-display/publications/search-samples-by-publication/search-samples-by-publication.component';
+import { ProtocolSearchComponent } from './cananolab-client/main-display/protocols/protocol-search/protocol-search.component';
+import { ProtocolCreateComponent } from './cananolab-client/main-display/protocols/protocol-create/protocol-create.component';
+import { ProtocolSearchResultsComponent } from './cananolab-client/main-display/protocols/protocol-search/protocol-search-results/protocol-search-results.component';
+import { SearchResultsPagerComponent } from './cananolab-client/common/components/search-results-pager/search-results-pager.component';
+import { ProtocolEditComponent } from './cananolab-client/main-display/protocols/protocol-edit/protocol-edit.component';
+import { ProtocolEditProtocolAccessComponent } from './cananolab-client/main-display/protocols/protocol-edit/protocol-edit-protocol-access/protocol-edit-protocol-access.component';
+import { ManageAccessibilityComponent } from './cananolab-client/common/components/manage-accessibility/manage-accessibility.component';
+import { ManageAccessibilityGroupComponent } from './cananolab-client/common/components/manage-accessibility/manage-accessibility-group/manage-accessibility-group.component';
+import { ProtocolSearchResultsDisplayTitlePipe } from './cananolab-client/main-display/protocols/protocol-search/protocol-search-results/protocol-search-results-display-title.pipe';
+import { ProtocolSearchResultsDisplayDescriptionPipe } from './cananolab-client/main-display/protocols/protocol-search/protocol-search-results/protocol-search-results-display-description.pipe';
+import { ProtocolSearchResultsDisplayHrefPipe } from './cananolab-client/main-display/protocols/protocol-search/protocol-search-results/protocol-search-results-display-href.pipe';
+import { ProtocolViewComponent } from './cananolab-client/main-display/protocols/protocol-view/protocol-view.component';
+import { ProtocolCreateBravoComponent } from './cananolab-client/main-display/protocols/proto-create-bravo/protocol-create-bravo.component';
+import { ProtocolCreateCharlieComponent } from './cananolab-client/main-display/protocols/protocol-create-charlie/protocol-create-charlie.component';
+import { ProtocolEditBravoComponent } from './cananolab-client/main-display/protocols/protocol-edit-bravo/protocol-edit-bravo.component';
+import { SampleSearchComponent } from './cananolab-client/main-display/samples/sample-search/sample-search.component';
+import { SampleSearchResultsComponent } from './cananolab-client/main-display/samples/sample-search/sample-search-results/sample-search-results.component';
+import { SampleCreateComponent } from './cananolab-client/main-display/samples/sample-create/sample-create.component';
+import { SampleCopyComponent } from './cananolab-client/main-display/samples/sample-copy/sample-copy.component';
+import { SampleAdvancedSearchComponent } from './cananolab-client/main-display/samples/sample-search/sample-advanced-search/sample-advanced-search.component';
+import { SampleAvailabilityDisplayComponent } from './cananolab-client/main-display/samples/sample-search/sample-search-results/sample-availability-display/sample-availability-display.component';
+import { SampleEditComponent } from './cananolab-client/main-display/samples/sample-edit/sample-edit.component';
+import { SampleViewComponent } from './cananolab-client/main-display/samples/sample-view/sample-view.component';
+import { PointOfContactComponent } from './cananolab-client/point-of-contact/point-of-contact.component';
+import { PointOfContactEditorComponent } from './cananolab-client/point-of-contact/point-of-contact-editor/point-of-contact-editor.component';
+import { PointOfContactCreateComponent } from './cananolab-client/point-of-contact/point-of-contact-create/point-of-contact-create.component';
 
 @NgModule({
   declarations: [
@@ -63,13 +94,45 @@ import { BrowseCananolabComponent } from './cananolab-client/main-display/home/b
     LoginComponent,
     LeftNavigationMenuComponent,
     TestComponent,
-    BrowseCananolabComponent
+    BrowseCananolabComponent,
+    AdvancedSampleComponent,
+    StatusDisplayComponent,
+    SubmitPublicationComponent,
+    SearchPublicationComponent,
+    SearchSamplesByPublicationComponent,
+    ProtocolSearchComponent,
+    ProtocolCreateComponent,
+    ProtocolSearchResultsComponent,
+    SearchResultsPagerComponent,
+    ProtocolEditComponent,
+    ProtocolEditProtocolAccessComponent,
+    ManageAccessibilityComponent,
+    ManageAccessibilityGroupComponent,
+    ProtocolSearchResultsDisplayTitlePipe,
+    ProtocolSearchResultsDisplayDescriptionPipe,
+    ProtocolSearchResultsDisplayHrefPipe,
+    ProtocolViewComponent,
+    ProtocolCreateBravoComponent,
+    ProtocolCreateCharlieComponent,
+    ProtocolEditBravoComponent,
+    SampleSearchComponent,
+    SampleSearchResultsComponent,
+    SampleCreateComponent,
+    SampleCopyComponent,
+    SampleAdvancedSearchComponent,
+    SampleAvailabilityDisplayComponent,
+    SampleEditComponent,
+    SampleViewComponent,
+    PointOfContactComponent,
+    PointOfContactEditorComponent,
+    PointOfContactCreateComponent
   ],
     imports: [
         BrowserModule,
         AppRoutingModule,
         FormsModule,
-        HttpClientModule
+        HttpClientModule,
+        ReactiveFormsModule
 
     ],
   providers: [],
