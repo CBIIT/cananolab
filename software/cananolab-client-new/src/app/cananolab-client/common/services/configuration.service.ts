@@ -34,7 +34,6 @@ export class ConfigurationService{
                 }
                 console.error( 'Could not access CONFIG_FILE file! ', err.status );
                 Properties.CONFIG_COMPLETE = true;
-
             }
         );
     }
@@ -44,6 +43,7 @@ export class ConfigurationService{
      * @param file
      */
     readTextFile( file ): Observable<any>{
+        console.log('MHL GET file: ', file);
         return this.httpClient.get( file,
             {
                 responseType: 'text'
@@ -97,6 +97,13 @@ export class ConfigurationService{
                     if( key === 'HTTP_TIMEOUT' ){
                         if( !this.utilService.isNullOrUndefinedOrEmpty( value ) ){
                             Properties.HTTP_TIMEOUT = value;
+                        }
+                    }
+
+
+                    if( key === 'MAX_WIDTH' ){
+                        if( !this.utilService.isNullOrUndefinedOrEmpty( value ) ){
+                            Properties.MAX_WIDTH = value;
                         }
                     }
 

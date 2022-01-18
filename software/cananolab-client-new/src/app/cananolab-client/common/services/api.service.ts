@@ -11,6 +11,7 @@ import { Router } from '@angular/router';
 import { timeout } from 'rxjs/operators';
 import { TestData } from '../../../testData';
 import { Observable, of } from 'rxjs';
+import { TopMainMenuService } from '../../top-main-menu/top-main-menu.service';
 
 @Injectable( {
     providedIn: 'root'
@@ -20,7 +21,7 @@ export class ApiService{
     currentlyAuthenticatingUser = false;
 
     constructor( private httpClient: HttpClient, private utilService: UtilService,
-                 private router: Router ){
+                 private router: Router, private topMainMenuService: TopMainMenuService ){
 
         // If we don't have an API Url, set it to the same server as the client.
         // We should only have an API Url at this point if we are running in a development environment.
@@ -29,11 +30,13 @@ export class ApiService{
         }
 
         // @TESTING Just to make sure we can talk to the server
-        // console.log( 'MHL calling testRestCall()' );
-        // this.testRestCall();
+        console.log( 'MHL calling testRestCall()' );
+        this.testRestCall();
         // END TESTING
 
+
     }
+
 
     /**
      *  @TESTING These kind of functions will call api services, not be a part of it
@@ -59,21 +62,48 @@ export class ApiService{
         );
         console.log( 'MHL LEAVING testRestCall [' + Consts.QUERY_GET_TABS + '] waiting on testRestCall response from Server.' );
     }
+
     // END TESTING
+
 
     /**
      *
      * @param queryType
      * @param query
      */
-    doPost( queryType, query ): Observable<ArrayBuffer>{
-        // return this.httpClient.post( simpleSearchUrl, query, options ).pipe( timeout( Properties.HTTP_TIMEOUT ) );
-console.log('MHL doPost Properties.HTTP_TIMEOUT: ', Properties.HTTP_TIMEOUT);
+    //  @CHECKME doPost( queryType, query: string ): Observable<any>{
+    doPost( queryType, query: any ): Observable<any>{
+
+        console.log( 'MHL doPost queryType: ', queryType );
+
+        if( typeof query === 'object' ){
+            console.log('MHL typeof query === \'object\': ', query);
+            query = JSON.stringify( query ); // .replace(/^{"/, '').replace(/"}$/, '')
+        }else{
+
+            let re = /&/g;
+            query = query.replace( re, '\',\'' );
+            console.log( 'MHL doPost 800 query: ', query );
+
+            re = /=/g;
+            query = query.replace( re, '\':\'' );
+
+            re = /'/g;
+            query = query.replace( re, '"' );
+
+            query = '{"' + query + '"}';
+        }
+
+        console.log( 'MHL doPost 901 doPost query: ', query );
+
+
         // Test mode, return hard coded test data
         if( Properties.TEST_MODE ){
             console.log( 'MHL Running doPost in TEST_MODE' );
             return this.doTestPost( queryType, query );  // @FIXME Return this as a promise
-        }else{
+        }else
+            // Not Test mode
+        {
             let simpleSearchUrl = Properties.API_SERVER_URL + '/' + queryType;
             if( Properties.DEBUG_CURL ){
                 let curl = 'curl -k \'' + Properties.API_SERVER_URL + '/' + queryType + '\' -d \'' + query + '\'';
@@ -83,16 +113,15 @@ console.log('MHL doPost Properties.HTTP_TIMEOUT: ', Properties.HTTP_TIMEOUT);
             let headers = null;
 
             headers = new HttpHeaders( {
-                'Content-Type': 'application/x-www-form-urlencoded',
+                'Content-Type': 'application/json',
                 'Authorization': 'Bearer ' + ' < AssessToken> '
             } );
 
             let options;
 
 
-
             // These are returned as text not JSON (which is the default return format).
-            if( queryType === Consts.LOGIN_URL
+            if( queryType === Consts.LOGIN_URL || queryType === Consts.QUERY_CREATE_PROTOCOL
             ){
                 options = {
                     headers: headers,
@@ -103,7 +132,82 @@ console.log('MHL doPost Properties.HTTP_TIMEOUT: ', Properties.HTTP_TIMEOUT);
                     headers: headers
                 };
             }
+            console.log( 'MHL post simpleSearchUrl: ', simpleSearchUrl );
+            console.log( 'MHL post query: ', query );
+            console.log( 'MHL post options: ', options );
+            return this.httpClient.post( simpleSearchUrl, query, options ).pipe( timeout( Properties.HTTP_TIMEOUT ) );
+        }
+    }
 
+
+    /**
+     * @FIXME this is an ONLY SLIGHTLY changed version of doPost - unify these
+     * @param queryType
+     * @param query
+     */
+    doPost0( queryType, query: any ): Observable<any>{
+
+        console.log( 'MHL doPost queryType: ', queryType );
+
+        if( typeof query === 'object' ){
+            console.log('MHL typeof query === \'object\': ', query);
+            query = JSON.stringify( query ); // .replace(/^{"/, '').replace(/"}$/, '')
+        }else{
+
+            let re = /&/g;
+            query = query.replace( re, '\',\'' );
+            console.log( 'MHL doPost 800 query: ', query );
+
+            re = /=/g;
+            query = query.replace( re, '\':\'' );
+
+            re = /'/g;
+            query = query.replace( re, '"' );
+
+           //  query = '{"' + query + '"}';
+        }
+
+        console.log( 'MHL doPost 901 doPost query: ', query );
+
+
+        // Test mode, return hard coded test data
+        if( Properties.TEST_MODE ){
+            console.log( 'MHL Running doPost in TEST_MODE' );
+            return this.doTestPost( queryType, query );  // @FIXME Return this as a promise
+        }else
+            // Not Test mode
+        {
+            let simpleSearchUrl = Properties.API_SERVER_URL + '/' + queryType;
+            if( Properties.DEBUG_CURL ){
+                let curl = 'curl -k \'' + Properties.API_SERVER_URL + '/' + queryType + '\' -d \'' + query + '\'';
+                console.log( curl );
+            }
+
+            let headers = null;
+
+            headers = new HttpHeaders( {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + ' < AssessToken> '
+            } );
+
+            let options;
+
+
+            // These are returned as text not JSON (which is the default return format).
+            if( queryType === Consts.LOGIN_URL || queryType === Consts.QUERY_CREATE_PROTOCOL
+            ){
+                options = {
+                    headers: headers,
+                    responseType: 'text' as 'text'
+                };
+            }else{
+                options = {
+                    headers: headers
+                };
+            }
+            console.log( 'MHL post simpleSearchUrl: ', simpleSearchUrl );
+            console.log( 'MHL post query: ', query );
+            console.log( 'MHL post options: ', options );
             return this.httpClient.post( simpleSearchUrl, query, options ).pipe( timeout( Properties.HTTP_TIMEOUT ) );
         }
     }
@@ -115,7 +219,7 @@ console.log('MHL doPost Properties.HTTP_TIMEOUT: ', Properties.HTTP_TIMEOUT);
      * @param query
      */
     doGet( queryType, query ): Observable<string>{
-        console.log('MHL doGet Properties.HTTP_TIMEOUT: ', Properties.HTTP_TIMEOUT);
+        console.log( 'MHL doGet Properties.HTTP_TIMEOUT: ', Properties.HTTP_TIMEOUT );
 
         if( Properties.TEST_MODE ){
             console.log( 'MHL Running doGet in TEST_MODE CALLING doTestGet' );
@@ -131,28 +235,44 @@ console.log('MHL doPost Properties.HTTP_TIMEOUT: ', Properties.HTTP_TIMEOUT);
                 let curl = 'curl -H  -k \'' + getUrl + '\'';
                 console.log( 'MHL 001 doGet: ' + curl );
             }
-
             let headers = new HttpHeaders( {
-                'Content-Type': 'application/x-www-form-urlencoded'
+                'Content-Type': 'application/x-www-form-urlencoded',
+                'Access-Control-Allow-Origin': '*',  // @CHECKME
             } );
+       let results;
 
-            let options = {
-                headers: headers,
-                method: 'get',
-            };
+            let options;
 
-            let results;
+            if( queryType !== Consts.QUERY_SAMPLE_AVAILABILITY_HTML){
+                options = {
+                    headers: headers,
+                    method: 'get'
+                };
+            }else{
+                options = {
+                    headers: headers,
+                    method: 'get',
+                    responseType: 'text'
+                }
+            }
 
+
+
+
+
+                console.log( 'MHL GET getUrl: ', getUrl );
             results = this.httpClient.get( getUrl, options ).pipe( timeout( Properties.HTTP_TIMEOUT ) );
 
 
-            // @TESTING can we look at the results before passing them along?  (Yes we can)
-            results.subscribe( d1 => {
-                    console.log( 'MHL 000 results: ', d1 );
-                },
-                e1 => {
-                    console.log( 'MHL ERROR 001 results: ', e1.message );
-                } );
+            /*
+                        // @TESTING can we look at the results before passing them along?  (Yes we can) NO, THIS MAKES ANOTHER REST CALL
+                        results.subscribe( d1 => {
+                                console.log( 'MHL 000 results: ', d1 );
+                            },
+                            e1 => {
+                                console.log( 'MHL ERROR 001 results: ', e1.message );
+                            } );
+            */
 
             return results;
         }
@@ -195,67 +315,15 @@ console.log('MHL doPost Properties.HTTP_TIMEOUT: ', Properties.HTTP_TIMEOUT);
     }
 
 
-    /*
-        doPost( queryType, query ) {
-            let simpleSearchUrl = Properties.API_SERVER_URL + '/nbia-api/services/' + queryType;
-            if( Properties.DEBUG_CURL ){
-                let curl = 'curl -H \'Authorization:Bearer  ' + this.accessTokenService.getAccessToken() + '\' -k \'' + Properties.API_SERVER_URL + '/nbia-api/services/' + queryType + '\' -d \'' + query + '\'';
-                console.log( 'doPost: ', curl );
-            }
-
-            let headers = null;
-
-            // @CHECKME These two are the same?
-            if( queryType === Consts.UPDATE_COLLECTION_DESCRIPTION ){
-                headers = new HttpHeaders( {
-                    'Content-Type': 'application/x-www-form-urlencoded',
-                    'Authorization': 'Bearer ' + this.accessTokenService.getAccessToken()
-                } );
-            }else{
-                headers = new HttpHeaders( {
-                    'Content-Type': 'application/x-www-form-urlencoded',
-                    'Authorization': 'Bearer ' + this.accessTokenService.getAccessToken()
-                } );
-            }
-
-
-            let options;
-
-            // These are returned as text not JSON (which is the default return format).
-            if( queryType === Consts.UPDATE_COLLECTION_DESCRIPTION ||
-                queryType === Consts.SUBMIT_SERIES_DELETION ||
-                queryType === Consts.SUBMIT_ONLINE_DELETION ||
-                queryType === Consts.SUBMIT_COLLECTION_LICENSES ||
-                queryType === Consts.SUBMIT_DELETE_COLLECTION_LICENSES ||
-                queryType === Consts.SUBMIT_QC_STATUS_UPDATE
-            ){
-                options = {
-                    headers: headers,
-                    responseType: 'text' as 'text'
-                };
-            }else{
-                options = {
-                    headers: headers
-                };
-            }
-
-
-            return this.httpClient.post( simpleSearchUrl, query, options ).pipe( timeout( Properties.HTTP_TIMEOUT ) );
-        }
-    */
-
-
-    login( user, password ){
-
-    }
-
     /**
      * Authenticates user with the server.
+     * We don't need an access toke back from the server.
      *
      * @param user
      * @param password
      */
     authenticateUser( user, password ){
+
         if( this.currentlyAuthenticatingUser ){
             return;
         }
@@ -279,15 +347,36 @@ console.log('MHL doPost Properties.HTTP_TIMEOUT: ', Properties.HTTP_TIMEOUT);
                     method: 'post'
                 };
 
+            console.log( 'MHL post post_url: ', post_url );
             this.httpClient.post( post_url, data, options ).pipe( timeout( Properties.HTTP_TIMEOUT ) ).subscribe(
                 ( loginReturnData ) => {
+
                     console.log( 'Successful Login: ', loginReturnData );
+                    Properties.LOGGED_IN = true;
+                    Properties.current_user = user;
+
+                    this.topMainMenuService.showOnlyMenuItems(
+                        [
+                            'HOME',
+                            'WORKFLOW',
+                            'PROTOCOLS',
+                            'SAMPLES',
+                            'PUBLICATIONS',
+                            'GROUPS',
+                            'CURATION',
+                            'MY_WORKSPACE',
+                            'MY_FAVORITES',
+                            'LOGOUT'
+                        ]
+                    );
+                    this.currentlyAuthenticatingUser = false;
                 },
                 // ERROR
                 ( err ) => {
                     alert( 'Login error[' + err.status + ']: ' +
                         '\n' + err.message );
                     this.currentlyAuthenticatingUser = false;
+                    Properties.LOGGED_IN = false;
                 }
             );
 

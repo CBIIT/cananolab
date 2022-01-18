@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { TopMenuData } from '../../top-main-menu/top-main-menu.service';
 
 @Injectable( {
     providedIn: 'root'
@@ -64,4 +65,18 @@ export class UtilService{
 
     }
 
+    // @TODO DOCUMENT THIS!!!!!!!!!!!!!!!!!!!!!!!!!!
+    getRouteByName( name ){
+console.log('MHL getRouteByName: ', name);
+console.log('MHL getRouteByName TopMenuData: ', TopMenuData);
+        for( let item of TopMenuData ){
+            console.log('MHL item:', item);
+            console.log('MHL item[\'name\']:', item['name'] );
+            if( item['name'] === name ){
+                console.log('MHL getRouteByName MATCH: ' , item);
+                return item.route;
+            }
+        }
+        return '';
+    }
 }
