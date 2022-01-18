@@ -1,5 +1,6 @@
 $canano-green: #005518;
-$canano-blue: #02055a;
+$canano-blue: #0073b9;
+$canano-background-blue: #02055a;
 $menuHeadingBackgroundColor: #005d7e;
 
 $leftMenuWidth: 160px;
@@ -7,11 +8,15 @@ $leftMenuMargin: 2px;
 
 $borderColor: #3cddf0;
 
+$keywordSearchFontSize: 12px;
+
 .parent-div{
     /* keep the Query section and the Display section side by side.  */
     display: -webkit-flex;
     display: flex;
     flex-direction: row;
+    background-color: #fff;
+    width: 100%;
 }
 
 // @FIXME - These colors need variables
@@ -57,3 +62,52 @@ a:active{
 .hide{
     display: none;
 }
+
+.unselectable{
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.clicker{
+    cursor: pointer;
+}
+
+
+.search-results-table{
+    font-size: 12px;
+    width: 100%;
+    border: solid #ccc 1px;
+}
+
+.search-results-tr{
+    background-color: #fff;
+    border: solid #ccc 1px;
+}
+
+.search-results-th{
+    padding: 6px;
+    //  border: solid #dfdfdf 2px;
+    border: solid #ccc 1px;
+    background-color: $canano-blue;
+    color: #fff;
+}
+
+.search-results-td{
+    padding: 6px;
+    // border: solid #dfdfdf 2px;
+    border-left: solid #ccc 1px;
+    border-right: solid #ccc 1px;
+}
+
+.search-results-tr-even{
+    background-color: #f3f3f3;
+}
+
+.search-results--tr-odd{
+    background-color: #fff;
+}
+
