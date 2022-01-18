@@ -1,0 +1,50 @@
+sampleId: {{sampleId}}
+<canano-main-display-heading
+    [helpUrl]="helpUrl"
+    [toolHeadingName]="toolHeadingNameSearchSample"
+>
+</canano-main-display-heading>
+<div class="sample-edit-div ">
+
+
+    <table class="sample-edit-table">
+        <tr>
+            <td colspan="3">
+                Sample Name<sup><b>*</b></sup>
+                &nbsp;&nbsp;&nbsp;&nbsp;
+                <input type="text"
+                    [(ngModel)]="sampleData['sampleName']"
+                >
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                Point of Contact<sup><b>*</b></sup>
+                &nbsp;&nbsp;&nbsp;&nbsp;
+                <button
+                    class="btn btn-primary"
+                    (click)="onAddPocClick()"
+                >Add</button>
+            </td>
+         </tr>
+        <tr>
+
+            <td
+                class="p-3"
+            >
+                <canano-point-of-contact
+                    [poc] = pointOfContacts
+                    [sampleData]= "sampleData"
+                ></canano-point-of-contact>
+            </td>
+
+        </tr>
+    </table>
+
+
+</div>
+
+<canano-point-of-contact-create
+    [sampleData]="sampleData"
+></canano-point-of-contact-create>

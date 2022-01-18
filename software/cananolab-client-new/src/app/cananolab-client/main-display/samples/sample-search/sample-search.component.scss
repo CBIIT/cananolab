@@ -1,0 +1,27 @@
+@import "../../../../btn-canano";
+@import "../../../../cananolab-client/cananolab-client.component";
+td{
+    padding: 6px;
+}
+
+tr{
+    //  border: solid #aaaaab 1px;
+    padding: 16px;
+    margin: 6px;
+}
+
+table{
+    width: 100%;
+    padding: 6px;
+    margin: 6px;
+    // border-collapse: separate;
+}
+
+.tr-border{
+    margin: 6px;
+    border-collapse: collapse;
+}
+
+.border{
+    border: solid #aaaaab 1px;
+}

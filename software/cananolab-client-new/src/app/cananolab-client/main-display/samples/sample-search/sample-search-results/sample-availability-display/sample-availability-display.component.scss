@@ -1,0 +1,50 @@
+@import "../../../../../../btn-canano";
+@import "../../../../../../cananolab-client/cananolab-client.component";
+
+$popup-z-index: 10;
+// @TODO give this a real name
+.table-00{
+    width: 100%;
+    margin-bottom: 4px;
+}
+
+.sample-availability-display-div{
+    background: #fff;
+    position: absolute;
+    top: 10px;
+    left: 700px;
+    // height: 350px;
+    z-index: $popup-z-index;
+    border-radius: 3px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    font-size: 11px;
+}
+
+.alert-box-div{
+    z-index: $popup-z-index;
+    position: absolute;
+
+    /* Set the vertical location of all the Alert/Message boxes.  */
+    // margin-top: $alert-top;
+}
+
+.alert-box-shadow{
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.alert-box-button{
+    float: right;
+    margin-left: 4px;
+}
+
+.heading{
+    border: solid #ccc 1px;
+}
+
+th{
+    border: solid #e83e8c 2px;
+}
+
+td{
+    border: solid #00bb19 2px;
+}

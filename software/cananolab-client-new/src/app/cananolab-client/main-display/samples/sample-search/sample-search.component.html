@@ -1,0 +1,197 @@
+<canano-main-display-heading
+    [helpUrl]="helpUrl"
+    [toolHeadingName]="toolHeadingNameSearchSample"
+>
+</canano-main-display-heading>
+
+<div>
+    <form (ngSubmit)="onSubmit()" #f="ngForm">
+
+        <table>
+            <tr class="tr-border border-right border-top border-left">
+                <td>
+                    Keywords
+                </td>
+                <td>
+                     <textarea
+                         class="form-control"
+                         name="text"
+                         cols="60"
+                         rows="3"
+                         ngModel
+                     >
+                    </textarea>
+                    <div>
+                        <i><small>characterization keywords, publication keywords and text in characterization
+                            descriptions enter one keyword per line</small></i>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+            </tr>
+            <tr class="tr-border  border-right border-left" style="border-collapse: separate;">
+                <td>
+                    Sample Name
+                </td>
+                <td>
+                    <select
+                        class="form-control"
+                        name="nameOperand"
+                        [ngModel]="nameOperand"
+                    >
+                        <option
+                            value='contains'
+                        >
+                            contains
+                        </option>
+                        <option
+                            value='equals'
+                        >
+                            equals
+                        </option>
+                    </select>
+                </td>
+                <td>
+                    <input
+                        type="text"
+                        class="form-control"
+                        name="sampleName"
+                        ngModel
+                    >
+                </td>
+            </tr>
+            <tr class="tr-border" style="border-collapse: separate;">
+                <td>
+                    Sample Point of Contact
+                </td>
+                <td>
+                    <select
+                        class="form-control"
+                        name="pocOperand"
+                        [(ngModel)]="pocOperand"
+                    >
+                        <option
+                            value='contains'
+                        >
+                            contains
+                        </option>
+                        <option
+                            value='equals'
+                        >
+                            equals
+                        </option>
+                    </select>
+                </td>
+                <td>
+                    <input
+                        type="text"
+                        class="form-control"
+                        name="samplePointOfContact"
+                        ngModel
+                    >
+
+                    <div>
+                        <i><small>searching organization name or person name</small></i>
+                    </div>
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    Nanomaterial Entity
+                </td>
+                <td>
+                    <select multiple
+                            class="form-control"
+                            name="nanomaterialEntityTypes"
+                            ngModel
+                    >
+                        <option *ngFor="let samp of sampleSetupData['nanomaterialEntityTypes']">
+                            {{samp}}
+                        </option>
+                    </select>
+                </td>
+                <!--
+                            </tr>
+                            <tr>
+                -->
+                <td>
+                    Functionalizing Entity
+                </td>
+                <td>
+                    <select multiple
+                            class="form-control"
+                            name="functionalizingEntityTypes"
+                            ngModel
+                    >
+                        <option *ngFor="let samp of sampleSetupData['functionalizingEntityTypes']">
+                            {{samp}}
+                        </option>
+                    </select>
+                </td>
+                <!--
+                            </tr>
+
+                            <tr>
+                -->
+                <td>
+                    Function Types
+                </td>
+                <td>
+                    <select multiple
+                            class="form-control"
+                            name="functionTypes"
+                            ngModel
+                    >
+                        <option *ngFor="let samp of sampleSetupData['functionTypes']">
+                            {{samp}}
+                        </option>
+                    </select>
+                </td>
+            </tr>
+
+            <tr>
+                <td>Characterization Type</td>
+                <td>
+                    <select
+                        class="form-control"
+                        name="characterizationType"
+                        ngModel
+                    >
+                        <option *ngFor="let charType of sampleSetupData['characterizationTypes']"
+                                (click)="onCharacterizationType(charType)"
+                        >
+                            {{charType}}
+
+                        </option>
+                    </select>
+                </td>
+                <td>Characterization</td>
+                <td>
+                    <select multiple
+                            class="form-control"
+                            name="characterizations"
+                            ngModel
+                    >
+                        <option *ngFor="let chr of characterizationsList">
+                            {{chr}}
+                        </option>
+                    </select>
+                </td>
+            </tr>
+
+        </table>
+
+        <!--
+                /rest/sample/setup
+        -->
+
+        <button
+            type="submit"
+            style="float: right"
+            class="btn btn-canano-blue"
+        >Submit
+        </button>
+    </form>
+</div>

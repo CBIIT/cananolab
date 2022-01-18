@@ -1,0 +1,401 @@
+
+<div
+    [ngClass]="{
+        'hide': ! showSampleAvailabilityDisplay
+     }"
+
+    class="modal-body sample-availability-display-div">
+    <div>
+        <a href="https://wiki.nci.nih.gov/display/caNanoLab/Managing+Samples+in+caNanoLab#ManagingSamplesincaNanoLab-Metrics"
+           target="_blank" class="help">Help</a>
+    </div>
+
+    <table class="table-00" align="left">
+        <tr>
+            <th colspan="3">caNanoLab Availability Score: {{sampleData['caNanoLabScore']}}&nbsp;&nbsp;
+                MINChar Availability Score: {{sampleData['mincharScore']}}</th>
+        </tr>
+        <tr>
+            <td class="cellLabel" align="center">
+                caNanoLab
+            </td>
+            <td class="cellLabel" align="center">
+                MINChar
+            </td>
+            <td class="cellLabel" align="center">
+                {{sampleData['sampleName']}}
+            </td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>agglomeration and/or aggregation</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>crystal structure/crystallinity</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>
+                General Sample Information
+            </td>
+            <td></td>
+            <td align="center">
+                <img src="assets/images/icon_checkMark.png"/>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Sample Composition
+            </td>
+            <td>
+                chemical composition
+
+            </td>
+            <td align="center">
+
+                <img
+                    [ngClass]="{
+                        'hide':  entity !== 'sample composition'
+                        }"
+                    src="assets/images/icon_checkMark.png" *ngFor="let entity of sampleData['availableEntityNames']"/>
+            </td>
+
+        </tr>
+        <tr>
+            <td>
+                &nbsp;&nbsp;nanomaterial entities
+            </td>
+            <td></td>
+            <td align="center">
+                <img
+                    [ngClass]="{
+                       'hide':  entity !==  'nanomaterial entities'
+                       }"
+                    src="assets/images/icon_checkMark.png" *ngFor="let entity of sampleData['availableEntityNames']"/>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                &nbsp;&nbsp;functionalizing entities
+            </td>
+            <td></td>
+            <td align="center">
+                <img
+                    [ngClass]="{
+                       'hide':  entity !==  'functionalizing entities'
+                   }"
+                    src="assets/images/icon_checkMark.png"
+                    *ngFor="let entity of sampleData['availableEntityNames']"/>
+            </td>
+        </tr>
+
+
+        <tr>
+            <td>
+                &nbsp;&nbsp;chemical associations
+            </td>
+            <td></td>
+            <td align="center">
+                <img
+                    [ngClass]="{
+                    'hide':  entity !==  'chemical associations'
+               }"
+                    src="assets/images/icon_checkMark.png"
+                    *ngFor="let entity of sampleData['availableEntityNames']"/>
+
+            </td>
+        </tr>
+
+
+
+
+
+        <tr *ngFor="let chem of sampleData['chemicalAssocs']">
+            <td>
+                {{chem}}
+
+            </td>
+            <td>
+
+                <div *ngFor="let keyVal of sampleData['caNano2MINChar'] | keyvalue"
+                     [ngClass]="{
+                        'hide':  keyVal.key !== chem
+                     }"
+                >
+                    {{keyVal.value}}
+                </div>
+
+            </td>
+            <td align="center">
+                <span
+                    *ngFor="let entity of sampleData['availableEntityNames']"
+                >
+                    <img
+                        [ngClass]="{
+                           'hide':  entity !==  chem
+                           }"
+                        src="assets/images/icon_checkMark.png"/>
+                </span>
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                &nbsp;&nbsp;sample function
+            </td>
+            <td>
+
+            </td>
+            <td align="center">
+                <img
+                    [ngClass]="{
+                        'hide':  entity !== 'sample function'
+                     }"
+                    src="assets/images/icon_checkMark.png"
+                    *ngFor="let entity of sampleData['availableEntityNames']"
+                />
+            </td>
+        </tr>
+
+
+<tr>
+<td colspan="3">
+Physico-Chemical Characterization
+</td>
+</tr>
+
+<tr *ngFor="let char of sampleData['physicoChars']"
+    [ngClass]="{
+                        'hide':  char!=='surface'
+                     }"
+>
+    <td>
+        &nbsp;&nbsp;{{char}}
+    </td>
+
+<td></td>
+
+
+<td align="center">
+    <img
+        [ngClass]="{
+                        'hide':  entity !== char
+                     }"
+        src="assets/images/icon_checkMark.png"
+        *ngFor="let entity of sampleData['availableEntityNames']"
+    />
+
+</td>
+</tr>
+
+        <tr>
+            <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;surface area</td>
+
+
+            <td>
+                <span *ngFor="let keyVal of  sampleData['caNano2MINChar'] | keyvalue"
+
+                      [ngClass]="{
+                            'hide':  keyVal.key !== 'surface area'
+                         }"
+                >{{keyVal.value}}
+                </span>
+            </td>
+
+            <td align="center">
+                <img
+                    [ngClass]="{
+                        'hide':  entity !== 'surface area'
+                     }"
+                    src="assets/images/icon_checkMark.png"
+                    *ngFor="let entity of sampleData['availableEntityNames']"
+                />
+            </td>
+        </tr>
+        <tr>
+            <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;surface charge</td>
+
+
+            <td>
+                <span *ngFor="let keyVal of  sampleData['caNano2MINChar'] | keyvalue"
+
+                      [ngClass]="{
+                            'hide':  keyVal.key !== 'surface charge'
+                         }"
+                >{{keyVal.value}}
+                </span>
+            </td>
+
+            <td align="center">
+                <img
+                    [ngClass]="{
+                        'hide':  entity !== 'surface charge'
+                     }"
+                    src="assets/images/icon_checkMark.png"
+                    *ngFor="let entity of sampleData['availableEntityNames']"
+                />
+            </td>
+        </tr>
+
+
+        <tr>
+            <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zeta potential</td>
+            <td>
+                <span *ngFor="let keyVal of  sampleData['caNano2MINChar'] | keyvalue"
+
+                      [ngClass]="{
+                            'hide':  keyVal.key !== 'zeta potential'
+                         }"
+                >{{keyVal.value}}
+                </span>
+            </td>
+
+            <td align="center">
+                <img
+                    [ngClass]="{
+                        'hide':  entity !== 'zeta potential'
+                     }"
+                    src="assets/images/icon_checkMark.png"
+                    *ngFor="let entity of sampleData['availableEntityNames']"
+                />
+            </td>
+        </tr>
+
+
+
+
+
+
+
+
+
+        <tr *ngFor="let char of sampleData['physicoChars']"
+                      [ngClass]="{
+                        'hide':  char === 'surface'
+                     }"
+        >
+
+            <!-- --- TD0 --- -->
+            <td>&nbsp;&nbsp;{{char}}</td>
+
+
+            <!-- --- TD1 --- -->
+            <td>
+                <span
+                    *ngFor="let keyVal of  sampleData['caNano2MINChar'] | keyvalue"
+                    [ngClass]="{
+                        'hide':  keyVal.key !== char
+                    }"
+                >
+                    {{keyVal.value}}
+                </span>
+            </td>
+
+            <!-- --- TD2 --- -->
+            <td>
+            <img
+                [ngClass]="{
+                        'hide':  entity !== char
+                     }"
+                src="assets/images/icon_checkMark.png"
+                *ngFor="let entity of sampleData['availableEntityNames']"
+            />
+        </tr>
+
+
+
+        <tr>
+            <td colspan="3">
+                In Vitro Characterization
+            </td>
+        </tr>
+
+
+        <tr *ngFor="let char of sampleData['invitroChars']">
+            <td>&nbsp;&nbsp;{{char}}</td>
+            <td>
+			  <span
+                  *ngFor="let keyVal of  sampleData['caNano2MINChar'] | keyvalue"
+                  [ngClass]="{
+                        'hide':  keyVal.key !== char
+                    }"
+              >
+                    {{keyVal.value}}
+                </span>
+            </td>
+            <td align="center">
+
+                <img
+                    [ngClass]="{
+                        'hide':  entity !== char
+                     }"
+                    src="assets/images/icon_checkMark.png"
+                    *ngFor="let entity of sampleData['availableEntityNames']"
+                />
+
+            </td>
+        </tr>
+
+
+
+
+        <tr>
+            <td colspan="3">
+                In Vivo Characterization
+            </td>
+        </tr>
+
+        <tr *ngFor="let char of sampleData['invivoChars']">
+            <td>&nbsp;&nbsp;{{char}}</td>
+            <td>
+			  <span
+                  *ngFor="let keyVal of  sampleData['caNano2MINChar'] | keyvalue"
+                  [ngClass]="{
+                        'hide':  keyVal.key !== char
+                    }"
+              >
+                    {{keyVal.value}}
+                </span>
+            </td>
+            <td align="center">
+
+                <img
+                    [ngClass]="{
+                        'hide':  entity !== char
+                     }"
+                    src="assets/images/icon_checkMark.png"
+                    *ngFor="let entity of sampleData['availableEntityNames']"
+                />
+
+            </td>
+        </tr>
+
+
+        <tr>
+            <td>
+                Publications
+            </td>
+            <td></td>
+            <td align="center">
+                <img
+                    [ngClass]="{
+                        'hide':  entity !== 'publications'
+                     }"
+                    src="assets/images/icon_checkMark.png"
+                    *ngFor="let entity of sampleData['availableEntityNames']"
+                />
+            </td>
+        </tr>
+    </table>
+
+    <button
+        style="float: right"
+        class="btn btn-canano-blue"
+        type="button"
+        (click)="showSampleAvailabilityDisplay = false"
+    >
+        Close
+    </button>
+</div>
