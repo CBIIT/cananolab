@@ -1,0 +1,47 @@
+@import '../../../../../app.component';
+@import '../../../../../btn-canano';
+
+/*
+td{
+    //  width: 33%;
+    background-color: #d3e4de;
+    color: #5c5c5c;
+    margin: 3px;
+    //  border: solid #1c7430 4px;
+}
+*/
+
+.manage-accessibility-group-div{
+    width: 100%;
+    margin: 8px;
+    border: solid #ccc 1px;
+    border-radius: 6px;
+    /*
+    border: solid #ccc 2px;
+    border-radius: 3px;
+    */
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.manage-accessibility-group-td{
+    background-color: #d3e4de;
+    color: #5c5c5c;
+    margin: 3px;
+}
+
+
+.right-button-box{
+    float: right;
+}
+
+table{
+    width: 100%;
+}
+
+.manage-acc-groups-button{
+    @extend .btn;
+    outline: none;
+    font-size: $keywordSearchFontSize;
+    padding: 2px 6px 2px 6px;
+    margin: 4px;
+}

@@ -1,0 +1,91 @@
+<div
+class="manage-accessibility-group-div"
+>
+<!--
+    <table>
+        <tr>
+            <td class="p-1"
+                colspan="3"
+                width="45%;"
+            >
+                {{groupAccessData['recipientDisplayName']}}
+            </td>
+            <td class="p-0"
+                colspan="3"
+                colspan="2"
+            >
+                {{accessType}}
+            </td>
+        </tr>
+    </table>
+    <hr [ngStyle]="{'height' : '3px', 'padding' : '0', 'margin': '0'}">
+-->
+<span class="pl-1">
+    Collaboration Group Access:&nbsp;<span><b>{{groupAccessData['recipientDisplayName']}}</b></span>
+</span>
+
+<table class="p-2">
+
+    <tr>
+        <td class="manage-accessibility-group-td pl-1">
+<!--
+            Access to the {{dataType}}<span class="pt-3 pb-0" [ngStyle]="{'font-size': '20px', 'color' : '#611d1f'}"><b>*</b></span>
+-->
+            Access to the {{dataType}}
+        </td>
+        <td colspan="2"
+            class="manage-accessibility-group-td"
+        > accessType:
+            <select
+                    name="protocolType"
+                    id="protocolType"
+                    [(ngModel)]="accessType"
+                    required
+            >
+                <option
+                        value='READ'
+                >
+                   READ
+                </option>
+                <option
+                        value='READ WRITE DELETE'
+                >
+                   READ WRITE DELETE
+                </option>
+            </select>
+        </td>
+    </tr>
+    <tr>
+        <td class="manage-accessibility-group-td">
+            <button
+                class="btn btn-danger manage-acc-groups-button"
+                type="button"
+            >
+                Delete
+            </button>
+        </td>
+<!--
+        <td></td>
+-->
+        <td class="manage-accessibility-group-td" colspan="4">
+            <div class="right-button-box">
+                <button
+                    class="btn-canano manage-acc-groups-button"
+                    type="button"
+                >
+                    Save
+                </button>
+
+                <button
+                    class="btn manage-acc-groups-button"
+                    [ngStyle]="{'background-color': '#fff', 'color': '#000', 'outline': 'solid #00f 4px;'}"
+                    type="button"
+                    (click)="onCancelClick()"
+                >
+                    Cancel
+                </button>
+            </div>
+        </td>
+    </tr>
+</table>
+</div>

@@ -1,0 +1,38 @@
+
+
+<div *ngIf="accessData !== undefined ">
+    data.recipientDisplayName: {{accessData['recipientDisplayName']}}
+</div>
+<div>
+    temp.recipientDisplayName: {{temp['recipientDisplayName']}}
+</div>
+
+<table>
+    <tr>
+        <td>recipient</td>
+        <td>{{temp['recipient']}}</td>
+    </tr>
+    <tr>
+        <td>accessType</td>
+        <td>{{temp['accessType']}}</td>
+    </tr>
+    <tr>
+        <td>roleName</td>
+        <td>{{temp['roleName']}}</td>
+    </tr>
+    <tr>
+        <td>recipient</td>
+        <td>{{temp['roleDisplayName']}}</td>
+    </tr>
+    <tr>
+        <td>recipient</td>
+        <td>{{temp['principal']}}</td>
+    </tr>
+</table>
+
+<button class="btn"
+        (click)=but()
+        type="button"
+>
+    Click Me
+</button>
