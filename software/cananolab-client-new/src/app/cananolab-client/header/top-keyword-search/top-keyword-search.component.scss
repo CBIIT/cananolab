@@ -1,2 +1,15 @@
 @import '../../../app.component';
 @import '../../../btn-canano';
+
+.top-keyword-top-span{
+    font-size: $keywordSearchFontSize;
+}
+
+.key-word-search-button{
+    @extend .btn;
+    outline: none;
+    background-color: #0073b9;  // FIXME
+    color: #fff;
+    font-size: $keywordSearchFontSize;
+    padding: 2px 4px 2px 4px;
+}

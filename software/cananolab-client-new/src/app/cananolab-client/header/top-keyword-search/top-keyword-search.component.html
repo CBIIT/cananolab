@@ -1,12 +1,13 @@
-<span>
-<input
-    type="text"
-    [(ngModel)]="topKeyWordSearchText"
->
-<button
-    class="btn-canano-sm-blue ml-1 mb-1"
-    type="button"
-    (click)="onTopKeyWordSearchClick()"
->Search
-</button>
+<span class="top-keyword-top-span">
+    <input
+        type="text"
+        placeholder="Enter keyword"
+        [(ngModel)]="topKeyWordSearchText"
+    >
+    <button
+        class="btn-canano ml-1 mb-1 key-word-search-button"
+        type="button"
+        (click)="onTopKeyWordSearchClick()"
+    >Search
+    </button>
 </span>
