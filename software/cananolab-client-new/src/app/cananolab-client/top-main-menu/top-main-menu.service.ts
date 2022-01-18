@@ -11,14 +11,109 @@ export let TopMenuItems = {
     WORKFLOW: 'Workflow',
     PROTOCOLS: 'Protocols',
     SAMPLES: 'Samples',
+    ADVANCED_SAMPLE: 'Advanced Sample',
     PUBLICATIONS: 'Publications',
+    SUBMIT_PUBLICATIONS: 'Create Publication',
+    SEARCH_PUBLICATIONS: 'Search Publication',
+    SEARCH_SAMPLES_BY_PUBLICATIONS: 'Search for Samples by Publication',
     GROUPS: 'Groups',
     CURATION: 'Curation',
     MY_WORKSPACE: 'My Workspace',
     MY_FAVORITES: 'My Favorites',
+    HELP: 'Help',
+    GLOSSARY: 'Glossary',
     LOGOUT: 'Logout',
     TEST: 'Test'
 };
+export let TopMenuData = [
+    {
+        'name': 'HOME',
+        'displayName': 'Home',
+        'route': 'home'
+    },
+    {
+        'name': 'WORKFLOW',
+        'displayName': 'Workflow',
+        'route': 'home/workflow'
+    },
+    {
+        'name': 'PROTOCOLS',
+        'displayName': 'Protocols',
+        'route': 'home/protocols'
+    },
+    {
+        'name': 'SAMPLES',
+        'displayName': 'Samples',
+        'route': 'home/samples'
+    },
+    {
+        'name': 'ADVANCED_SAMPLE',
+        'displayName': 'Advanced Sample Search',
+        'route': 'home/advancedsample'
+
+    },
+    {
+        'name': 'PUBLICATIONS',
+        'displayName': 'Publications',
+        'route': 'home/publications'
+    },
+    {
+        'name': 'SUBMIT_PUBLICATIONS',
+        'displayName': 'Create Publication',
+        'route': 'home/publications/submitPublication'
+    },
+    {
+        'name': 'SEARCH_PUBLICATIONS',
+        'displayName': 'Search Publications',
+        'route': 'home/publications/searchPublication'
+    },
+    {
+        'name': 'SEARCH_SAMPLES_BY_PUBLICATION',
+        'displayName': 'Search for Samples by Publication',
+        'route': 'home/publications/searchSamplesByPublication'
+    },
+    {
+        'name': 'GROUPS',
+        'displayName': 'Groups',
+        'route': 'home/groups'
+    },
+    {
+        'name': 'CURATION',
+        'displayName': 'Curation',
+        'route': 'home/curation'
+    },
+    {
+        'name': 'MY_WORKSPACE',
+        'displayName': 'My Workspace',
+        'route': 'home/myworkspace'
+    },
+    {
+        'name': 'MY_FAVORITES',
+        'displayName': 'My Favorites',
+        'route': 'home/myfavorites'
+    },
+    {
+        'name': 'HELP',
+        'displayName': 'Help',
+        'route': 'home/help'
+    },
+    {
+        'name': 'GLOSSARY',
+        'displayName': 'Glossary',
+        'route': 'home/glossary'
+    },
+    {
+        'name': 'LOGOUT',
+        'displayName': 'Logout',
+        'route': 'home/logout'
+    },
+    {
+        'name': 'TEST',
+        'displayName': 'Test',
+        'route': 'home/test'
+    }
+
+];
 
 @Injectable( {
     providedIn: 'root'
@@ -65,6 +160,14 @@ export class TopMainMenuService{
         // this.showOnlyMenuItems( [this.topMenuKeysArray[1], this.topMenuKeysArray[4]] );
         // console.log( 'MHL this.topMenuKeysArray: ', this.topMenuKeysArray );
         // /////////  END TESTING ONLY   ///////// //
+
+        // Init the top menu
+        this.showOnlyMenuItems(
+            [
+                'HELP',
+                'GLOSSARY'
+            ]
+        );
 
         this.updateEnableMenu();
         this.updateVisibleMenu();
@@ -143,8 +246,8 @@ export class TopMainMenuService{
      *
      * @param menuItems
      */
-  //  showOnlyMenuItems( menuItems: [] ){
     showOnlyMenuItems( menuItems ){
+        console.log('MHL 000 showOnlyMenuItems: ', menuItems);
         this.hideAllMenuItems();
         for( let i = 0; i < menuItems.length; i++ ){
             this.visibleMenuArray[this.getIndexByKey( menuItems[i] )] = true;
@@ -168,6 +271,7 @@ export class TopMainMenuService{
      * @param menuItem The "key" of the Main Menu item to be removed from the menu
      */
     hideMenuItem( menuItem ){
+        console.log('MHL HIDE: ', menuItem);
         this.visibleMenuArray[this.getIndexByKey( menuItem )] = false;
         this.updateVisibleMenu();
     }

@@ -4,10 +4,14 @@
 // ----------------------------------------------------------------------------------------
 
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { TopMainMenuService, TopMenuItems } from './top-main-menu.service';
+import { TopMainMenuService, TopMenuData, TopMenuItems } from './top-main-menu.service';
 import { UtilService } from '../common/services/util.service';
 import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
+import { ConfigurationService } from '../common/services/configuration.service';
+import { Router } from '@angular/router';
+import { Consts } from '../../constants';
+import { Properties } from '../../../assets/properties';
 
 @Component({
   selector: 'canano-top-main-menu',
@@ -18,16 +22,17 @@ export class TopMainMenuComponent implements OnInit, OnDestroy {
 
     // For HTML access
     topMenuItems =  TopMenuItems;
-    topMenuItemNames = Object.values(TopMenuItems);
+    topMenuItemNames = TopMenuData;
     enableMenuArray = [];
     visibleMenuArray = [];
-
+    properties = Properties;
     // @CHECKME  Should this be in the Properties file?
-    defaultComponent = TopMenuItems.HOME;
+    defaultComponent = TopMenuData[0].route; // Just use the first one, it will be "home"
 
     private ngUnsubscribe: Subject<boolean> = new Subject<boolean>();
 
-  constructor( private topMainMenuService: TopMainMenuService, private utilService: UtilService ) { }
+  constructor( private topMainMenuService: TopMainMenuService, private utilService: UtilService,
+               private router: Router) { }
 
  async ngOnInit() {
 
@@ -44,12 +49,6 @@ export class TopMainMenuComponent implements OnInit, OnDestroy {
              this.visibleMenuArray = data;
          } );
 
-
-     // @FIXME - this is just delay so subscribers are ready - @TODO change this to a "We are initialized" flag
-     await this.utilService.sleep( 10 );
-     // Activate the default
-     this.onMenuSelect( this.defaultComponent);
-
     this.enableMenuArray = this.topMainMenuService.getEnableMenuArray();
     this.visibleMenuArray = this.topMainMenuService.getVisibleMenuArray();
  }
@@ -62,7 +61,18 @@ export class TopMainMenuComponent implements OnInit, OnDestroy {
      */
     onMenuSelect(item){
         console.log('MHL onMenuSelectonMenuSelect: ', item);
-      this.topMainMenuService.selectMenuItem( item );
+        if( item.includes( 'home/' + Consts.QUERY_LOGOUT )){
+            this.topMainMenuService.hideMenuItem( 'LOGOUT' );
+            Properties.LOGGED_IN = false;
+            // Init the top menu
+            this.topMainMenuService.showOnlyMenuItems(
+                [
+                    'HELP',
+                    'GLOSSARY'
+                ]
+            ); }
+     // this.topMainMenuService.selectMenuItem( item );
+        this.router.navigate([item]);
     }
 
     // Avoid memory leak
