@@ -140,26 +140,7 @@ export class TopMainMenuService{
         for( let i = 0; i < this.topMenuKeysArray.length; i++ ){
             this.enableMenuArray[i] = true;
             this.visibleMenuArray[i] = true;
-/*
-
-            // /////////  TESTING ONLY   ///////// //
-            // @TESTING this sets a menu button to disabled
-            if( i === this.topMenuKeysArray.length - 2 ){
-                this.disableMenuItem( this.topMenuKeysArray[i] );
-            }
-            // @TESTING this sets a menu button to hidden
-            if( i === this.topMenuKeysArray.length - 4 ){
-                this.hideMenuItem( this.topMenuKeysArray[i] );
-            }
-
-            // /////////  END TESTING ONLY   ///////// //
-*/
         }
-
-        // /////////  TESTING ONLY   ///////// //
-        // this.showOnlyMenuItems( [this.topMenuKeysArray[1], this.topMenuKeysArray[4]] );
-        // console.log( 'MHL this.topMenuKeysArray: ', this.topMenuKeysArray );
-        // /////////  END TESTING ONLY   ///////// //
 
         // Init the top menu
         this.showOnlyMenuItems(
@@ -204,7 +185,6 @@ export class TopMainMenuService{
      * @param menuItem The "key" of the Main Top Menu option to enable
      */
     enableMenuItem( menuItem ){
-        console.log( 'MHL 300 enableMenuItem: ', menuItem );
         this.enableMenuArray[this.getIndexByKey( menuItem )] = true;
         this.updateEnableMenu();
     }
@@ -216,7 +196,6 @@ export class TopMainMenuService{
      * @param menuItem The "key" of the Main Top Menu option to disable
      */
     disableMenuItem( menuItem ){
-        console.log( 'MHL 301a disableMenuItem[' + this.getIndexByKey( menuItem ) + ']: ', menuItem );
         this.enableMenuArray[this.getIndexByKey( menuItem )] = false;
         this.updateEnableMenu();
     }
@@ -234,10 +213,8 @@ export class TopMainMenuService{
      * @param menuItem The "key" of the Main Menu item to show in the menu
      */
     showMenuItem( menuItem ){
-        console.log( 'MHL 302a showMenuItem: ', menuItem );
         this.visibleMenuArray[this.getIndexByKey( menuItem )] = true;
         this.updateVisibleMenu();
-        console.log( 'MHL 302b showMenuItem: ', menuItem );
     }
 
     /**
@@ -247,7 +224,6 @@ export class TopMainMenuService{
      * @param menuItems
      */
     showOnlyMenuItems( menuItems ){
-        console.log('MHL 000 showOnlyMenuItems: ', menuItems);
         this.hideAllMenuItems();
         for( let i = 0; i < menuItems.length; i++ ){
             this.visibleMenuArray[this.getIndexByKey( menuItems[i] )] = true;
@@ -271,7 +247,6 @@ export class TopMainMenuService{
      * @param menuItem The "key" of the Main Menu item to be removed from the menu
      */
     hideMenuItem( menuItem ){
-        console.log('MHL HIDE: ', menuItem);
         this.visibleMenuArray[this.getIndexByKey( menuItem )] = false;
         this.updateVisibleMenu();
     }

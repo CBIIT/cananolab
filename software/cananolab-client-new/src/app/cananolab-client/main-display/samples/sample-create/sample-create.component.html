@@ -1,1 +1,42 @@
-<p>sample-create works!</p>
+<canano-main-display-heading
+    [helpUrl]="helpUrl"
+    [toolHeadingName]="toolHeadingNameSearchSample"
+>
+</canano-main-display-heading>
+<div class="sample-create-div">
+    <table>
+        <tr>
+            <td>
+                Sample Name<sup><b>*</b></sup>
+            </td>
+            <td>
+                <input type="text">
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Point of Contact<sup><b>*</b></sup>
+                &nbsp;&nbsp;&nbsp;&nbsp;
+                <button
+                    class="btn btn-primary"
+                    (click)="onAddPocClick()"
+                >Add</button>
+            </td>
+        </tr>
+        <tr>
+<!--
+            <td colspan="3">
+                <canano-point-of-contact
+                    [poc] = pointOfContacts
+                    [sampleData]= "sampleData"
+                ></canano-point-of-contact>
+
+            </td>
+-->
+        </tr>
+    </table>
+</div>
+
+<canano-point-of-contact-create
+    [sampleData]="organizationNames"
+></canano-point-of-contact-create>

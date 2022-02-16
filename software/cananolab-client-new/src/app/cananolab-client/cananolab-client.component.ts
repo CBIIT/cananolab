@@ -26,13 +26,9 @@ export class CananolabClientComponent implements OnInit{
     }
 
     ngOnInit(): void{
-      //  this.init();
     }
 
     async init(){
-        // @FIXME - @TODO change this to a "We are initialized" flag
-        //  await this.utilService.sleep( 5000 );
-        //  console.log('MHL Set route to /home');
-        // this.router.navigate(['home']);
+
     }
 }

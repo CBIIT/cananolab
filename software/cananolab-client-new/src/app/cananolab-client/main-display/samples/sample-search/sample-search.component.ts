@@ -44,32 +44,25 @@ export class SampleSearchComponent implements OnInit {
         this.apiService.doGet( Consts.QUERY_SAMPLE_SETUP, '' ).subscribe(
             data => {
                 this.sampleSetupData = data;
-                console.log( 'MHL gorp 00 QUERY_SAMPLE_SETUP data: ', this.sampleSetupData );
             } );
     }
 
     onCharacterizationType(charType){
-        console.log('MHL onCharacterizationType: ', charType);
         this.characterizationType = charType;
         // QUERY_GET_CHARACTERIZATION_BY_TYPE
         this.apiService.doGet( Consts.QUERY_GET_CHARACTERIZATION_BY_TYPE, 'type=' + charType ).subscribe(
             data => {
                 this.characterizationsList = <any>data;
-                console.log( 'MHL  00 onCharacterizationType characterizationsList: ', this.characterizationsList );
             } );
 
     }
 
     onSubmit(){
-        console.log( 'MHL SamplesComponent Search: ', this.sampleSearchForm.form.value );
-        console.log('MHL buildParameterString: ', this.buildParameterString());
 
         // QUERY_SEARCH_SAMPLE
         this.apiService.doPost( Consts.QUERY_SEARCH_SAMPLE, this.buildParameterString() ).subscribe(
             data => {
                 this.searchResults = <any>data;
-                console.log( 'MHL  00 onCharacterizationType characterizationsList: ', this.searchResults );
-               // alert( 'Got back ' + this.searchResults.length + ' results.');
 
                 // send search results to samplesSearchResults
                 this.sampleSearchResultsService.setSearchResults( this.searchResults );
@@ -85,7 +78,6 @@ export class SampleSearchComponent implements OnInit {
         // Put the data from the form into "parameters"
         Object.keys( this.sampleSearchForm.value )
             .forEach( key => {
-                    console.log( 'MHL Key: ', key + ' - ' + this.sampleSearchForm.value[key] );
 
                     if( this.sampleSearchForm.value[key].length > 0 ){
                         parameters += '&' + key + '=' + this.sampleSearchForm.value[key];
@@ -93,13 +85,6 @@ export class SampleSearchComponent implements OnInit {
                         parameters += '&' + key + '=' + this.utilService.isTrue( this.sampleSearchForm.value[key] );
                      }else if( typeof this.sampleSearchForm.value[key] === 'number' ){
                         parameters += '&' + key + '=' + this.sampleSearchForm.value[key];
-/*
-                    }else if( typeof this.sampleSearchForm.value[key] === 'string' ){
-                        parameters += '&' + key + '=' + this.sampleSearchForm.value[key];
-*/
-                    }else{
-                        // console.error( 'MHL Unidentified type: ', key + '=' + this.sampleSearchForm.value[key] );
-                        // console.error( 'MHL Unidentified TYPE: ',  typeof  this.sampleSearchForm.value[key] );
                     }
                 }
             );

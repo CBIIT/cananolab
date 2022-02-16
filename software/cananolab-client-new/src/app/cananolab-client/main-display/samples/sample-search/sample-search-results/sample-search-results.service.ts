@@ -13,7 +13,6 @@ export class SampleSearchResultsService{
     }
 
     setSearchResults( sr ){
-        console.log( 'MHL setSearchResults: ', sr );
         this.searchResults = sr;
         this.searchResultsEmitter.emit( sr );
     }

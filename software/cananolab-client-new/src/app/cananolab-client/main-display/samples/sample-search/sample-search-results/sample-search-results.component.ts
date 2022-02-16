@@ -47,12 +47,8 @@ export class SampleSearchResultsComponent implements OnInit, OnDestroy{
         this.searchResults = this.sampleSearchResultsService.getSearchResults();
         this.searchResultsCount = this.searchResults.length;
 
-        console.log( 'MHL searchResults: ', this.searchResults );
-
-
         this.searchResultsPagerService.currentPageChangeEmitter.pipe( takeUntil( this.ngUnsubscribe ) )
             .subscribe( ( data ) => {
-                console.log( 'MHL SampleSearchResultsComponent currentPageChangeEmitter data: ', data );
                 this.currentPage = data;
                 this.setupPage();
             } );
@@ -61,7 +57,6 @@ export class SampleSearchResultsComponent implements OnInit, OnDestroy{
         this.statusDisplayService.updateUserEmitter.pipe( timeout( Properties.HTTP_TIMEOUT ) ).subscribe(
             data => {
                 this.userName = data;
-                console.log( 'MHL updateUserEmitter: ', this.userName );
             } );
 
 
@@ -72,32 +67,26 @@ export class SampleSearchResultsComponent implements OnInit, OnDestroy{
 
 
     navigateToSampleEdit( sampleId ){
-        console.log('MHL navigateToSampleEdit: ', sampleId);
         this.router.navigate(['home/samples/samplesEdit', '?sampleId=' + sampleId ]);  // @FIXME  Don't hard code these
     }
 
     navigateToSampleView(sampleId, sampleName){
-        console.log('MHL navigateToSampleView: ', sampleId + ' : ' + sampleName);
         this.router.navigate(['home/samples/samplesView', '?sampleId=' + sampleId + '&sampleName=' + sampleName ]);  // @FIXME  Don't hard code these
     }
 
 
     addToFavorites(){
-        console.log('MHL addToFavorites');
+        console.log('addToFavorites');
     }
 
     onAvailabilityClick( id ){
-        console.log('MHL onAvailabilityClick: ', id);
-// QUERY_SAMPLE_AVAILABILITY
         this.apiService.doGet( Consts.QUERY_SAMPLE_AVAILABILITY, 'sampleId=' + id).subscribe(
             data => {
-                console.log( 'MHL QUERY_SAMPLE_AVAILABILITY: ', data );
                 this.sampleAvailabilityDisplayService.displayStuff( data );
             },
             ( err ) => {
-                console.log( 'MHL ERROR QUERY_SAMPLE_AVAILABILITY: ', err );
+                console.log( 'ERROR QUERY_SAMPLE_AVAILABILITY: ', err );
             } );
-
     }
 
     /*
@@ -150,21 +139,10 @@ http://cent16:8090/caNanoLab/rest/sample/viewDataAvailability?sampleId=25799936
         console.log( 'MHL setupPage currentPage: ', this.currentPage );
         this.searchResultsPageToDisplay = this.searchResults.slice( this.pageLength * this.currentPage, this.pageLength * (this.currentPage + 1) );
 
-        /*
-        //  Title:<br>zzzz<br><br>Description:<br>zzzzz<br><br><a href=rest/protocol/download?fileId=98238465 target='new'>View</a>
-                for( let f = 0; f < this.searchResultsPageToDisplay.length; f++){
-                    console.log('MHL 801 fileInfo: ', this.searchResultsPageToDisplay[f].fileInfo);  // sed with Properties API_SERVER_URL
-                    this.parseFileData( this.searchResultsPageToDisplay[f].fileInfo);
-                    this.searchResultsPageToDisplay[f].fileInfo = this.searchResultsPageToDisplay[f].fileInfo.replace('href=', 'href=' + Properties.API_SERVER_URL + '/');
-                    console.log('MHL 802 fileInfo: ', this.searchResultsPageToDisplay[f].fileInfo);  // sed with Properties API_SERVER_URL
-                }
-        */
-
     }
 
 
     onPageLengthChange(){
-        console.log( 'MHL 999a >>>>>>>>>>>>> ' );
         if( this.pageLength < 1 ){
             this.pageLength = 1;
         }
@@ -173,16 +151,12 @@ http://cent16:8090/caNanoLab/rest/sample/viewDataAvailability?sampleId=25799936
         }
 
         this.pageCount = Math.ceil( this.searchResultsCount / this.pageLength );
-        console.log( 'MHL 300 SampleSearchResultsComponent.onPageLengthChange searchResultsCount: ', this.searchResultsCount );
-        console.log( 'MHL 301 SampleSearchResultsComponent.onPageLengthChange pageLength: ', this.pageLength );
-        console.log( 'MHL 302 SampleSearchResultsComponent.onPageLengthChange pageCount: ', this.pageCount );
         this.searchResultsPagerService.setPageCount( this.pageCount );
         this.setupPage(); // Sets this page as the currently vied search results.
-        console.log( 'MHL 999b <<<<<<<<<<<<<< ' );
     }
 
     onSortClick( i ){
-        console.log( 'MHL onSortClick: ', i );
+        console.log( 'onSortClick: ', i );
     }
 
 

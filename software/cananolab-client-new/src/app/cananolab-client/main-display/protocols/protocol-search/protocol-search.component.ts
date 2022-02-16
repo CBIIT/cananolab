@@ -81,8 +81,6 @@ export class ProtocolSearchComponent implements OnInit, OnDestroy{
             ( data ) => {
                 this.protocolScreenToShow = data.ps;
                 this.protocolScreenInfo = data.info;
-                console.log('MHL currentProtocolScreenEmitter this.protocolScreenToShow: ', this.protocolScreenToShow );
-                console.log('MHL currentProtocolScreenEmitter this.protocolScreenInfo: ', this.protocolScreenInfo );
             } );
 
 
@@ -93,16 +91,11 @@ export class ProtocolSearchComponent implements OnInit, OnDestroy{
 
 
     onSubmit( f: NgForm ){
-
-        console.log( 'MHL 010 onSubmit f: ', f );
-        console.log( 'MHL 011 onSubmit f.value: ', f.value );
-
         // Search Button
         f = f.value;
         let parameters = '';
         Object.keys( f )
             .forEach( key => {
-                console.log('MHL f[' + key + ']: ', f[key]);
                 let temp = f[key];
                 if( temp !== undefined && temp !== null){
                     if( temp.length > 0 ){
@@ -112,20 +105,16 @@ export class ProtocolSearchComponent implements OnInit, OnDestroy{
             } );
 
         // QUERY_SEARCH_PROTOCOL
-        console.log( 'MHL parameters: ', parameters.substr( 1 ) );
         // Do the search
         this.apiService.doPost( Consts.QUERY_SEARCH_PROTOCOL, parameters.substr( 1 ) ).subscribe(
             data => {
-                console.log( 'MHL *************** QUERY_SEARCH_PROTOCOL: ', data );
                 this.protocolScreenToShow = ProtocolScreen.PROTOCOL_SEARCH_RESULTS_SCREEN;
                 this.searchResults = data;
             },
             err => {
-                console.error( 'MHL ERROR doPost QUERY_SEARCH_PROTOCOL: ', err.message );
                 if( err.status === 404 ){ // @checkme
                     alert( 'No search results.' );
                 }
-                alert( 'HEY ' + err.message );
             }
         );
     }
@@ -143,31 +132,20 @@ export class ProtocolSearchComponent implements OnInit, OnDestroy{
                     this.protocolTypes.unshift('');
 
                     Properties.PROTOCOL_TYPES = this.protocolTypes; // Cache it
-                    console.log( 'MHL QUERY_INIT_SETUP: ', this.protocolTypes );
                 } );
         }else{
-            console.log('MHL ProtocolSearchComponent.init already have Protocol Types');
             this.protocolTypes = Properties.PROTOCOL_TYPES;
         }
     }
 
     onResetClick(){
         this.resetting = true;
-        console.log( 'MHL  onResetClick()' );
         this.protocolSearchForm.reset();
 
         this.nameOperand = this.defaultOperand;
         this.titleOperand = this.defaultOperand;
         this.abbreviationOperand = this.defaultOperand;
         this.protocolType = '';
-
-        /*
-                Object.keys(f.controls).forEach((key) => {
-                    const control = f.controls[key];
-                    control.markAsPristine();
-                    control.markAsUntouched();
-                });
-        */
     }
 
 

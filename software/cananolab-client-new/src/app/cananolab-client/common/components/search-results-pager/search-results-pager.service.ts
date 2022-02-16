@@ -15,7 +15,6 @@ export class SearchResultsPagerService {
     constructor() { }
 
     setPageCount( pc ){
-        console.log('MHL 200 SearchResultsPagerService.setPageCount pc: ', pc);
         this.pageCount = pc;
         this.pageCountEmitter.emit(this.pageCount);
     }

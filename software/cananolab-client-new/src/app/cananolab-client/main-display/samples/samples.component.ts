@@ -28,6 +28,5 @@ export class SamplesComponent implements OnInit{
     }
 
     onCreateSampleClick(){
-        console.log('MHL onCreateSampleClick');
     }
 }

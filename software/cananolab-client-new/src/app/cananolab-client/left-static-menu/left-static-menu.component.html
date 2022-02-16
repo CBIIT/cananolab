@@ -50,7 +50,9 @@
     </button>
 
     <div class="left-menu-heading p-2">
-        External <a href="#" style="text-decoration: underline; color:#fff;">Disclaimer</a>
+        External <a
+         (click)="openWindow( properties.API_SERVER_URL + '/' + properties.DISCLAIMER_URL, '')"
+        style="text-decoration: underline; color:#fff;">Disclaimer</a>
     </div>
 
 

@@ -36,16 +36,13 @@ export class TopMainMenuComponent implements OnInit, OnDestroy {
 
  async ngOnInit() {
 
-      console.log('MHL MHL TopMainMenuService got enable items data init');
      this.topMainMenuService.enableTopMenuArrayEmitter.pipe( takeUntil( this.ngUnsubscribe ) ).subscribe(
          ( data ) => {
-             console.log('MHL TopMainMenuService got enable items data: ', data );
              this.enableMenuArray = data;
          } );
 
      this.topMainMenuService.visibleMenuArrayEmitter.pipe( takeUntil( this.ngUnsubscribe ) ).subscribe(
          ( data ) => {
-             console.log('MHL TopMainMenuService got visible items data: ', data );
              this.visibleMenuArray = data;
          } );
 
@@ -60,7 +57,6 @@ export class TopMainMenuComponent implements OnInit, OnDestroy {
      * @param item The "Value" (not the key) of the Main Menu item selected.
      */
     onMenuSelect(item){
-        console.log('MHL onMenuSelectonMenuSelect: ', item);
         if( item.includes( 'home/' + Consts.QUERY_LOGOUT )){
             this.topMainMenuService.hideMenuItem( 'LOGOUT' );
             Properties.LOGGED_IN = false;
@@ -71,7 +67,6 @@ export class TopMainMenuComponent implements OnInit, OnDestroy {
                     'GLOSSARY'
                 ]
             ); }
-     // this.topMainMenuService.selectMenuItem( item );
         this.router.navigate([item]);
     }
 

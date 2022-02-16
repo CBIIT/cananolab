@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UtilService } from '../common/services/util.service';
+import { Properties } from '../../../assets/properties';
 
 @Component( {
     selector: 'canano-left-static-menu',
@@ -12,6 +13,7 @@ export class LeftStaticMenuComponent implements OnInit{
     newWindowWidth = 800;
     topHeading = 'Related Links';
     utilService;
+    properties = Properties;
 
     constructor(private utilServiceX: UtilService) {
     }

@@ -43,7 +43,6 @@ export class ConfigurationService{
      * @param file
      */
     readTextFile( file ): Observable<any>{
-        console.log('MHL GET file: ', file);
         return this.httpClient.get( file,
             {
                 responseType: 'text'

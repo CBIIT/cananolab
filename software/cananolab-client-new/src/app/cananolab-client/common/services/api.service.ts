@@ -30,7 +30,6 @@ export class ApiService{
         }
 
         // @TESTING Just to make sure we can talk to the server
-        console.log( 'MHL calling testRestCall()' );
         this.testRestCall();
         // END TESTING
 
@@ -60,7 +59,6 @@ export class ApiService{
                 console.error( 'ERROR testRestCall [' + Consts.QUERY_GET_TABS + '] err: ', err.message );
             }
         );
-        console.log( 'MHL LEAVING testRestCall [' + Consts.QUERY_GET_TABS + '] waiting on testRestCall response from Server.' );
     }
 
     // END TESTING
@@ -74,17 +72,12 @@ export class ApiService{
     //  @CHECKME doPost( queryType, query: string ): Observable<any>{
     doPost( queryType, query: any ): Observable<any>{
 
-        console.log( 'MHL doPost queryType: ', queryType );
-
         if( typeof query === 'object' ){
-            console.log('MHL typeof query === \'object\': ', query);
             query = JSON.stringify( query ); // .replace(/^{"/, '').replace(/"}$/, '')
         }else{
 
             let re = /&/g;
             query = query.replace( re, '\',\'' );
-            console.log( 'MHL doPost 800 query: ', query );
-
             re = /=/g;
             query = query.replace( re, '\':\'' );
 
@@ -94,12 +87,8 @@ export class ApiService{
             query = '{"' + query + '"}';
         }
 
-        console.log( 'MHL doPost 901 doPost query: ', query );
-
-
         // Test mode, return hard coded test data
         if( Properties.TEST_MODE ){
-            console.log( 'MHL Running doPost in TEST_MODE' );
             return this.doTestPost( queryType, query );  // @FIXME Return this as a promise
         }else
             // Not Test mode
@@ -132,9 +121,6 @@ export class ApiService{
                     headers: headers
                 };
             }
-            console.log( 'MHL post simpleSearchUrl: ', simpleSearchUrl );
-            console.log( 'MHL post query: ', query );
-            console.log( 'MHL post options: ', options );
             return this.httpClient.post( simpleSearchUrl, query, options ).pipe( timeout( Properties.HTTP_TIMEOUT ) );
         }
     }
@@ -146,33 +132,22 @@ export class ApiService{
      * @param query
      */
     doPost0( queryType, query: any ): Observable<any>{
-
-        console.log( 'MHL doPost queryType: ', queryType );
-
         if( typeof query === 'object' ){
-            console.log('MHL typeof query === \'object\': ', query);
             query = JSON.stringify( query ); // .replace(/^{"/, '').replace(/"}$/, '')
         }else{
 
             let re = /&/g;
             query = query.replace( re, '\',\'' );
-            console.log( 'MHL doPost 800 query: ', query );
 
             re = /=/g;
             query = query.replace( re, '\':\'' );
 
             re = /'/g;
             query = query.replace( re, '"' );
-
-           //  query = '{"' + query + '"}';
         }
-
-        console.log( 'MHL doPost 901 doPost query: ', query );
-
 
         // Test mode, return hard coded test data
         if( Properties.TEST_MODE ){
-            console.log( 'MHL Running doPost in TEST_MODE' );
             return this.doTestPost( queryType, query );  // @FIXME Return this as a promise
         }else
             // Not Test mode
@@ -205,9 +180,6 @@ export class ApiService{
                     headers: headers
                 };
             }
-            console.log( 'MHL post simpleSearchUrl: ', simpleSearchUrl );
-            console.log( 'MHL post query: ', query );
-            console.log( 'MHL post options: ', options );
             return this.httpClient.post( simpleSearchUrl, query, options ).pipe( timeout( Properties.HTTP_TIMEOUT ) );
         }
     }
@@ -219,10 +191,8 @@ export class ApiService{
      * @param query
      */
     doGet( queryType, query ): Observable<string>{
-        console.log( 'MHL doGet Properties.HTTP_TIMEOUT: ', Properties.HTTP_TIMEOUT );
 
         if( Properties.TEST_MODE ){
-            console.log( 'MHL Running doGet in TEST_MODE CALLING doTestGet' );
             return this.doTestGet( queryType, query );
         }else{
             let getUrl = Properties.API_SERVER_URL + '/' + queryType;
@@ -233,8 +203,8 @@ export class ApiService{
             if( Properties.DEBUG_CURL ){
                 //  let curl = 'curl -H \'Authorization:Bearer  ' + ' < AssessToken> ' + '\' -k \'' + getUrl + '\'';
                 let curl = 'curl -H  -k \'' + getUrl + '\'';
-                console.log( 'MHL 001 doGet: ' + curl );
             }
+
             let headers = new HttpHeaders( {
                 'Content-Type': 'application/x-www-form-urlencoded',
                 'Access-Control-Allow-Origin': '*',  // @CHECKME
@@ -255,24 +225,7 @@ export class ApiService{
                     responseType: 'text'
                 }
             }
-
-
-
-
-
-                console.log( 'MHL GET getUrl: ', getUrl );
             results = this.httpClient.get( getUrl, options ).pipe( timeout( Properties.HTTP_TIMEOUT ) );
-
-
-            /*
-                        // @TESTING can we look at the results before passing them along?  (Yes we can) NO, THIS MAKES ANOTHER REST CALL
-                        results.subscribe( d1 => {
-                                console.log( 'MHL 000 results: ', d1 );
-                            },
-                            e1 => {
-                                console.log( 'MHL ERROR 001 results: ', e1.message );
-                            } );
-            */
 
             return results;
         }
@@ -298,8 +251,6 @@ export class ApiService{
      * @param query  The JSON or Text that will be returned.
      */
     doTestGet( queryType, query ): Observable<string>{
-        console.log( 'MHL doTestGet queryType: ', queryType );
-        console.log( 'MHL doTestGet query: ', query );
         let retPromise = new Observable<string>( null );
 
         switch( queryType ){
@@ -310,7 +261,6 @@ export class ApiService{
 
         }
 
-        console.log( 'MHL retPromise: ', retPromise );
         return retPromise;
     }
 
@@ -347,7 +297,6 @@ export class ApiService{
                     method: 'post'
                 };
 
-            console.log( 'MHL post post_url: ', post_url );
             this.httpClient.post( post_url, data, options ).pipe( timeout( Properties.HTTP_TIMEOUT ) ).subscribe(
                 ( loginReturnData ) => {
 
@@ -382,11 +331,7 @@ export class ApiService{
 
         }
         // END if user length > 0
-        else{
-            console.log( 'MHL 805 authenticateUser' );
-            console.log( 'MHL Get refresh token' );
-            //  this.getAccessTokenWithRefresh( this.getRefreshToken() );
-        }
+
     }
 
 

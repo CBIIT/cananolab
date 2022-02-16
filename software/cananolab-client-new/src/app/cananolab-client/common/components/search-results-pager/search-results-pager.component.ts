@@ -54,24 +54,18 @@ export class SearchResultsPagerComponent implements OnInit, OnDestroy{
 
     constructor( private searchResultsPagerService: SearchResultsPagerService,
                  private utilService: UtilService ){
-        console.log( 'MHL 400A constructor SearchResultsPagerComponent @Input to here totalCount: ', this.totalCount );
     }
 
     ngOnInit(){
         this.searchResultsPagerService.pageCountEmitter.pipe( takeUntil( this.ngUnsubscribe ) ).subscribe( ( data ) => {
-            console.log( 'MHL 400b searchResultsPagerService.pageCountEmitter data: ', data );
             this.pageCount = data;
-            console.log( 'MHL ngOnInit 402 SearchResultsPagerComponent @Input to here totalCount: ', this.totalCount );
             this.setButtons();
-            console.log( 'MHL ngOnInit 403 SearchResultsPagerComponent @Input to here totalCount: ', this.totalCount );
         } );
 
         // This is for syncing up to pagers
         this.searchResultsPagerService.currentPageChangeEmitter.pipe( takeUntil( this.ngUnsubscribe ) )
             .subscribe( ( data ) => {
                 this.currentPage = data;
-                console.log( 'MHL [' + this.debugId + ']currentPage: ', this.currentPage );
-                console.log( 'MHL [' + this.debugId + ']pageCount: ', this.pageCount );
                 if( this.currentPage === 0 ){
                     this.buttonShowOffset = 0;
                 }else if( this.currentPage > (this.buttonShowOffset + this.maxButtonsToShow - 1) ){
@@ -79,13 +73,8 @@ export class SearchResultsPagerComponent implements OnInit, OnDestroy{
                 }else if( this.currentPage < this.buttonShowOffset ){
                     this.buttonShowOffset--;
                 }else if( this.currentPage === (this.pageCount - 1) ){
-                    console.log( 'MHL [' + this.debugId + '] pageCount: ', this.pageCount + ' Going to the end' );
-                    console.log( 'MHL [' + this.debugId + '] maxButtonsToShow: ', this.maxButtonsToShow + ' Going to the end' );
                     this.buttonShowOffset = this.pageCount - this.maxButtonsToShow;
-                    console.log( 'MHL [' + this.debugId + '] buttonShowOffset: ', this.buttonShowOffset + ' Going to the end' );
                 }
-                console.log( 'MHL [' + this.debugId + '] buttonShowOffset: ', this.buttonShowOffset );
-
             } );
 
 
@@ -102,7 +91,6 @@ export class SearchResultsPagerComponent implements OnInit, OnDestroy{
      * Initialize the buttons with their correct numbers - called when row count, or rows per page changes.
      */
     setButtons(){
-        console.log( 'MHL 888 ----------------------------------------- setButtons  pageCount: ', this.pageCount );
         this.buttons = [];
         for( let f = 0; f < this.pageCount; f++ ){
             this.buttons[f] = f;
@@ -116,7 +104,6 @@ export class SearchResultsPagerComponent implements OnInit, OnDestroy{
     onGoFirstClickClick(){
         this.currentPage = 0;
         this.buttonShowOffset = 0;
-        // this.searchResultsPagerService.currentPageChangeEmitter.emit( this.currentPage );
         this.searchResultsPagerService.setCurrentPage( this.currentPage );
     }
 
@@ -125,7 +112,6 @@ export class SearchResultsPagerComponent implements OnInit, OnDestroy{
         if( this.currentPage < 0 ){
             this.currentPage = 0;
         }else{
-            // this.searchResultsPagerService.currentPageChangeEmitter.emit( this.currentPage );
             this.searchResultsPagerService.setCurrentPage( this.currentPage );
         }
 
@@ -141,7 +127,6 @@ export class SearchResultsPagerComponent implements OnInit, OnDestroy{
         }
 
         this.currentPage++;
-        // this.searchResultsPagerService.currentPageChangeEmitter.emit( this.currentPage );
         this.searchResultsPagerService.setCurrentPage( this.currentPage );
 
         if( this.currentPage > (this.buttonShowOffset + this.maxButtonsToShow - 1) ){
@@ -153,13 +138,11 @@ export class SearchResultsPagerComponent implements OnInit, OnDestroy{
     onGoLastClick(){
         this.currentPage = this.pageCount - 1;
         this.buttonShowOffset = this.pageCount - this.maxButtonsToShow;
-        // this.searchResultsPagerService.currentPageChangeEmitter.emit( this.currentPage );
         this.searchResultsPagerService.setCurrentPage( this.currentPage );
     }
 
     onClick( i ){
         this.currentPage = i;
-       // this.searchResultsPagerService.currentPageChangeEmitter.emit( this.currentPage );
         this.searchResultsPagerService.setCurrentPage( this.currentPage );
     }
 

@@ -30,12 +30,10 @@ export class LogoutComponent implements OnInit{
             data => {
                 Properties.LOGGED_IN = false;
                 this.statusDisplayService.updateUser( 'guest' );
-
-                console.log( 'MHL LogoutComponent: ', data );
             },
             err => {
                 this.statusDisplayService.updateUser( 'unknown' ); // CHECKME
-                console.error('MHL ERROR doPost Consts.QUERY_LOGOUT: ', err);
+                console.error('ERROR doPost Consts.QUERY_LOGOUT: ', err);
             }
         );
     }

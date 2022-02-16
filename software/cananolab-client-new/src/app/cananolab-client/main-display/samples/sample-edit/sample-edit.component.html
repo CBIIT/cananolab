@@ -13,7 +13,7 @@ sampleId: {{sampleId}}
                 Sample Name<sup><b>*</b></sup>
                 &nbsp;&nbsp;&nbsp;&nbsp;
                 <input type="text"
-                    [(ngModel)]="sampleData['sampleName']"
+                       [(ngModel)]="sampleData['sampleName']"
                 >
             </td>
         </tr>
@@ -25,24 +25,27 @@ sampleId: {{sampleId}}
                 <button
                     class="btn btn-primary"
                     (click)="onAddPocClick()"
-                >Add</button>
+                >Add
+                </button>
             </td>
-         </tr>
+        </tr>
         <tr>
-
             <td
                 class="p-3"
             >
                 <canano-point-of-contact
-                    [poc] = pointOfContacts
-                    [sampleData]= "sampleData"
+                    [poc]=pointOfContacts
+                    [sampleData]="sampleData"
                 ></canano-point-of-contact>
             </td>
 
         </tr>
+        <tr>
+            <td>
+                Keywords:
+            </td>
+        </tr>
     </table>
-
-
 </div>
 
 <canano-point-of-contact-create

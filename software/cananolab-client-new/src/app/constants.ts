@@ -60,6 +60,7 @@ export const Consts = {
     HELP_URL_SAMPLE_SEARCH_BY_PUBLICATIONS: 'http://localhost:8090/caNanoLab/rest/publication/searchById',
     HELP_URL_SAMPLE_SEARCH: 'https://wiki.nci.nih.gov/display/caNanoLab/Managing+Samples+in+caNanoLab#ManagingSamplesincaNanoLab-SearchSample',
 
+    HELP_URL_SAMPLE_CREATE: 'https://wiki.nci.nih.gov/display/caNanoLab/Managing+Samples+in+caNanoLab#ManagingSamplesincaNanoLab-EditSample',
     HELP_URL_SAMPLE_EDIT: 'https://wiki.nci.nih.gov/display/caNanoLab/Managing+Samples+in+caNanoLab#ManagingSamplesincaNanoLab-EditSample',
     HELP_URL_SAMPLE_VIEW: 'https://wiki.nci.nih.gov/display/caNanoLab/Managing+Samples+in+caNanoLab#ManagingSamplesincaNanoLab-EditSample',
 

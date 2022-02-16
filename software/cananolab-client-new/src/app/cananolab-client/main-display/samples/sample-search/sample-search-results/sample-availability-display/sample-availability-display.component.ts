@@ -27,21 +27,16 @@ export class SampleAvailabilityDisplayComponent implements OnInit{
             ( data ) => {
                 this.sampleData = data;
                 this.heading = 'caNanoLab Availability Score: ' + this.sampleData['caNanoLabScore'] + '  MINChar Availability Score: ' + this.sampleData['mincharScore'];
-                console.log( 'MHL showSampleAvailabilityDisplay data sampleName: ', this.sampleData['sampleName'] );
-                console.log( 'MHL showSampleAvailabilityDisplay data: ', this.sampleData );
                 this.showSampleAvailabilityDisplay = true;
-
-// this.getPopupHtml();
             },
             err => {
-                console.error( 'MHL  sampleAvailabilityDisplayService: ', err );
+                console.error( 'sampleAvailabilityDisplayService: ', err );
             } );
 
     }
 
     onCloseSampleAvailabilityDisplay(){
         this.showSampleAvailabilityDisplay = false;
-        console.log('MHL onCloseSampleAvailabilityDisplay: ', this.showSampleAvailabilityDisplay);
     }
 
     getPopupHtml(){
@@ -51,7 +46,6 @@ export class SampleAvailabilityDisplayComponent implements OnInit{
             data => {
                 this.htmlData = data;
                 this.htmlData = this.htmlData.replace( /images\//g, 'assets/images/');
-                console.log( 'MHL gorp 00 htmlData: ', this.htmlData );
             } );
     }
 }

@@ -28,19 +28,16 @@ export class BrowseCananolabComponent implements OnInit{
         this.apiService.doGet( Consts.QUERY_INIT_SETUP, '' ).subscribe(
             data => {
                 this.initData = data;
-                console.log( 'MHL QUERY_INIT_SETUP: ', data );
             } );
 
     }
 
     onSearchProtocolsClick(){
-        console.log( 'MHL BrowseCananolabComponent: onSearchProtocolsClick()' );
         this.router.navigate( [this.utilService.getRouteByName( 'PROTOCOLS' )] );
     }
 
     // Will not need this after router is in place?
     onSearchPublicationsClick(){
-        console.log( 'MHL BrowseCananolabComponent: onSearchPublicationsClick()' );
         this.router.navigate( [this.utilService.getRouteByName( 'PUBLICATIONS' )] );
 
     }

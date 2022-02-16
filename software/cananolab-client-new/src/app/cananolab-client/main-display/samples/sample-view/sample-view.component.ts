@@ -21,7 +21,6 @@ export class SampleViewComponent implements OnInit{
 
         this.route.params.subscribe(
             ( params: Params ) => {
-                console.log('MHL View Sample params : ', params);
                 this.sampleId = params['sampleId'].replace( /^.*\?sampleId=/, '' ).replace(/&.*$/, '');
                 this.sampleName = params['sampleId'].replace( /^.*sampleName=/, '' );
                 this.toolHeadingNameViewSample = 'Sample ' + this.sampleName;

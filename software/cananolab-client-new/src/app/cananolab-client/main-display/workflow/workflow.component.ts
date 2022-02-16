@@ -22,8 +22,6 @@ export class WorkflowComponent implements OnInit{
     }
 
     onAreaClick( selection ){
-        console.log( 'MHL onAreaClick selection: ', selection );
-
         switch( selection ){
             case '#/login':
                 this.topMainMenuService.selectMenuItem( 'Home' );

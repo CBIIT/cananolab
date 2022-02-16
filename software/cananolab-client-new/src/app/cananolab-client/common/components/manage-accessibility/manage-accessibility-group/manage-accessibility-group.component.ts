@@ -35,26 +35,11 @@ export class ManageAccessibilityGroupComponent implements OnInit{
         if( this.accessData !== undefined ){
             this.groupAccessData = clone( this.accessData );
             this.accessType = this.groupAccessData['roleDisplayName'].trim();
-
-            console.log( 'MHL clone groupAccessData: ', this.groupAccessData );
-            console.log( 'MHL accessType: ', this.accessType );
         }
-
-        if( this.accessData !== undefined && this.accessData['recipientDisplayName'] !== undefined ){
-            // this.temp = clone( this.accessData) ;
-            console.log( 'MHL ManageAccessibilityComponent data: ', this.accessData['recipientDisplayName'] );
-            console.log( 'MHL ManageAccessibilityComponent temp: ', this.groupAccessData['recipientDisplayName'] );
-        }
-        // this.dataType = this.groupAccessData
-console.log('MHL From parent showGroupAccessEdit: ', this.showGroupAccessEdit);
     }
 
     onCancelClick(){
-       // this.showGroupAccessEdit =  { dog: 'BlackDog', val: true };
-        console.log('MHL 100 Child showGroupAccessEdit: ', this.showGroupAccessEdit);
-        console.log('MHL 101 Child showGroupAccessEdit: ', this.showGroupAccessEdit[this.index]);
         this.showGroupAccessEdit[this.index] = false;
         this.showGroupAccessEdit[this.index + 1] = false;
-        console.log('MHL 102 Child showGroupAccessEdit: ', this.showGroupAccessEdit[this.index]);
     }
 }

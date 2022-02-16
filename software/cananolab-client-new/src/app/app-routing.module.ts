@@ -42,11 +42,6 @@ const routes: Routes = [
     { path: 'home/protocols/protocolSearchComponent', component: ProtocolSearchComponent },
     { path: 'home/protocols/protocolEditComponent', component: ProtocolEditBravoComponent },
 
-  //  { path: 'home/protocols/protocolSearchComponent', component: HomeComponent },
-
-    // MHL TESTING  { path: 'home/protocols/protocolCreateComponent', component: ProtocolCreateBravoComponent },
-    // MHL TESTING  { path: 'home/protocols/protocolCreateComponent', component: ProtocolCreateComponent },
-
     { path: 'home/protocols/protocolSearchComponent', component: ProtocolSearchComponent },
     { path: 'home/protocols/protocolSearchResults', component: ProtocolSearchResultsComponent },
 

@@ -1,0 +1,47 @@
+@import "../../../../../btn-canano";
+
+td,
+th{
+    vertical-align: top;
+}
+
+.protocol-search-results-type-td{
+    min-width: 60px;
+}
+
+.protocol-search-results-version-td{
+    min-width: 90px;
+}
+
+.protocol-search-results-created-td{
+    min-width: 82px;
+}
+
+.protocol-search-results-abbreviation-td{
+    min-width: 110px;
+}
+
+
+.number-spinner{
+    border: solid 1px #686868;
+    border-radius: 3px;
+    position: relative;
+    top: 0;
+    padding: 0 4px 0 4px;
+    width: 50px;
+    height: 28px;
+}
+
+.rows-per-page-spinner{
+    color: #686868;
+}
+
+.protocol-search-results-edit-button{
+    color: #00f;
+    text-decoration: underline;
+    text-decoration-color: #00f;
+
+    &:hover{
+        cursor: pointer;
+    }
+}

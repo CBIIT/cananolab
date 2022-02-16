@@ -20,16 +20,12 @@ export class SearchSamplesByPublicationComponent implements OnInit{
     }
 
     onSearchSampByPubClick(){
-// this.apiService
-//        rest/publication/searchById?id=9&type=DOI
-        // this.apiService.doGet( Consts.QUERY_SEARCH, 'keyword=' + this.topKeyWordSearchText ).subscribe(
-
         this.apiService.doGet( Consts.HELP_URL_SAMPLE_SEARCH_BY_PUBLICATIONS, 'id=' + this.inputId + 'type=' + this.type).subscribe(
             data => {
-                console.log('MHL onSearchSampByPubClick results: ', data);
+                console.log('onSearchSampByPubClick results: ', data);
             },
             err => {
-                console.error('MHL ERROR onSearchSampByPubClick: ', err);
+                console.error('ERROR onSearchSampByPubClick: ', err);
             }
             );
     }

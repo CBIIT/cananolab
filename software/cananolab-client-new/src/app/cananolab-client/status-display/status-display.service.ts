@@ -31,10 +31,9 @@ export class StatusDisplayService{
             data => {
                 // Set user as "Logged in"
                 Properties.logged_in = true;
-                console.log( 'MHL getUserGroups: ', data );
             },
             ( err ) => {
-                console.log( 'MHL ERROR getUserGroups: ', err );
+                console.log( 'ERROR getUserGroups: ', err );
             } );
 
     }

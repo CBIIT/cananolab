@@ -19,9 +19,6 @@ export class LoginComponent implements OnInit{
     }
 
     onLoginClick(){
-        console.log( 'MHL User: ', this.user );
-        console.log( 'MHL password: ', this.password );
-
         this.apiService.authenticateUser( this.user, this.password )
         this.statusDisplayService.updateUser( this.user );
     }
