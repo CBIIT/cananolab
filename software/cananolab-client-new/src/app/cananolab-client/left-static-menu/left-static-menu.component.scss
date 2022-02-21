@@ -1,7 +1,13 @@
+// -------------------------------------------------------------------------
+// ---------------  "Related Links" mid left vertical menu  ----------------
+// -------------------------------------------------------------------------
+
 @import "../../app.component";
 @import "../../btn-canano";
 @import "../cananolab-client.component";
 
+// Navigation Tree, Related Links and Status Display on left
+// @TODO Used by left-navigation-menu also. move to a higher common scss
 
 .left-menu-div{
     width: $leftMenuWidth;
@@ -29,7 +35,6 @@
     color: #fff;
     margin-top: 1px;
     cursor: default;
-
 }
 
 .left-menu-top-heading{

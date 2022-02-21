@@ -20,7 +20,6 @@ export class PointOfContactService {
     }
 
     showPocCreate(){
-      console.log('MHL showPointOfContactCreateEmitter.emit( true )');
       this.showPointOfContactCreateEmitter.emit( true );
 
     }

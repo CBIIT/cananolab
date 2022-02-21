@@ -135,8 +135,6 @@ http://cent16:8090/caNanoLab/rest/sample/viewDataAvailability?sampleId=25799936
 
 
     setupPage(){
-        console.log( 'MHL setupPage pageLength: ', this.pageLength );
-        console.log( 'MHL setupPage currentPage: ', this.currentPage );
         this.searchResultsPageToDisplay = this.searchResults.slice( this.pageLength * this.currentPage, this.pageLength * (this.currentPage + 1) );
 
     }

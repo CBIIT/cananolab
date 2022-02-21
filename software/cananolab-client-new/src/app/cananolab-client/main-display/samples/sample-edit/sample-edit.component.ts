@@ -31,7 +31,6 @@ export class SampleEditComponent implements OnInit{
                 this.sampleId = params['sampleId'].replace( /^.*\?sampleId=/, '' );
                 this.sampleData = this.getSampleEditData().subscribe(
                     data => {
-                        console.log('MHL SampleEditComponent.ngOnInit getSampleEditData(): ', data );
                         this.sampleData = data;
                         this.pointOfContacts = this.sampleData.pointOfContacts;
                     } );

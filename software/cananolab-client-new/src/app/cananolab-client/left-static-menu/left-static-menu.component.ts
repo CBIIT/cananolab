@@ -1,3 +1,7 @@
+// -------------------------------------------------------------------------
+// ---------------  "Related Links" mid left vertical menu  ----------------
+// -------------------------------------------------------------------------
+
 import { Component, OnInit } from '@angular/core';
 import { UtilService } from '../common/services/util.service';
 import { Properties } from '../../../assets/properties';
@@ -19,7 +23,6 @@ export class LeftStaticMenuComponent implements OnInit{
     }
 
     ngOnInit(): void {
-      //  this.utilService = this.utilServiceX;
     }
 
     // @TODO this is dup code

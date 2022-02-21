@@ -69,13 +69,13 @@ export class ApiService{
      * @param queryType
      * @param query
      */
-    //  @CHECKME doPost( queryType, query: string ): Observable<any>{
     doPost( queryType, query: any ): Observable<any>{
 
         if( typeof query === 'object' ){
             query = JSON.stringify( query ); // .replace(/^{"/, '').replace(/"}$/, '')
         }else{
 
+            // Change query to JSON format
             let re = /&/g;
             query = query.replace( re, '\',\'' );
             re = /=/g;
@@ -100,14 +100,11 @@ export class ApiService{
             }
 
             let headers = null;
-
             headers = new HttpHeaders( {
                 'Content-Type': 'application/json',
                 'Authorization': 'Bearer ' + ' < AssessToken> '
             } );
-
             let options;
-
 
             // These are returned as text not JSON (which is the default return format).
             if( queryType === Consts.LOGIN_URL || queryType === Consts.QUERY_CREATE_PROTOCOL

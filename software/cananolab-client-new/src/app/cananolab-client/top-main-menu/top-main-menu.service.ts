@@ -1,3 +1,9 @@
+// ---------------------------------------------------------------------------
+// ------ These will serve as constants used for Hiding, Showing, enabling, --
+// ------ and disabling any of these menu options, by other components. ------
+// ------ These values can also be used for the text of the menu item. -------
+// ---------------------------------------------------------------------------
+
 import { EventEmitter, Injectable } from '@angular/core';
 import { MainDisplayService } from '../main-display/main-display.service';
 

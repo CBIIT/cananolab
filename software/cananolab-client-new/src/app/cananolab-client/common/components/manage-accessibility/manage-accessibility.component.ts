@@ -19,8 +19,6 @@ export class ManageAccessibilityComponent implements OnInit{
         if( this.accessData !== undefined ){
             this.temp = clone( this.accessData );
         }
-
-
     }
 
     but(){

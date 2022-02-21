@@ -26,14 +26,11 @@ export class PointOfContactCreateComponent implements OnInit{
     showPocCreate = false;
 
     constructor( private pointOfContactService: PointOfContactService, private utilService: UtilService ){
-        console.log( 'MHL constructor PointOfContactCreateComponent' );
     }
 
     ngOnInit(): void{
-        console.log( 'MHL Setting pointOfContactService.showPointOfContactCreateEmitter.subscribe' );
         this.pointOfContactService.showPointOfContactCreateEmitter.subscribe(
             ( data ) => {
-                console.log( 'MHL POC data: ', data );
                 this.showPocCreate = data;
             }
         );
@@ -41,7 +38,6 @@ export class PointOfContactCreateComponent implements OnInit{
         if( this.sampleData === undefined){
             this.sampleData = [];
         }
-        console.log('MHL 333 sampleData[\'organizationNamesForUser\']: ',  this.sampleData['organizationNamesForUser']);
     }
 
     onPocCreateSaveClick(){

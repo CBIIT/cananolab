@@ -26,7 +26,6 @@ export class SampleCreateComponent implements OnInit{
             data => {
                 this.organizationNames = data;
                // this.pointOfContacts = this.sampleData.pointOfContacts; // FIXME we will not need this
-                console.log('MHL this.organizationNames: ', this.organizationNames);
             }
             );
     }
@@ -64,7 +63,6 @@ export class SampleCreateComponent implements OnInit{
 
 
     onAddPocClick(){
-        console.log('MHL SampleCreateComponent.onAddPocClick');
         this.pointOfContactService.showPocCreate(  );
         this.showPointOfContactCreate = true;
     }

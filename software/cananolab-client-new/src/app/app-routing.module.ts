@@ -12,14 +12,12 @@ import { TestComponent } from './cananolab-client/main-display/test/test.compone
 import { CurationComponent } from './cananolab-client/main-display/curation/curation.component';
 import { GroupsComponent } from './cananolab-client/main-display/groups/groups.component';
 import { MyFavoritesComponent } from './cananolab-client/main-display/my-favorites/my-favorites.component';
-import { AdvancedSampleComponent } from './cananolab-client/main-display/advanced-sample/advanced-sample.component';
 import { SubmitPublicationComponent } from './cananolab-client/main-display/publications/submit-publication/submit-publication.component';
 import { SearchPublicationComponent } from './cananolab-client/main-display/publications/search-publication/search-publication.component';
 import { SearchSamplesByPublicationComponent } from './cananolab-client/main-display/publications/search-samples-by-publication/search-samples-by-publication.component';
 import { ProtocolSearchComponent } from './cananolab-client/main-display/protocols/protocol-search/protocol-search.component';
 import { ProtocolCreateComponent } from './cananolab-client/main-display/protocols/protocol-create/protocol-create.component';
 import { ProtocolSearchResultsComponent } from './cananolab-client/main-display/protocols/protocol-search/protocol-search-results/protocol-search-results.component';
-import { ProtocolCreateBravoComponent } from './cananolab-client/main-display/protocols/proto-create-bravo/protocol-create-bravo.component';
 import { ProtocolCreateCharlieComponent } from './cananolab-client/main-display/protocols/protocol-create-charlie/protocol-create-charlie.component';
 import { ProtocolEditBravoComponent } from './cananolab-client/main-display/protocols/protocol-edit-bravo/protocol-edit-bravo.component';
 import { SampleSearchComponent } from './cananolab-client/main-display/samples/sample-search/sample-search.component';
@@ -56,7 +54,6 @@ const routes: Routes = [
     { path: 'home/samples/sampleCreate', component: SampleCreateComponent },
     { path: 'home/samples/samplesCopy', component: SampleCopyComponent },
 
-    { path: 'home/advancedsample', component: AdvancedSampleComponent },
     { path: 'home/curation', component: CurationComponent },
     { path: 'home/groups', component: GroupsComponent },
     { path: 'home/workflow', component: WorkflowComponent },

@@ -1,3 +1,8 @@
+// -------------------------------------------------------------------------
+// ------------  The page changer used by Sample Search results  -----------
+// ------------  and Protocol Search results                      ----------
+// -------------------------------------------------------------------------
+
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { Properties } from '../../../../../assets/properties';
 import { Subject } from 'rxjs';

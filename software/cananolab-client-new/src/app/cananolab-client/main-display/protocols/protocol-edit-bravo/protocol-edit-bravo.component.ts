@@ -1,3 +1,5 @@
+// -- This is the one, not ProtocolEditComponent
+
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Consts } from '../../../../constants';
 import { NgForm } from '@angular/forms';

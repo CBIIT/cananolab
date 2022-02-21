@@ -12,7 +12,7 @@ import { TopMenuItems } from '../top-main-menu/top-main-menu.service';
 
 @Component( {
     selector: 'canano-main-display',
-    templateUrl: './main-display.component.html',
+    template: '<html></html>',
     styleUrls: ['./main-display.component.scss']
 } )
 export class MainDisplayComponent implements OnInit, OnDestroy{

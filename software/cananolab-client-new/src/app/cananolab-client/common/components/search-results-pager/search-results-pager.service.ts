@@ -1,22 +1,28 @@
+// -------------------------------------------------------------------------
+// ------------  Service for page changer for Sample Search results  -------
+// ------------  and Protocol Search results                         -------
+// -------------------------------------------------------------------------
+
 import { EventEmitter, Injectable } from '@angular/core';
 
-@Injectable({
+@Injectable( {
     providedIn: 'root'
-})
-export class SearchResultsPagerService {
-    currentPageChangeEmitter  = new EventEmitter();
-    pageCountEmitter  = new EventEmitter();
-    pageLengthEmitter  = new EventEmitter();
-    nextPageEmitter  = new EventEmitter();
+} )
+export class SearchResultsPagerService{
+    currentPageChangeEmitter = new EventEmitter();
+    pageCountEmitter = new EventEmitter();
+    pageLengthEmitter = new EventEmitter();
+    nextPageEmitter = new EventEmitter();
 
     currentPage = 0;
     pageCount = 0;
 
-    constructor() { }
+    constructor(){
+    }
 
     setPageCount( pc ){
         this.pageCount = pc;
-        this.pageCountEmitter.emit(this.pageCount);
+        this.pageCountEmitter.emit( this.pageCount );
     }
 
     getPageCount(){

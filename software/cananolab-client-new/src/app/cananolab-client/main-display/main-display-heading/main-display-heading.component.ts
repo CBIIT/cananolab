@@ -1,5 +1,5 @@
 // ----------------------------------------------------------------------------------------
-// ---------------------            "Main Display Heading"         ------------------------
+// -------------------            "Main Display Heading"          -------------------------
 // ----------   The blueish bar across the top of the Main Display ------------------------
 // ----------   Contains topic name, context sensitive Help link, and Glossary link  ------
 // ----------------------------------------------------------------------------------------
@@ -32,8 +32,8 @@ export class MainDisplayHeadingComponent implements OnInit, OnDestroy{
             ( data ) => {
                 this.toolHeadingName = data;
                 this.setHelpUrl( );
-            } );
-
+            }
+        );
     }
 
     // @FIXME This function should be moved to the Util service - it is duplicated elsewhere

@@ -1,3 +1,7 @@
+// -----------------------------------------------------------------------------------------
+// ----------------------    The Search at top right (just stubs)   ------------------------
+// -----------------------------------------------------------------------------------------
+
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../../common/services/api.service';
 import { Consts } from '../../../constants';
@@ -27,20 +31,6 @@ export class TopKeywordSearchComponent implements OnInit{
             ( err ) => {
                 console.log( 'ERROR onTopKeyWordSearchClick: ', err );
             } );
-    }
-
-    // @TODO this will soon be duplicate code
-    getUserGroups(){
-
-        //  this.apiService.doPost( Consts.QUERY_SEARCH, 'keyword=' + this.topKeyWordSearchText ).subscribe(
-        this.apiService.doGet( Consts.QUERY_GET_USER_GROUPS, '' ).subscribe(
-            data => {
-                console.log( 'getUserGroups: ', data );
-            },
-            ( err ) => {
-                console.log( 'ERROR getUserGroups: ', err );
-            } );
-
     }
 
     /**
