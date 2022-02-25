@@ -38,11 +38,56 @@ sampleId: {{sampleId}}
                     [sampleData]="sampleData"
                 ></canano-point-of-contact>
             </td>
-
         </tr>
         <tr>
             <td>
                 Keywords:
+                <div class="keywords-container">
+                      <span class="keywords" *ngFor="let kWord of sampleData['keywords'] "> {{kWord}}</span>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <input type="text"
+                [(ngModel)]="newKeyword">
+                <button class="btn btn-primary"
+                    (click)="onAddKeyword(newKeyword)"
+                >Add</button>
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                Data Availability <br>
+                Metrics
+                <button
+                    class="btn btn-primary"
+                >
+                    Generate
+                </button>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <button
+                    class="btn btn-danger m-1"
+                    (click)="onSampleDeleteClick()"
+                >Delete</button>
+                <button
+                    class="btn btn-primary m-1"
+                    (click)="onSampleCopyClick()"
+                >Copy</button>
+            </td>
+            <td>
+                <button
+                    class="btn btn-danger m-1"
+                    (click)="onSampleResetClick()"
+                >Reset</button>
+                <button
+                    class="btn btn-primary m-1"
+                    (click)="onSampleUpdateClick()"
+                >Update</button>
             </td>
         </tr>
     </table>

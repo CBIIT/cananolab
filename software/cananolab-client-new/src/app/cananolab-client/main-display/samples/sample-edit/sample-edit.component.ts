@@ -5,6 +5,7 @@ import { Properties } from '../../../../../assets/properties';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { timeout } from 'rxjs/operators';
 import { PointOfContactService } from '../../../point-of-contact/point-of-contact.service';
+import { ApiService } from '../../../common/services/api.service';
 
 @Component( {
     selector: 'canano-sample-edit',
@@ -17,12 +18,12 @@ export class SampleEditComponent implements OnInit{
     sampleId = -1;
     sampleData;
     myParam;
-
+    newKeyword = '';
     pointOfContacts;
     showPointOfContactCreate = false;
 
     constructor( private route: ActivatedRoute, private httpClient: HttpClient,
-                 private pointOfContactService: PointOfContactService ){
+                 private pointOfContactService: PointOfContactService, private apiService: ApiService ){
     }
 
     ngOnInit(): void{
@@ -35,6 +36,47 @@ export class SampleEditComponent implements OnInit{
                         this.pointOfContacts = this.sampleData.pointOfContacts;
                     } );
             } );
+    }
+
+    onAddKeyword(newKeyword){
+        this.sampleData['keywords'].push( newKeyword );
+        this.newKeyword = '';
+    }
+
+    onSampleDeleteClick(){
+        console.log('onSampleDeleteClick');
+    }
+
+    onSampleCopyClick(){
+        console.log('onSampleCopyClick');
+    }
+
+    onSampleResetClick(){
+        console.log('onSampleResetClick');
+    }
+
+    onSampleUpdateClick(){
+        console.log('onSampleUpdateClick sampleName: ', this.sampleData['sampleName']);
+        console.log('onSampleUpdateClick sampleId: ', this.sampleData['sampleId']);
+        console.log('onSampleUpdateClick keywords: ', this.sampleData['keywords']);
+        this.updateSample();
+    }
+
+    updateSample(){
+        let sampleUpdateData = '\"sampleName\":\"' + this.sampleData['sampleName'] + '\",' + '\"sampleId\":\"' + this.sampleData['sampleId'] + '\",' + '\"keywords\":\"' + this.sampleData['keywords'] + '\"';
+        let su = {};
+        su['sampleName'] = this.sampleData['sampleName'];
+        su['sampleId'] = this.sampleData['sampleId'];
+        su['keywords'] = this.sampleData['keywords'];
+
+        this.apiService.doPost( Consts.QUERY_SAMPLE_UPDATE, su).subscribe(
+            data => {
+               console.log('Return data from QUERY_SAMPLE_UPDATE: ', data );
+            },
+            ( err ) => {
+                console.log( 'ERROR QUERY_SAMPLE_UPDATE: ', err );
+            } );
+
     }
 
     getSampleEditData(){

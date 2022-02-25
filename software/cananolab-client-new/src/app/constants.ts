@@ -17,6 +17,7 @@ export const Consts = {
     QUERY_SAMPLE_SETUP: 'caNanoLab/rest/sample/setup',
     QUERY_SEARCH_SAMPLE: 'caNanoLab/rest/sample/searchSample', // @TODO rename this SAMPLE_SEARCH
     QUERY_SAMPLE_AVAILABILITY: 'caNanoLab/rest/sample/viewDataAvailability',
+    QUERY_SAMPLE_UPDATE: 'caNanoLab/rest/sample/updateSample',
     QUERY_SAMPLE_AVAILABILITY_HTML: 'caNanoLab/views/sample/view/sampleDataAvailability.html',  // @FIXME That's not how this works
     QUERY_SAMPLE_POC_UPDATE_SAVE:  'caNanoLab/rest/sample/savePOC',
 
