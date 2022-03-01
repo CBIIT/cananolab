@@ -16,8 +16,15 @@
                         <span class="text-left float-left"><span>Name<sup><b>*</b></sup></span></span>
                     </td>
                     <td>
-                        <select>
-                            <option *ngFor="let org of sampleData['organizationNamesForUser']">
+                        <select
+                            class="custom-select"
+                            name="selectedOrganization"
+                            ngModel
+                        >
+                            <option *ngFor="let org of sampleData['organizationNamesForUser']"
+                                    (click)="roleOrganizationClicked(org)"
+                                    (change)="roleOrganizationClicked(org)"
+                            >
                                 {{org}}
                             </option>
                         </select>
@@ -26,9 +33,13 @@
                         <span class="ml-3 mr-2">Role</span>
                     </td>
                     <td>
-                        <select>
+                        <select
+                            name="selectedRole"
+                            ngModel
+                        >
                             <option
                                 *ngFor="let rol of sampleData['contactRoles']"
+                                (click)="roleSelectClicked(rol)"
                             >{{rol}}</option>
                         </select>
                     </td>

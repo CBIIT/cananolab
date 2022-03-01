@@ -34,10 +34,16 @@ export class PointOfContactEditorComponent implements OnInit{
     }
 
     onPocSaveClick(){
+        console.log('MHL onPocSaveClick');
         let q = this.buildQuery();
         this.apiService.doPost0( Consts.QUERY_SAMPLE_POC_UPDATE_SAVE, q).subscribe(
             (data) => {
                 console.log('onPocSaveClick data: ', data );
+                this.pointOfContactService.hidePocEditor();
+            },
+            (err) => {
+                console.log('MHL onPocSaveClick err[\'error\']: ', err['error'][0]);
+                alert('Error: ' + err['error'][0] );
             }
         );
     }

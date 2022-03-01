@@ -14,6 +14,9 @@ export const Consts = {
     QUERY_GET_USERS: 'caNanoLab/rest/core/getUsers',
 
     QUERY_SAMPLE_SEARCH_BY_PUB: 'caNanoLab/rest/publication/searchById',
+    QUERY_SAMPLE_GET_NAMES: 'caNanoLab/rest/sample/getSampleNames',
+    QUERY_SAMPLE_COPY: 'caNanoLab/rest/sample/copySample',
+    QUERY_SAMPLE_SUBMIT: 'caNanoLab/rest/sample/submitSample',
     QUERY_SAMPLE_SETUP: 'caNanoLab/rest/sample/setup',
     QUERY_SEARCH_SAMPLE: 'caNanoLab/rest/sample/searchSample', // @TODO rename this SAMPLE_SEARCH
     QUERY_SAMPLE_AVAILABILITY: 'caNanoLab/rest/sample/viewDataAvailability',
@@ -60,6 +63,7 @@ export const Consts = {
     HELP_URL_PUBLICATIONS: 'https://wiki.nci.nih.gov/x/e4QfEQ',
     HELP_URL_SAMPLE_SEARCH_BY_PUBLICATIONS: 'http://localhost:8090/caNanoLab/rest/publication/searchById',
     HELP_URL_SAMPLE_SEARCH: 'https://wiki.nci.nih.gov/display/caNanoLab/Managing+Samples+in+caNanoLab#ManagingSamplesincaNanoLab-SearchSample',
+    HELP_URL_SAMPLE_COPY: 'https://wiki.nci.nih.gov/display/caNanoLab/Managing+Samples+in+caNanoLab#ManagingSamplesincaNanoLab-CopySample',
 
     HELP_URL_SAMPLE_CREATE: 'https://wiki.nci.nih.gov/display/caNanoLab/Managing+Samples+in+caNanoLab#ManagingSamplesincaNanoLab-EditSample',
     HELP_URL_SAMPLE_EDIT: 'https://wiki.nci.nih.gov/display/caNanoLab/Managing+Samples+in+caNanoLab#ManagingSamplesincaNanoLab-EditSample',

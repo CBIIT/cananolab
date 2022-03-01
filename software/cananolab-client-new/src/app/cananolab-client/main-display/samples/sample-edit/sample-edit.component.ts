@@ -63,7 +63,6 @@ export class SampleEditComponent implements OnInit{
     }
 
     updateSample(){
-        let sampleUpdateData = '\"sampleName\":\"' + this.sampleData['sampleName'] + '\",' + '\"sampleId\":\"' + this.sampleData['sampleId'] + '\",' + '\"keywords\":\"' + this.sampleData['keywords'] + '\"';
         let su = {};
         su['sampleName'] = this.sampleData['sampleName'];
         su['sampleId'] = this.sampleData['sampleId'];

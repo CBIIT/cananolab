@@ -1,1 +1,57 @@
-<p>sample-copy works!</p>
+<canano-main-display-heading
+    [helpUrl]="helpUrl"
+    [toolHeadingName]="toolHeadingNameSearchSample"
+>
+</canano-main-display-heading>
+
+<div class="sample-copy-div">
+    <table class="sample-copy-table">
+        <tr>
+            <td>
+                Existing<br>Sample<sup><b>*</b></sup>
+            </td>
+            <td>
+                <input type="text"
+                [(ngModel)]="sampleName"
+                >
+                <img src="assets/images/icon_browse.jpg" alt="icon_browse.jpg"
+                (click)="browseClicked()">
+
+                <span *ngIf="showNamesMenu" >
+                    <select name="nameMenu" id="nameMenu">
+                            <option *ngFor="let nm of sampleNames"
+                            (click)="selectSampleName(nm)" >{{nm}}</option>
+                    </select>
+                </span>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                New<br>Sample<sup><b>*</b></sup>
+            </td>
+            <td>
+                <input type="text"
+                       [(ngModel)]="newSampleName"
+                >
+            </td>
+        </tr>
+
+        <tr>
+            <td></td> <td></td>
+            <td>
+                <button
+                    class="btn btn-danger"
+                >
+                    Reset
+                </button>
+                <button
+                    class="btn btn-primary"
+                    (click)="onSubmitCopyClicked()"
+                >
+                    Submit
+                </button>
+            </td>
+        </tr>
+
+    </table>
+</div>

@@ -3,7 +3,8 @@ import { Consts } from '../../../../constants';
 import { PointOfContactService } from '../../../point-of-contact/point-of-contact.service';
 import { Properties } from '../../../../../assets/properties';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { timeout } from 'rxjs/operators';
+import { takeUntil, timeout } from 'rxjs/operators';
+import { Subject } from 'rxjs';
 
 @Component( {
     selector: 'canano-sample-create',
@@ -14,20 +15,33 @@ export class SampleCreateComponent implements OnInit{
     helpUrl = Consts.HELP_URL_SAMPLE_EDIT;
     toolHeadingNameSearchSample = 'Create Sample';
 
-    pointOfContacts = undefined;
-    sampleData = undefined;
+    pointOfContacts = [];
+    userGroups = undefined;
+    sampleData = {};
+    sampleName = '';
+    sampleId = '';
     showPointOfContactCreate = false;
     organizationNames = [];
+    private ngUnsubscribe: Subject<boolean> = new Subject<boolean>();
+
     constructor(private pointOfContactService: PointOfContactService, private httpClient: HttpClient){
     }
 
     ngOnInit(): void{
-        this.sampleData = this.getUserGroups().subscribe(  // @TODO move this to a common service
+        this.userGroups = this.getUserGroups().subscribe(  // @TODO move this to a common service
             data => {
                 this.organizationNames = data;
-               // this.pointOfContacts = this.sampleData.pointOfContacts; // FIXME we will not need this
             }
             );
+
+        this.pointOfContactService.emitNewPocEmitter.pipe( takeUntil( this.ngUnsubscribe ) ).subscribe(
+            (data) => {
+                console.log('MHL pointOfContactService.emitNewPocEmitter data: ', data);
+                this.sampleId = data['sampleId'];
+                this.pointOfContacts.push(data);
+                console.log('MHL sampleId: ', this.sampleId);
+        });
+
     }
 
 
@@ -59,6 +73,44 @@ export class SampleCreateComponent implements OnInit{
         }
         return results;
 
+    }
+
+    onSaveSample(){
+        /*
+        {
+   "sampleName":"vvvvv vvvvv",
+   "newSampleName":null,
+   "sampleId":0,
+   "pointOfContacts":[
+      {
+         "organization":{
+            "name":"BWH_AnesthesiologyD"
+         },
+         "role":"Program Manager",
+         "dirty":true
+      }
+   ],
+   "keywords":[
+
+   ]
+         */
+
+        this.sampleData['sampleName'] = this.sampleName;
+        this.sampleData['newSampleName'] = null;
+        this.sampleData['sampleId'] = 0;
+        console.log('MHL onSaveSample sampleName: ', this.sampleName);
+        console.log('MHL this.pointOfContacts: ', this.pointOfContacts);
+
+        this.pocForSampleSubmit();
+    }
+
+    pocForSampleSubmit(){
+        let pocArray = [];
+        for (let i = 0; i < this.pointOfContacts.length; i++) {
+            console.log(this.pointOfContacts[i]);
+            let temp = {};
+            temp['organization'] = { }
+        }
     }
 
 

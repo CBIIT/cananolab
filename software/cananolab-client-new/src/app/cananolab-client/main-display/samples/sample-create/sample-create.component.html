@@ -10,7 +10,10 @@
                 Sample Name<sup><b>*</b></sup>
             </td>
             <td>
-                <input type="text">
+                <input
+                    [(ngModel)]="sampleName"
+                    type="text"
+                >
             </td>
         </tr>
         <tr>
@@ -24,19 +27,26 @@
             </td>
         </tr>
         <tr>
-<!--
-            <td colspan="3">
-                <canano-point-of-contact
-                    [poc] = pointOfContacts
-                    [sampleData]= "sampleData"
-                ></canano-point-of-contact>
-
+            <td></td>
+            <td>
+                <button
+                    class="btn btn-danger"
+                >
+                    Reset
+                </button>
+                <button
+                    class="btn btn-primary"
+                    (click)="onSaveSample()"
+                >
+                    Save
+                </button>
             </td>
--->
         </tr>
     </table>
 </div>
 
 <canano-point-of-contact-create
+    [poc]=pointOfContacts
     [sampleData]="organizationNames"
+    [sampleName]="sampleName"
 ></canano-point-of-contact-create>
