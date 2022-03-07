@@ -49,17 +49,20 @@ import { ProtocolSearchResultsDisplayHrefPipe } from './cananolab-client/main-di
 import { ProtocolViewComponent } from './cananolab-client/main-display/protocols/protocol-view/protocol-view.component';
 import { ProtocolCreateCharlieComponent } from './cananolab-client/main-display/protocols/protocol-create-charlie/protocol-create-charlie.component';
 import { ProtocolEditBravoComponent } from './cananolab-client/main-display/protocols/protocol-edit-bravo/protocol-edit-bravo.component';
-import { SampleSearchComponent } from './cananolab-client/main-display/samples/sample-search/sample-search.component';
-import { SampleSearchResultsComponent } from './cananolab-client/main-display/samples/sample-search/sample-search-results/sample-search-results.component';
-import { SampleCreateComponent } from './cananolab-client/main-display/samples/sample-create/sample-create.component';
-import { SampleCopyComponent } from './cananolab-client/main-display/samples/sample-copy/sample-copy.component';
-import { SampleAdvancedSearchComponent } from './cananolab-client/main-display/samples/sample-search/sample-advanced-search/sample-advanced-search.component';
-import { SampleAvailabilityDisplayComponent } from './cananolab-client/main-display/samples/sample-search/sample-search-results/sample-availability-display/sample-availability-display.component';
-import { SampleEditComponent } from './cananolab-client/main-display/samples/sample-edit/sample-edit.component';
+import { SampleSearchComponent } from './cananolab-client/main-display/samples/general-info/sample-search/sample-search.component';
+import { SampleSearchResultsComponent } from './cananolab-client/main-display/samples/general-info/sample-search/sample-search-results/sample-search-results.component';
+import { SampleCreateComponent } from './cananolab-client/main-display/samples/general-info/sample-create/sample-create.component';
+import { SampleCopyComponent } from './cananolab-client/main-display/samples/general-info/sample-copy/sample-copy.component';
+import { SampleAdvancedSearchComponent } from './cananolab-client/main-display/samples/general-info/sample-search/sample-advanced-search/sample-advanced-search.component';
+import { SampleAvailabilityDisplayComponent } from './cananolab-client/main-display/samples/general-info/sample-search/sample-search-results/sample-availability-display/sample-availability-display.component';
+import { SampleEditComponent } from './cananolab-client/main-display/samples/general-info/sample-edit/sample-edit.component';
 import { SampleViewComponent } from './cananolab-client/main-display/samples/sample-view/sample-view.component';
 import { PointOfContactComponent } from './cananolab-client/point-of-contact/point-of-contact.component';
 import { PointOfContactEditorComponent } from './cananolab-client/point-of-contact/point-of-contact-editor/point-of-contact-editor.component';
 import { PointOfContactCreateComponent } from './cananolab-client/point-of-contact/point-of-contact-create/point-of-contact-create.component';
+import { CharacterizationComponent } from './cananolab-client/main-display/samples/characterization/characterization/characterization.component';
+import { CompositionComponent } from './cananolab-client/main-display/samples/composition/composition/composition.component';
+import { SamplePublicationsComponent } from './cananolab-client/main-display/samples/publications/sample-publications/sample-publications.component';
 
 @NgModule({
   declarations: [
@@ -117,7 +120,10 @@ import { PointOfContactCreateComponent } from './cananolab-client/point-of-conta
     SampleViewComponent,
     PointOfContactComponent,
     PointOfContactEditorComponent,
-    PointOfContactCreateComponent
+    PointOfContactCreateComponent,
+    CharacterizationComponent,
+    CompositionComponent,
+    SamplePublicationsComponent
   ],
     imports: [
         BrowserModule,

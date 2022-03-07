@@ -1,8 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { Consts } from '../../../../constants';
-import { ApiService } from '../../../common/services/api.service';
-import { UtilService } from '../../../common/services/util.service';
+import { Consts } from '../../../../../constants';
+import { ApiService } from '../../../../common/services/api.service';
+import { UtilService } from '../../../../common/services/util.service';
 import { Router } from '@angular/router';
 import { SampleSearchResultsService } from './sample-search-results/sample-search-results.service';
 

@@ -10,6 +10,10 @@ export class PointOfContactService {
     hidePointOfContactCreateEmitter = new EventEmitter();
     emitNewPocEmitter = new EventEmitter();
 
+    // A new sample doesn't know its own Id until its POC is created
+    sampleId = '';
+    sampleIdEmitter = new EventEmitter();
+
   constructor() { }
 
     showPocEditor(){
@@ -30,9 +34,20 @@ export class PointOfContactService {
 
     // For Create sample
     emitNewPoc( poc ){
+      console.log('MHL emitNewPoc( poc ): ', poc);
         this.emitNewPocEmitter.emit( poc );
     }
 
+/*
+    setSampleId( sampleId ){
+      this.sampleId = sampleId;
+      this.sampleIdEmitter.emit( sampleId );
+    }
+
+    getSampleId(){
+      return this.sampleId;
+    }
+    */
     // @TODO we will do this differently
     buildSavePocQuery( sampleName, pocArray ){
       console.log('MHL buildSavePocQuery sampleName: ', sampleName);

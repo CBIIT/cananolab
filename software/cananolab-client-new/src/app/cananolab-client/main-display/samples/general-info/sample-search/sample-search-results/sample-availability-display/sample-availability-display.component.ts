@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { SampleAvailabilityDisplayService } from './sample-availability-display.service';
 import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
-import { Consts } from '../../../../../../constants';
-import { ApiService } from '../../../../../common/services/api.service';
+import { Consts } from '../../../../../../../constants';
+import { ApiService } from '../../../../../../common/services/api.service';
 
 @Component( {
     selector: 'canano-sample-availability-display',

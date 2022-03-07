@@ -31,7 +31,10 @@ export let Properties = {
     COUNTER: 0,
 
     PROTOCOL_TYPES: [],
-    PROTOCOL_CSM_ROLES: []
+    PROTOCOL_CSM_ROLES: [],
+    SAMPLE_TOOLS: false,
+    CURRENT_SAMPLE_ID: 0,
+    CURRENT_SAMPLE_NAME: ''
 
 
 }

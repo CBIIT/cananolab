@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { Consts } from '../../../../constants';
-import { PointOfContactService } from '../../../point-of-contact/point-of-contact.service';
-import { Properties } from '../../../../../assets/properties';
+import { Consts } from '../../../../../constants';
+import { PointOfContactService } from '../../../../point-of-contact/point-of-contact.service';
+import { Properties } from '../../../../../../assets/properties';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { takeUntil, timeout } from 'rxjs/operators';
 import { Subject } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component( {
     selector: 'canano-sample-create',
@@ -24,7 +25,8 @@ export class SampleCreateComponent implements OnInit{
     organizationNames = [];
     private ngUnsubscribe: Subject<boolean> = new Subject<boolean>();
 
-    constructor(private pointOfContactService: PointOfContactService, private httpClient: HttpClient){
+    constructor(private pointOfContactService: PointOfContactService, private httpClient: HttpClient,
+                 private router: Router){
     }
 
     ngOnInit(): void{
@@ -37,10 +39,12 @@ export class SampleCreateComponent implements OnInit{
         this.pointOfContactService.emitNewPocEmitter.pipe( takeUntil( this.ngUnsubscribe ) ).subscribe(
             (data) => {
                 console.log('MHL pointOfContactService.emitNewPocEmitter data: ', data);
-                this.sampleId = data['sampleId'];
+                this.sampleId = data.sampleId;
                 this.pointOfContacts.push(data);
-                console.log('MHL sampleId: ', this.sampleId);
-        });
+                console.log('MHL ********************************************** sampleId: ', this.sampleId);
+                this.router.navigate(['home/samples/samplesEdit', '?sampleId=' + this.sampleId ]);  // @FIXME  Don't hard code these
+
+            });
 
     }
 

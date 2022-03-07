@@ -5,18 +5,43 @@
 // -------------------------------------------------------------------------
 
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { UtilService } from '../common/services/util.service';
+import { Properties } from '../../../assets/properties';
 
-@Component({
-  selector: 'canano-left-navigation-menu',
-  templateUrl: './left-navigation-menu.component.html',
-  styleUrls: ['./left-navigation-menu.component.scss']
-})
-export class LeftNavigationMenuComponent implements OnInit {
+@Component( {
+    selector: 'canano-left-navigation-menu',
+    templateUrl: './left-navigation-menu.component.html',
+    styleUrls: ['./left-navigation-menu.component.scss']
+} )
+export class LeftNavigationMenuComponent implements OnInit{
     topHeading = 'Navigation Tree';
+    currentSelectedItem = 0;
 
-  constructor() { }
+    constructor( private router: Router, private utilService: UtilService ){
+    }
 
-  ngOnInit(): void {
-  }
+    ngOnInit(): void{
+    }
+
+    onCharacterizationClick(){
+        this.currentSelectedItem = 2;
+        this.router.navigate( ['home/samples/samplesCharacterization', '?sampleId=' + Properties.CURRENT_SAMPLE_ID] );  // @FIXME  Don't hard code these
+    }
+
+    onGeneralInfoClick(){
+        this.currentSelectedItem = 0;
+        this.router.navigate( ['home/samples/samplesEdit', '?sampleId=' + Properties.CURRENT_SAMPLE_ID] );  // @FIXME  Don't hard code these
+    }
+
+    onCompositionClick(){
+        this.currentSelectedItem = 1;
+        this.router.navigate( ['home/samples/composition', '?sampleId=' + Properties.CURRENT_SAMPLE_ID] );  // @FIXME  Don't hard code these
+    }
+
+    onPublicationsClick(){
+        this.currentSelectedItem = 3;
+        this.router.navigate( ['home/samples/publications', '?sampleId=' + Properties.CURRENT_SAMPLE_ID] );  // @FIXME  Don't hard code these
+    }
 
 }

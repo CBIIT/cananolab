@@ -60,9 +60,14 @@ export const Consts = {
     QUERY_ADD_FAVORITE: '/caNanoLab/rest/core/addFavorite',
 
     HELP_URL_WORKFLOW: 'https://wiki.nci.nih.gov/display/caNanoLab/Getting+Started+in+caNanoLab#GettingStartedincaNanoLab-UsingtheWorkflowtoGetStarted',
+    // Publications top menu
     HELP_URL_PUBLICATIONS: 'https://wiki.nci.nih.gov/x/e4QfEQ',
+    // Publications within sample
+    HELP_URL_SAMPLE_PUBLICATIONS: 'https://wiki.nci.nih.gov/display/caNanoLab/Managing+Sample+Composition+Annotations#ManagingSampleCompositionAnnotations-Composition',
     HELP_URL_SAMPLE_SEARCH_BY_PUBLICATIONS: 'http://localhost:8090/caNanoLab/rest/publication/searchById',
-    HELP_URL_SAMPLE_SEARCH: 'https://wiki.nci.nih.gov/display/caNanoLab/Managing+Samples+in+caNanoLab#ManagingSamplesincaNanoLab-SearchSample',
+    HELP_URL_SAMPLE_CHARACTERIZATION: 'https://wiki.nci.nih.gov/display/caNanoLab/Managing+Sample+Characterizations#ManagingSampleCharacterizations-Characterization',
+    HELP_URL_SAMPLE_COMPOSITION: 'https://wiki.nci.nih.gov/display/caNanoLab/Managing+Sample+Characterizations#ManagingSampleCharacterizations-Composition',
+    HELP_URL_SAMPLE_SEARCH: 'https://wiki.nci.nih.gov/display/caNanoLab/Managing+Sample+Characterizations#ManagingSampleCharacterizations-Characterization',
     HELP_URL_SAMPLE_COPY: 'https://wiki.nci.nih.gov/display/caNanoLab/Managing+Samples+in+caNanoLab#ManagingSamplesincaNanoLab-CopySample',
 
     HELP_URL_SAMPLE_CREATE: 'https://wiki.nci.nih.gov/display/caNanoLab/Managing+Samples+in+caNanoLab#ManagingSamplesincaNanoLab-EditSample',

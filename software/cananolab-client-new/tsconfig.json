@@ -2,6 +2,7 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
+      "paths":{ "@assets": [ "src/assets" ]      },
     "baseUrl": "./",
     "outDir": "./dist/out-tsc",
     "sourceMap": true,

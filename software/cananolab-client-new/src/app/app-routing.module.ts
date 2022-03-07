@@ -20,13 +20,16 @@ import { ProtocolCreateComponent } from './cananolab-client/main-display/protoco
 import { ProtocolSearchResultsComponent } from './cananolab-client/main-display/protocols/protocol-search/protocol-search-results/protocol-search-results.component';
 import { ProtocolCreateCharlieComponent } from './cananolab-client/main-display/protocols/protocol-create-charlie/protocol-create-charlie.component';
 import { ProtocolEditBravoComponent } from './cananolab-client/main-display/protocols/protocol-edit-bravo/protocol-edit-bravo.component';
-import { SampleSearchComponent } from './cananolab-client/main-display/samples/sample-search/sample-search.component';
-import { SampleCreateComponent } from './cananolab-client/main-display/samples/sample-create/sample-create.component';
-import { SampleCopyComponent } from './cananolab-client/main-display/samples/sample-copy/sample-copy.component';
-import { SampleAdvancedSearchComponent } from './cananolab-client/main-display/samples/sample-search/sample-advanced-search/sample-advanced-search.component';
-import { SampleSearchResultsComponent } from './cananolab-client/main-display/samples/sample-search/sample-search-results/sample-search-results.component';
-import { SampleEditComponent } from './cananolab-client/main-display/samples/sample-edit/sample-edit.component';
+import { SampleSearchComponent } from './cananolab-client/main-display/samples/general-info/sample-search/sample-search.component';
+import { SampleCreateComponent } from './cananolab-client/main-display/samples/general-info/sample-create/sample-create.component';
+import { SampleCopyComponent } from './cananolab-client/main-display/samples/general-info/sample-copy/sample-copy.component';
+import { SampleAdvancedSearchComponent } from './cananolab-client/main-display/samples/general-info/sample-search/sample-advanced-search/sample-advanced-search.component';
+import { SampleSearchResultsComponent } from './cananolab-client/main-display/samples/general-info/sample-search/sample-search-results/sample-search-results.component';
+import { SampleEditComponent } from './cananolab-client/main-display/samples/general-info/sample-edit/sample-edit.component';
 import { SampleViewComponent } from './cananolab-client/main-display/samples/sample-view/sample-view.component';
+import { CharacterizationComponent } from './cananolab-client/main-display/samples/characterization/characterization/characterization.component';
+import { CompositionComponent } from './cananolab-client/main-display/samples/composition/composition/composition.component';
+import { SamplePublicationsComponent } from './cananolab-client/main-display/samples/publications/sample-publications/sample-publications.component';
 
 const routes: Routes = [
     { path: '', component: HomeComponent },
@@ -53,6 +56,9 @@ const routes: Routes = [
     { path: 'home/samples/samplesAdvancedSearch', component: SampleAdvancedSearchComponent },
     { path: 'home/samples/sampleCreate', component: SampleCreateComponent },
     { path: 'home/samples/samplesCopy', component: SampleCopyComponent },
+    { path: 'home/samples/samplesCharacterization/:sampleId', component: CharacterizationComponent },
+    { path: 'home/samples/composition/:sampleId', component: CompositionComponent },
+    { path: 'home/samples/publications/:sampleId', component: SamplePublicationsComponent },
 
     { path: 'home/curation', component: CurationComponent },
     { path: 'home/groups', component: GroupsComponent },

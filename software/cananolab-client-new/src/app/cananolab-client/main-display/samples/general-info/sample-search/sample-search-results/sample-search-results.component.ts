@@ -1,12 +1,12 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { SampleSearchResultsService } from './sample-search-results.service';
-import { Consts, SortState } from '../../../../../constants';
-import { Properties } from '../../../../../../assets/properties';
+import { Consts, SortState } from '../../../../../../constants';
+import { Properties } from '../../../../../../../assets/properties';
 import { takeUntil, timeout } from 'rxjs/operators';
-import { SearchResultsPagerService } from '../../../../common/components/search-results-pager/search-results-pager.service';
+import { SearchResultsPagerService } from '../../../../../common/components/search-results-pager/search-results-pager.service';
 import { Subject } from 'rxjs';
-import { StatusDisplayService } from '../../../../status-display/status-display.service';
-import { ApiService } from '../../../../common/services/api.service';
+import { StatusDisplayService } from '../../../../../status-display/status-display.service';
+import { ApiService } from '../../../../../common/services/api.service';
 import { SampleAvailabilityDisplayService } from './sample-availability-display/sample-availability-display.service';
 import { Router } from '@angular/router';
 

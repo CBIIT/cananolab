@@ -85,19 +85,23 @@ export class PointOfContactCreateComponent implements OnInit, AfterViewInit{
         this.pocData['address']['country'] = this.addressCountry;
         pointOfContacts.push( this.pocData);
         dto['pointOfContacts'] = pointOfContacts;
-        this.pointOfContactService.emitNewPoc( this.pocData );
 
         this.apiService.doPost( Consts.QUERY_SAMPLE_POC_UPDATE_SAVE, dto ).subscribe(
             data => {
-                console.log('MHL Form server POC save: ', data);
+                console.log('MHL 100 Form server POC save: ', data);
+                console.log('MHL *****  SAMPLEID:  ', data['sampleId']); // @TODO IF THIS POC IS FOR A SAMPLE, JUMP TO UPDATE SAMPLE SCREEN HERE
+                this.pocData['sampleId'] = data['sampleId']; // The Sample creator will need this
+                console.log('MHL 101 Form server POC save: ', data);
+                this.pointOfContactService.emitNewPoc( this.pocData );
+                this.showPocCreate = false;
+                console.log( 'MHL 102 XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX  onPocCreateSaveClick dto: ', dto );
             },
             (err) => {
                 console.log('MHL ERROR Form server POC save: ', err);
+                this.showPocCreate = false;
             }
             );
 
-        this.showPocCreate = false;
-        console.log( 'MHL XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX  onPocCreateSaveClick dto: ', dto );
     }
 
     roleSelectClicked( rol ){

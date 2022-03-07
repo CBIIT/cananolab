@@ -1,18 +1,18 @@
-import { Component, OnInit } from '@angular/core';
-import { Consts } from '../../../../constants';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Consts } from '../../../../../constants';
 import { ActivatedRoute, Params } from '@angular/router';
-import { Properties } from '../../../../../assets/properties';
+import { Properties } from '../../../../../../assets/properties';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { timeout } from 'rxjs/operators';
-import { PointOfContactService } from '../../../point-of-contact/point-of-contact.service';
-import { ApiService } from '../../../common/services/api.service';
+import { PointOfContactService } from '../../../../point-of-contact/point-of-contact.service';
+import { ApiService } from '../../../../common/services/api.service';
 
 @Component( {
     selector: 'canano-sample-edit',
     templateUrl: './sample-edit.component.html',
     styleUrls: ['./sample-edit.component.scss']
 } )
-export class SampleEditComponent implements OnInit{
+export class SampleEditComponent implements OnInit, OnDestroy{
     helpUrl = Consts.HELP_URL_SAMPLE_EDIT;
     toolHeadingNameSearchSample = 'Update Sample';
     sampleId = -1;
@@ -29,36 +29,50 @@ export class SampleEditComponent implements OnInit{
     ngOnInit(): void{
         this.route.params.subscribe(
             ( params: Params ) => {
+                console.log( 'MHL RRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR: ', params );
                 this.sampleId = params['sampleId'].replace( /^.*\?sampleId=/, '' );
+                if(
+                    this.sampleId <= 0 ){
+                    console.log( 'MHL Set sample id to: ', Properties.CURRENT_SAMPLE_ID );
+                    this.sampleId = Properties.CURRENT_SAMPLE_ID;
+                }else{
+                    console.log( 'MHL Set Properties.CURRENT_SAMPLE_ID to: ', Properties.CURRENT_SAMPLE_ID );
+                    Properties.CURRENT_SAMPLE_ID = this.sampleId;
+                }
+
                 this.sampleData = this.getSampleEditData().subscribe(
                     data => {
+                        console.log( 'MHL ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ: ', params );
+                        Properties.SAMPLE_TOOLS = true;
                         this.sampleData = data;
+                        console.log('MHL 600 ***** sampleData: ', data['sampleName'] );
+                        Properties.CURRENT_SAMPLE_NAME = data['sampleName'];
                         this.pointOfContacts = this.sampleData.pointOfContacts;
                     } );
             } );
     }
 
-    onAddKeyword(newKeyword){
+    onAddKeyword( newKeyword ){
         this.sampleData['keywords'].push( newKeyword );
         this.newKeyword = '';
     }
 
     onSampleDeleteClick(){
-        console.log('onSampleDeleteClick');
+        console.log( 'onSampleDeleteClick' );
     }
 
     onSampleCopyClick(){
-        console.log('onSampleCopyClick');
+        console.log( 'onSampleCopyClick' );
     }
 
     onSampleResetClick(){
-        console.log('onSampleResetClick');
+        console.log( 'onSampleResetClick' );
     }
 
     onSampleUpdateClick(){
-        console.log('onSampleUpdateClick sampleName: ', this.sampleData['sampleName']);
-        console.log('onSampleUpdateClick sampleId: ', this.sampleData['sampleId']);
-        console.log('onSampleUpdateClick keywords: ', this.sampleData['keywords']);
+        console.log( 'onSampleUpdateClick sampleName: ', this.sampleData['sampleName'] );
+        console.log( 'onSampleUpdateClick sampleId: ', this.sampleData['sampleId'] );
+        console.log( 'onSampleUpdateClick keywords: ', this.sampleData['keywords'] );
         this.updateSample();
     }
 
@@ -68,9 +82,9 @@ export class SampleEditComponent implements OnInit{
         su['sampleId'] = this.sampleData['sampleId'];
         su['keywords'] = this.sampleData['keywords'];
 
-        this.apiService.doPost( Consts.QUERY_SAMPLE_UPDATE, su).subscribe(
+        this.apiService.doPost( Consts.QUERY_SAMPLE_UPDATE, su ).subscribe(
             data => {
-               console.log('Return data from QUERY_SAMPLE_UPDATE: ', data );
+                console.log( 'Return data from QUERY_SAMPLE_UPDATE: ', data );
             },
             ( err ) => {
                 console.log( 'ERROR QUERY_SAMPLE_UPDATE: ', err );
@@ -109,6 +123,10 @@ export class SampleEditComponent implements OnInit{
     onAddPocClick(){
         this.pointOfContactService.showPointOfContactCreateEmitter.emit( true );
         this.showPointOfContactCreate = true;
+    }
+
+    ngOnDestroy(): void{
+        console.log( 'MHL ngOnDestroy()*****************************************************************************' );
     }
 
 //    http://cent16:8090/caNanoLab/rest/sample/edit?sampleId=88932368
