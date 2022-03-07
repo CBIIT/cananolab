@@ -5,4 +5,4 @@ caNanoLab Docker
 4. Can be used with docker volume. Refer to docker documentation.
 
 Restarting docker after code change:
-1. Simply run ./start.sh or the following: docker-compose stop, docker-compose up
+1.  Simply run ./start.sh or the following: docker-compose stop, docker-compose up
