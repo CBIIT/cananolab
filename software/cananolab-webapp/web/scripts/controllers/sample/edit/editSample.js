@@ -41,7 +41,8 @@ var app = angular.module('angularApp')
         $scope.sampleData.isPublic = false;
         $scope.accessForm.theAccess.accessType = 'group';
         $scope.accessExists = false;
-
+        $scope.isCreateSample = $location.path().indexOf('submitSample')!=-1 ? 1:0;
+        console.log($scope.isCreateSample)
         var editSampleData = {
             "editSampleData": {
                 "dirty": false
