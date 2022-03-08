@@ -14,8 +14,8 @@
             <td align="right" width="30%">
                 <button class="btn-canano back btn-canano-xs" ng-click="goBack()">Back</button>
 
-                <a class="helpText" ng-click="exportJson()" href="">Export<span class="small-link-text"> (JSON)</span></a>&nbsp;
-                <a class="helpText" ng-click="exportXml()" href="">Export<span class="small-link-text"> (XML)</span></a>&nbsp;
+                <a ng-if="!isCreateSample" class="helpText" ng-click="exportJson()" href="">Export<span class="small-link-text"> (JSON)</span></a>&nbsp;
+                <a ng-if="!isCreateSample" class="helpText" ng-click="exportXml()" href="">Export<span class="small-link-text"> (XML)</span></a>&nbsp;
 
                 <a class="helpText" href="javascript:openHelpWindow('https://wiki.nci.nih.gov/display/caNanoLab/Managing+Samples+in+caNanoLab#ManagingSamplesincaNanoLab-SubmitSample')" ng-if="updateButton=='Submit'">Help</a>
                 <a class="helpText" href="javascript:openHelpWindow('https://wiki.nci.nih.gov/display/caNanoLab/Managing+Samples+in+caNanoLab#ManagingSamplesincaNanoLab-EditSample')" ng-if="updateButton!='Submit'">Help</a>                
