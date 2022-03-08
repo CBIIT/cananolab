@@ -6,26 +6,23 @@
     <span class="m-1"><strong>No account is required to browse publicly available data.</strong></span>
   <table class="ml-2">
       <tr>
-          <td style="text-align: right;"
-
-          >
-              LOGIN ID
+          <td style="text-align: right;">
+            <label for="loginId">LOGIN ID</label>              
           </td>
           <td>
               <input
                   [(ngModel)]="user"
-                  type="text"
-              >
+                  type="text" id="loginId">
           </td>
       </tr>
       <tr>
           <td style="text-align: right;">
-              PASSWORD
+            <label for="password">PASSWORD</label>
           </td>
           <td>
               <input
                   [(ngModel)]="password"
-                  type="password"
+                  type="password" id="password"
               >
           </td>
       </tr>
