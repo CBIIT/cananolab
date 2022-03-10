@@ -7,4 +7,5 @@ jar -cvf cananolab_new_client.war *
 
 
 
+
 cp cananolab_new_client.war /opt/wildfly-8.2.1.Final/standalone/deployments
