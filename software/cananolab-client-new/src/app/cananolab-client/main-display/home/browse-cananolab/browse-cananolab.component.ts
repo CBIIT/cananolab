@@ -46,4 +46,10 @@ export class BrowseCananolabComponent implements OnInit{
         this.router.navigate( [this.utilService.getRouteByName( 'SAMPLES' )] );
 
     }
+
+    // searches and returns all samples publicly available to user //
+    // redirects to sample results //
+    onSearchAllSamplesClick() {
+        console.log("I am clicking")
+    }
 }
