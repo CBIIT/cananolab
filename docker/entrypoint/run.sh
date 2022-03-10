@@ -2,7 +2,7 @@
 if [ -d "/usr/local/cananolab/software" ]; then
         echo "Skipping cananolab install"
 else
-  cp -R /tmp/cananolab /usr/local  
+  cp -R /tmp/cananolab /usr/local
   echo "Moving Repo to /usr/local"
   # run db stuff #
   cd software/cananolab-webapp/db-scripts
@@ -18,8 +18,8 @@ fi
 echo "entering cananolab directory"
 cd cananolab
 echo "pulling latest code from github"
-git checkout synthesis
-git pull 
+#git checkout master
+git pull
 
 JBOSS_HOME=/opt/wildfly-8.2.1.Final
 JBOSS_CLI=$JBOSS_HOME/bin/jboss-cli.sh
@@ -51,5 +51,3 @@ fi
 
 echo "=> Restarting WildFly"
 $JBOSS_HOME/bin/$JBOSS_MODE.sh -b 0.0.0.0 -bmanagement 0.0.0.0 -c $JBOSS_CONFIG
-
-
