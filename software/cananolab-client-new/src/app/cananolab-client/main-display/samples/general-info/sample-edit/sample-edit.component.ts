@@ -29,23 +29,18 @@ export class SampleEditComponent implements OnInit, OnDestroy{
     ngOnInit(): void{
         this.route.params.subscribe(
             ( params: Params ) => {
-                console.log( 'MHL RRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR: ', params );
                 this.sampleId = params['sampleId'].replace( /^.*\?sampleId=/, '' );
                 if(
                     this.sampleId <= 0 ){
-                    console.log( 'MHL Set sample id to: ', Properties.CURRENT_SAMPLE_ID );
                     this.sampleId = Properties.CURRENT_SAMPLE_ID;
                 }else{
-                    console.log( 'MHL Set Properties.CURRENT_SAMPLE_ID to: ', Properties.CURRENT_SAMPLE_ID );
                     Properties.CURRENT_SAMPLE_ID = this.sampleId;
                 }
 
                 this.sampleData = this.getSampleEditData().subscribe(
                     data => {
-                        console.log( 'MHL ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ: ', params );
                         Properties.SAMPLE_TOOLS = true;
                         this.sampleData = data;
-                        console.log('MHL 600 ***** sampleData: ', data['sampleName'] );
                         Properties.CURRENT_SAMPLE_NAME = data['sampleName'];
                         this.pointOfContacts = this.sampleData.pointOfContacts;
                     } );
@@ -126,10 +121,6 @@ export class SampleEditComponent implements OnInit, OnDestroy{
     }
 
     ngOnDestroy(): void{
-        console.log( 'MHL ngOnDestroy()*****************************************************************************' );
     }
 
-//    http://cent16:8090/caNanoLab/rest/sample/edit?sampleId=88932368
-    // GET
-    // 	http://cent16:8090/caNanoLab/rest/sample/edit?sampleId=88932368
 }

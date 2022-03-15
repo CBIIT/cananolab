@@ -30,7 +30,6 @@ export class SampleCopyComponent implements OnInit{
         this.apiService.doGet( Consts.QUERY_SAMPLE_GET_NAMES, '' ).subscribe(
             data => {
                 this.sampleNames = data;
-                console.log( 'MHL Got sampleNames: ', this.sampleNames );
             },
             ( err ) => {
                 console.log( 'MHL ERROR sampleNames: ', err );
@@ -41,10 +40,7 @@ export class SampleCopyComponent implements OnInit{
     }
 
     browseClicked(){
-        console.log( 'MHL browseClicked' );
         this.showNamesMenu = ! this.showNamesMenu;
-
-        // QUERY_SAMPLE_GET_NAMES
     }
 
     navigateToSampleEdit( sampleId ){
@@ -56,10 +52,8 @@ export class SampleCopyComponent implements OnInit{
     }
 
     onSubmitCopyClicked(){
-        console.log( 'MHL onSubmitCopyClicked' );
         this.apiService.doPost( Consts.QUERY_SAMPLE_COPY, { 'newSampleName': this.newSampleName, 'sampleName': this.sampleName } ).subscribe(
             data => {
-
                 console.log( 'MHL Copy sample: ', data );
             },
             ( err ) => {

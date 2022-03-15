@@ -34,7 +34,6 @@ export class PointOfContactService {
 
     // For Create sample
     emitNewPoc( poc ){
-      console.log('MHL emitNewPoc( poc ): ', poc);
         this.emitNewPocEmitter.emit( poc );
     }
 
@@ -50,8 +49,6 @@ export class PointOfContactService {
     */
     // @TODO we will do this differently
     buildSavePocQuery( sampleName, pocArray ){
-      console.log('MHL buildSavePocQuery sampleName: ', sampleName);
-      console.log('MHL buildSavePocQuery pocArray: ', pocArray);
         let query = '{"sampleName": "' + sampleName + '",';
         query += '"sampleId": ' + pocArray[0]['sampleId'] + ',';
         query += '"pointOfContacts":[ ';

@@ -129,7 +129,6 @@ export class ApiService{
      * @param query
      */
     doPost0( queryType, query: any ): Observable<any>{
-        console.log('MHL doPost0');
         if( typeof query === 'object' ){
             query = JSON.stringify( query ); // .replace(/^{"/, '').replace(/"}$/, '')
         }else{
