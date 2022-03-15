@@ -38,9 +38,6 @@ export class PointOfContactCreateComponent implements OnInit, AfterViewInit{
     }
 
     ngOnInit(): void{
-        console.log('MHL sampleName: ', this.sampleName);
-        console.log('MHL this.sampleData: ', this.sampleData);
-
         this.pointOfContactService.showPointOfContactCreateEmitter.subscribe(
             ( data ) => {
                 this.showPocCreate = data;
@@ -88,13 +85,9 @@ export class PointOfContactCreateComponent implements OnInit, AfterViewInit{
 
         this.apiService.doPost( Consts.QUERY_SAMPLE_POC_UPDATE_SAVE, dto ).subscribe(
             data => {
-                console.log('MHL 100 Form server POC save: ', data);
-                console.log('MHL *****  SAMPLEID:  ', data['sampleId']); // @TODO IF THIS POC IS FOR A SAMPLE, JUMP TO UPDATE SAMPLE SCREEN HERE
                 this.pocData['sampleId'] = data['sampleId']; // The Sample creator will need this
-                console.log('MHL 101 Form server POC save: ', data);
                 this.pointOfContactService.emitNewPoc( this.pocData );
                 this.showPocCreate = false;
-                console.log( 'MHL 102 XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX  onPocCreateSaveClick dto: ', dto );
             },
             (err) => {
                 console.log('MHL ERROR Form server POC save: ', err);
@@ -110,12 +103,10 @@ export class PointOfContactCreateComponent implements OnInit, AfterViewInit{
 
     // @TODO Rename
     roleOrganizationClicked( org ){
-        console.log('MHL PointOfContactCreateComponent.roleOrganizationClicked  org: ' , org);
         this.selectedOrganization = org;
     }
 
     onPocCreateCancelClick(){
-        console.log( 'onPocCreateCancelClick' );
         this.showPocCreate = false;
     }
 
@@ -126,10 +117,10 @@ export class PointOfContactCreateComponent implements OnInit, AfterViewInit{
      */
     async ngAfterViewInit(): Promise<void>{
         // So we don't hang if there is a problem sampleData['organizationNamesForUser']
-        let runaway = 100;
+        let runaway = 1000; // @TEST  this is normal X 10
         while( (this.sampleData['organizationNamesForUser'] === undefined ) && (runaway > 0 ) ) {
             runaway--;
-            await this.utilService.sleep( 150 );
+            await this.utilService.sleep( 150 ); // @TEST  this is normal X 10
         }
         this.selectedOrganization = this.sampleData['organizationNamesForUser'][0];
         this.selectedRole = this.sampleData['contactRoles'][0]

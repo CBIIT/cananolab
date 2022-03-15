@@ -18,11 +18,14 @@ export const Consts = {
     QUERY_SAMPLE_COPY: 'caNanoLab/rest/sample/copySample',
     QUERY_SAMPLE_SUBMIT: 'caNanoLab/rest/sample/submitSample',
     QUERY_SAMPLE_SETUP: 'caNanoLab/rest/sample/setup',
+    QUERY_SAMPLE_ADVANCED_SEARCH_SETUP: 'caNanoLab/rest/sample/setupAdvancedSearch',
     QUERY_SEARCH_SAMPLE: 'caNanoLab/rest/sample/searchSample', // @TODO rename this SAMPLE_SEARCH
     QUERY_SAMPLE_AVAILABILITY: 'caNanoLab/rest/sample/viewDataAvailability',
     QUERY_SAMPLE_UPDATE: 'caNanoLab/rest/sample/updateSample',
     QUERY_SAMPLE_AVAILABILITY_HTML: 'caNanoLab/views/sample/view/sampleDataAvailability.html',  // @FIXME That's not how this works
     QUERY_SAMPLE_POC_UPDATE_SAVE:  'caNanoLab/rest/sample/savePOC',
+    QUERY_SAMPLE_GET_CHARACTERIZATION_OPTIONS:  'caNanoLab/rest/sample/getDecoratedCharacterizationOptions',
+    QUERY_SAMPLE_GET_DATUM_OPTIONS:  'caNanoLab/rest/sample/getDecoratedDatumOptions',
 
 
     QUERY_PROTOCOL_SETUP: 'caNanoLab/rest/protocol/setup',
@@ -73,6 +76,7 @@ export const Consts = {
     HELP_URL_SAMPLE_CREATE: 'https://wiki.nci.nih.gov/display/caNanoLab/Managing+Samples+in+caNanoLab#ManagingSamplesincaNanoLab-EditSample',
     HELP_URL_SAMPLE_EDIT: 'https://wiki.nci.nih.gov/display/caNanoLab/Managing+Samples+in+caNanoLab#ManagingSamplesincaNanoLab-EditSample',
     HELP_URL_SAMPLE_VIEW: 'https://wiki.nci.nih.gov/display/caNanoLab/Managing+Samples+in+caNanoLab#ManagingSamplesincaNanoLab-EditSample',
+    HELP_URL_SAMPLE_ADVANCED_SEARCH: 'https://wiki.nci.nih.gov/display/caNanoLab/Managing+Samples+in+caNanoLab#ManagingSamplesincaNanoLab-AdvSearchSample',
 
     HELP_URL_PROTOCOL_SEARCH: 'https://wiki.nci.nih.gov/display/caNanoLab/Managing+Protocols+in+caNanoLab#ManagingProtocolsincaNanoLab-SearchProtocols',
     HELP_URL_PROTOCOL_MANAGE: 'https://wiki.nci.nih.gov/display/caNanoLab/Managing+Protocols+in+caNanoLab',

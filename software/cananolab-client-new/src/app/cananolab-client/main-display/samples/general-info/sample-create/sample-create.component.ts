@@ -33,19 +33,14 @@ export class SampleCreateComponent implements OnInit{
         this.userGroups = this.getUserGroups().subscribe(  // @TODO move this to a common service
             data => {
                 this.organizationNames = data;
-            }
-            );
+            });
 
         this.pointOfContactService.emitNewPocEmitter.pipe( takeUntil( this.ngUnsubscribe ) ).subscribe(
             (data) => {
-                console.log('MHL pointOfContactService.emitNewPocEmitter data: ', data);
                 this.sampleId = data.sampleId;
                 this.pointOfContacts.push(data);
-                console.log('MHL ********************************************** sampleId: ', this.sampleId);
                 this.router.navigate(['home/samples/samplesEdit', '?sampleId=' + this.sampleId ]);  // @FIXME  Don't hard code these
-
             });
-
     }
 
 
@@ -76,35 +71,12 @@ export class SampleCreateComponent implements OnInit{
             console.error( 'doGet Exception: ' + e );
         }
         return results;
-
     }
 
     onSaveSample(){
-        /*
-        {
-   "sampleName":"vvvvv vvvvv",
-   "newSampleName":null,
-   "sampleId":0,
-   "pointOfContacts":[
-      {
-         "organization":{
-            "name":"BWH_AnesthesiologyD"
-         },
-         "role":"Program Manager",
-         "dirty":true
-      }
-   ],
-   "keywords":[
-
-   ]
-         */
-
         this.sampleData['sampleName'] = this.sampleName;
         this.sampleData['newSampleName'] = null;
         this.sampleData['sampleId'] = 0;
-        console.log('MHL onSaveSample sampleName: ', this.sampleName);
-        console.log('MHL this.pointOfContacts: ', this.pointOfContacts);
-
         this.pocForSampleSubmit();
     }
 
