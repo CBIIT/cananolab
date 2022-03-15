@@ -1,7 +1,285 @@
-<canano-main-display-heading
-    [helpUrl]="helpUrl"
-    [toolHeadingName]="toolHeadingNameManage"
->
+<canano-main-display-heading [helpUrl]="helpUrl" [toolHeadingName]="toolHeadingNameManage">
+
 </canano-main-display-heading>
-<h4>sampleId: {{sampleId}}</h4>
-<h4>sampleName: {{sampleName}}</h4>
+<div class="sample-edit-div">
+
+    <div class="compositionSection">
+        <div id="nanomaterialEntity" class="header">
+            Nanomaterial Entity <button class="btn btn-primary btn-sm">Add</button>
+        </div>
+        <div class="compositionTitle">Metal Particle</div>
+        <div class="compositionBody">
+            <div class="editButton"><button class="btn btn-primary btn-sm">Edit</button></div>
+            <div>
+                <table class="dataMain">
+                    <tr>
+                        <td class="label">Description</td>
+                        <td>
+                            Description
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="label">Properties</td>
+                        <td>
+                            <table class="properties">
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Type</th>
+                                    <th>Sequence</th>
+                                </tr>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Peptide</td>
+                                    <td>Sequence</td>
+                                </tr>
+                            </table>                            
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="label">Composing Elements</td>
+                        <td>
+                            <table class="properties">
+                                <tr>
+                                    <td class="label" colspan="2">
+                                        core (name: Chemical Name, amount: 1.0 %mole)
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="label">
+                                        PubChem ID
+                                    </td>
+                                    <td>
+                                        1234  (Compound)
+                                    </td>
+                                </tr>  
+                                <tr>
+                                    <td class="label">
+                                        Molecular Formula
+                                    </td>
+                                    <td>
+                                        x+y=z (Hill)
+                                    </td>
+                                </tr>  
+                                <tr>
+                                    <td class="label">
+                                        Description
+                                    </td>
+                                    <td>
+                                        Element Description
+                                    </td>
+                                </tr>  
+                                <tr>
+                                    <td class="label">
+                                        Function
+                                    </td>
+                                    <td>
+                                        imaging function: Inherent Description (imaging modality: beta radiation)
+                                    </td>
+                                </tr>                                                                                                                                                              
+                            </table>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="label">Files</td>
+                        <td>
+                            <table class="properties">
+                                <tr>
+                                    <td class="label" colspan="2">
+                                        File Title <br />
+                                        <img src="link">
+                                    </td> 
+                                </tr>
+                                <tr>
+                                    <td class="label">
+                                        Keywords
+                                    </td> 
+                                    <td>
+                                        some keywords
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="label">
+                                        Description
+                                    </td> 
+                                    <td>
+                                        this is a description this is a description this is a description this is a description this is a description 
+                                    </td>
+                                </tr>                                                                
+                            </table>                           
+                        </td>
+                    </tr>                                                            
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="compositionSection">
+        <div id="nanomaterialEntity" class="header">
+            Functionalizing Entity <button class="btn btn-primary btn-sm">Add</button>
+        </div>
+        <div class="compositionTitle">Biopolymer</div>
+        <div class="compositionBody">
+            <div class="editButton"><button class="btn btn-primary btn-sm">Edit</button></div>
+            <div>
+                <table class="dataMain">
+                    <tr>
+                        <td class="label">Name</td>
+                        <td>Chemical Name</td>
+                    </tr>
+                    <tr>
+                        <td class="label">PubChem ID</td>
+                        <td>1234 (Compound)</td>
+                    </tr>
+                    <tr>
+                        <td class="label">Amount</td>
+                        <td>1.0 %mole</td>
+                    </tr>
+                    <tr>
+                        <td class="label">Molecular Formula</td>
+                        <td>x+y=z (Hill)</td>
+                    </tr>
+                    <tr>
+                        <td class="label">Properties</td>
+                        <td>
+                            <table class="properties">
+                                <tr>
+                                    <th>Fab</th>
+                                    <th>IgA</th>
+                                    <th>cat</th>
+                                </tr>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Peptide</td>
+                                    <td>Sequence</td>
+                                </tr>
+                            </table>                             
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="label">Function(s)</td>
+                        <td>
+                            <table class="properties">
+                                <tr>
+                                    <th>Type</th>
+                                    <th>Image Modality</th>
+                                    <th>Description</th>
+                                </tr>
+                                <tr>
+                                    <td>imaging function</td>
+                                    <td></td>
+                                    <td>sadsadd</td>
+                                </tr>
+                            </table> 
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="label">Activation Method</td>
+                        <td>MRI, Effect</td>
+                    </tr>
+                    <tr>
+                        <td class="label">Description</td>
+                        <td>Description</td>
+                    </tr>
+                    <tr>
+                        <td class="label">Files</td>
+                        <td>
+                            <table class="properties">
+                                <tr>
+                                    <td class="label" colspan="2">
+                                        File Title <br />
+                                        <img src="link">
+                                    </td> 
+                                </tr>
+                                <tr>
+                                    <td class="label">
+                                        Keywords
+                                    </td> 
+                                    <td>
+                                        some keywords
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="label">
+                                        Description
+                                    </td> 
+                                    <td>
+                                        this is a description this is a description this is a description this is a description this is a description 
+                                    </td>
+                                </tr>                                                                
+                            </table>  
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+    
+    <div class="compositionSection">
+        <div id="nanomaterialEntity" class="header">
+            Chemical Association<button class="btn btn-primary btn-sm">Add</button>
+        </div>
+        <div class="compositionTitle">Association</div>
+        <div class="compositionBody">
+            <div class="editButton"><button class="btn btn-primary btn-sm">Edit</button></div>
+            <div>
+                <table class="dataMain">
+                    <tr>
+                        <td class="label">Bond Type</td>
+                        <td>electrostatic</td>
+                    </tr>
+                    <tr>
+                        <td class="label">Description</td>
+                        <td>Linking</td>
+                    </tr>
+                    <tr>
+                        <td class="label">Associated Elements</td>
+                        <td>
+                            <table class="properties">
+                                <tr>
+                                    <td>nanomaterial entity fullerene composing element of type coat
+                                        (name: Varbonder)	 association
+                                        associated with	functionalizing entity biopolymer
+                                        (name: Foo88)
+                                    </td>
+                                    <td>
+                                        associated with
+                                    </td>
+                                    <td>
+                                        functionalizing entity biopolymer(name: Foo88)
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>                
+            </div>
+        </div>
+    </div>
+    
+    <div class="compositionSection">
+        <div id="nanomaterialEntity" class="header">
+            Composition File <button class="btn btn-primary btn-sm">Add</button>
+        </div>
+        <div class="compositionTitle">Document</div>
+        <div class="compositionBody">
+            <div class="editButton"><button class="btn btn-primary btn-sm">Edit</button></div>
+`            <div>
+                <table class="dataMain">
+                    <tr>
+                        <td class="label">Title and Download Link</td>
+                        <td>Some text</td>
+                    </tr>
+                    <tr>
+                        <td class="label">Keywords</td>
+                        <td>Some text</td>
+                    </tr>
+                    <tr>
+                        <td class="label">Description</td>
+                        <td>Some text</td>
+                    </tr>
+                </table>    
+            </div>
+        </div>
+    </div>    
+</div>
+
