@@ -7,15 +7,16 @@
         <div id="nanomaterialEntity" class="header">
             Nanomaterial Entity <button class="btn btn-primary btn-sm">Add</button>
         </div>
-        <div class="compositionTitle">Metal Particle</div>
-        <div class="compositionBody">
+        <span *ngFor="let nanomaterial of compositionData['nanomaterialentity'] | keyvalue; let index = index">
+        <div class="compositionTitle">{{nanomaterial.key}}</div>
+        <div class="compositionBody" *ngFor="let entry of nanomaterial.value">
             <div class="editButton"><button class="btn btn-primary btn-sm">Edit</button></div>
             <div>
                 <table class="dataMain">
                     <tr>
                         <td class="label">Description</td>
                         <td>
-                            Description
+                           {{entry.Description}}
                         </td>
                     </tr>
                     <tr>
@@ -23,14 +24,10 @@
                         <td>
                             <table class="properties">
                                 <tr>
-                                    <th>Name</th>
-                                    <th>Type</th>
-                                    <th>Sequence</th>
+                                    <th *ngFor="let property of entry['Properties'] | keyvalue">{{property.key}}</th>
                                 </tr>
                                 <tr>
-                                    <td>Name</td>
-                                    <td>Peptide</td>
-                                    <td>Sequence</td>
+                                    <td *ngFor="let property of entry['Properties'] | keyvalue">{{property.value}}</td>
                                 </tr>
                             </table>                            
                         </td>
@@ -111,48 +108,47 @@
                 </table>
             </div>
         </div>
+    </span>
     </div>
 
     <div class="compositionSection">
         <div id="nanomaterialEntity" class="header">
             Functionalizing Entity <button class="btn btn-primary btn-sm">Add</button>
         </div>
-        <div class="compositionTitle">Biopolymer</div>
-        <div class="compositionBody">
+        <span *ngFor="let functionalizingentity of compositionData['functionalizingentity'] | keyvalue; let index = index">
+
+        <div class="compositionTitle">{{functionalizingentity.key}}</div>
+        <div class="compositionBody" *ngFor="let entry of functionalizingentity.value">
             <div class="editButton"><button class="btn btn-primary btn-sm">Edit</button></div>
             <div>
                 <table class="dataMain">
                     <tr>
                         <td class="label">Name</td>
-                        <td>Chemical Name</td>
+                        <td>{{entry.Name}}</td>
                     </tr>
                     <tr>
                         <td class="label">PubChem ID</td>
-                        <td>1234 (Compound)</td>
+                        <td><a [href]="entry.pubChemLink" target="blank">{{entry.pubChemID}}</a></td>
                     </tr>
                     <tr>
                         <td class="label">Amount</td>
-                        <td>1.0 %mole</td>
+                        <td>{{entry.value}} {{entry.valueUnit}}</td>
                     </tr>
                     <tr>
                         <td class="label">Molecular Formula</td>
-                        <td>x+y=z (Hill)</td>
+                        <td>{{entry.MolecularFormulaDisplayName}}</td>
                     </tr>
                     <tr>
                         <td class="label">Properties</td>
                         <td>
                             <table class="properties">
                                 <tr>
-                                    <th>Fab</th>
-                                    <th>IgA</th>
-                                    <th>cat</th>
+                                    <th *ngFor="let property of entry['Properties'] | keyvalue">{{property.key}}</th>
                                 </tr>
                                 <tr>
-                                    <td>Name</td>
-                                    <td>Peptide</td>
-                                    <td>Sequence</td>
+                                    <td *ngFor="let property of entry['Properties'] | keyvalue">{{property.value}}</td>
                                 </tr>
-                            </table>                             
+                            </table>                              
                         </td>
                     </tr>
                     <tr>
@@ -164,21 +160,21 @@
                                     <th>Image Modality</th>
                                     <th>Description</th>
                                 </tr>
-                                <tr>
-                                    <td>imaging function</td>
-                                    <td></td>
-                                    <td>sadsadd</td>
+                                <tr *ngFor="let function of entry.Functions">
+                                    <td>{{function.Type}}</td>
+                                    <td>{{function.Modality}}</td>
+                                    <td>{{function.FunctionDescription}}</td>
                                 </tr>
-                            </table> 
+                            </table>  
                         </td>
                     </tr>
                     <tr>
                         <td class="label">Activation Method</td>
-                        <td>MRI, Effect</td>
+                        <td>{{entry.ActivationMethod}}</td>
                     </tr>
                     <tr>
                         <td class="label">Description</td>
-                        <td>Description</td>
+                        <td>{{entry.Desc}}</td>
                     </tr>
                     <tr>
                         <td class="label">Files</td>
@@ -212,40 +208,40 @@
                 </table>
             </div>
         </div>
+        </span>
     </div>
     
     <div class="compositionSection">
         <div id="nanomaterialEntity" class="header">
             Chemical Association<button class="btn btn-primary btn-sm">Add</button>
         </div>
-        <div class="compositionTitle">Association</div>
-        <div class="compositionBody">
+        <span *ngFor="let chemicalassociation of compositionData['chemicalassociation'] | keyvalue; let index = index">
+        <div class="compositionTitle">{{chemicalassociation.key}}</div>
+        <div class="compositionBody" *ngFor="let entry of chemicalassociation.value">
             <div class="editButton"><button class="btn btn-primary btn-sm">Edit</button></div>
             <div>
                 <table class="dataMain">
                     <tr>
                         <td class="label">Bond Type</td>
-                        <td>electrostatic</td>
+                        <td>{{entry.BondType}}</td>
                     </tr>
                     <tr>
                         <td class="label">Description</td>
-                        <td>Linking</td>
+                        <td>{{entry.Description}}</td>
                     </tr>
                     <tr>
                         <td class="label">Associated Elements</td>
                         <td>
                             <table class="properties">
                                 <tr>
-                                    <td>nanomaterial entity fullerene composing element of type coat
-                                        (name: Varbonder)	 association
-                                        associated with	functionalizing entity biopolymer
-                                        (name: Foo88)
+                                    <td>{{entry.AssocitedElements.CompositiontypeA}} {{entry.AssocitedElements.EntityDisplayNameA}} composing element of type {{entry.AssocitedElements.ComposingElementTypeA}} (name:{{entry.AssocitedElements.DomainElementNameA}})
+                                    </td>
+                                    <td style="text-align:center">associated with
+                                        <img src="assets/images//arrow_left_right_gray.gif">
+                                        
                                     </td>
                                     <td>
-                                        associated with
-                                    </td>
-                                    <td>
-                                        functionalizing entity biopolymer(name: Foo88)
+                                        {{entry.AssocitedElements.CompositiontypeB}} {{entry.AssocitedElements.EntityDisplayNameB}} (name: {{entry.AssocitedElements.DomainElementNameB}})
                                     </td>
                                 </tr>
                             </table>
@@ -254,6 +250,7 @@
                 </table>                
             </div>
         </div>
+        </span>
     </div>
     
     <div class="compositionSection">
