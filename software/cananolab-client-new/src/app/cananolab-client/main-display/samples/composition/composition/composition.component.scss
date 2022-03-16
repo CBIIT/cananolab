@@ -19,6 +19,7 @@
             padding:10px;    
             background-color:#0073b9;
             color:#fff;
+            text-transform: capitalize;
     }
 
     .compositionSection .compositionBody {
@@ -44,17 +45,23 @@
         vertical-align:top;
     }
     .compositionSection table.dataMain .properties{
-        width:500px !important;
-
+        text-transform: capitalize;
     }       
     .compositionSection table.dataMain .properties th{
         text-align:left;
         width:150px;
         vertical-align:top;
-
+        padding-right:20px;
     }    
     .compositionSection table.dataMain td.label{
         font-weight:bold;
         width:200px;
         vertical-align:top;
-    }    
+    }   
+    
+    .compositionSection table.dataMain .properties td{
+        text-align:left;
+        width:150px;
+        vertical-align:top;
+        padding-right:20px;
+    }  
