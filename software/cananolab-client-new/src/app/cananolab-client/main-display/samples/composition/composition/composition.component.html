@@ -79,30 +79,43 @@
                     <tr>
                         <td class="label">Files</td>
                         <td>
-                            <table class="properties">
-                                <tr>
-                                    <td class="label" colspan="2">
-                                        File Title <br />
-                                        <img src="link">
-                                    </td> 
-                                </tr>
-                                <tr>
-                                    <td class="label">
-                                        Keywords
-                                    </td> 
-                                    <td>
-                                        some keywords
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="label">
-                                        Description
-                                    </td> 
-                                    <td>
-                                        this is a description this is a description this is a description this is a description this is a description 
-                                    </td>
-                                </tr>                                                                
-                            </table>                           
+                            <div *ngFor="let file of entry['Files']">
+                                <table class="properties files">
+                                    <tr>
+                                        <td class="label" colspan="2">
+                                            <span *ngIf="file.ExternalURI=='true'; else elseBlock">
+                                                <a href="{{file.URI}}" target="blank">{{file.Title}}</a>
+                                            </span>
+                                            <ng-template #elseBlock>
+                                                <span *ngIf="file.isImage; else elseBlock">
+                                                    <img src="/caNanoLab/rest/sample/downloadImage?fileId={{file.fileId}}" border="0" width="150" alt="uploaded image">
+                                                </span>
+                                                <ng-template #elseBlock>                                                  
+                                                    <a href="/caNanoLab/rest/sample/download?fileId={{file.fileId}}" target="blank">
+                                                        {{file.Title}}
+                                                    </a>
+                                                </ng-template>
+                                            </ng-template>
+                                        </td> 
+                                    </tr>
+                                    <tr>
+                                        <td class="label">
+                                            Keywords
+                                        </td> 
+                                        <td>
+                                            {{file.KeywordStr}}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="label">
+                                            Description
+                                        </td> 
+                                        <td>
+                                            {{file.Description}}
+                                        </td>
+                                    </tr>                                                                
+                                </table>  
+                            </div>                  
                         </td>
                     </tr>                                                            
                 </table>
@@ -179,30 +192,43 @@
                     <tr>
                         <td class="label">Files</td>
                         <td>
-                            <table class="properties">
-                                <tr>
-                                    <td class="label" colspan="2">
-                                        File Title <br />
-                                        <img src="link">
-                                    </td> 
-                                </tr>
-                                <tr>
-                                    <td class="label">
-                                        Keywords
-                                    </td> 
-                                    <td>
-                                        some keywords
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="label">
-                                        Description
-                                    </td> 
-                                    <td>
-                                        this is a description this is a description this is a description this is a description this is a description 
-                                    </td>
-                                </tr>                                                                
-                            </table>  
+                            <div *ngFor="let file of entry['Files']">
+                                <table class="properties files">
+                                    <tr>
+                                        <td class="label" colspan="2">
+                                            <span *ngIf="file.ExternalURI=='true'; else elseBlock">
+                                                <a href="{{file.URI}}" target="blank">{{file.Title}}</a>
+                                            </span>
+                                            <ng-template #elseBlock>
+                                                <span *ngIf="file.isImage; else elseBlock">
+                                                    <img src="/caNanoLab/rest/sample/downloadImage?fileId={{file.fileId}}" border="0" width="150" alt="uploaded image">
+                                                </span>
+                                                <ng-template #elseBlock>                                                  
+                                                    <a href="/caNanoLab/rest/sample/download?fileId={{file.fileId}}" target="blank">
+                                                        {{file.Title}}
+                                                    </a>
+                                                </ng-template>
+                                            </ng-template>
+                                        </td> 
+                                    </tr>
+                                    <tr>
+                                        <td class="label">
+                                            Keywords
+                                        </td> 
+                                        <td>
+                                            {{file.KeywordStr}}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="label">
+                                            Description
+                                        </td> 
+                                        <td>
+                                            {{file.Description}}
+                                        </td>
+                                    </tr>                                                                
+                                </table>  
+                            </div>
                         </td>
                     </tr>
                 </table>
@@ -257,11 +283,12 @@
         <div id="nanomaterialEntity" class="header">
             Composition File <button class="btn btn-primary btn-sm">Add</button>
         </div>
-        <div class="compositionTitle">Document</div>
-        <div class="compositionBody">
+        <span *ngFor="let compositionfile of compositionData['compositionfile'] | keyvalue; let index = index">
+        <div class="compositionTitle">{{compositionfile.key}}</div>
+        <div class="compositionBody" *ngFor="let file of compositionfile.value">
             <div class="editButton"><button class="btn btn-primary btn-sm">Edit</button></div>
-`            <div>
-                <table class="dataMain">
+            <div>
+                <table class="dataMain files">
                     <tr>
                         <td class="label">Title and Download Link</td>
                         <td>Some text</td>
@@ -277,6 +304,7 @@
                 </table>    
             </div>
         </div>
+        </span>
     </div>    
 </div>
 
