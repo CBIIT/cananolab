@@ -291,15 +291,29 @@
                 <table class="dataMain files">
                     <tr>
                         <td class="label">Title and Download Link</td>
-                        <td>Some text</td>
+                        <td>
+                            <span *ngIf="file.ExternalURI=='true'; else elseBlock">
+                                <a href="{{file.URI}}" target="blank">{{file.Title}}</a>
+                            </span>
+                            <ng-template #elseBlock>
+                                <span *ngIf="file.isImage; else elseBlock">
+                                    <img src="/caNanoLab/rest/sample/downloadImage?fileId={{file.fileId}}" border="0" width="150" alt="uploaded image">
+                                </span>
+                                <ng-template #elseBlock>                                                  
+                                    <a href="/caNanoLab/rest/sample/download?fileId={{file.fileId}}" target="blank">
+                                        {{file.Title}}
+                                    </a>
+                                </ng-template>
+                            </ng-template>                            
+                        </td>
                     </tr>
                     <tr>
                         <td class="label">Keywords</td>
-                        <td>Some text</td>
+                        <td>{{file.KeywordStr}}</td>
                     </tr>
                     <tr>
                         <td class="label">Description</td>
-                        <td>Some text</td>
+                        <td>{{file.Description}}</td>
                     </tr>
                 </table>    
             </div>
