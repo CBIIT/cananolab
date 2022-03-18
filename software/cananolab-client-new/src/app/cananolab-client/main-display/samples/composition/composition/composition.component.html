@@ -87,7 +87,7 @@
                                                 <a href="{{file.URI}}" target="blank">{{file.Title}}</a>
                                             </span>
                                             <ng-template #elseBlock>
-                                                <span *ngIf="file.isImage; else elseBlock">
+                                                <span *ngIf="file.isImage; else elseBlock">{{file.Title}}<br />
                                                     <img src="/caNanoLab/rest/sample/downloadImage?fileId={{file.fileId}}" border="0" width="150" alt="uploaded image">
                                                 </span>
                                                 <ng-template #elseBlock>                                                  
@@ -200,7 +200,7 @@
                                                 <a href="{{file.URI}}" target="blank">{{file.Title}}</a>
                                             </span>
                                             <ng-template #elseBlock>
-                                                <span *ngIf="file.isImage; else elseBlock">
+                                                <span *ngIf="file.isImage; else elseBlock">{{file.Title}}<br />
                                                     <img src="/caNanoLab/rest/sample/downloadImage?fileId={{file.fileId}}" border="0" width="150" alt="uploaded image">
                                                 </span>
                                                 <ng-template #elseBlock>                                                  
@@ -296,7 +296,7 @@
                                 <a href="{{file.URI}}" target="blank">{{file.Title}}</a>
                             </span>
                             <ng-template #elseBlock>
-                                <span *ngIf="file.isImage; else elseBlock">
+                                <span *ngIf="file.isImage; else elseBlock">{{file.Title}}<br />
                                     <img src="/caNanoLab/rest/sample/downloadImage?fileId={{file.fileId}}" border="0" width="150" alt="uploaded image">
                                 </span>
                                 <ng-template #elseBlock>                                                  
