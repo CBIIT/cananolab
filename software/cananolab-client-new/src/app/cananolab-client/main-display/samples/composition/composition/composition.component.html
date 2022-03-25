@@ -10,7 +10,7 @@
         <span *ngFor="let nanomaterial of compositionData['nanomaterialentity'] | keyvalue; let index = index">
         <div class="compositionTitle">{{nanomaterial.key}}</div>
         <div class="compositionBody" *ngFor="let entry of nanomaterial.value">
-            <div class="editButton"><button class="btn btn-primary btn-sm">Edit</button></div>
+            <div class="editButton"><button class="btn btn-primary btn-sm" (click)="onNanomaterialEntityClick(entry.dataId)">Edit</button></div>
             <div>
                 <table class="dataMain">
                     <tr>
@@ -132,7 +132,7 @@
 
         <div class="compositionTitle">{{functionalizingentity.key}}</div>
         <div class="compositionBody" *ngFor="let entry of functionalizingentity.value">
-            <div class="editButton"><button class="btn btn-primary btn-sm">Edit</button></div>
+            <div class="editButton"><button class="btn btn-primary btn-sm" (click)="onFunctionalizingEntityClick(entry.dataId)">Edit</button></div>
             <div>
                 <table class="dataMain">
                     <tr>
@@ -235,7 +235,7 @@
             </div>
         </div>
         </span>
-    </div>
+    </div>   
     
     <div class="compositionSection">
         <div id="nanomaterialEntity" class="header">
@@ -244,7 +244,7 @@
         <span *ngFor="let chemicalassociation of compositionData['chemicalassociation'] | keyvalue; let index = index">
         <div class="compositionTitle">{{chemicalassociation.key}}</div>
         <div class="compositionBody" *ngFor="let entry of chemicalassociation.value">
-            <div class="editButton"><button class="btn btn-primary btn-sm">Edit</button></div>
+            <div class="editButton"><button class="btn btn-primary btn-sm" (click)="onChemicalAssociationClick(entry.dataId)">Edit</button></div>
             <div>
                 <table class="dataMain">
                     <tr>
@@ -286,7 +286,7 @@
         <span *ngFor="let compositionfile of compositionData['compositionfile'] | keyvalue; let index = index">
         <div class="compositionTitle">{{compositionfile.key}}</div>
         <div class="compositionBody" *ngFor="let file of compositionfile.value">
-            <div class="editButton"><button class="btn btn-primary btn-sm">Edit</button></div>
+            <div class="editButton"><button class="btn btn-primary btn-sm" (click)="onCompisitionFileClick(entry.dataId)">Edit</button></div>
             <div>
                 <table class="dataMain files">
                     <tr>

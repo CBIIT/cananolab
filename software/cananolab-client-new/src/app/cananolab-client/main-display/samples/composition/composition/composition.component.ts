@@ -4,6 +4,7 @@ import { Properties } from '../../../../../../assets/properties';
 import { Consts } from '../../../../../constants';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { timeout } from 'rxjs/operators';
+import { Router } from '@angular/router';
 
 @Component( {
     selector: 'canano-composition',
@@ -17,7 +18,7 @@ export class CompositionComponent implements OnInit{
     toolHeadingNameManage = 'Sample Composition';
     compositionData;
 
-    constructor( private route: ActivatedRoute,private httpClient: HttpClient ){
+    constructor( private router: Router, private route: ActivatedRoute,private httpClient: HttpClient ){
     }
 
     ngOnInit(): void{
@@ -68,5 +69,18 @@ export class CompositionComponent implements OnInit{
         return results;
 
     }    
+    onChemicalAssociationClick(dataId){
+        this.router.navigate( ['home/samples/composition/chemicalassociation', Properties.CURRENT_SAMPLE_ID, dataId] );  // @FIXME  Don't hard code these
+    }
+    onFunctionalizingEntityClick(dataId){
+        this.router.navigate( ['home/samples/composition/functionalizingentity', Properties.CURRENT_SAMPLE_ID, dataId] );  // @FIXME  Don't hard code these
+    }
+    onNanomaterialEntityClick(dataId){
+        this.router.navigate( ['home/samples/composition/nanomaterialentity', Properties.CURRENT_SAMPLE_ID, dataId] );  // @FIXME  Don't hard code these
+    }
+    onCompositionFileClick(dataId){
+        this.router.navigate( ['home/samples/composition/compositionfile', Properties.CURRENT_SAMPLE_ID, dataId] );  // @FIXME  Don't hard code these
+    }            
+
 
 }

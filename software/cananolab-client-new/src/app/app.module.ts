@@ -64,6 +64,10 @@ import { PointOfContactCreateComponent } from './cananolab-client/point-of-conta
 import { CharacterizationComponent } from './cananolab-client/main-display/samples/characterization/characterization/characterization.component';
 import { CompositionComponent } from './cananolab-client/main-display/samples/composition/composition/composition.component';
 import { SamplePublicationsComponent } from './cananolab-client/main-display/samples/publications/sample-publications/sample-publications.component';
+import { FunctionalizingentityComponent } from './cananolab-client/main-display/samples/composition/functionalizingentity/functionalizingentity.component';
+import { NanomaterialentityComponent } from './cananolab-client/main-display/samples/composition/nanomaterialentity/nanomaterialentity.component';
+import { CompositionfileComponent } from './cananolab-client/main-display/samples/composition/compositionfile/compositionfile.component';
+import { ChemicalassociationComponent } from './cananolab-client/main-display/samples/composition/chemicalassociation/chemicalassociation.component';
 
 @NgModule({
   declarations: [
@@ -124,7 +128,11 @@ import { SamplePublicationsComponent } from './cananolab-client/main-display/sam
     PointOfContactCreateComponent,
     CharacterizationComponent,
     CompositionComponent,
-    SamplePublicationsComponent
+    SamplePublicationsComponent,
+    FunctionalizingentityComponent,
+    NanomaterialentityComponent,
+    CompositionfileComponent,
+    ChemicalassociationComponent
   ],
     imports: [
         BrowserModule,

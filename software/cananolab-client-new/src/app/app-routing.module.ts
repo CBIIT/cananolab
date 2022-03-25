@@ -29,6 +29,10 @@ import { SampleEditComponent } from './cananolab-client/main-display/samples/gen
 import { SampleViewComponent } from './cananolab-client/main-display/samples/sample-view/sample-view.component';
 import { CharacterizationComponent } from './cananolab-client/main-display/samples/characterization/characterization/characterization.component';
 import { CompositionComponent } from './cananolab-client/main-display/samples/composition/composition/composition.component';
+import { FunctionalizingentityComponent } from './cananolab-client/main-display/samples/composition/functionalizingentity/functionalizingentity.component';
+import { NanomaterialentityComponent } from './cananolab-client/main-display/samples/composition/nanomaterialentity/nanomaterialentity.component';
+import { CompositionfileComponent } from './cananolab-client/main-display/samples/composition/compositionfile/compositionfile.component';
+import { ChemicalassociationComponent } from './cananolab-client/main-display/samples/composition/chemicalassociation/chemicalassociation.component';
 import { SamplePublicationsComponent } from './cananolab-client/main-display/samples/publications/sample-publications/sample-publications.component';
 
 const routes: Routes = [
@@ -58,6 +62,10 @@ const routes: Routes = [
     { path: 'home/samples/samplesCopy', component: SampleCopyComponent },
     { path: 'home/samples/samplesCharacterization/:sampleId', component: CharacterizationComponent },
     { path: 'home/samples/composition/:sampleId', component: CompositionComponent },
+    { path: 'home/samples/composition/functionalizingentity/:sampleId/:dataId', component: FunctionalizingentityComponent },
+    { path: 'home/samples/composition/nanomaterialentity/:sampleId/:dataId', component: NanomaterialentityComponent },
+    { path: 'home/samples/composition/compositionfile/:sampleId/:dataId', component: CompositionfileComponent },
+    { path: 'home/samples/composition/chemicalassociation/:sampleId/:dataId', component: ChemicalassociationComponent },
     { path: 'home/samples/publications/:sampleId', component: SamplePublicationsComponent },
 
     { path: 'home/curation', component: CurationComponent },
