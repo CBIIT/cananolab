@@ -10,12 +10,13 @@ var app = angular.module('angularApp')
 
 
         $scope.doSubmit = function () {
+            $scope.options = {"option":$scope.generateBatchDataAvailabilityForm.option}
             $scope.loader = true;
 
             $http({
                 method: 'POST',
                 url: '/caNanoLab/rest/curation/generateBatchDataAvailability',
-                data: $scope.generateBatchDataAvailabilityForm
+                data: $scope.options
             }).
             then(function (data, status, headers, config) {
                 data = data['data']
