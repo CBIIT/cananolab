@@ -10,7 +10,7 @@ import { Properties } from '../../../assets/properties';
 })
 export class StatusDisplayComponent implements OnInit {
 
-    userName = 'TEST User';
+  userName = 'TEST User';  // @TODO
   constructor( private statusDisplayService: StatusDisplayService) { }
 
   ngOnInit(): void {

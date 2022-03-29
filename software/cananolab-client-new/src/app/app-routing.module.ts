@@ -34,6 +34,7 @@ import { NanomaterialentityComponent } from './cananolab-client/main-display/sam
 import { CompositionfileComponent } from './cananolab-client/main-display/samples/composition/compositionfile/compositionfile.component';
 import { ChemicalassociationComponent } from './cananolab-client/main-display/samples/composition/chemicalassociation/chemicalassociation.component';
 import { SamplePublicationsComponent } from './cananolab-client/main-display/samples/publications/sample-publications/sample-publications.component';
+import { SampleAdvancedSearchResultsComponent } from './cananolab-client/main-display/samples/general-info/sample-search/sample-advanced-search-results/sample-advanced-search-results.component';
 
 const routes: Routes = [
     { path: '', component: HomeComponent },
@@ -57,6 +58,10 @@ const routes: Routes = [
     { path: 'home/samples/samplesView/:sampleId', component: SampleViewComponent },
     { path: 'home/samples/samplesSearch', component: SampleSearchComponent },
     { path: 'home/samples/samplesSearchResults', component: SampleSearchResultsComponent },
+    { path: 'home/samples/sampleAdvancedSearchResults', component: SampleAdvancedSearchResultsComponent },
+
+    { path: 'home/samples/SampleAdvancedSearchResults/:searchResults', component: SampleAdvancedSearchResultsComponent },
+
     { path: 'home/samples/samplesAdvancedSearch', component: SampleAdvancedSearchComponent },
     { path: 'home/samples/sampleCreate', component: SampleCreateComponent },
     { path: 'home/samples/samplesCopy', component: SampleCopyComponent },

@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Consts } from '../../../../../../constants';
 import { ApiService } from '../../../../../common/services/api.service';
+import { Router } from '@angular/router';
+import { SampleAdvancedSearchService } from './sample-advanced-search.service';
 
 @Component( {
     selector: 'canano-sample-advanced-search',
@@ -13,12 +15,14 @@ export class SampleAdvancedSearchComponent implements OnInit{
     AND = 0;
     OR = 1;
     PLEASE_SELECT = '-- Please Select --';
+    masterLogicalOperator = 'and';
 
     sampleQueries = [];
     compositionQueries = [];
+    characterizationQueries = [];
 
-    sampleCriteriaTextInput = 'XXX';
-    compositionCriteriaTextInput = 'ZZZ';
+    sampleCriteriaTextInput = '';
+    compositionCriteriaTextInput = '';
 
     sampleCriteriaEditOperand;
     sampleCriteriaOperand;
@@ -27,21 +31,27 @@ export class SampleAdvancedSearchComponent implements OnInit{
 
     sampleCriteriaNameType;
     sampleCriteriaEditNameType;
-
     compositionCriteriaCompositionType;
     compositionEditCriteriaCompositionType;
-    characterizationCriteriaDropdownOneValue;
+
+    // characterization
     characterizationCriteriaDropdownTwo;
     characterizationCriteriaDropdownThree;
-    characterizationCriteriaDropdownThreeValue;
-
-    characterizationCriteriaDropdownTwoValue;
+    characterizationCriteriaDropdownFour = [];
+    characterizationCriteriaDropdownOneValue = this.PLEASE_SELECT;
+    characterizationCriteriaDropdownThreeValue = this.PLEASE_SELECT;
+    characterizationCriteriaDropdownFourValue = this.PLEASE_SELECT;
+    characterizationCriteriaDropdownTwoValue = this.PLEASE_SELECT;
+    characterizationDatumValue = '';
+    characterizationDatumName = ''; // @CHECKME this is going to have the same value as characterizationCriteriaDropdownThreeValue?
+    characterizationOperandSelect = this.PLEASE_SELECT;
 
     compositionCriteriaDropdownTwoValue;
     compositionEditCriteriaDropdownTwoValue;
 
     sampleLogicalOperator = 'and'
     compositionLogicalOperator = 'and';
+    characterizationLogicalOperator = 'and';
 
     editSampleQueryMode = false;
     editCompositionQueryMode = false;
@@ -49,16 +59,15 @@ export class SampleAdvancedSearchComponent implements OnInit{
 
     sampleEditCriteriaTextInput;
     compositionEditCriteriaTextInput;
-
     currentSampleEditCriteriaEditIndex = -1;
     currentCompositionEditCriteriaEditIndex = -1;
-
     compositionCriteriaDropdownTwo;
     compositionEditCriteriaDropdownTwo;
 
     sampleData;
 
-    constructor( private apiService: ApiService ){
+    constructor( private apiService: ApiService, private router: Router,
+                 private sampleAdvancedSearchService: SampleAdvancedSearchService){
     }
 
     ngOnInit(): void{
@@ -76,18 +85,22 @@ export class SampleAdvancedSearchComponent implements OnInit{
 
 
     init(){
+
+        // Get initial values to set up UI.
+        // For Characterization we will need make server calls as the menus are populated, so not much setup data for Characterization
         this.apiService.doGet( Consts.QUERY_SAMPLE_ADVANCED_SEARCH_SETUP, '' ).subscribe(
             data => {
                 this.sampleData = data;
             },
             ( err ) => {
-                console.log( 'ERROR QUERY_SAMPLE_AVAILABILITY: ', err );
+                console.log( 'ERROR QUERY_SAMPLE_ADVANCED_SEARCH_SETUP: ', err );
             } );
     }
 
     // Composition add 2nd dropdown
     onCompositionCriteriaDropdownTwo(){
         console.log( 'MHL onCompositionCriteriaDropdownTwo: ', this.onCompositionEditCriteriaDropdownTwo );
+        this.compositionCriteriaOperand = this.PLEASE_SELECT;
     }
 
     // Composition edit 2nd dropdown
@@ -156,6 +169,15 @@ export class SampleAdvancedSearchComponent implements OnInit{
     }
 
 
+    compositionCriteriaAndRadioClick(){
+        this.compositionLogicalOperator = 'and';
+    }
+
+    compositionCriteriaOrRadioClick(){
+        this.compositionLogicalOperator = 'or';
+    }
+
+
     onEditSampleCriteria( i ){
         this.currentSampleEditCriteriaEditIndex = i;
         // Initialization
@@ -178,11 +200,13 @@ export class SampleAdvancedSearchComponent implements OnInit{
         }
 
     }
-    compositionCriteriaAndRadioClick(){
-        this.compositionLogicalOperator = 'and';    }
 
-    compositionCriteriaOrRadioClick(){
-        this.compositionLogicalOperator = 'or';
+    characterizationCriteriaAndRadioClick(){
+        this.characterizationLogicalOperator = 'and';
+    }
+
+    characterizationCriteriaOrRadioClick(){
+        this.characterizationLogicalOperator = 'or';
     }
 
     sampleCriteriaAndRadioClick(){
@@ -213,12 +237,20 @@ export class SampleAdvancedSearchComponent implements OnInit{
         this.compositionCriteriaTextInput = '';
     }
 
+    clearInputUpdateCharacterizationCriteria(){
+        this.characterizationCriteriaDropdownOneValue = this.PLEASE_SELECT;
+        this.characterizationCriteriaDropdownTwoValue = this.PLEASE_SELECT;
+        this.characterizationCriteriaDropdownThreeValue = this.PLEASE_SELECT;
+        this.characterizationLogicalOperator = 'and';
+        this.characterizationDatumValue = '';
+
+    }
 
     onAddSampleCriteria(){
         this.sampleQueries.push( {
             'nameType': this.sampleCriteriaNameType,
             'operand': this.sampleCriteriaOperand,
-            'type': 'SampleQueryBeen',
+            'type': 'SampleQueryBean',
             'name': this.sampleCriteriaTextInput
         } );
 
@@ -266,27 +298,28 @@ export class SampleAdvancedSearchComponent implements OnInit{
         this.compositionQueries[this.currentCompositionEditCriteriaEditIndex]['entityType'] = this.compositionEditCriteriaDropdownTwoValue;
         this.compositionQueries[this.currentCompositionEditCriteriaEditIndex]['operand'] = this.compositionEditCriteriaOperand;
 
-        // (re)Setup Add criteria update
-        this.compositionEditCriteriaOperand = this.PLEASE_SELECT;
-        this.compositionEditCriteriaDropdownTwoValue = this.PLEASE_SELECT;
-        this.compositionCriteriaDropdownTwoValue = this.PLEASE_SELECT;
-        this.characterizationCriteriaDropdownThreeValue = this.PLEASE_SELECT;
+this.clearInputUpdateCharacterizationCriteria();
         this.editCompositionQueryMode = false;
     }
 
     onCharacterizationCriteriaDropdownOne(){
-        this.getCharacterizationOptions( this.getValueByLabel( this.sampleData['characterizationTypes'], this.characterizationCriteriaDropdownOneValue) );
+        this.getCharacterizationOptions( this.getValueByLabel( this.sampleData['characterizationTypes'], this.characterizationCriteriaDropdownOneValue ) );
     }
 
     onCharacterizationCriteriaDropdownTwo(){
-        console.log('MHL characterizationCriteriaDropdownTwoValue: ', this.characterizationCriteriaDropdownTwoValue);
-        this.getDatumOptions( this.characterizationCriteriaDropdownOneValue,  this.getValueByLabel( this.characterizationCriteriaDropdownTwo,  this.characterizationCriteriaDropdownTwoValue ));
+        console.log( 'MHL characterizationCriteriaDropdownTwoValue: ', this.characterizationCriteriaDropdownTwoValue );
+        this.getCharacterizationDatumOptions( this.characterizationCriteriaDropdownOneValue, this.getValueByLabel( this.characterizationCriteriaDropdownTwo, this.characterizationCriteriaDropdownTwoValue ) );
     }
 
     onCharacterizationCriteriaDropdownThree(){
-        console.log('MHL onCharacterizationCriteriaDropdownThree: ', this.characterizationCriteriaDropdownThreeValue );
+        console.log( 'MHL onCharacterizationCriteriaDropdownThree: ', this.characterizationCriteriaDropdownThreeValue );
+        this.characterizationDatumName = this.characterizationCriteriaDropdownThreeValue;
+        this.getCharacterizationDatumUnitOptions( this.characterizationDatumName );
     }
 
+    onCharacterizationCriteriaDropdownFour(){
+        console.log( 'MHL onCharacterizationCriteriaDropdownFour' );
+    }
 
     onDeleteCompositionCriteria(){
         this.compositionQueries.splice( this.currentCompositionEditCriteriaEditIndex, 1 );
@@ -311,7 +344,7 @@ export class SampleAdvancedSearchComponent implements OnInit{
     /**
      * Get values for 3rd menu using selection from 2nd menu
      */
-    getDatumOptions( charType, charName ){
+    getCharacterizationDatumOptions( charType, charName ){
         this.apiService.doGet( Consts.QUERY_SAMPLE_GET_DATUM_OPTIONS, 'charType=' + charType + '&charName=' + charName ).subscribe(
             data => {
                 this.characterizationCriteriaDropdownThree = data;
@@ -322,20 +355,138 @@ export class SampleAdvancedSearchComponent implements OnInit{
             } );
     }
 
+
+    /**
+     * Get values for 4rd menu using selection from 3nd menu
+     */
+    getCharacterizationDatumUnitOptions( datumName ){
+        this.apiService.doGet( Consts.QUERY_SAMPLE_GET_DATUM_UNIT_OPTIONS, 'datumName=' + datumName ).subscribe(
+            data => {
+                console.log( 'MHL 00 UNIT data: ' + data );
+                console.log( 'MHL 01 UNIT typeof data: ' + typeof data );
+                console.log( 'MHL 02 UNIT data: ', String( data ).split( ',' ) );
+
+                if( data.length < 1 ){
+                    this.characterizationCriteriaDropdownFour = [];
+                }else{
+                    this.characterizationCriteriaDropdownFour = String( data ).split( ',' );
+                }
+                console.log( 'MHL 03 UNIT data  characterizationCriteriaDropdownFour: ', this.characterizationCriteriaDropdownFour );
+                this.characterizationCriteriaDropdownFourValue = this.PLEASE_SELECT;
+                console.log( 'MHL 04 UNIT characterizationCriteriaDropdownFour: ' + this.characterizationCriteriaDropdownFour );
+            },
+            ( err ) => {
+                console.log( 'ERROR QUERY_SAMPLE_GET_DATUM_UNIT_OPTIONS: ', err );
+            } );
+    }
+
     /**
      * Each element has a "value" and a "label", "label" is for display in menus, "value" is used in Server calls.
      * @param array
      * @param label
      */
-    getValueByLabel( array, label){
-        for( let f = 0; f < array.length; f++){
-            if( array[f]['label'] === label){
+    getValueByLabel( array, label ){
+        for( let f = 0; f < array.length; f++ ){
+            if( array[f]['label'] === label ){
                 return array[f]['value'];
             }
         }
         // Not found  @TODO react to this error
-        console.error('Could not find ' + label + ' in array.');
+        console.error( 'Could not find ' + label + ' in array.' );
         return '';
     }
 
+    onAddCharacterizationCriteria(){
+        let tempObj = {
+            'characterizationType':  this.characterizationCriteriaDropdownOneValue,
+            'characterizationNameLabel':  this.characterizationCriteriaDropdownTwoValue,  // this.characterizationCriteriaDropdownTwoValue,
+            'characterizationName':  this.getValueByLabel( this.characterizationCriteriaDropdownTwo,  this.characterizationCriteriaDropdownTwoValue),  // this.characterizationCriteriaDropdownTwoValue,
+            'datumName': this.characterizationCriteriaDropdownThreeValue,
+            'datumValue': this.characterizationDatumValue,
+            'operand': this.characterizationOperandSelect,
+            'type': 'CharacterizationQueryBean'
+        };
+        if( this.characterizationCriteriaDropdownFourValue === this.PLEASE_SELECT ){
+            tempObj['datumValueUnit'] = '';
+        }else{
+            tempObj['datumValueUnit'] = this.characterizationCriteriaDropdownFourValue;
+        }
+
+        this.characterizationQueries.push( tempObj );
+        console.log( 'MHL onAddCharacterizationCriteria characterizationQueries: ', this.characterizationQueries );
+
+        // Return Characterization part of UI to initial values
+        this.clearInputUpdateCharacterizationCriteria();
+    }
+
+
+    onEditCharacterizationCriteria( i ){
+        console.log( 'MHL onEditCharacterizationCriteria: ', i );
+    }
+
+    masterCriteriaAndRadioClick(){
+        this.masterLogicalOperator = 'and';
+        console.log( 'MHL masterCriteriaAndRadioClick masterLogicalOperator: ', this.masterLogicalOperator );
+    }
+
+    masterCriteriaOrRadioClick(){
+        this.masterLogicalOperator = 'or';
+        console.log( 'MHL masterCriteriaOrRadioClick masterLogicalOperator: ', this.masterLogicalOperator );
+    }
+
+    onResetCharacterizationCriteria(){
+        console.log( 'MHL onResetCharacterizationCriteria' );
+        this.characterizationQueries = [];
+        this.clearInputUpdateCharacterizationCriteria();
+    }
+
+    clearCharacterizationUi(){
+        this.characterizationCriteriaDropdownOneValue = this.PLEASE_SELECT;
+        this.characterizationCriteriaDropdownTwoValue = this.PLEASE_SELECT;
+        this.characterizationCriteriaDropdownThreeValue = this.PLEASE_SELECT;
+    }
+
+    cleanCharacterizationQueries(){
+        for (let i = 0; i < this.characterizationQueries.length; i++) {
+            this.characterizationQueries[i]['characterizationNameLabel'] = undefined;
+            console.log(this.characterizationQueries[i]);
+        }
+    }
+
+    onSearchClicked(){
+        this.cleanCharacterizationQueries();
+
+        let queryObject = {};
+        queryObject['sampleQueries'] = this.sampleQueries;
+        queryObject['compositionQueries'] = this.compositionQueries;
+        queryObject['characterizationQueries'] = this.characterizationQueries;
+        queryObject['sampleLogicalOperator'] = this.sampleLogicalOperator;
+        queryObject['compositionLogicalOperator'] = this.compositionLogicalOperator;
+        queryObject['characterizationLogicalOperator'] = this.characterizationLogicalOperator;
+        queryObject['logicalOperator'] = this.masterLogicalOperator;
+
+        console.log( 'MHL queryObject: ', queryObject );
+        this.apiService.doPost( Consts.QUERY_SAMPLE_ADVANCED_SEARCH, queryObject ).subscribe(
+            data => {
+                this.sampleAdvancedSearchService.setSearchResults(data['resultTable']['dataRows']);
+                console.log( 'MHL QUERY_SAMPLE_ADVANCED_SEARCH data: ', data );
+                // Passing queryObject as a route perimeter changed (broke) it
+                // this.router.navigate(['home/samples/sampleAdvancedSearchResults', queryObject]);
+                this.router.navigate(['home/samples/sampleAdvancedSearchResults'] ); // @FIXME TESTING  Don't hard code this!!!
+
+            },
+            ( err ) => {
+                console.log( 'MHL ERROR QUERY_SAMPLE_ADVANCED_SEARCH err: ', err );
+            } );
+
+    }
+
+    onResetClicked(){
+        this.clearInputUpdateSampleCriteria();
+        this.clearInputUpdateCompositionCriteria();
+        this.clearInputUpdateCharacterizationCriteria();
+        this.sampleQueries = [];
+        this.compositionQueries = [];
+        this.characterizationQueries = [];
+    }
 }

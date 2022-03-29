@@ -11,9 +11,9 @@
 >
 </canano-main-display-heading>
 
-<!-- ------------------------------------------------- -->
-<!-- ---------------  Sample Criteria  --------------- -->
-<!-- ------------------------------------------------- -->
+    <!-- ------------------------------------------------- -->
+    <!-- ---------------  Sample Criteria  --------------- -->
+    <!-- ------------------------------------------------- -->
 <div class="main-advanced-search-criteria-div p-2 m-2">
     <span><b>Sample Criteria</b></span>
 
@@ -110,6 +110,7 @@
         <!-- Second Dropdown -->
         <select class="mr-1"
                 name="sampleCriteriaOperand" id="sampleCriteriaOperand"
+                [disabled]="sampleCriteriaNameType === PLEASE_SELECT"
                 [(ngModel)]="sampleCriteriaOperand"
         >
             <option value={{PLEASE_SELECT}}>{{PLEASE_SELECT}}</option>
@@ -182,14 +183,14 @@
     <!-- END Radio buttons for Sample Criteria -->
 
 </div>
-<!-- ------------------------------------------------- -->
-<!-- ------------- END Sample Criteria  -------------- -->
-<!-- ------------------------------------------------- -->
+    <!-- ------------------------------------------------- -->
+    <!-- ------------- END Sample Criteria  -------------- -->
+    <!-- ------------------------------------------------- -->
 
 
-<!-- ------------------------------------------------- -->
-<!-- ------------  Composition Criteria  ------------- -->
-<!-- ------------------------------------------------- -->
+    <!-- ------------------------------------------------- -->
+    <!-- ------------  Composition Criteria  ------------- -->
+    <!-- ------------------------------------------------- -->
 <div class="main-advanced-search-criteria-div p-2 m-2">
     <span><b>Composition Criteria</b></span>
 
@@ -256,7 +257,6 @@
                 {{menuItem}}
             </option>
         </select>
-
 
         <!-- If the Composition criteria is "function" only show two dropdowns, nothing else -->
         <span *ngIf="compositionEditCriteriaCompositionType !== 'function'">
@@ -336,6 +336,7 @@
 
             <select class="mr-1"
                     name="operand" id="compositionCriteriaOperand"
+                    [disabled]="compositionCriteriaDropdownTwoValue === PLEASE_SELECT"
                     [(ngModel)]="compositionCriteriaOperand"
             >
                 <option value={{PLEASE_SELECT}}>{{PLEASE_SELECT}}</option>
@@ -415,22 +416,58 @@
     </div>
     <!-- END Radio buttons for Composition Criteria -->
 </div>
-<!-- ------------------------------------------------- -->
-<!-- ----------  END Composition Criteria  ----------- -->
-<!-- ------------------------------------------------- -->
+    <!-- ------------------------------------------------- -->
+    <!-- ----------  END Composition Criteria  ----------- -->
+    <!-- ------------------------------------------------- -->
 
 
-<!-- ------------------------------------------------- -->
-<!-- ----------  Characterization Criteria  ---------- -->
-<!-- ------------------------------------------------- -->
+    <!-- ------------------------------------------------- -->
+    <!-- ----------  Characterization Criteria  ---------- -->
+    <!-- ------------------------------------------------- -->
 <div *ngIf="sampleData !== undefined"
-    class="main-advanced-search-criteria-div p-2 m-2">
+     class="main-advanced-search-criteria-div p-2 m-2">
     <span><b>Characterization Criteria</b></span>
-    <!-- -----  Add to Composition Queries ----- -->
-    <div *ngIf="! editCharacterizationQueryMode" class="sample-criteria-add-div p-1">
+
+    <!-- -----  Display Characterization (if there are any)  ----- -->
+    <!-- Show when there is at least one Characterization Criteria -->
+    <div *ngIf="characterizationQueries.length > 0" class="sample-criteria-current-div -p2">
+        <table width="100%"> <!-- TODO move to appropriate scss -->
+            <tr *ngFor="let criteria of characterizationQueries; let i = index">
+                <td>
+                    {{criteria['characterizationType']}}
+                </td>
+                <td>
+                    {{criteria['characterizationNameLabel']}}
+                </td>
+                <td>
+                    {{criteria['datumName']}}
+                </td>
+                <td>
+                    {{criteria['operand']}}
+                </td>
+                <td>
+                    {{criteria['datumValue']}}
+                </td>
+                <td>
+                    {{criteria['datumValueUnit']}}
+                </td>
+                <td>
+                    <!-- Edit this criteria (switch to edit mode UI) -->
+                    <button class="btn btn-primary mr-1"
+                            (click)="onEditCharacterizationCriteria( i )"
+                    >Edit
+                    </button>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <!-- -----  END Display Characterization (if there are any)  ----- -->
+
+    <!-- -----  Add to Characterization criteria Queries ----- -->
+    <div *ngIf="! editCharacterizationQueryMode" class="sample-criteria-add-div p-1" style="background-color: #ff5d4e">
 
         <!-- First Dropdown -->
-        <select
+        <select style="width: 15%;"
             class="mr-1"
             name="editCharacterizationDropdownOne"
             id="editCCharacterizationDropdownOne"
@@ -445,10 +482,11 @@
         </select>
 
         <!-- Second Dropdown -->
-        <select
+        <select style="width: 15%;"
             class="mr-1"
             name="editCharacterizationDropdownTwo"
             id="editCCharacterizationDropdownTwo"
+            [disabled]="characterizationCriteriaDropdownOneValue === PLEASE_SELECT"
             [(ngModel)]="characterizationCriteriaDropdownTwoValue"
             (ngModelChange)="onCharacterizationCriteriaDropdownTwo()"
         >
@@ -460,10 +498,11 @@
         </select>
 
         <!-- Third Dropdown -->
-        <select
+        <select  style="width: 15%;"
             class="mr-1"
             name="editCharacterizationDropdownThree"
             id="editCCharacterizationDropdownThree"
+            [disabled]="characterizationCriteriaDropdownTwoValue === PLEASE_SELECT"
             [(ngModel)]="characterizationCriteriaDropdownThreeValue"
             (ngModelChange)="onCharacterizationCriteriaDropdownThree()"
         >
@@ -473,11 +512,172 @@
                 {{menuItem['label']}}
             </option>
         </select>
-    </div>
-</div>
-<!-- ------------------------------------------------- -->
-<!-- --------  END  Characterization Criteria  ------- -->
-<!-- ------------------------------------------------- -->
 
+        <!-- Operand dropdown -->
+        <select *ngIf="characterizationCriteriaDropdownThreeValue !== PLEASE_SELECT"  style="width: 10%;"
+                name="characterizationOperandSelect"
+                id="characterizationOperandSelect"
+                [(ngModel)]="characterizationOperandSelect"
+        >
+            <option value={{PLEASE_SELECT}}>{{PLEASE_SELECT}}</option>
+            <option value="=">=</option>
+            <option value=">">></option>
+            <option value=">=">>=</option>
+            <option value="<"><</option>
+            <option value="<="><=</option>
+        </select>
+
+        <!-- Characterization Datum Value -->
+
+        <span *ngIf="characterizationCriteriaDropdownThreeValue !== PLEASE_SELECT">
+            <input
+                type="text"
+                [(ngModel)]="characterizationDatumValue"
+                id="characterizationDatumValue"
+            >
+        </span>
+
+        <!-- Third Dropdown -->
+        <select *ngIf="(characterizationCriteriaDropdownThreeValue !== PLEASE_SELECT) && (characterizationCriteriaDropdownFour.length > 0 )"
+            class="mr-1"
+            name="editCharacterizationDropdownFour"
+            id="editCCharacterizationDropdownFour"
+            [disabled]="characterizationCriteriaDropdownThreeValue === PLEASE_SELECT"
+            [(ngModel)]="characterizationCriteriaDropdownFourValue"
+            (ngModelChange)="onCharacterizationCriteriaDropdownFour()"
+        >
+            <option value={{PLEASE_SELECT}}>{{PLEASE_SELECT}}</option>
+            <option *ngFor="let menuItem of characterizationCriteriaDropdownFour"
+                    value="{{menuItem}}">
+                {{menuItem}}
+            </option>
+        </select>
+
+        <!-- Add and Reset buttons for characterization Criteria -->
+
+        <div class="m-1">
+            <button class="btn btn-primary mr-1"
+
+                    [disabled]="( characterizationOperandSelect === PLEASE_SELECT ) ||
+                    ( characterizationCriteriaDropdownTwoValue === PLEASE_SELECT ) ||
+                    ( characterizationCriteriaDropdownThreeValue === PLEASE_SELECT ) ||
+                    (characterizationCriteriaDropdownOneValue === PLEASE_SELECT)
+                "
+                    (click)="onAddCharacterizationCriteria()"
+            >Add
+            </button>
+
+            <button class="btn btn-danger"
+                    (click)="onResetCharacterizationCriteria()"
+            >Reset
+            </button>
+        </div>
+
+        <!-- END Add and Reset buttons for Characterization Criteria -->
+
+
+
+
+
+
+
+
+
+
+
+        <!-- Radio buttons for Characterization Criteria -->
+        <!--This will only be shown if there is more than one Characterization Criteria -->
+    <div *ngIf="characterizationQueries.length > 1">
+        <!-- Radio button for Characterization And -->
+        <input
+            class="mr-1"
+            name="characterization-criteria-and-or_radio"
+            id="characterization-criteria-and-radio"
+            type="radio"
+            [checked]="characterizationLogicalOperator === 'and'"
+            (click)="characterizationCriteriaAndRadioClick()"
+        >
+        <label
+            class="mr-3"
+            for="characterization-criteria-and-radio"
+        >
+            And
+        </label>
+        <!-- END Radio button for And -->
+
+        <!-- Radio button for Characterization Or -->
+        <input
+            class="mr-1"
+            name="characterization-criteria-and-or_radio"
+            id="characterization-criteria-or-radio"
+            type="radio"
+            [checked]="characterizationLogicalOperator === 'or'"
+            (click)="characterizationCriteriaOrRadioClick()"
+        >
+        <label
+            class="mr-3"
+            for="characterization-criteria-or-radio"
+        >
+            Or
+        </label>
+        <!-- END Radio button for Or -->
+    </div>
+        <!-- END Radio buttons for Characterization Criteria -->
+
+
+
+    </div>
+    <!-- ------------------------------------------------- -->
+    <!-- --------  END  Characterization Criteria  ------- -->
+    <!-- ------------------------------------------------- -->
+
+</div>
+
+    <!-- Top level And/Or -->
+    <div class="ml-2">
+                <!-- Radio button for Composition And -->
+        <input
+            class="mr-1"
+            name="master-criteria-and-or_radio"
+            id="master-criteria-and-radio"
+            type="radio"
+            [checked]="masterLogicalOperator === 'and'"
+            (click)="masterCriteriaAndRadioClick()"
+        >
+        <label
+            class="mr-3"
+            for="master-criteria-and-radio"
+        >
+            And
+        </label>
+        <!-- END Radio button for And -->
+
+        <!-- Radio button for Composition Or -->
+        <input
+            class="mr-1"
+            name="master-criteria-and-or_radio"
+            id="master-criteria-or-radio"
+            type="radio"
+            [checked]="masterLogicalOperator === 'or'"
+            (click)="masterCriteriaOrRadioClick()"
+        >
+        <label
+            for="master-criteria-or-radio"
+        >
+            Or
+        </label>
+    </div>
+
+    <div>
+        <button
+            class="btn btn-primary float-right"
+            (click)="onSearchClicked()"
+        >Search</button>
+
+        <button
+            class="btn btn-danger float-right mr-1"
+            (click)="onResetClicked()"
+        >Rest</button>
+    </div>
 
 </span>

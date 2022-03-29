@@ -19,6 +19,7 @@ export const Consts = {
     QUERY_SAMPLE_SUBMIT: 'caNanoLab/rest/sample/submitSample',
     QUERY_SAMPLE_SETUP: 'caNanoLab/rest/sample/setup',
     QUERY_SAMPLE_ADVANCED_SEARCH_SETUP: 'caNanoLab/rest/sample/setupAdvancedSearch',
+    QUERY_SAMPLE_ADVANCED_SEARCH: 'caNanoLab/rest/sample/searchSampleAdvanced',
     QUERY_SEARCH_SAMPLE: 'caNanoLab/rest/sample/searchSample', // @TODO rename this SAMPLE_SEARCH
     QUERY_SAMPLE_AVAILABILITY: 'caNanoLab/rest/sample/viewDataAvailability',
     QUERY_SAMPLE_UPDATE: 'caNanoLab/rest/sample/updateSample',
@@ -26,6 +27,7 @@ export const Consts = {
     QUERY_SAMPLE_POC_UPDATE_SAVE:  'caNanoLab/rest/sample/savePOC',
     QUERY_SAMPLE_GET_CHARACTERIZATION_OPTIONS:  'caNanoLab/rest/sample/getDecoratedCharacterizationOptions',
     QUERY_SAMPLE_GET_DATUM_OPTIONS:  'caNanoLab/rest/sample/getDecoratedDatumOptions',
+    QUERY_SAMPLE_GET_DATUM_UNIT_OPTIONS:  'caNanoLab/rest/sample/getDatumUnitOptions',
 
 
     QUERY_PROTOCOL_SETUP: 'caNanoLab/rest/protocol/setup',
