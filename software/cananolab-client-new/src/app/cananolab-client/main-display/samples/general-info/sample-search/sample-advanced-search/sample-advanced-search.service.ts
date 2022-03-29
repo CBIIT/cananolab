@@ -10,11 +10,9 @@ export class SampleAdvancedSearchService{
 
     setSearchResults( sr ){
         this.searchResults = sr;
-        console.log('MHL setSearchResults: ', this.searchResults );
     }
 
     getSearchResults(){
-        console.log('MHL getSearchResults: ', this.searchResults );
         return this.searchResults;
     }
 }

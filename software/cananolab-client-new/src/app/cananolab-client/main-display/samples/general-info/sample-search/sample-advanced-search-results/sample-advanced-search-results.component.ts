@@ -25,11 +25,8 @@ export class SampleAdvancedSearchResultsComponent implements OnInit{
             console.log( 'MHL 001 myParam: ', this.myParam );
         } );*/
 
-
-
         this.searchResults0 = this.sampleAdvancedSearchService.getSearchResults();
         this.dataRows = this.searchResults0;
-        console.log( 'MHL 001 searchResults0: ', this.searchResults0 );
     }
 
 }

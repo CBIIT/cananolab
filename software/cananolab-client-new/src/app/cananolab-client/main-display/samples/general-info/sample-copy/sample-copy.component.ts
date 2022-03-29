@@ -32,11 +32,9 @@ export class SampleCopyComponent implements OnInit{
                 this.sampleNames = data;
             },
             ( err ) => {
-                console.log( 'MHL ERROR sampleNames: ', err );
-
+                console.log( 'ERROR SampleCopyComponent init QUERY_SAMPLE_GET_NAMES: ', err );
             }
         );
-
     }
 
     browseClicked(){

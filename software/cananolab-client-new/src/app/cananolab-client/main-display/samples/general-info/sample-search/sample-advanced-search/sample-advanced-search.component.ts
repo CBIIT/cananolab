@@ -67,7 +67,7 @@ export class SampleAdvancedSearchComponent implements OnInit{
     sampleData;
 
     constructor( private apiService: ApiService, private router: Router,
-                 private sampleAdvancedSearchService: SampleAdvancedSearchService){
+                 private sampleAdvancedSearchService: SampleAdvancedSearchService ){
     }
 
     ngOnInit(): void{
@@ -99,14 +99,13 @@ export class SampleAdvancedSearchComponent implements OnInit{
 
     // Composition add 2nd dropdown
     onCompositionCriteriaDropdownTwo(){
-        console.log( 'MHL onCompositionCriteriaDropdownTwo: ', this.onCompositionEditCriteriaDropdownTwo );
         this.compositionCriteriaOperand = this.PLEASE_SELECT;
     }
 
     // Composition edit 2nd dropdown
     onCompositionEditCriteriaDropdownTwo(){
-        console.log( 'MHL onCompositionEditCriteriaDropdownTwo: ', this.compositionCriteriaDropdownTwo );
-        console.log( 'MHL compositionEditCriteriaDropdownTwoValue: ', this.compositionEditCriteriaDropdownTwoValue );
+        // console.log( 'MHL onCompositionEditCriteriaDropdownTwo: ', this.compositionCriteriaDropdownTwo );
+        // console.log( 'MHL compositionEditCriteriaDropdownTwoValue: ', this.compositionEditCriteriaDropdownTwoValue );
     }
 
     onResetCompositionCriteria(){
@@ -135,7 +134,6 @@ export class SampleAdvancedSearchComponent implements OnInit{
                 break;
 
             default:
-                alert( 'Place holder for ' + this.compositionCriteriaCompositionType )
                 break;
         }
         this.compositionCriteriaDropdownTwoValue = this.PLEASE_SELECT;
@@ -161,8 +159,7 @@ export class SampleAdvancedSearchComponent implements OnInit{
                 break;
 
             default:
-                alert( 'Place holder for ' + this.compositionEditCriteriaCompositionType )
-                console.log( 'MHL ERROR onCompositionEditCriteriaDropdownOne sampleData: ', this.sampleData );
+                console.log( 'MHL ERROR Unknown onCompositionEditCriteriaDropdownOne Type sampleData: ', this.sampleData );
                 break;
         }
         this.compositionEditCriteriaDropdownTwoValue = this.PLEASE_SELECT;
@@ -284,7 +281,8 @@ export class SampleAdvancedSearchComponent implements OnInit{
     }
 
     onResetCompositionEditCriteria(){
-        console.log( 'MHL onResetCompositionEditCriteria' );
+        this.compositionQueries = [];
+        this.clearInputUpdateCompositionCriteria();
     }
 
     onDeleteSampleCriteria(){
@@ -298,7 +296,7 @@ export class SampleAdvancedSearchComponent implements OnInit{
         this.compositionQueries[this.currentCompositionEditCriteriaEditIndex]['entityType'] = this.compositionEditCriteriaDropdownTwoValue;
         this.compositionQueries[this.currentCompositionEditCriteriaEditIndex]['operand'] = this.compositionEditCriteriaOperand;
 
-this.clearInputUpdateCharacterizationCriteria();
+        this.clearInputUpdateCharacterizationCriteria();
         this.editCompositionQueryMode = false;
     }
 
@@ -307,18 +305,17 @@ this.clearInputUpdateCharacterizationCriteria();
     }
 
     onCharacterizationCriteriaDropdownTwo(){
-        console.log( 'MHL characterizationCriteriaDropdownTwoValue: ', this.characterizationCriteriaDropdownTwoValue );
         this.getCharacterizationDatumOptions( this.characterizationCriteriaDropdownOneValue, this.getValueByLabel( this.characterizationCriteriaDropdownTwo, this.characterizationCriteriaDropdownTwoValue ) );
     }
 
     onCharacterizationCriteriaDropdownThree(){
-        console.log( 'MHL onCharacterizationCriteriaDropdownThree: ', this.characterizationCriteriaDropdownThreeValue );
         this.characterizationDatumName = this.characterizationCriteriaDropdownThreeValue;
         this.getCharacterizationDatumUnitOptions( this.characterizationDatumName );
     }
 
+    // @TODO we shouldn't need this
     onCharacterizationCriteriaDropdownFour(){
-        console.log( 'MHL onCharacterizationCriteriaDropdownFour' );
+        // console.log( 'MHL onCharacterizationCriteriaDropdownFour' );
     }
 
     onDeleteCompositionCriteria(){
@@ -398,9 +395,9 @@ this.clearInputUpdateCharacterizationCriteria();
 
     onAddCharacterizationCriteria(){
         let tempObj = {
-            'characterizationType':  this.characterizationCriteriaDropdownOneValue,
-            'characterizationNameLabel':  this.characterizationCriteriaDropdownTwoValue,  // this.characterizationCriteriaDropdownTwoValue,
-            'characterizationName':  this.getValueByLabel( this.characterizationCriteriaDropdownTwo,  this.characterizationCriteriaDropdownTwoValue),  // this.characterizationCriteriaDropdownTwoValue,
+            'characterizationType': this.characterizationCriteriaDropdownOneValue,
+            'characterizationNameLabel': this.characterizationCriteriaDropdownTwoValue,  // this.characterizationCriteriaDropdownTwoValue,
+            'characterizationName': this.getValueByLabel( this.characterizationCriteriaDropdownTwo, this.characterizationCriteriaDropdownTwoValue ),  // this.characterizationCriteriaDropdownTwoValue,
             'datumName': this.characterizationCriteriaDropdownThreeValue,
             'datumValue': this.characterizationDatumValue,
             'operand': this.characterizationOperandSelect,
@@ -447,9 +444,9 @@ this.clearInputUpdateCharacterizationCriteria();
     }
 
     cleanCharacterizationQueries(){
-        for (let i = 0; i < this.characterizationQueries.length; i++) {
+        for( let i = 0; i < this.characterizationQueries.length; i++ ){
             this.characterizationQueries[i]['characterizationNameLabel'] = undefined;
-            console.log(this.characterizationQueries[i]);
+            console.log( this.characterizationQueries[i] );
         }
     }
 
@@ -468,11 +465,11 @@ this.clearInputUpdateCharacterizationCriteria();
         console.log( 'MHL queryObject: ', queryObject );
         this.apiService.doPost( Consts.QUERY_SAMPLE_ADVANCED_SEARCH, queryObject ).subscribe(
             data => {
-                this.sampleAdvancedSearchService.setSearchResults(data['resultTable']['dataRows']);
+                this.sampleAdvancedSearchService.setSearchResults( data['resultTable']['dataRows'] );
                 console.log( 'MHL QUERY_SAMPLE_ADVANCED_SEARCH data: ', data );
                 // Passing queryObject as a route perimeter changed (broke) it
                 // this.router.navigate(['home/samples/sampleAdvancedSearchResults', queryObject]);
-                this.router.navigate(['home/samples/sampleAdvancedSearchResults'] ); // @FIXME TESTING  Don't hard code this!!!
+                this.router.navigate( ['home/samples/sampleAdvancedSearchResults'] ); // @FIXME TESTING  Don't hard code this!!!
 
             },
             ( err ) => {
