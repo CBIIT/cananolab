@@ -1,1 +1,117 @@
-<p>chemicalassociation works!</p>
+<canano-main-display-heading [helpUrl]="helpUrl" [toolHeadingName]="toolHeadingNameManage">
+
+</canano-main-display-heading>
+<div class="sample-edit-div">
+    {{chemicalAssociationData | json}}<br /><br />
+    {{setupData | json}}
+    <div class="compositionSection">
+        <form action="" method="get">            
+        <div class="compositionBorder">
+            <table class="dataMain">
+                <tr>
+                    <td class="label">
+                        <label for="bondType">Bond Type*</label>
+                    </td>
+                    <td>
+                        <select id="bondType">
+                            <option [ngValue]="null" disabled>--Select--</option>
+                            <option *ngFor="let bondType of setupData['bondTypes']" [ngValue]="bondType">{{bondType}}</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label">
+                        <label for="description">Description</label>
+                    </td>
+                    <td>
+                        <textarea id="description" name="" rows="3" cols="65">
+
+                        </textarea>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="compositionBorder">
+            <table class="dataMain">
+                <tr>
+                    <td class="label">Element*</td>
+                    <td>
+                        <img src="assets/images//arrow_left_right_gray.gif">
+                    </td>
+                    <td class="label">
+                        Element*
+                    </td>
+                </tr>     
+                <tr>
+                    <td>
+                        <select>
+                            <option [ngValue]="null" disabled>--Select--</option>
+                            <option *ngFor="let bondType of setupData['associationCompositionTypes']" [ngValue]="bondType">{{bondType}}</option>
+                        </select>
+
+                    </td>
+                    <td>associated with</td>
+                    <td>
+                        <select>
+                            <option [ngValue]="null" disabled>--Select--</option>
+                            <option *ngFor="let bondType of setupData['associationCompositionTypes']" [ngValue]="bondType">{{bondType}}</option>
+                        </select>                 
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <select>
+                            <option>Select</option>
+                        </select>                    
+                    </td>
+                    <td>
+
+                    </td>
+                    <td>
+                        <select>
+                            <option>Select</option>
+                        </select>                    
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="3">
+                        <select>
+                            <option>Select</option>
+                        </select>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="compositionBorder">
+            <table class="files">
+                <tr>
+                    <td class="label">
+                        File
+                    </td>
+                    <td>
+                        <button class="btn btn-primary btn-sm">Add</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                       <table>
+                           <tr>
+                                <th>File Type</th>
+                                <th>Title and Download Link</th>
+                                <th>Keywords</th>
+                                <th>Description</th>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                       </table> 
+                    </td>
+                </tr>
+            </table>
+        </div>
+        </form>
+    </div>    
+</div>
