@@ -62,8 +62,10 @@ export const Consts = {
 */
 
 
-    QUERY_ADD_FAVORITE: '/caNanoLab/rest/core/addFavorite',
-
+    QUERY_ADD_FAVORITE: 'caNanoLab/rest/core/addFavorite',
+    QUERY_GET_FAVORITE: 'caNanoLab/rest/core/getFavorites',
+    QUERY_DELETE_FAVORITE: 'caNanoLab/rest/core/deleteFavorite',
+    HELP_URL_FAVORITE: 'https://wiki.nci.nih.gov/x/b4AnEQ',
     HELP_URL_WORKFLOW: 'https://wiki.nci.nih.gov/display/caNanoLab/Getting+Started+in+caNanoLab#GettingStartedincaNanoLab-UsingtheWorkflowtoGetStarted',
     // Publications top menu
     HELP_URL_PUBLICATIONS: 'https://wiki.nci.nih.gov/x/e4QfEQ',

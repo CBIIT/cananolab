@@ -1,7 +1,77 @@
-<p>sample-view works!</p>
 <canano-main-display-heading
     [helpUrl]="helpUrl"
     [toolHeadingName]="toolHeadingNameViewSample"
 >
 </canano-main-display-heading>
-sampleId: {{sampleId}}
+
+<span class="clicker"
+    (click)="topButtonGeneralInfo()"
+>
+    General Info
+</span>
+
+<span class="clicker"
+    (click)="topButtonComposition()"
+>
+    Composition
+</span>
+
+
+<div>
+    <table>
+        <tr>
+            <td>
+                Sample
+            </td>
+            <td>
+                {{sampleData['sampleName']}}
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Created Date
+            </td>
+            <td>
+                  {{sampleData['createdDate']}}
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Keywords
+            </td>
+            <td>
+                    <div *ngFor="let keyword of keyWords">
+                        {{keyword}}
+                    </div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Point of Contact
+            </td>
+            <td>
+                Primary Contact
+            </td>
+            <td>
+                Organization
+            </td>
+            <td>
+                Role
+            </td>
+        </tr>
+        <tr *ngIf="pointOfContacts['primaryContact'] != undefined">
+            <td>
+                {{pointOfContacts['primaryContact'][0]}}
+            </td>
+            <td>
+                {{pointOfContacts['contactPerson'][0]}}
+            </td>
+            <td>
+                {{pointOfContacts['organizationDisplayName'][0]}}
+            </td>
+            <td>
+                {{pointOfContacts['role'][0]}}
+            </td>
+        </tr>
+    </table>
+</div>

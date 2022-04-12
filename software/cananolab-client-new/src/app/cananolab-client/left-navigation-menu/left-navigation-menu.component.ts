@@ -29,9 +29,14 @@ export class LeftNavigationMenuComponent implements OnInit{
         this.router.navigate( ['home/samples/samplesCharacterization', '?sampleId=' + Properties.CURRENT_SAMPLE_ID] );  // @FIXME  Don't hard code these
     }
 
+
+    /**
+     * @CHECKME Should this be view or edit?
+     */
     onGeneralInfoClick(){
         this.currentSelectedItem = 0;
-        this.router.navigate( ['home/samples/samplesEdit', '?sampleId=' + Properties.CURRENT_SAMPLE_ID] );  // @FIXME  Don't hard code these
+        // this.router.navigate( ['home/samples/samplesEdit', '?sampleId=' + Properties.CURRENT_SAMPLE_ID] );  // @FIXME  Don't hard code these
+        this.router.navigate( ['home/samples/samplesView', '?sampleId=' + Properties.CURRENT_SAMPLE_ID] );  // @FIXME  Don't hard code these
     }
 
     onCompositionClick(){

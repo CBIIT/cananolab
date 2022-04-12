@@ -55,7 +55,7 @@ const routes: Routes = [
     { path: 'home/samples', component: SamplesComponent },
 
     { path: 'home/samples/samplesEdit/:sampleId', component: SampleEditComponent },
-    { path: 'home/samples/samplesView/:sampleId', component: SampleViewComponent },
+    { path: 'home/samples/samplesView/:sampleId', component: SampleViewComponent }, // @TODO Add Composition view here
     { path: 'home/samples/samplesSearch', component: SampleSearchComponent },
     { path: 'home/samples/samplesSearchResults', component: SampleSearchResultsComponent },
     { path: 'home/samples/sampleAdvancedSearchResults', component: SampleAdvancedSearchResultsComponent },

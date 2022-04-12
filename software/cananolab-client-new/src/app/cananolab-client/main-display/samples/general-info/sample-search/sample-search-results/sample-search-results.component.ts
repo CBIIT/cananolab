@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { SampleSearchResultsService } from './sample-search-results.service';
-import { Consts, SortState } from '../../../../../../constants';
+import { Consts, ProtocolScreen, SortState } from '../../../../../../constants';
 import { Properties } from '../../../../../../../assets/properties';
 import { takeUntil, timeout } from 'rxjs/operators';
 import { SearchResultsPagerService } from '../../../../../common/components/search-results-pager/search-results-pager.service';
@@ -75,8 +75,23 @@ export class SampleSearchResultsComponent implements OnInit, OnDestroy{
     }
 
 
-    addToFavorites(){
-        console.log('addToFavorites');
+    addToFavorites(samp){
+        console.log('addToFavorites samp: ', samp);
+        let favObj = {'dataType': 'sample', 'loginName': 'canano_curator'};  // @FIXME User real user name
+        favObj['dataName'] = samp['sampleName'];
+        favObj['dataId'] = samp['sampleId'];
+        favObj['description'] = samp['nanoEntityDesc'];
+        favObj['editable'] = samp['editable'];
+        console.log('favObj:', favObj);
+
+        this.apiService.doPost( Consts.QUERY_ADD_FAVORITE, favObj ).subscribe(
+            data => {
+                console.log('MHL set Fave results: ', data);
+            },
+            err => {
+                console.log('MHL ERROR QUERY_ADD_FAVORITE: ', err);
+            }
+        );
     }
 
     onAvailabilityClick( id ){
