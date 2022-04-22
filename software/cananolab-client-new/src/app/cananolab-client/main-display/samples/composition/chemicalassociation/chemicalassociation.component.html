@@ -2,8 +2,11 @@
 
 </canano-main-display-heading>
 <div class="sample-edit-div">
-    {{chemicalAssociationData | json}}<br /><br />
-    {{setupData | json}}
+    <!-- <button (click)="showData()">Show data</button> -->
+    <!-- <div (ngIf)="show"> -->
+        {{chemicalAssociationData | json}}<br /><br />
+        {{setupData | json}}
+    <!-- </div> -->
     <div class="compositionSection">
         <form action="" method="get">            
         <div class="compositionBorder">
@@ -34,50 +37,67 @@
         <div class="compositionBorder">
             <table class="dataMain">
                 <tr>
-                    <td class="label">Element*</td>
+                    <td class="label">
+                        <label for="compositionTypeA">Element*</label>
+                    </td>
                     <td>
                         <img src="assets/images//arrow_left_right_gray.gif">
                     </td>
                     <td class="label">
-                        Element*
+                        <label for="compositionTypeB">Element*</label>
                     </td>
                 </tr>     
                 <tr>
-                    <td>
-                        <select>
+                    <td>                    
+                        <select id="compositionTypeA">
                             <option [ngValue]="null" disabled>--Select--</option>
-                            <option *ngFor="let bondType of setupData['associationCompositionTypes']" [ngValue]="bondType">{{bondType}}</option>
+                            <option *ngFor="let compositionTypeA of setupData['associationCompositionTypes']" [ngValue]="compositionTypeA">{{compositionTypeA}}</option>
                         </select>
-
                     </td>
                     <td>associated with</td>
                     <td>
-                        <select>
+                        <select id="compositionTypeB">
                             <option [ngValue]="null" disabled>--Select--</option>
-                            <option *ngFor="let bondType of setupData['associationCompositionTypes']" [ngValue]="bondType">{{bondType}}</option>
-                        </select>                 
+                            <option *ngFor="let compositionTypeB of setupData['associationCompositionTypes']" [ngValue]="compositionTypeB">{{compositionTypeB}}</option>
+                        </select>             
                     </td>
                 </tr>
                 <tr>
                     <td>
-                        <select>
-                            <option>Select</option>
-                        </select>                    
+                        <label for="entityIdA">&nbsp;</label>
+                        <select id="entityIdA">
+                            <option [ngValue]="null" disabled>--Select--</option>
+                            <option *ngFor="let entityIdA of setupData['associationCompositionTypes']" [ngValue]="entityIdA">{{entityIdA}}</option>
+                        </select>                 
                     </td>
                     <td>
 
                     </td>
                     <td>
-                        <select>
-                            <option>Select</option>
-                        </select>                    
+                        <label for="entityIdB">&nbsp;</label>
+                        <select id="entityIdB">
+                            <option [ngValue]="null" disabled>--Select--</option>
+                            <option *ngFor="let entityIdB of setupData['associationCompositionTypes']" [ngValue]="entityIdB">{{entityIdB}}</option>
+                        </select>                  
                     </td>
                 </tr>
                 <tr>
-                    <td colspan="3">
-                        <select>
-                            <option>Select</option>
-                        </select>
+                    <td>
+                        <label for="composingElementIdA">&nbsp;</label>
+                        <select id="composingElementIdA">
+                            <option [ngValue]="null" disabled>--Select--</option>
+                            <option *ngFor="let composingElementIdA of setupData['associationCompositionTypes']" [ngValue]="composingElementIdA">{{composingElementIdA}}</option>
+                        </select>   
+                    </td>
+                    <td>
+
+                    </td>
+                    <td>
+                        <label for="composingElementIdB">&nbsp;</label>
+                        <select id="composingElementIdB">
+                            <option [ngValue]="null" disabled>--Select--</option>
+                            <option *ngFor="let composingElementIdB of setupData['associationCompositionTypes']" [ngValue]="composingElementIdB">{{composingElementIdB}}</option>
+                        </select>                          
                     </td>
                 </tr>
             </table>

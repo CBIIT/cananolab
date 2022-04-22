@@ -18,6 +18,7 @@ export class ChemicalassociationComponent implements OnInit {
   helpUrl =  Consts.HELP_URL_SAMPLE_COMPOSITION;
   toolHeadingNameManage = 'Sample Composition';
   chemicalAssociationData;
+  chemicalAssociationDataCopy;
   setupData;
 
     constructor( private router: Router, private route: ActivatedRoute,private httpClient: HttpClient ){
@@ -40,20 +41,14 @@ export class ChemicalassociationComponent implements OnInit {
                     console.log(data)
                     Properties.SAMPLE_TOOLS = true;
                     this.chemicalAssociationData = data;
+                    this.chemicalAssociationDataCopy = data;
                     Properties.CURRENT_SAMPLE_NAME = data['sampleName'];
                 } );  
                 this.setupData = this.getSetupData().subscribe(
                     data => {
                         Properties.SAMPLE_TOOLS = true;
                         this.setupData = data;
-                    } );                     
-                // this.dropdowns = this.getSetupData().subscribe(
-                //   data => {
-                //       console.log(data)
-                //       Properties.SAMPLE_TOOLS = true;
-                //       this.compositionData = data;
-                //       Properties.CURRENT_SAMPLE_NAME = data['sampleName'];
-                //   } );                                
+                    } );                                                    
           } 
       );
   }
@@ -113,5 +108,6 @@ getSetupData(){
     return results;
 
 } 
+
 
 }
