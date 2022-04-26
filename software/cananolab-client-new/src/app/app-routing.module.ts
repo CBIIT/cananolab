@@ -35,6 +35,7 @@ import { CompositionfileComponent } from './cananolab-client/main-display/sample
 import { ChemicalassociationComponent } from './cananolab-client/main-display/samples/composition/chemicalassociation/chemicalassociation.component';
 import { SamplePublicationsComponent } from './cananolab-client/main-display/samples/publications/sample-publications/sample-publications.component';
 import { SampleAdvancedSearchResultsComponent } from './cananolab-client/main-display/samples/general-info/sample-search/sample-advanced-search-results/sample-advanced-search-results.component';
+import { ProtocolViewComponent } from './cananolab-client/main-display/protocols/protocol-view/protocol-view.component';
 
 const routes: Routes = [
     { path: '', component: HomeComponent },
@@ -47,6 +48,7 @@ const routes: Routes = [
     { path: 'home/protocols/protocolCreateComponent', component: ProtocolCreateCharlieComponent },
     { path: 'home/protocols/protocolSearchComponent', component: ProtocolSearchComponent },
     { path: 'home/protocols/protocolEditComponent', component: ProtocolEditBravoComponent },
+    { path: 'home/protocols/protocolViewComponent', component: ProtocolViewComponent },
 
     { path: 'home/protocols/protocolSearchComponent', component: ProtocolSearchComponent },
     { path: 'home/protocols/protocolSearchResults', component: ProtocolSearchResultsComponent },
@@ -68,7 +70,7 @@ const routes: Routes = [
     { path: 'home/samples/samplesCharacterization/:sampleId', component: CharacterizationComponent },
     { path: 'home/samples/composition/:sampleId', component: CompositionComponent },
     { path: 'home/samples/composition/functionalizingentity/:sampleId/:dataId', component: FunctionalizingentityComponent },
-    { path: 'home/samples/composition/nanomaterialentity/:sampleId/:dataId', component: NanomaterialentityComponent },
+    { path: 'home/samples/composition/nanomaterialentity/:sampleId/:dataId/:sampleName', component: NanomaterialentityComponent },
     { path: 'home/samples/composition/compositionfile/:sampleId/:dataId', component: CompositionfileComponent },
     { path: 'home/samples/composition/chemicalassociation/:sampleId/:dataId', component: ChemicalassociationComponent },
     { path: 'home/samples/publications/:sampleId', component: SamplePublicationsComponent },

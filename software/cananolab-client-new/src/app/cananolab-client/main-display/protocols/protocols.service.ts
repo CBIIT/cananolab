@@ -13,12 +13,16 @@ export class ProtocolsService{
     }
 
     setCurrentProtocolScreen( ps, info? ){
+        console.log('MHL 00  setCurrentProtocolScreen ps: ', ps);
+        console.log('MHL 01  setCurrentProtocolScreen info: ', info);
         this.currentProtocolScreen = ps;
         this.currentProtocolInfo = info;
         if( info !== undefined){
+            console.log('MHL 02  setCurrentProtocolScreen info: ', info);
             this.currentProtocolScreenEmitter.emit( { ps, info } );
         }else{
-          this.currentProtocolScreenEmitter.emit( { ps } );
+            console.log('MHL 03  setCurrentProtocolScreen ps: ', ps);
+            this.currentProtocolScreenEmitter.emit( { ps } );
         }
     }
 

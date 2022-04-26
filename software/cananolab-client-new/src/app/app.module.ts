@@ -69,6 +69,9 @@ import { NanomaterialentityComponent } from './cananolab-client/main-display/sam
 import { CompositionfileComponent } from './cananolab-client/main-display/samples/composition/compositionfile/compositionfile.component';
 import { ChemicalassociationComponent } from './cananolab-client/main-display/samples/composition/chemicalassociation/chemicalassociation.component';
 import { SampleAdvancedSearchResultsComponent } from './cananolab-client/main-display/samples/general-info/sample-search/sample-advanced-search-results/sample-advanced-search-results.component';
+import { ManageFileEditComponent } from './cananolab-client/main-display/samples/composition/nanomaterialentity/manage-file-edit/manage-file-edit.component';
+import { ComposingElementFormComponent } from './cananolab-client/main-display/samples/composition/nanomaterialentity/manage-composing-element/composing-element-form/composing-element-form.component';
+import { ManageComposingElementComponent } from './cananolab-client/main-display/samples/composition/nanomaterialentity/manage-composing-element/manage-composing-element.component';
 
 @NgModule({
   declarations: [
@@ -135,7 +138,10 @@ import { SampleAdvancedSearchResultsComponent } from './cananolab-client/main-di
     CompositionfileComponent,
     ChemicalassociationComponent,
     SamplePublicationsComponent,
-    SampleAdvancedSearchResultsComponent
+    SampleAdvancedSearchResultsComponent,
+    ManageFileEditComponent,
+    ComposingElementFormComponent,
+    ManageComposingElementComponent
   ],
     imports: [
         BrowserModule,

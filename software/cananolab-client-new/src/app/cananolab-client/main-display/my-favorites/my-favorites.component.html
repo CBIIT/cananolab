@@ -129,6 +129,13 @@
                 <span
                     style="color: #00f; text-decoration: underline;"
                     class="clicker"
+                    (click)="navigateToProtocolView(fav['dataId'])"
+                >View</span>
+                <br>
+
+                <span
+                    style="color: #00f; text-decoration: underline;"
+                    class="clicker"
                     (click)="navigateToProtocolEdit(fav['dataId'])"
                 >Edit</span>
                 <br>
@@ -191,8 +198,8 @@
         </tr>
     </table>
 </div>
-
 <!-- -----  Edit Protocol  ----- -->
+
 <!-- @TODO Clean this up -->
 <span *ngIf="protocolScreenToShow === protocolScreen.PROTOCOL_EDIT_SCREEN">
     <canano-protocol-edit-bravo

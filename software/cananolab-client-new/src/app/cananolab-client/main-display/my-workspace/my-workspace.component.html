@@ -1,1 +1,220 @@
-<p>my-workspace works!</p>
+<canano-main-display-heading
+    [helpUrl]="helpUrl"
+    [toolHeadingName]="toolHeadingNameSearchSample"
+>
+</canano-main-display-heading>
+
+<!-- ----  Checkboxes to show and/or hide Samples, Protocols, or Publications ----- -->
+<div class="mt-1">
+    <input
+        class="ml-2"
+        id="showSampleWorkspacesCheckbox"
+        type="checkbox"
+        [(ngModel)]="showSampleWorkspaces"
+    >
+    <label for="showSampleWorkspacesCheckbox">
+        <b>Samples</b>
+    </label>
+
+    <input
+        class="ml-2"
+        id="showProtocolsWorkspacesCheckbox"
+        type="checkbox"
+        [(ngModel)]="showProtocolsWorkspaces"
+    >
+    <label for="showProtocolsWorkspacesCheckbox">
+        <b>Protocols</b>
+    </label>
+
+    <input
+        class="ml-2"
+        id="showPublicationsWorkspacesCheckbox"
+        type="checkbox"
+        [(ngModel)]="showPublicationsWorkspaces"
+    >
+    <label for="showPublicationsWorkspacesCheckbox">
+        <b>Publications</b>
+    </label>
+</div>
+<!-- ----  END Checkboxes to show and/or hide Samples, Protocols, or Publications ----- -->
+
+
+<hr>
+<!-- Samples -->
+<div
+    *ngIf="showSampleWorkspaces"
+>
+    <h4
+        class="mt-1"
+    >My Samples</h4>
+    <table>
+        <tr>
+            <th>
+                Action
+            </th>
+            <th>
+                Sample Name
+            </th>
+            <th>
+                Sample Submission Status
+            </th>
+           <th>
+               Created Date
+            </th>
+           <th>
+               Sample Access
+            </th>
+        </tr>
+
+        <tr *ngFor="let workSamp of samples">
+            <td>
+
+            <span
+                style="color: #00f; text-decoration: underline;"
+                class="clicker mr-1"
+                (click)="navigateToSampleView(workSamp['id'], workSamp['name'])"
+            >View</span>
+
+            <span
+                style="color: #00f; text-decoration: underline;"
+                class="clicker mr-1"
+                (click)="navigateToSampleEdit(workSamp['id'], workSamp['name'])"
+            >Edit</span>
+
+            <span
+                style="color: #00f; text-decoration: underline;"
+                class="clicker"
+                (click)="navigateToSampleDelete(workSamp['id'])"
+            >Delete</span>
+
+            </td>
+            <td>
+                {{workSamp['name']}}
+           </td>
+           <td>
+                {{workSamp['submisstionStatus']}}
+           </td>
+           <td>
+                {{workSamp['createdDate']}}
+            </td>
+           <td>
+                {{workSamp['access']}}
+            </td>
+        </tr>
+    </table>
+</div>
+<!-- END Samples -->
+
+<!-- Protocols -->
+<div
+    *ngIf="showProtocolsWorkspaces"
+>
+    <h4
+        class="mt-1"
+    >My Protocols</h4>
+    <table>
+        <tr>
+            <th>
+                Action
+            </th>
+            <th>
+                Protocol Name
+            </th>
+            <th>
+                Protocol Submission Status
+            </th>
+           <th>
+               Created Date
+            </th>
+           <th>
+               Protocol Access
+            </th>
+        </tr>
+
+        <tr *ngFor="let workProtocol of protocols">
+            <td>
+            <span *ngIf="workProtocol['fileId'] !== null && workProtocol['fileId'] !== '' && workProtocol['fileId'] !== 0"
+                style="color: #00f; text-decoration: underline;"
+                class="clicker mr-1"
+                (click)="navigateToProtocolView(workProtocol['id'], workProtocol['name'])"
+            >View</span>
+
+            <span *ngIf="workProtocol['editable']"
+                style="color: #00f; text-decoration: underline;"
+                class="clicker mr-1"
+                (click)="navigateToProtocolEdit(workProtocol['id'], workProtocol['name'])"
+            >Edit</span>
+
+            <span *ngIf="workProtocol['editable']"
+                style="color: #00f; text-decoration: underline;"
+                class="clicker"
+                (click)="navigateToProtocolDelete(workProtocol['id'])"
+            >Delete</span>
+
+            </td>
+            <td>
+                {{workProtocol['name']}}
+            </td>
+           <td>
+                {{workProtocol['submisstionStatus']}}
+            </td>
+           <td>
+                {{workProtocol['createdDate']}}
+            </td>
+           <td>
+                {{workProtocol['access']}}
+            </td>
+        </tr>
+    </table>
+</div>
+<!-- END Protocols -->
+
+<!--  Publications -->
+<div
+    *ngIf="showPublicationsWorkspaces"
+>
+    <h4
+        class="mt-1"
+    >My Publications</h4>
+    <table>
+        <tr>
+            <th>
+                Action
+            </th>
+            <th>
+                Publication ID
+            </th>
+            <th>
+                Publication Submission Status
+            </th>
+           <th>
+               Created Date
+            </th>
+           <th>
+               Protocol Access
+            </th>
+        </tr>
+
+        <tr *ngFor="let workPub of publications">
+            <td>
+                <a class="m-1" href="XX">View</a>
+                <a class="m-1" href="XX">Edit</a>
+                <a class="m-1" href="XX">Delete</a>
+            </td>
+            <td>
+                {{workPub['name']}}
+            </td>
+           <td>
+                {{workPub['submisstionStatus']}}
+            </td>
+           <td>
+                {{workPub['createdDate']}}
+            </td>
+           <td>
+                {{workPub['access']}}
+            </td>
+        </tr>
+    </table>
+    <!-- END Publications -->
+
+</div>

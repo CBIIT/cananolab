@@ -29,6 +29,8 @@ export const Consts = {
     QUERY_SAMPLE_GET_DATUM_OPTIONS:  'caNanoLab/rest/sample/getDecoratedDatumOptions',
     QUERY_SAMPLE_GET_DATUM_UNIT_OPTIONS:  'caNanoLab/rest/sample/getDatumUnitOptions',
 
+    QUERY_NANOMATERIAL_EDIT: 'caNanoLab/rest/nanomaterialEntity/edit',
+    QUERY_NANOMATERIAL_SETUP: 'caNanoLab/rest/nanomaterialEntity/setup',
 
     QUERY_PROTOCOL_SETUP: 'caNanoLab/rest/protocol/setup',
     QUERY_SEARCH_PROTOCOL: 'caNanoLab/rest/protocol/searchProtocol',
@@ -64,8 +66,10 @@ export const Consts = {
 
     QUERY_ADD_FAVORITE: 'caNanoLab/rest/core/addFavorite',
     QUERY_GET_FAVORITE: 'caNanoLab/rest/core/getFavorites',
+    QUERY_GET_WORKSPACE: 'caNanoLab/rest/core/getWorkspaceItems',
     QUERY_DELETE_FAVORITE: 'caNanoLab/rest/core/deleteFavorite',
     HELP_URL_FAVORITE: 'https://wiki.nci.nih.gov/x/b4AnEQ',
+    HELP_URL_WORKSPACE: 'https://wiki.nci.nih.gov/x/fYQfEQ',
     HELP_URL_WORKFLOW: 'https://wiki.nci.nih.gov/display/caNanoLab/Getting+Started+in+caNanoLab#GettingStartedincaNanoLab-UsingtheWorkflowtoGetStarted',
     // Publications top menu
     HELP_URL_PUBLICATIONS: 'https://wiki.nci.nih.gov/x/e4QfEQ',
@@ -74,6 +78,7 @@ export const Consts = {
     HELP_URL_SAMPLE_SEARCH_BY_PUBLICATIONS: 'http://localhost:8090/caNanoLab/rest/publication/searchById',
     HELP_URL_SAMPLE_CHARACTERIZATION: 'https://wiki.nci.nih.gov/display/caNanoLab/Managing+Sample+Characterizations#ManagingSampleCharacterizations-Characterization',
     HELP_URL_SAMPLE_COMPOSITION: 'https://wiki.nci.nih.gov/display/caNanoLab/Managing+Sample+Characterizations#ManagingSampleCharacterizations-Composition',
+    HELP_URL_SAMPLE_COMPOSITION_NANOMATERIAL: 'https://wiki.nci.nih.gov/display/caNanoLab/Managing+Sample+Composition+Annotations#ManagingSampleCompositionAnnotations-NanomaterialAddingNanomaterialEntityCompositionAnnotations',
     HELP_URL_SAMPLE_SEARCH: 'https://wiki.nci.nih.gov/display/caNanoLab/Managing+Sample+Characterizations#ManagingSampleCharacterizations-Characterization',
     HELP_URL_SAMPLE_COPY: 'https://wiki.nci.nih.gov/display/caNanoLab/Managing+Samples+in+caNanoLab#ManagingSamplesincaNanoLab-CopySample',
 

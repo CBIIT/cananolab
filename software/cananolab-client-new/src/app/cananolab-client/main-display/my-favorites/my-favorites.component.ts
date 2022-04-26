@@ -76,4 +76,11 @@ export class MyFavoritesComponent implements OnInit{
         this.router.navigate( ['home/protocols/protocolEditComponent'] );  // @FIXME  Don't hard code these
     }
 
+
+    navigateToProtocolView( protocolId ){
+        console.log( 'MHL navigateToProtocolView protocolId: ', protocolId );
+        this.protocolsService.setCurrentProtocolScreen( ProtocolScreen.PROTOCOL_EDIT_SCREEN, protocolId );
+        this.router.navigate( ['home/protocols/protocolViewComponent'] );  // @FIXME  Don't hard code these
+    }
+
 }

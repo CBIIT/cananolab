@@ -10,7 +10,15 @@
         <span *ngFor="let nanomaterial of compositionData['nanomaterialentity'] | keyvalue; let index = index">
         <div class="compositionTitle">{{nanomaterial.key}}</div>
         <div class="compositionBody" *ngFor="let entry of nanomaterial.value">
-            <div class="editButton"><button class="btn btn-primary btn-sm" (click)="onNanomaterialEntityClick(entry.dataId)">Edit</button></div>
+entry['dataId']: {{entry['dataId']}}
+            <div class="editButton">
+                <button class="btn btn-primary btn-sm"
+                        (click)="onNanomaterialEntityClick('67141632' )"
+                >
+                    Edit
+                </button>
+            </div>
+
             <div>
                 <table class="dataMain">
                     <tr>
@@ -29,7 +37,7 @@
                                 <tr>
                                     <td *ngFor="let property of entry['Properties'] | keyvalue">{{property.value}}</td>
                                 </tr>
-                            </table>                            
+                            </table>
                         </td>
                     </tr>
                     <tr>
@@ -48,7 +56,7 @@
                                     <td>
                                         1234  (Compound)
                                     </td>
-                                </tr>  
+                                </tr>
                                 <tr>
                                     <td class="label">
                                         Molecular Formula
@@ -56,7 +64,7 @@
                                     <td>
                                         x+y=z (Hill)
                                     </td>
-                                </tr>  
+                                </tr>
                                 <tr>
                                     <td class="label">
                                         Description
@@ -64,7 +72,7 @@
                                     <td>
                                         Element Description
                                     </td>
-                                </tr>  
+                                </tr>
                                 <tr>
                                     <td class="label">
                                         Function
@@ -72,7 +80,7 @@
                                     <td>
                                         imaging function: Inherent Description (imaging modality: beta radiation)
                                     </td>
-                                </tr>                                                                                                                                                              
+                                </tr>
                             </table>
                         </td>
                     </tr>
@@ -90,18 +98,18 @@
                                                 <span *ngIf="file.isImage; else elseBlock">{{file.Title}}<br />
                                                     <img src="/caNanoLab/rest/sample/downloadImage?fileId={{file.fileId}}" border="0" width="150" alt="uploaded image">
                                                 </span>
-                                                <ng-template #elseBlock>                                                  
+                                                <ng-template #elseBlock>
                                                     <a href="/caNanoLab/rest/sample/download?fileId={{file.fileId}}" target="blank">
                                                         {{file.Title}}
                                                     </a>
                                                 </ng-template>
                                             </ng-template>
-                                        </td> 
+                                        </td>
                                     </tr>
                                     <tr>
                                         <td class="label">
                                             Keywords
-                                        </td> 
+                                        </td>
                                         <td>
                                             {{file.KeywordStr}}
                                         </td>
@@ -109,15 +117,15 @@
                                     <tr>
                                         <td class="label">
                                             Description
-                                        </td> 
+                                        </td>
                                         <td>
                                             {{file.Description}}
                                         </td>
-                                    </tr>                                                                
-                                </table>  
-                            </div>                  
+                                    </tr>
+                                </table>
+                            </div>
                         </td>
-                    </tr>                                                            
+                    </tr>
                 </table>
             </div>
         </div>
@@ -161,7 +169,7 @@
                                 <tr>
                                     <td *ngFor="let property of entry['Properties'] | keyvalue">{{property.value}}</td>
                                 </tr>
-                            </table>                              
+                            </table>
                         </td>
                     </tr>
                     <tr>
@@ -178,7 +186,7 @@
                                     <td>{{function.Modality}}</td>
                                     <td>{{function.FunctionDescription}}</td>
                                 </tr>
-                            </table>  
+                            </table>
                         </td>
                     </tr>
                     <tr>
@@ -203,18 +211,18 @@
                                                 <span *ngIf="file.isImage; else elseBlock">{{file.Title}}<br />
                                                     <img src="/caNanoLab/rest/sample/downloadImage?fileId={{file.fileId}}" border="0" width="150" alt="uploaded image">
                                                 </span>
-                                                <ng-template #elseBlock>                                                  
+                                                <ng-template #elseBlock>
                                                     <a href="/caNanoLab/rest/sample/download?fileId={{file.fileId}}" target="blank">
                                                         {{file.Title}}
                                                     </a>
                                                 </ng-template>
                                             </ng-template>
-                                        </td> 
+                                        </td>
                                     </tr>
                                     <tr>
                                         <td class="label">
                                             Keywords
-                                        </td> 
+                                        </td>
                                         <td>
                                             {{file.KeywordStr}}
                                         </td>
@@ -222,12 +230,12 @@
                                     <tr>
                                         <td class="label">
                                             Description
-                                        </td> 
+                                        </td>
                                         <td>
                                             {{file.Description}}
                                         </td>
-                                    </tr>                                                                
-                                </table>  
+                                    </tr>
+                                </table>
                             </div>
                         </td>
                     </tr>
@@ -235,8 +243,8 @@
             </div>
         </div>
         </span>
-    </div>   
-    
+    </div>
+
     <div class="compositionSection">
         <div id="nanomaterialEntity" class="header">
             Chemical Association<button class="btn btn-primary btn-sm">Add</button>
@@ -264,7 +272,7 @@
                                     </td>
                                     <td style="text-align:center">associated with
                                         <img src="assets/images//arrow_left_right_gray.gif">
-                                        
+
                                     </td>
                                     <td>
                                         {{entry.AssocitedElements.CompositiontypeB}} {{entry.AssocitedElements.EntityDisplayNameB}} (name: {{entry.AssocitedElements.DomainElementNameB}})
@@ -273,12 +281,12 @@
                             </table>
                         </td>
                     </tr>
-                </table>                
+                </table>
             </div>
         </div>
         </span>
     </div>
-    
+
     <div class="compositionSection">
         <div id="nanomaterialEntity" class="header">
             Composition File <button class="btn btn-primary btn-sm">Add</button>
@@ -286,7 +294,9 @@
         <span *ngFor="let compositionfile of compositionData['compositionfile'] | keyvalue; let index = index">
         <div class="compositionTitle">{{compositionfile.key}}</div>
         <div class="compositionBody" *ngFor="let file of compositionfile.value">
-            <div class="editButton"><button class="btn btn-primary btn-sm" (click)="onCompisitionFileClick(entry.dataId)">Edit</button></div>
+<!--
+            <div class="editButton"><button class="btn btn-primary btn-sm" (click)="onCompositionFileClick(entry.dataId)">Edit</button></div>
+-->
             <div>
                 <table class="dataMain files">
                     <tr>
@@ -299,12 +309,12 @@
                                 <span *ngIf="file.isImage; else elseBlock">{{file.Title}}<br />
                                     <img src="/caNanoLab/rest/sample/downloadImage?fileId={{file.fileId}}" border="0" width="150" alt="uploaded image">
                                 </span>
-                                <ng-template #elseBlock>                                                  
+                                <ng-template #elseBlock>
                                     <a href="/caNanoLab/rest/sample/download?fileId={{file.fileId}}" target="blank">
                                         {{file.Title}}
                                     </a>
                                 </ng-template>
-                            </ng-template>                            
+                            </ng-template>
                         </td>
                     </tr>
                     <tr>
@@ -315,10 +325,10 @@
                         <td class="label">Description</td>
                         <td>{{file.Description}}</td>
                     </tr>
-                </table>    
+                </table>
             </div>
         </div>
         </span>
-    </div>    
+    </div>
 </div>
 

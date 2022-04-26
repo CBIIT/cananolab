@@ -37,8 +37,10 @@ export class CompositionComponent implements OnInit{
                         Properties.SAMPLE_TOOLS = true;
                         this.compositionData = data;
                         Properties.CURRENT_SAMPLE_NAME = data['sampleName'];
-                    } );                
-            } 
+                        console.log('MHL Properties.CURRENT_SAMPLE_NAME: ', Properties.CURRENT_SAMPLE_NAME );
+                        console.log('MHL getCompositionEditData: ', this.getCompositionEditData() );
+                    } );
+            }
         );
     }
 
@@ -68,7 +70,7 @@ export class CompositionComponent implements OnInit{
         }
         return results;
 
-    }    
+    }
     onChemicalAssociationClick(dataId){
         this.router.navigate( ['home/samples/composition/chemicalassociation', Properties.CURRENT_SAMPLE_ID, dataId] );  // @FIXME  Don't hard code these
     }
@@ -76,11 +78,13 @@ export class CompositionComponent implements OnInit{
         this.router.navigate( ['home/samples/composition/functionalizingentity', Properties.CURRENT_SAMPLE_ID, dataId] );  // @FIXME  Don't hard code these
     }
     onNanomaterialEntityClick(dataId){
-        this.router.navigate( ['home/samples/composition/nanomaterialentity', Properties.CURRENT_SAMPLE_ID, dataId] );  // @FIXME  Don't hard code these
+        console.log('MHL onNanomaterialEntityClick: ', dataId);
+        console.log('MHL onNanomaterialEntityClick this.sampleName: ', this.sampleName);
+        this.router.navigate( ['home/samples/composition/nanomaterialentity', Properties.CURRENT_SAMPLE_ID, dataId, this.sampleName] );  // @FIXME  Don't hard code these
     }
     onCompositionFileClick(dataId){
         this.router.navigate( ['home/samples/composition/compositionfile', Properties.CURRENT_SAMPLE_ID, dataId] );  // @FIXME  Don't hard code these
-    }            
+    }
 
 
 }

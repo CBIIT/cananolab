@@ -1,1 +1,33 @@
-<p>nanomaterialentity works!</p>
+<canano-main-display-heading
+    [helpUrl]="helpUrl"
+    [toolHeadingName]="toolHeadingNameManage">
+</canano-main-display-heading>
+
+<div>
+    <form (ngSubmit)="onSubmit()" #f="ngForm">
+
+        <table>
+            <tr>
+                <td>
+                    <label for="neDescription">Description</label>
+                </td>
+                <td>
+                    <input
+                        type="text"
+                        [(ngModel)]="description"
+                        class="neDescription form-control"
+                        id="neDescription"
+                        name="description"
+                    >
+                </td>
+            </tr>
+        </table>
+        <h3>MHL 400</h3>
+        <canano-manage-composing-element>
+        </canano-manage-composing-element>
+        <h3>MHL 401</h3>
+        <canano-manage-file-edit>
+        </canano-manage-file-edit>
+        <h3>MHL 402</h3>
+    </form>
+</div>

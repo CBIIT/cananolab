@@ -1,0 +1,437 @@
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;composing-element-form
+<div id="newComposingElement"
+     class="m-3"
+     *ngIf="showAddComposingElement"
+>
+
+    <table class="subSubmissionView p-1" >
+        <tr>
+            <th colspan="4">
+                Composing Element Info
+            </th>
+        </tr>
+
+        <tr>
+            <!-- Type -->
+            <td>
+                <label for="elementType">Type*</label>
+            </td>
+            <td>
+
+                <!-- Type dropdown -->
+                <div *ngIf="setupData !== undefined"
+                     id="elementTypePrompt">
+                    <select id="elementType"
+                            [(ngModel)]="composingElementFormType"
+                            (ngModelChange)="typeChange()"
+                    >
+                        <option value=""
+                            selected="{{composingElementFormType===''}}"
+                        ></option>
+                        <option *ngFor="let type of setupData['composingElementTypes']"
+                                value="{{type}}"
+                        >
+                            {{type}}
+                        </option>
+                        <!-- Add [other] Option -->
+                        <option value="[other]">
+                            [other]
+                        </option>
+                    </select>
+                </div>
+                <!-- END Type dropdown -->
+
+                <!-- Add other (New) Type -->
+                <div
+                    *ngIf="composingElementFormType ==='[other]'"
+                    class="promptBox p-2 mt-1"
+                >
+                    <table class="promptBox">
+                        <tr>
+                            <td>
+                                <label for="typeOther">New Composing Element Type:</label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <input
+                                    class="promptBox"
+                                    type="text"
+                                    size="30"
+                                    id="typeOther"
+                                    [(ngModel)]="otherTypeText"
+                                    (ngModelChange)="updateTypeOther(otherTypeText)"
+                                >
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: right">
+                                <button
+                                    class="btn-canano btn-canano-primary btn-canano-xs mr-1"
+                                    (click)="addOtherTypeAdd()"
+                                >Add
+                                </button>
+                                <button
+                                    class="btn-canano btn-canano-default btn-canano-xs"
+                                    (click)="otherTypeText='';composingElementFormType=typeTrailer"
+                                >Cancel
+                                </button>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <!-- END Other (New) Type -->
+            <!-- END Type -->
+            </td>
+
+            <!-- Chemical Name -->
+            <td>
+                <label for="elementName">Chemical Name*</label>
+            </td>
+
+            <!-- Chemical Name text input -->
+            <td>
+                <input
+                    type="text"
+                    size="30"
+                    id="elementName"
+                    [ngModel]="composingElementFormName"
+                >
+                <!-- END Chemical Name text input -->
+            </td>
+            <!-- END Chemical Name -->
+        </tr>
+        <tr>
+
+            <!-- PubChem DataSource -->
+            <td>
+                <label for="pubChemDataSource">PubChem DataSource</label>
+            </td>
+            <td>
+                <!-- PubChem DataSource dropdown-->
+                <div *ngIf="setupData !== undefined"
+                     id="pubChemDataSourcePrompt">
+                    <select
+                        id="pubChemDataSource"
+                        [ngModel]="pubChemDataSourceName"
+                    >
+                        <option value="">
+                        </option>
+
+                        <option
+                            *ngFor="let dataSource of setupData['pubChemDataSources']"
+                            value="{{dataSource}}"
+                            selected="{{dataSource===pubChemDataSourceName}}"
+                        >
+                            {{dataSource}}
+                        </option>
+                    </select>
+                </div>
+                <!-- END PubChem DataSource dropdown -->
+            </td>
+            <!-- END PubChem DataSource -->
+
+            <!-- PubChem Id -->
+            <td>
+                <label for="pubChemId">PubChem Id</label>
+            </td>
+            <td>
+                <input type="text"
+                       [ngModel]="pubChemId"
+                       size="30"
+                       onkeydown="return"
+                       id="pubChemId"
+                >
+            </td>
+            <!-- END PubChem Id -->
+        </tr>
+
+        <tr>
+            <!-- Amount -->
+            <td>
+                <label for="elementValue">Amount</label>
+            </td>
+            <td>
+                <input
+                    type="number"
+                    [ngModel]="composingElementFormValue"
+                    size="30"
+                    id="elementValue"
+                >
+            </td>
+            <!-- END Amount -->
+
+            <!-- Amount Unit -->
+            <td>
+                <label for="elementValueUnit">Amount Unit</label>
+            </td>
+
+
+            <td>
+                <div *ngIf="setupData !== undefined"
+                     id="elementValueUnitPrompt"
+                >
+
+                    <!-- Amount Unit dropdown -->
+                    <select
+                        [(ngModel)]="composingElementFormValueUnit"
+                        name="composingElementFormValueUnit"
+                        id="elementValueUnit"
+                        (ngModelChange)="amountUnitChange()"
+                    >
+                        <option value="">
+                        </option>
+
+                        <option
+                            *ngFor="let unit of  setupData['composingElementUnits']"
+                            value="{{unit}}"
+                            [selected]="unit === composingElementFormValueUnit"
+                        >
+                            {{unit}}
+                        </option>
+
+                        <option
+                            [selected]="'[other]' === composingElementFormValueUnit"
+                            value="[other]"
+                        >
+                            [other]
+                        </option>
+                    </select>
+                    <!-- END Amount Unit dropdown -->
+
+                    <!-- Amount Unit [other] -->
+                    <div *ngIf="composingElementFormValueUnit ==='[other]'" class="promptBox p-2 mt-1" >
+                        <table width="100%">
+                            <tr>
+                                <td>
+                                    <label for="textUnit" category="">New Amount Unit:</label>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <input
+                                        type="text"
+                                        id="textUnit"
+                                        [(ngModel)]='localFormOtherAmountUnitText'
+                                        class="promptBox"
+                                    >
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="text-align: right">
+                                    <button
+                                        class="btn-canano btn-canano-primary btn-canano-xs mr-1"
+                                        (click)="otherAmountUnitAdd()"
+                                    >Add
+                                    </button>
+
+                                    <button
+                                        class="btn-canano btn-canano-default btn-canano-xs"
+                                        (click)="localFormOtherAmountUnitText='';composingElementFormValueUnit=amountUnitTrailer">Cancel
+                                    </button>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <!-- END Amount Unit [other] -->
+                </div>
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                <label for="molFormulaType">Molecular Formula Type</label>
+            </td>
+            <td>
+                <div *ngIf="setupData !== undefined"
+                     id="molFormulaTypePrompt"
+                >
+                    <select
+                        [(ngModel)]="composingElementFormMolecularFormulaType"
+                        id="molFormulaType"
+                    >
+                        <option value=""></option>
+                        <option
+                            *ngFor="let type of  setupData['molecularFormulaTypes']"
+                            value="{{type}}"
+                            selected="{{type===setupData['molecularFormulaTypes']}}"
+                        >
+                            {{type}}
+                        </option>
+                        <option value="[other]">
+                            [other]
+                        </option>
+                    </select>
+
+                    <div
+                        *ngIf="composingElementFormMolecularFormulaType === '[other]'"
+                        class="promptBox p-2 mt-1"
+                    >
+                        <table width="100%" class="promptBox">
+                            <tr>
+                                <td >
+                                    <label for="textMFType" >New Molecular Formula Type:</label>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <input
+                                        type="text"
+                                        id="textMFType"
+                                        [(ngModel)]='otherMolecularFormulaType'
+                                        (ngModelChange)="molecularFormulaTypeChange()"
+                                        class="promptBox"
+                                    >
+                                </td>
+
+                            </tr>
+                            <tr>
+                                <td style="text-align: right">
+                                    <button class="btn-canano btn-canano-primary btn-canano-xs"
+                                            (click)="otherMolecularAdd()"
+                                    >
+                                        Add
+                                    </button>
+                                    <button type="button" class="btn-canano btn-canano-default btn-canano-xs"
+                                        (click)="composingElementFormMolecularFormulaType=''; composingElementFormMolecularFormulaType=molecularFormulaTypeTrailer"
+                                    >
+                                        Cancel
+                                    </button>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </td>
+            <td>
+                <label for="molecularFormula">Molecular Formula</label>
+            </td>
+            <td>
+                <input type="text" id="molecularFormula" class="promptBox">
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label for="elementDescription">Description</label>
+            </td>
+            <td colspan="3">
+                <input type="text"
+                       size="30"
+
+                       [(ngModel)]="composingElementForDescription"
+                       id="elementDescription"
+                >
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Inherent Function
+            </td>
+            <td>
+                <button
+                    class="btn-canano btn-canano-primary btn-canano-xs"
+                    (click)="showAddInherentFunction = true"
+                >Add</button>
+            </td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>
+                <div
+                    *ngIf="showAddInherentFunction"
+                    class="promptBox p-2 mt-1"
+                >
+                    <table width="100%" class="promptBox">
+                        <tr>
+                            <td >
+                                <label for="inherentFunctionType">Function Type:</label>
+                            </td>
+
+
+                            <td>
+                                <!-- Function Type dropdown -->
+                                <select
+                                    [(ngModel)]="selectedInherentFunctionType"
+                                    name="composingElementFormValueUnit"
+                                    id="inherentFunctionType"
+                                    (ngModelChange)="amountUnitChange()"
+                                >
+                                    <option value="">
+                                    </option>
+
+                                    <option
+                                        *ngFor="let funcType of  setupData['functionTypes']"
+                                        value="{{funcType}}"
+                                        [selected]="funcType === composingElementFormMolecularFormulaType"
+                                    >
+                                        {{funcType}}
+                                    </option>
+
+                                    <option
+                                        [selected]="'[other]' === composingElementFormMolecularFormulaType"
+                                        value="[other]"
+                                    >
+                                        [other]
+                                    </option>
+                                </select>
+                                <!-- END Function Type dropdown -->
+                            </td>
+
+
+
+                        </tr>
+
+                        <!-- --------------------------------------------------- -->
+                        <!-- ---------- @TODO The rest from here down ---------- -->
+                        <!-- --------------------------------------------------- -->
+                        <tr>
+                            <td>
+                                Description
+                            </td>
+                            <td>
+                                <input
+                                    size="30"
+                                    type="text"
+                                >
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <button
+                                    class="btn-canano btn-canano-danger btn-canano-xs"
+                                >Delete</button>
+                            </td>
+                            <td>
+                            </td>
+                            <td>
+                                <button
+                                    class="btn-canano btn-canano-primary btn-canano-xs mr-1"
+                                >Save</button>
+                                <button
+                                    class="btn-canano btn-canano-default btn-canano-xs"
+                                    (click)="showAddInherentFunction=false"
+                                >Cancel</button>
+                            </td>
+                        </tr>
+                    </table>
+
+                </div>
+            </td>
+        </tr>
+
+
+
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>
+                <button class="btn-canano btn-canano-primary btn-canano-xs mr-1">Save</button>
+                <button
+                    class="btn-canano btn-canano-default btn-canano-xs mr-1">Cancel</button>
+            </td>
+        </tr>
+    </table>
+</div>
+
