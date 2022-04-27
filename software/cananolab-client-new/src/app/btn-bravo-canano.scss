@@ -1,0 +1,416 @@
+@import "../app/app.component";
+@import '../app/cananolab-client/cananolab-client.component';
+
+.btn-canano {
+    display: inline-block;
+    padding: 6px 12px;
+    margin-bottom: 0;
+    font-size: 14px;
+    font-weight: normal;
+    line-height: 1.428571429;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    cursor: pointer;
+    background-image: none;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -o-user-select: none;
+    user-select: none;
+}
+
+.btn-canano:focus {
+    outline: thin dotted;
+    outline: 5px auto -webkit-focus-ring-color;
+    outline-offset: -2px;
+}
+
+.btn-canano:hover,
+.btn-canano:focus {
+    color: #333333;
+    text-decoration: none;
+}
+
+.btn-canano:active,
+.btn-canano.active {
+    background-image: none;
+    outline: 0;
+    -webkit-box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+    box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+}
+
+.btn-canano.disabled,
+.btn-canano[disabled],
+fieldset[disabled] .btn-canano {
+    pointer-events: none;
+    cursor: not-allowed;
+    opacity: 0.65;
+    filter: alpha(opacity=65);
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
+
+.btn-canano-default {
+    color: #333333;
+    background-color: #ffffff;
+    border-color: #cccccc;
+}
+
+.btn-canano-default:hover,
+.btn-canano-default:focus,
+.btn-canano-default:active,
+.btn-canano-default.active,
+.open .dropdown-toggle.btn-canano-default {
+    color: #333333;
+    background-color: #ebebeb;
+    border-color: #adadad;
+}
+
+.btn-canano-default:active,
+.btn-canano-default.active,
+.open .dropdown-toggle.btn-canano-default {
+    background-image: none;
+}
+
+.btn-canano-default.disabled,
+.btn-canano-default[disabled],
+fieldset[disabled] .btn-canano-default,
+.btn-canano-default.disabled:hover,
+.btn-canano-default[disabled]:hover,
+fieldset[disabled] .btn-canano-default:hover,
+.btn-canano-default.disabled:focus,
+.btn-canano-default[disabled]:focus,
+fieldset[disabled] .btn-canano-default:focus,
+.btn-canano-default.disabled:active,
+.btn-canano-default[disabled]:active,
+fieldset[disabled] .btn-canano-default:active,
+.btn-canano-default.disabled.active,
+.btn-canano-default[disabled].active,
+fieldset[disabled] .btn-canano-default.active {
+    background-color: #ffffff;
+    border-color: #cccccc;
+}
+
+.btn-canano-default .badge {
+    color: #ffffff;
+    background-color: #fff;
+}
+
+.btn-canano-primary {
+    color: #ffffff;
+    background-color: #428bca;
+    border-color: #357ebd;
+}
+
+.btn-canano-primary:hover,
+.btn-canano-primary:focus,
+.btn-canano-primary:active,
+.btn-canano-primary.active,
+.open .dropdown-toggle.btn-canano-primary {
+    color: #ffffff;
+    background-color: #3276b1;
+    border-color: #285e8e;
+}
+
+.btn-canano-primary:active,
+.btn-canano-primary.active,
+.open .dropdown-toggle.btn-canano-primary {
+    background-image: none;
+}
+
+.btn-canano-primary.disabled,
+.btn-canano-primary[disabled],
+fieldset[disabled] .btn-canano-primary,
+.btn-canano-primary.disabled:hover,
+.btn-canano-primary[disabled]:hover,
+fieldset[disabled] .btn-canano-primary:hover,
+.btn-canano-primary.disabled:focus,
+.btn-canano-primary[disabled]:focus,
+fieldset[disabled] .btn-canano-primary:focus,
+.btn-canano-primary.disabled:active,
+.btn-canano-primary[disabled]:active,
+fieldset[disabled] .btn-canano-primary:active,
+.btn-canano-primary.disabled.active,
+.btn-canano-primary[disabled].active,
+fieldset[disabled] .btn-canano-primary.active {
+    background-color: #428bca;
+    border-color: #357ebd;
+}
+
+.btn-canano-primary .badge {
+    color: #428bca;
+    background-color: #fff;
+}
+
+.btn-canano-warning {
+    color: #ffffff;
+    background-color: #f0ad4e;
+    border-color: #eea236;
+}
+
+.btn-canano-warning:hover,
+.btn-canano-warning:focus,
+.btn-canano-warning:active,
+.btn-canano-warning.active,
+.open .dropdown-toggle.btn-canano-warning {
+    color: #ffffff;
+    background-color: #ed9c28;
+    border-color: #d58512;
+}
+
+.btn-canano-warning:active,
+.btn-canano-warning.active,
+.open .dropdown-toggle.btn-canano-warning {
+    background-image: none;
+}
+
+.btn-canano-warning.disabled,
+.btn-canano-warning[disabled],
+fieldset[disabled] .btn-canano-warning,
+.btn-canano-warning.disabled:hover,
+.btn-canano-warning[disabled]:hover,
+fieldset[disabled] .btn-canano-warning:hover,
+.btn-canano-warning.disabled:focus,
+.btn-canano-warning[disabled]:focus,
+fieldset[disabled] .btn-canano-warning:focus,
+.btn-canano-warning.disabled:active,
+.btn-canano-warning[disabled]:active,
+fieldset[disabled] .btn-canano-warning:active,
+.btn-canano-warning.disabled.active,
+.btn-canano-warning[disabled].active,
+fieldset[disabled] .btn-canano-warning.active {
+    background-color: #f0ad4e;
+    border-color: #eea236;
+}
+
+.btn-canano-warning .badge {
+    color: #f0ad4e;
+    background-color: #fff;
+}
+
+.btn-canano-danger {
+    color: #ffffff;
+    background-color: #A90101;
+    border-color: #d43f3a;
+}
+
+.btn-canano-danger:hover,
+.btn-canano-danger:focus,
+.btn-canano-danger:active,
+.btn-canano-danger.active,
+.open .dropdown-toggle.btn-canano-danger {
+    color: #ffffff;
+    background-color: #d2322d;
+    border-color: #ac2925;
+}
+
+.btn-canano-danger:active,
+.btn-canano-danger.active,
+.open .dropdown-toggle.btn-canano-danger {
+    background-image: none;
+}
+
+.btn-canano-danger.disabled,
+.btn-canano-danger[disabled],
+fieldset[disabled] .btn-canano-danger,
+.btn-canano-danger.disabled:hover,
+.btn-canano-danger[disabled]:hover,
+fieldset[disabled] .btn-canano-danger:hover,
+.btn-canano-danger.disabled:focus,
+.btn-canano-danger[disabled]:focus,
+fieldset[disabled] .btn-canano-danger:focus,
+.btn-canano-danger.disabled:active,
+.btn-canano-danger[disabled]:active,
+fieldset[disabled] .btn-canano-danger:active,
+.btn-canano-danger.disabled.active,
+.btn-canano-danger[disabled].active,
+fieldset[disabled] .btn-canano-danger.active {
+    background-color: #d9534f;
+    border-color: #d43f3a;
+}
+
+.btn-canano-danger .badge {
+    color: #d9534f;
+    background-color: #fff;
+}
+
+.btn-canano-success {
+    color: #ffffff;
+    background-color: #005518;
+    border-color: #005518;
+}
+
+.btn-canano-success:hover,
+.btn-canano-success:focus,
+.btn-canano-success:active,
+.btn-canano-success.active,
+.open .dropdown-toggle.btn-canano-success {
+    color: #ffffff;
+    background-color: #005518;
+    border-color: #398439;
+}
+
+.btn-canano-success.white:hover,
+.btn-canano-success.white:focus,
+.btn-canano-success.white:active,
+.btn-canano-success.white.active,
+{
+    color: #ffffff;
+    background-color: #fff;
+    border-color: #398439;
+}
+
+.btn-canano-success:active,
+.btn-canano-success.active,
+.open .dropdown-toggle.btn-canano-success {
+    background-image: none;
+}
+
+.btn-canano-success.disabled,
+.btn-canano-success[disabled],
+fieldset[disabled] .btn-canano-success,
+.btn-canano-success.disabled:hover,
+.btn-canano-success[disabled]:hover,
+fieldset[disabled] .btn-canano-success:hover,
+.btn-canano-success.disabled:focus,
+.btn-canano-success[disabled]:focus,
+fieldset[disabled] .btn-canano-success:focus,
+.btn-canano-success.disabled:active,
+.btn-canano-success[disabled]:active,
+fieldset[disabled] .btn-canano-success:active,
+.btn-canano-success.disabled.active,
+.btn-canano-success[disabled].active,
+fieldset[disabled] .btn-canano-success.active {
+    background-color: #5cb85c;
+    border-color: #005518;
+}
+
+.btn-canano-success .badge {
+    color: #5cb85c;
+    background-color: #fff;
+}
+
+.btn-canano-info {
+    color: #ffffff;
+    background-color: #5bc0de;
+    border-color: #46b8da;
+}
+
+.btn-canano-info:hover,
+.btn-canano-info:focus,
+.btn-canano-info:active,
+.btn-canano-info.active,
+.open .dropdown-toggle.btn-canano-info {
+    color: #ffffff;
+    background-color: #39b3d7;
+    border-color: #269abc;
+}
+
+.btn-canano-info:active,
+.btn-canano-info.active,
+.open .dropdown-toggle.btn-canano-info {
+    background-image: none;
+}
+
+.btn-canano-info.disabled,
+.btn-canano-info[disabled],
+fieldset[disabled] .btn-canano-info,
+.btn-canano-info.disabled:hover,
+.btn-canano-info[disabled]:hover,
+fieldset[disabled] .btn-canano-info:hover,
+.btn-canano-info.disabled:focus,
+.btn-canano-info[disabled]:focus,
+fieldset[disabled] .btn-canano-info:focus,
+.btn-canano-info.disabled:active,
+.btn-canano-info[disabled]:active,
+fieldset[disabled] .btn-canano-info:active,
+.btn-canano-info.disabled.active,
+.btn-canano-info[disabled].active,
+fieldset[disabled] .btn-canano-info.active {
+    background-color: #5bc0de;
+    border-color: #46b8da;
+}
+
+.btn-canano-info .badge {
+    color: #5bc0de;
+    background-color: #fff;
+}
+
+.btn-canano-link {
+    font-weight: normal;
+    color: #428bca;
+    cursor: pointer;
+    border-radius: 0;
+}
+
+.btn-canano-link,
+.btn-canano-link:active,
+.btn-canano-link[disabled],
+fieldset[disabled] .btn-canano-link {
+    background-color: transparent;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
+
+.btn-canano-link,
+.btn-canano-link:hover,
+.btn-canano-link:focus,
+.btn-canano-link:active {
+    border-color: transparent;
+}
+
+.btn-canano-link:hover,
+.btn-canano-link:focus {
+    color: #2a6496;
+    text-decoration: underline;
+    background-color: transparent;
+}
+
+.btn-canano-link[disabled]:hover,
+fieldset[disabled] .btn-canano-link:hover,
+.btn-canano-link[disabled]:focus,
+fieldset[disabled] .btn-canano-link:focus {
+    color: #999999;
+    text-decoration: none;
+}
+
+.btn-canano-lg {
+    padding: 10px 16px;
+    font-size: 18px;
+    line-height: 1.33;
+    border-radius: 6px;
+}
+
+.btn-canano-sm {
+    padding: 5px 10px;
+    font-size: 12px;
+    line-height: 1.5;
+    border-radius: 3px;
+}
+
+.btn-canano-xs {
+    padding: 1px 5px;
+    font-size: 12px;
+    line-height: 1.5;
+    border-radius: 5px;
+}
+
+.btn-canano-block {
+    display: block;
+    width: 100%;
+    padding-right: 0;
+    padding-left: 0;
+}
+
+.btn-canano-block + .btn-canano-block {
+    margin-top: 5px;
+}
+
+input[type="submit"].btn-canano-block,
+input[type="reset"].btn-canano-block,
+input[type="button"].btn-canano-block {
+    width: 100%;
+}
