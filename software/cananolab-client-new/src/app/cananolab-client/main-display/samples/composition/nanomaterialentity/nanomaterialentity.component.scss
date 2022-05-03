@@ -1,3 +1,5 @@
+@import "../../../../../btn-bravo-canano";
+
 $composing-element-font: arial, helvetica, verdana, sans-serif;
 $composing-element-font-size: 10px;
 $composing-element-input-border-color: #7f9DB9;
@@ -6,4 +8,18 @@ $composing-element-input-text-color: #5C5C5C;
 
 .neDescription{
    size: 100ch;
+}
+
+.nanomaterial-description{
+    border: solid #aaaaab 1px;
+}
+
+.copy-to-other-samples{
+    width: 75%;
+    border: solid $composing-element-input-border-color 1px;
+    font-family: arial, helvetica, verdana, sans-serif;
+}
+
+.bottom-button-div{  // @TODO rename this
+    width: 75%;
 }

@@ -21,21 +21,24 @@ export class NanomaterialentityComponent implements OnInit{
     setupData;
     sampleName;
     description;
+    composingElementsArray;
     testData = 'XXXXXXX';
+    selectedOtherSampleNames = [];
+
     @ViewChild( 'f', { static: false } ) compositionEditForm: NgForm;
 
     constructor( private router: Router, private route: ActivatedRoute,
                  private httpClient: HttpClient, private apiService: ApiService,
-                 private nanomaterialService: NanomaterialService){
+                 private nanomaterialService: NanomaterialService ){
     }
 
     ngOnInit(): void{
         this.route.params.subscribe(
             ( params: Params ) => {
                 this.nanomaterialSampleId = params['sampleId'];
-                this.nanomaterialService.setNomaterialSampleId(params['sampleId']);
+                this.nanomaterialService.setNomaterialSampleId( params['sampleId'] );
                 this.nanomaterialDataId = params['dataId'];
-                this.nanomaterialService.setNomaterialDataId(params['dataId']);
+                this.nanomaterialService.setNomaterialDataId( params['dataId'] );
                 this.sampleName = params['sampleName'];
                 this.toolHeadingNameManage = this.sampleName + ' Sample Composition - Nanomaterial Entity';
                 console.log( 'MHL nanomaterialSampleId: ', this.nanomaterialSampleId );
@@ -56,9 +59,10 @@ export class NanomaterialentityComponent implements OnInit{
             data => {
                 this.editData = data;
                 this.description = data['description'];
-                this.nanomaterialService.setNanomaterialEditData( data );
                 console.log( 'MHL QUERY_NANOMATERIAL_EDIT: ', data );
-
+                this.nanomaterialService.setNanomaterialEditData( data );
+                this.composingElementsArray = data['composingElements'];
+                console.log( 'MHL composingElementsArray: ', this.composingElementsArray );
             },
 
             ( err ) => {
@@ -78,6 +82,10 @@ export class NanomaterialentityComponent implements OnInit{
                 console.error( 'MHL ERROR QUERY_NANOMATERIAL_SETUP: ', err );
             } );
 
+    }
+
+    updatesSelectedOtherSampleNames(){
+        console.log( 'MHL updatesSelectedOtherSampleNames clicked: ', this.selectedOtherSampleNames );
     }
 
     onSubmit(){

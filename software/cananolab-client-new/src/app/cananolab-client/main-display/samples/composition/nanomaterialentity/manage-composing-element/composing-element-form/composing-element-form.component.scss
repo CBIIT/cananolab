@@ -3,6 +3,7 @@
 // -----------------------------------------------------------------------------------------
 
 @import "../../nanomaterialentity.component";
+@import "../../../../../../../btn-bravo-canano.scss";
 
 .subSubmissionView {
     font-family: $composing-element-font;
@@ -38,4 +39,13 @@ input.promptBox, div.promptBox {
     font-family: $composing-element-font;
 	font-size: $composing-element-font-size;
 	color: $composing-element-input-text-color;
+}
+
+
+.new-function-type-box{
+    border: solid #ccf 1px;
+}
+
+.newComposingElement{
+     border: solid #aaaaab 1px;
 }

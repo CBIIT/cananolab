@@ -1,6 +1,5 @@
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;composing-element-form
-<div id="newComposingElement"
-     class="m-3"
+<div
+     class="newComposingElement m-3"
      *ngIf="showAddComposingElement"
 >
 
@@ -236,9 +235,11 @@
                     <!-- END Amount Unit [other] -->
                 </div>
             </td>
+            <!-- END Amount Unit -->
         </tr>
 
         <tr>
+            <!-- Molecular Formula Type -->
             <td>
                 <label for="molFormulaType">Molecular Formula Type</label>
             </td>
@@ -248,21 +249,26 @@
                 >
                     <select
                         [(ngModel)]="composingElementFormMolecularFormulaType"
+                        (ngModelChange)="molecularFormulaTypeChange()"
                         id="molFormulaType"
+                        name="composingElementFormMolecularFormulaType"
                     >
                         <option value=""></option>
                         <option
                             *ngFor="let type of  setupData['molecularFormulaTypes']"
                             value="{{type}}"
-                            selected="{{type===setupData['molecularFormulaTypes']}}"
+
+                            [selected]="type===composingElementFormMolecularFormulaType"
                         >
                             {{type}}
                         </option>
-                        <option value="[other]">
+                        <option
+                            value="[other]"
+                            [selected]="'[other]' === composingElementFormMolecularFormulaType"
+                        >
                             [other]
                         </option>
                     </select>
-
                     <div
                         *ngIf="composingElementFormMolecularFormulaType === '[other]'"
                         class="promptBox p-2 mt-1"
@@ -279,7 +285,6 @@
                                         type="text"
                                         id="textMFType"
                                         [(ngModel)]='otherMolecularFormulaType'
-                                        (ngModelChange)="molecularFormulaTypeChange()"
                                         class="promptBox"
                                     >
                                 </td>
@@ -293,7 +298,7 @@
                                         Add
                                     </button>
                                     <button type="button" class="btn-canano btn-canano-default btn-canano-xs"
-                                        (click)="composingElementFormMolecularFormulaType=''; composingElementFormMolecularFormulaType=molecularFormulaTypeTrailer"
+                                        (click)="composingElementFormMolecularFormulaType=molecularFormulaTypeTrailer"
                                     >
                                         Cancel
                                     </button>
@@ -307,7 +312,12 @@
                 <label for="molecularFormula">Molecular Formula</label>
             </td>
             <td>
-                <input type="text" id="molecularFormula" class="promptBox">
+                <input
+                    type="text"
+                    id="molecularFormula"
+                    class="promptBox"
+                    [(ngModel)]="molecularFormula"
+                >
             </td>
         </tr>
         <tr>
@@ -317,7 +327,6 @@
             <td colspan="3">
                 <input type="text"
                        size="30"
-
                        [(ngModel)]="composingElementForDescription"
                        id="elementDescription"
                 >
@@ -354,7 +363,7 @@
                                     [(ngModel)]="selectedInherentFunctionType"
                                     name="composingElementFormValueUnit"
                                     id="inherentFunctionType"
-                                    (ngModelChange)="amountUnitChange()"
+                                    (ngModelChange)="functionTypeChange()"
                                 >
                                     <option value="">
                                     </option>
@@ -362,19 +371,43 @@
                                     <option
                                         *ngFor="let funcType of  setupData['functionTypes']"
                                         value="{{funcType}}"
-                                        [selected]="funcType === composingElementFormMolecularFormulaType"
+                                        [selected]="funcType === selectedInherentFunctionType"
                                     >
                                         {{funcType}}
                                     </option>
 
                                     <option
-                                        [selected]="'[other]' === composingElementFormMolecularFormulaType"
+                                        [selected]="'[other]' === selectedInherentFunctionType"
                                         value="[other]"
                                     >
                                         [other]
                                     </option>
                                 </select>
                                 <!-- END Function Type dropdown -->
+
+                                <!-- [other] New Function type -->
+                                <div *ngIf="selectedInherentFunctionType === '[other]'"
+                                    class="new-function-type-box p-2"
+                                >
+                                    <div>New function type:</div>
+                                    <div>
+                                        <input
+                                            type="text"
+                                            width="100%"
+                                            [(ngModel)]="otherFunctionTypeText"
+                                            (ngModelChange)="functionTypeChange()">
+                                    </div>
+                                    <div>
+                                        <button
+                                            class="btn-canano btn-canano-primary btn-canano-xs mt-1 mr-1"
+                                            (click)="addNewFunctionType()"
+                                        >Add</button>
+                                        <button
+                                            class="btn-canano btn-canano-default btn-canano-xs mt-1"
+                                            (click)="cancelNewFunctionType()"
+                                        >Cancel</button>
+                                    </div>
+                                </div>
                             </td>
 
 
@@ -429,7 +462,10 @@
             <td>
                 <button class="btn-canano btn-canano-primary btn-canano-xs mr-1">Save</button>
                 <button
-                    class="btn-canano btn-canano-default btn-canano-xs mr-1">Cancel</button>
+                    class="btn-canano btn-canano-default btn-canano-xs mr-1"
+                    (click)="onNewComposingElementCancel()"
+
+                >Cancel</button>
             </td>
         </tr>
     </table>

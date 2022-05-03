@@ -6,28 +6,80 @@
 <div>
     <form (ngSubmit)="onSubmit()" #f="ngForm">
 
+        <div class="nanomaterial-description ml-3 mr-5">
         <table>
             <tr>
-                <td>
-                    <label for="neDescription">Description</label>
+                <td class="align-text-top">
+                    <label  for="neDescription" class="m-1">Description</label>
                 </td>
-                <td>
-                    <input
+                <td colspan="2">
+                    <textarea
                         type="text"
                         [(ngModel)]="description"
-                        class="neDescription form-control"
+                        class="neDescription form-control m-1"
                         id="neDescription"
                         name="description"
-                    >
+                        cols="80"
+                        rows="3"
+                    ></textarea>
                 </td>
             </tr>
         </table>
-        <h3>MHL 400</h3>
-        <canano-manage-composing-element>
+        </div>
+
+        <div style="background-color: #01ff70" class="ml-3 mr-5">
+        <canano-manage-composing-element
+            [composingElementsArray]=composingElementsArray
+        >
         </canano-manage-composing-element>
-        <h3>MHL 401</h3>
+        </div>
+
         <canano-manage-file-edit>
         </canano-manage-file-edit>
-        <h3>MHL 402</h3>
+
+
+        <table *ngIf="setupData !== undefined"
+            class="copy-to-other-samples"
+        >
+            <tr *ngIf="setupData['otherSampleNames'] !== null" >
+                <td width="5%"  class="align-text-top">
+                    <strong><label for="otherSamples">Copy to other samples with the same primary organization?</label></strong>
+                </td>
+                <td width="20%">
+                    <select
+                        [disabled]="false"
+                        id="otherSamples"
+                        [(ngModel)]="selectedOtherSampleNames"
+                        (ngModelChange)="updatesSelectedOtherSampleNames();"
+                        multiple="true"
+                        size="10"
+                        name="otherSampleNamesTr"
+                    >
+                        <option
+                            *ngFor="let option of setupData['otherSampleNames']"
+                            value="{{option}}"
+                            [selected]="option === setupData['otherSampleNames']"
+                        >
+                            {{option}}
+                        </option>
+                    </select>
+                </td>
+            </tr>
+
+            <tr *ngIf="setupData['otherSampleNames'] === null">
+                <td  class="align-text-top" colspan="3">
+                    There are no other samples to copy annotation to.
+                </td>
+            </tr>
+        </table>
+        <div class="bottom-button-div mt-4" mb-2>
+            <span  class="float-left">
+                <button class="btn-canano btn-canano-danger btn-canano-xs ml-1">Delete</button>
+            </span>
+            <span class="float-right">
+                <button class="btn-canano btn-canano-danger btn-canano-xs mr-1">Reset</button>
+                <button class="btn-canano btn-canano-primary btn-canano-xs mr-1">Update</button>
+            </span>
+        </div>
     </form>
 </div>

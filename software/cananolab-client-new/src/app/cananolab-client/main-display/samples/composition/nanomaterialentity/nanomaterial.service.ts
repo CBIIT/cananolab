@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { EventEmitter, Injectable } from '@angular/core';
 
 @Injectable( {
     providedIn: 'root'
@@ -9,8 +9,21 @@ export class NanomaterialService{
     nanomaterialSetupData;
     nanomaterialEditData;
 
+    newComposingElementShow = false;
+    NewComposingElementShowEmitter =  new EventEmitter();
+
     constructor(){
     }
+
+    setNewComposingElementShow(){
+        this.newComposingElementShow = true;
+        this.NewComposingElementShowEmitter.emit(true);
+    }
+
+   setNewComposingElementHide(){
+       this.newComposingElementShow = false;
+       this.NewComposingElementShowEmitter.emit(false);
+   }
 
     getNanomaterialEditData(){
         return this.nanomaterialEditData;
