@@ -3,7 +3,7 @@ import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 @Component({
   selector: 'canano-other-dropdown',
   templateUrl: './other-dropdown.component.html',
-  styleUrls: ['../../../../../../btn-bravo-canano.scss','./other-dropdown.component.scss']
+  styleUrls: ['../../../../btn-bravo-canano.scss','./other-dropdown.component.scss']
 })
 export class OtherDropdownComponent implements OnInit {
   otherValue;
