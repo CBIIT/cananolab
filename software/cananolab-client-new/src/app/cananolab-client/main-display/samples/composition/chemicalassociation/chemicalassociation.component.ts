@@ -18,8 +18,11 @@ export class ChemicalassociationComponent implements OnInit {
   helpUrl =  Consts.HELP_URL_SAMPLE_COMPOSITION;
   toolHeadingNameManage = 'Sample Composition';
   chemicalAssociationData;
-  chemicalAssociationDataCopy;
+  chemicalAssociationDataTrailer;
   setupData;
+  currentDropdownValues;
+  otherValue;
+  currentField;
 
     constructor( private router: Router, private route: ActivatedRoute,private httpClient: HttpClient ){
     }
@@ -30,6 +33,8 @@ export class ChemicalassociationComponent implements OnInit {
           ( params: Params ) => {
             this.sampleId = params['sampleId'];
             this.dataId = params['dataId'];
+            this.chemicalAssociationData = this.setDefaultDataSet();
+            this.chemicalAssociationDataTrailer = this.setDefaultDataSet();
             if(
                   this.sampleId <= 0 ){
                   this.sampleId = Properties.CURRENT_SAMPLE_ID;
@@ -41,7 +46,7 @@ export class ChemicalassociationComponent implements OnInit {
                     console.log(data)
                     Properties.SAMPLE_TOOLS = true;
                     this.chemicalAssociationData = data;
-                    this.chemicalAssociationDataCopy = data;
+                    this.chemicalAssociationDataTrailer = JSON.parse(JSON.stringify(this.chemicalAssociationData));
                     Properties.CURRENT_SAMPLE_NAME = data['sampleName'];
                 } );
                 this.setupData = this.getSetupData().subscribe(
@@ -109,5 +114,31 @@ getSetupData(){
 
 }
 
+setDefaultDataSet() {
+    return {
+        "type":"",
+        "bondType":"",
+        "description":""
+    }
+};
+
+
+// set pointer fields to old values when adding other //
+addOtherValue(field,currentValue) {
+    this.currentDropdownValues[field]=currentValue;
+    this.otherValue='';
+    this.currentField=field;
+};
+
+// save other value //
+saveOther(newItem: Object) {
+    if (newItem['change'] && newItem['value']) {
+        this.setupData[newItem['array']].push(newItem['value']);
+        this.chemicalAssociationData.setValue(newItem['field'],newItem['value']);
+    }
+    else {
+        this.chemicalAssociationData.setValue(newItem['field'],newItem['value']);
+    }
+};
 
 }
