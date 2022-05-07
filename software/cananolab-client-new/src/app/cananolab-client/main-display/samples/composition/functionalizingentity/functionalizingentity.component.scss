@@ -1,0 +1,77 @@
+.sample-edit-div{
+    width: 100%;
+    height: 100%;
+    background-color: #ffffff;
+    padding:2px ;
+}
+
+.compositionSection {
+    margin:10px 5px 5px 5px;
+    font-size:12px;
+}
+.compositionSection .compositionBorder {
+    padding:0px;
+    border:1px solid #ccc;
+}
+    .compositionSection td {
+        padding-bottom:13px !important;    font-size:12px ;
+
+    }
+
+    .compositionSection .editButton{
+        padding-top:5px;
+        text-align:right;
+    }
+    .compositionSection table.files{
+        width:100%;
+    }
+
+    .compositionSection table.files th{
+        width:200px;
+    }
+    .compositionSection table.dataMain td{
+        vertical-align:top;
+        width:250px;
+        padding:10px !important;
+    }
+
+
+    .compositionSection table.dataMain td.label{
+        font-weight:bold;
+        width:200px !important;
+        vertical-align:top;
+    }
+
+    .compositionSection table.antibodyProperties td.label{
+        font-weight:bold;
+        width:100px !important;
+        vertical-align:top;
+    }
+
+    .compositionSection table.antibodyProperties{
+        font-weight:bold;
+        width:600px !important;
+        vertical-align:top;
+    }
+
+    .compositionSection table.files td.label{
+        font-weight:bold;
+        width:200px;
+        vertical-align:top;
+    }
+
+    th {
+        text-align:left;
+        padding:10px;
+    }
+
+    .dataMain.submit {
+        width:100%;
+    }
+    .dataMain.submit td {
+        text-align:right;
+    }
+
+    .dataMain.gray {
+        background-color:#F4F4F5;
+    }
