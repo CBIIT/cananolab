@@ -1,0 +1,16 @@
+<table class="other">
+    <tr>
+        <td colspan="2">
+            <label for="other_{{field}}">New {{label}}</label><br />
+            <input id="other_{{field}}" [(ngModel)]="otherValue" type="text" name="otherValue" value=""><br />
+        </td>
+    </tr>
+    <tr class="buttons">
+        <td>
+            <button class="btn-canano btn-canano-primary btn-canano-xs mr-1" (click)="save()">Save</button>
+        </td>
+        <td class="cancel">
+            <button class="btn-canano btn-canano-primary btn-canano-xs mr-1" (click)="cancel()">Cancel</button>
+        </td>
+    </tr>
+</table>
