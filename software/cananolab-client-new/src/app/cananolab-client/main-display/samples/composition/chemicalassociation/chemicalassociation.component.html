@@ -11,6 +11,26 @@
         <form action="" method="get">
         <div class="compositionBorder">
             <table class="dataMain">
+                <tr *ngIf="!dataId">
+                    <td class="label">
+                        <label for="associationType">Association Type</label>
+                    </td>
+                    <td>
+                        <select (ngModelChange)="addOtherValue('type',chemicalAssociationData.type)"id="associationType" [(ngModel)]="chemicalAssociationData.type" name="associationType">
+                            <option value="" [selected]="chemicalAssociationData.type===''">--Select--</option>
+                            <option *ngFor="let type of setupData['chemicalAssociationTypes']" [selected]="chemicalAssociationData.type===type" value="{{type}}">
+                                {{type}}
+                            </option>
+                            <option value="[other]">[other]</option>
+
+                        </select>
+                        <div *ngIf="chemicalAssociationData.type ==='[other]'">
+                            <canano-other-dropdown (saveOther)="saveOther($event)" [label]="'Association Type'" [value]="currentDropdownValues['type']" [field]="'type'" [array]="'chemicalAssociationTypes'">
+
+                            </canano-other-dropdown>
+                        </div>
+                    </td>
+                </tr>
                 <tr>
                     <td class="label">
                         <label for="bondType">Bond Type*</label>
