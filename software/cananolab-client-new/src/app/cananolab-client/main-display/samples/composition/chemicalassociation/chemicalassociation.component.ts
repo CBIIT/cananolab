@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'canano-chemicalassociation',
   templateUrl: './chemicalassociation.component.html',
-  styleUrls: ['./chemicalassociation.component.scss']
+  styleUrls: ['../../../../../btn-bravo-canano.scss','./chemicalassociation.component.scss']
 })
 export class ChemicalassociationComponent implements OnInit {
   sampleId = Properties.CURRENT_SAMPLE_ID;
@@ -43,13 +43,13 @@ export class ChemicalassociationComponent implements OnInit {
                     this.chemicalAssociationData = data;
                     this.chemicalAssociationDataCopy = data;
                     Properties.CURRENT_SAMPLE_NAME = data['sampleName'];
-                } );  
+                } );
                 this.setupData = this.getSetupData().subscribe(
                     data => {
                         Properties.SAMPLE_TOOLS = true;
                         this.setupData = data;
-                    } );                                                    
-          } 
+                    } );
+          }
       );
   }
 
@@ -79,7 +79,7 @@ export class ChemicalassociationComponent implements OnInit {
     }
     return results;
 
-} 
+}
 
 getSetupData(){
     let getUrl = Properties.API_SERVER_URL + '/caNanoLab/rest/chemicalAssociation/setup?sampleId=' + this.sampleId;
@@ -107,7 +107,7 @@ getSetupData(){
     }
     return results;
 
-} 
+}
 
 
 }

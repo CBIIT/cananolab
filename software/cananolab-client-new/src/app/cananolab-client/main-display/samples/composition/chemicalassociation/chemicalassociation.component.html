@@ -8,7 +8,7 @@
         {{setupData | json}}
     <!-- </div> -->
     <div class="compositionSection">
-        <form action="" method="get">            
+        <form action="" method="get">
         <div class="compositionBorder">
             <table class="dataMain">
                 <tr>
@@ -46,9 +46,9 @@
                     <td class="label">
                         <label for="compositionTypeB">Element*</label>
                     </td>
-                </tr>     
+                </tr>
                 <tr>
-                    <td>                    
+                    <td>
                         <select id="compositionTypeA">
                             <option [ngValue]="null" disabled>--Select--</option>
                             <option *ngFor="let compositionTypeA of setupData['associationCompositionTypes']" [ngValue]="compositionTypeA">{{compositionTypeA}}</option>
@@ -59,7 +59,7 @@
                         <select id="compositionTypeB">
                             <option [ngValue]="null" disabled>--Select--</option>
                             <option *ngFor="let compositionTypeB of setupData['associationCompositionTypes']" [ngValue]="compositionTypeB">{{compositionTypeB}}</option>
-                        </select>             
+                        </select>
                     </td>
                 </tr>
                 <tr>
@@ -68,7 +68,7 @@
                         <select id="entityIdA">
                             <option [ngValue]="null" disabled>--Select--</option>
                             <option *ngFor="let entityIdA of setupData['associationCompositionTypes']" [ngValue]="entityIdA">{{entityIdA}}</option>
-                        </select>                 
+                        </select>
                     </td>
                     <td>
 
@@ -78,7 +78,7 @@
                         <select id="entityIdB">
                             <option [ngValue]="null" disabled>--Select--</option>
                             <option *ngFor="let entityIdB of setupData['associationCompositionTypes']" [ngValue]="entityIdB">{{entityIdB}}</option>
-                        </select>                  
+                        </select>
                     </td>
                 </tr>
                 <tr>
@@ -87,7 +87,7 @@
                         <select id="composingElementIdA">
                             <option [ngValue]="null" disabled>--Select--</option>
                             <option *ngFor="let composingElementIdA of setupData['associationCompositionTypes']" [ngValue]="composingElementIdA">{{composingElementIdA}}</option>
-                        </select>   
+                        </select>
                     </td>
                     <td>
 
@@ -97,7 +97,7 @@
                         <select id="composingElementIdB">
                             <option [ngValue]="null" disabled>--Select--</option>
                             <option *ngFor="let composingElementIdB of setupData['associationCompositionTypes']" [ngValue]="composingElementIdB">{{composingElementIdB}}</option>
-                        </select>                          
+                        </select>
                     </td>
                 </tr>
             </table>
@@ -109,7 +109,7 @@
                         File
                     </td>
                     <td>
-                        <button class="btn btn-primary btn-sm">Add</button>
+                        <button class="btn-canano btn-canano-primary btn-canano-xs mr-1">Add</button>
                     </td>
                 </tr>
                 <tr>
@@ -127,11 +127,11 @@
                                 <td></td>
                                 <td></td>
                             </tr>
-                       </table> 
+                       </table>
                     </td>
                 </tr>
             </table>
         </div>
         </form>
-    </div>    
+    </div>
 </div>
