@@ -72,7 +72,12 @@ export class CompositionComponent implements OnInit{
 
     }
     onChemicalAssociationClick(dataId){
-        this.router.navigate( ['home/samples/composition/chemicalassociation', Properties.CURRENT_SAMPLE_ID, dataId] );  // @FIXME  Don't hard code these
+        if (dataId==-1){
+            this.router.navigate( ['home/samples/composition/chemicalassociation', Properties.CURRENT_SAMPLE_ID] );  // @FIXME  Don't hard code these
+        }
+        else {
+            this.router.navigate( ['home/samples/composition/chemicalassociation', Properties.CURRENT_SAMPLE_ID, dataId] );  // @FIXME  Don't hard code these
+        }
     }
     onFunctionalizingEntityClick(dataId){
         if (dataId==-1){
