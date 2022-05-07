@@ -247,7 +247,7 @@ entry['dataId']: {{entry['dataId']}}
 
     <div class="compositionSection">
         <div id="nanomaterialEntity" class="header">
-            Chemical Association<button class="btn btn-primary btn-sm">Add</button>
+            Chemical Association<button (click)="onChemicalAssociationClick(-1)" class="btn btn-primary btn-sm">Add</button>
         </div>
         <span *ngFor="let chemicalassociation of compositionData['chemicalassociation'] | keyvalue; let index = index">
         <div class="compositionTitle">{{chemicalassociation.key}}</div>
