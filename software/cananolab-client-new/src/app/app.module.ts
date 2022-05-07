@@ -72,6 +72,8 @@ import { SampleAdvancedSearchResultsComponent } from './cananolab-client/main-di
 import { ManageFileEditComponent } from './cananolab-client/main-display/samples/composition/nanomaterialentity/manage-file-edit/manage-file-edit.component';
 import { ComposingElementFormComponent } from './cananolab-client/main-display/samples/composition/nanomaterialentity/manage-composing-element/composing-element-form/composing-element-form.component';
 import { ManageComposingElementComponent } from './cananolab-client/main-display/samples/composition/nanomaterialentity/manage-composing-element/manage-composing-element.component';
+import { OtherDropdownComponent } from './cananolab-client/main-display/samples/composition/functionalizingentity/other-dropdown/other-dropdown.component';
+import { SetObjectValueModule } from './cananolab-client/common/modules/set-object-value/set-object-value.module';
 
 @NgModule({
   declarations: [
@@ -141,14 +143,16 @@ import { ManageComposingElementComponent } from './cananolab-client/main-display
     SampleAdvancedSearchResultsComponent,
     ManageFileEditComponent,
     ComposingElementFormComponent,
-    ManageComposingElementComponent
+    ManageComposingElementComponent,
+    OtherDropdownComponent
   ],
     imports: [
         BrowserModule,
         AppRoutingModule,
         FormsModule,
         HttpClientModule,
-        ReactiveFormsModule
+        ReactiveFormsModule,
+        SetObjectValueModule
 
     ],
   providers: [{provide: LocationStrategy, useClass: HashLocationStrategy}],
