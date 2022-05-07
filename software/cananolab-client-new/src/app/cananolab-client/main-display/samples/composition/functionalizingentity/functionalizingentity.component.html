@@ -2,7 +2,6 @@
 [toolHeadingName]="toolHeadingNameManage">
 
 </canano-main-display-heading>
-
 <div class="sample-edit-div">
     <div class="compositionSection">
         <form action="" method="get" name="functionalizingEntityForm">
@@ -16,12 +15,19 @@
                         </label>
                     </td>
                     <td colspan="3">
-                        <select id="pubchemDatasource" [(ngModel)]="functionalizingEntityData.type" name="type">
+                        <select (ngModelChange)="addOtherValue('type',functionalizingEntityData.type)"id="entityType" [(ngModel)]="functionalizingEntityData.type" name="entityType">
                             <option value="" [selected]="functionalizingEntityData.type===''">--Select--</option>
                             <option *ngFor="let type of setupData['functionalizingEntityTypes']" [selected]="functionalizingEntityData.type===type" value="{{type}}">
                                 {{type}}
                             </option>
+                            <option value="[other]">[other]</option>
+
                         </select>
+                        <div *ngIf="functionalizingEntityData.type ==='[other]'">
+                            <canano-other-dropdown (saveOther)="saveOther($event)" [label]="'Functionalizing Entity Type'" [value]="currentDropdownValues['type']" [field]="'type'" [array]="'functionalizingEntityTypes'">
+
+                            </canano-other-dropdown>
+                        </div>
                     </td>
                 </tr>
                 <!--End Only Used for Add-->
@@ -164,7 +170,7 @@
                 </tr>
             </table>
         </div><br />
-        <div class="compositionBorder">
+        <div class="compositionBorder" *ngIf="functionalizingEntityData.type=='antibody'">
             <table class="dataMain">
                 <tr>
                     <td class="label">
@@ -173,7 +179,7 @@
                 </tr>
                 <tr>
                     <td>
-                        <table class="antibodyProperties" *ngIf="functionalizingEntityData['domainEntity']">
+                        <table class="antibodyProperties">
                             <tr>
                                 <td class="label">
                                     <label for="type">
@@ -243,7 +249,68 @@
                     </td>
                 </tr>
             </table>
-        </div><br />
+        </div>
+
+        <div class="compositionBorder" *ngIf="functionalizingEntityData.type=='biopolymer'">
+            <table class="dataMain">
+                <tr>
+                    <td class="label" colspan="2">
+                        Biopolymer Properties
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label">
+                        <label for="biopolymerType">Type*</label>
+                    </td>
+                    <td>
+                        <select (ngModelChange)="addOtherValue('domainEntity.type',functionalizingEntityData.domainEntity.type)" id="biopolymerType" [(ngModel)]="functionalizingEntityData['domainEntity']['type']" name="biopolymerType">
+                            <option value="" [selected]="functionalizingEntityData.domainEntity['type']===''">--Select--</option>
+                            <option *ngFor="let type of setupData['biopolymerTypes']" [selected]="functionalizingEntityData.domainEntity['type']==type" value="{{type}}">
+                                {{type}}
+                            </option>
+                            <option value="[other]">
+                                [other]
+                            </option>
+                        </select>
+                        <div *ngIf="functionalizingEntityData.domainEntity.type ==='[other]'">
+                            <canano-other-dropdown (saveOther)="saveOther($event)" [label]="'Type'" [value]="currentDropdownValues['domainEntity.type']" [field]="'domainEntity.type'" [array]="'biopolymerTypes'">
+
+                            </canano-other-dropdown>
+                        </div>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label">
+                        <label for="biopolymerSequence">Sequence</label>
+                    </td>
+                    <td>
+                        <textarea name="biopolymerSequence" [(ngModel)]="functionalizingEntityData.domainEntity.sequence" rows="3" cols="80">
+                            {{functionalizingEntityData.sequence}}
+                        </textarea>
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="compositionBorder" *ngIf="functionalizingEntityData.type=='small molecule'">
+            <table class="dataMain">
+                <tr>
+                    <td class="label" colspan="2">
+                        Small Molecule Properties
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label">
+                        <label for="smallMoleculeAlternateName">Alternate Name</label>
+                    </td>
+                    <td>
+                        <input type="text" id="smallMoleculeAlternateName" name="smallMoleculeAlternateName" value="" [(ngModel)]="functionalizingEntityData.domainEntity.alternateName" size="90">
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <br *ngIf="functionalizingEntityData.type=='antibody' || functionalizingEntityData.type=='biopolymer' || functionalizingEntityData.type=='small molecule'" />
         <div class="compositionBorder">
             <table class="dataMain">
                 <tr>
