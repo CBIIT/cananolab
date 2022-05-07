@@ -235,11 +235,6 @@ getFunctionalizingEntityData(sampleId){
         this.currentField=field;
     };
 
-    // save functionalizing entity //
-    saveFunctionalizingEntity() {
-
-    };
-
     // save other value //
     saveOther(newItem: Object) {
         if (newItem['change'] && newItem['value']) {
