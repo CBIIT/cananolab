@@ -15,7 +15,7 @@
                         </label>
                     </td>
                     <td colspan="3">
-                        <select (ngModelChange)="addOtherValue('type',functionalizingEntityData.type)"id="entityType" [(ngModel)]="functionalizingEntityData.type" name="entityType">
+                        <select (ngModelChange)="addOtherValue('type',functionalizingEntityData.type)" id="entityType" [(ngModel)]="functionalizingEntityData.type" name="entityType">
                             <option value="" [selected]="functionalizingEntityData.type===''">--Select--</option>
                             <option *ngFor="let type of setupData['functionalizingEntityTypes']" [selected]="functionalizingEntityData.type===type" value="{{type}}">
                                 {{type}}
