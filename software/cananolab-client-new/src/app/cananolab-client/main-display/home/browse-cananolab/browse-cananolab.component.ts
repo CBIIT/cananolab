@@ -5,6 +5,9 @@ import { MainDisplayService } from '../../main-display.service';
 import { TopMenuItems } from '../../../top-main-menu/top-main-menu.service';
 import { UtilService } from '../../../common/services/util.service';
 import { Router } from '@angular/router';
+import { HttpClient} from '@angular/common/http';
+import { Properties } from '../../../../../assets/properties';
+import { SampleSearchResultsService } from '../../samples/general-info/sample-search/sample-search-results/sample-search-results.service';
 
 @Component( {
     selector: 'canano-browse-cananolab',
@@ -13,8 +16,9 @@ import { Router } from '@angular/router';
 } )
 export class BrowseCananolabComponent implements OnInit{
     initData = {};
+    searchResults;
 
-    constructor( private apiService: ApiService, private mainDisplayService: MainDisplayService,
+    constructor( private sampleSearchResultsService: SampleSearchResultsService, private httpClient: HttpClient, private apiService: ApiService, private mainDisplayService: MainDisplayService,
                  private router: Router, private utilService: UtilService ){
     }
 
@@ -50,6 +54,18 @@ export class BrowseCananolabComponent implements OnInit{
     // searches and returns all samples publicly available to user //
     // redirects to sample results //
     onSearchAllSamplesClick() {
-        console.log("I am clicking")
+        let url = this.httpClient.post(Properties.API_SERVER_URL + '/caNanoLab/rest/sample/searchSample',{});
+        url.subscribe(
+            data=> {
+                this.searchResults = <any>data;
+
+                // send search results to samplesSearchResults
+                this.sampleSearchResultsService.setSearchResults( this.searchResults );
+                this.router.navigate(['home/samples/samplesSearchResults']); // @FIXME TESTING  Don't hard code this!!!
+        },
+        error=> {
+            console.log('error')
+        });
+
     }
 }
