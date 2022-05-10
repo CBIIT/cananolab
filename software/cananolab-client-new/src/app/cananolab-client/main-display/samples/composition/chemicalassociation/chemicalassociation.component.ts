@@ -58,7 +58,6 @@ export class ChemicalassociationComponent implements OnInit {
               if (this.dataId) {
                 this.chemicalAssociationData = this.getChemicalAssociationData().subscribe(
                     data => {
-                        console.log(data)
                         Properties.SAMPLE_TOOLS = true;
                         this.chemicalAssociationData = data;
                         this.chemicalAssociationDataTrailer = JSON.parse(JSON.stringify(this.chemicalAssociationData));
@@ -106,7 +105,6 @@ export class ChemicalassociationComponent implements OnInit {
 
     if( Properties.DEBUG_CURL ){
         let curl = 'curl  -k \'' + getUrl + '\'';
-        console.log( curl );
     }
 
     let headers = new HttpHeaders( {
@@ -134,7 +132,6 @@ getSetupData(){
 
     if( Properties.DEBUG_CURL ){
         let curl = 'curl  -k \'' + getUrl + '\'';
-        console.log( curl );
     }
 
     let headers = new HttpHeaders( {
@@ -242,7 +239,6 @@ changeEntityId(compositionType,entity, val) {
 
 changeCompositionType(compositionType,val) {
 
-    console.log('this is the first dropdown:',compositionType, val)
     if (compositionType==='compositionTypeA') {
         this.entityOptionsA = val=='nanomaterial entity' ? this.nanomaterialEntityOptions:this.functionalizingEntityOptions;
     }
