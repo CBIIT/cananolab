@@ -28,23 +28,34 @@
 
     .compositionSection table.files th{
         width:200px;
-    }    
+    }
     .compositionSection table.dataMain td{
         vertical-align:top;
         width:200px;
     }
 
-    
-  
+
+
     .compositionSection table.dataMain td.label{
         font-weight:bold;
         width:200px;
         vertical-align:top;
-    }   
-    
+    }
+
     .compositionSection table.files td.label{
         font-weight:bold;
         width:200px;
         vertical-align:top;
-    }   
-    
+    }
+
+    .element {
+        padding-top:10px;
+    }
+
+
+    .dataMain.submit {
+        width:100%;
+    }
+    .dataMain.submit td {
+        text-align:right;
+    }

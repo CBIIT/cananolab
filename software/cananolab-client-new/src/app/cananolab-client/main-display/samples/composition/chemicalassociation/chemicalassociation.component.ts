@@ -19,42 +19,85 @@ export class ChemicalassociationComponent implements OnInit {
   toolHeadingNameManage = 'Sample Composition';
   chemicalAssociationData;
   chemicalAssociationDataTrailer;
+  nanomaterialEntityOptions;
+  functionalizingEntityOptions;
+  composingElementOptionsA;
+  composingElementOptionsB;
+  dataLoaded;
+  entityOptionsA;
+  entityOptionsB;
   setupData;
   currentDropdownValues;
   otherValue;
   currentField;
-
+  errors;
     constructor( private router: Router, private route: ActivatedRoute,private httpClient: HttpClient ){
     }
 
 
     ngOnInit(): void{
+        this.currentDropdownValues = {};
+        this.entityOptionsA = [];
+        this.entityOptionsB = [];
+        this.composingElementOptionsA = [];
+        this.composingElementOptionsB = [];
+
+        this.chemicalAssociationData = this.setDefaultDataSet();
+        this.chemicalAssociationDataTrailer = this.setDefaultDataSet();
       this.route.params.subscribe(
           ( params: Params ) => {
             this.sampleId = params['sampleId'];
             this.dataId = params['dataId'];
-            this.chemicalAssociationData = this.setDefaultDataSet();
-            this.chemicalAssociationDataTrailer = this.setDefaultDataSet();
+
             if(
                   this.sampleId <= 0 ){
                   this.sampleId = Properties.CURRENT_SAMPLE_ID;
               }else{
                   Properties.CURRENT_SAMPLE_ID = this.sampleId;
               };
-              this.chemicalAssociationData = this.getChemicalAssociationData().subscribe(
-                data => {
-                    console.log(data)
-                    Properties.SAMPLE_TOOLS = true;
-                    this.chemicalAssociationData = data;
-                    this.chemicalAssociationDataTrailer = JSON.parse(JSON.stringify(this.chemicalAssociationData));
-                    Properties.CURRENT_SAMPLE_NAME = data['sampleName'];
-                } );
+              if (this.dataId) {
+                this.chemicalAssociationData = this.getChemicalAssociationData().subscribe(
+                    data => {
+                        console.log(data)
+                        Properties.SAMPLE_TOOLS = true;
+                        this.chemicalAssociationData = data;
+                        this.chemicalAssociationDataTrailer = JSON.parse(JSON.stringify(this.chemicalAssociationData));
+                        Properties.CURRENT_SAMPLE_NAME = data['sampleName'];
+                        this.loadDropdowns();
+                    } );
+              }
+
+
+
                 this.setupData = this.getSetupData().subscribe(
                     data => {
                         Properties.SAMPLE_TOOLS = true;
                         this.setupData = data;
                     } );
-          }
+
+                    let nanoUrl = this.httpClient.post( Properties.API_SERVER_URL + '/caNanoLab/rest/chemicalAssociation/getAssociatedElementOptions?compositionType=nanomaterial entity',{});
+                    nanoUrl.subscribe( data => {
+                        let functionalizingUrl = this.httpClient.post( Properties.API_SERVER_URL + '/caNanoLab/rest/chemicalAssociation/getAssociatedElementOptions?compositionType=functionalizing entity',{});
+                        this.nanomaterialEntityOptions=data;
+
+                        functionalizingUrl.subscribe( data => {
+                            this.functionalizingEntityOptions=data;
+                            if (this.dataId) {
+
+                            }
+
+                        },
+                        err => {
+                            console.error( 'Error ', err );
+                        });
+                    },
+                    err => {
+                        console.error( 'Error ', err );
+                    });
+
+                }
+
+
       );
   }
 
@@ -116,9 +159,26 @@ getSetupData(){
 
 setDefaultDataSet() {
     return {
+        "sampleId":this.sampleId,
         "type":"",
         "bondType":"",
-        "description":""
+        "description":"",
+        "associatedElementA":{
+            "compositionType":"",
+            "entityId":"",
+            "entityDisplayName":"",
+            "composingElement":{
+                "id":""
+            }
+        },
+        "associatedElementB":{
+            "compositionType":"",
+            "entityId":"",
+            "entityDisplayName":"",
+            "composingElement":{
+                "id":""
+            }
+        }
     }
 };
 
@@ -140,5 +200,96 @@ saveOther(newItem: Object) {
         this.chemicalAssociationData.setValue(newItem['field'],newItem['value']);
     }
 };
+changeEntityId(compositionType,entity, val) {
+    // no need to do anything if functionalizing entity //
+    if (entity=='nanomaterial entity') {
+        if (compositionType==='compositionTypeA') {
+            this.chemicalAssociationData.assoentityDisplayName
+            let url = this.httpClient.post( Properties.API_SERVER_URL + '/caNanoLab/rest/chemicalAssociation/getComposingElementsByNanomaterialEntityId?id='+val,{});
+            url.subscribe( data => {
+                this.composingElementOptionsA=data;
+            },
+            err => {
+                console.error( 'Error ', err );
+            });
+        }
+        else {
+            let url = this.httpClient.post( Properties.API_SERVER_URL + '/caNanoLab/rest/chemicalAssociation/getComposingElementsByNanomaterialEntityId?id='+val,{});
+            url.subscribe( data => {
+                this.composingElementOptionsB=data;
+            },
+            err => {
+                console.error( 'Error ', err );
+            });
+        }
+    };
+
+    if (compositionType=='compositionTypeA') {
+        this.entityOptionsA.forEach(element => {
+            if (element.domainId==val) {
+                this.chemicalAssociationData.associatedElementA.entityDisplayName=element.displayName;
+            }
+        });
+    }
+    else {
+        this.entityOptionsB.forEach(element => {
+            if (element.domainId==val) {
+                this.chemicalAssociationData.associatedElementB.entityDisplayName=element.displayName;
+            }
+        });
+    }
+}
+
+changeCompositionType(compositionType,val) {
+
+    console.log('this is the first dropdown:',compositionType, val)
+    if (compositionType==='compositionTypeA') {
+        this.entityOptionsA = val=='nanomaterial entity' ? this.nanomaterialEntityOptions:this.functionalizingEntityOptions;
+    }
+    else {
+        this.entityOptionsB = val=='nanomaterial entity' ? this.nanomaterialEntityOptions:this.functionalizingEntityOptions;
+    }
+}
+
+deleteChemicalAssociation() {
+    if (confirm("Are you sure you want to delete this functionalizing entity?")) {
+        let url = this.httpClient.post( Properties.API_SERVER_URL + '/caNanoLab/rest/chemicalAssociation/delete',this.chemicalAssociationData);
+        url.subscribe( data => {
+            this.router.navigate( ['home/samples/composition', this.sampleId] );
+        },
+        err => {
+            console.error( 'Error ', err );
+        });
+    }
+}
+
+resetChemicalAssociation() {
+    this.chemicalAssociationData = JSON.parse(JSON.stringify(this.chemicalAssociationDataTrailer));
+}
+
+submitChemicalAssociation() {
+    let url = this.httpClient.post( Properties.API_SERVER_URL + '/caNanoLab/rest/chemicalAssociation/submit',this.chemicalAssociationData);
+    url.subscribe( data => {
+        this.router.navigate( ['home/samples/composition', this.sampleId] );
+    },
+    err => {
+        console.error( 'Error ', err );
+    });
+}
+
+selectAssociatedElement(entityId,domainId) {
+    return entityId==domainId ? true:false;
+}
+
+loadDropdowns() {
+    this.changeEntityId('compositionTypeA',this.chemicalAssociationData.associatedElementA.compositionType,this.chemicalAssociationData.associatedElementA.entityId)
+    this.changeEntityId('compositionTypeB',this.chemicalAssociationData.associatedElementB.compositionType,this.chemicalAssociationData.associatedElementB.entityId)
+    this.changeCompositionType('compositionTypeA',this.chemicalAssociationData.associatedElementA.compositionType)
+    this.changeCompositionType('compositionTypeB',this.chemicalAssociationData.associatedElementB.compositionType)
+
+}
+
+
+
 
 }
