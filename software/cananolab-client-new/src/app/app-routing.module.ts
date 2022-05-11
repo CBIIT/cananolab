@@ -69,7 +69,7 @@ const routes: Routes = [
     { path: 'home/samples/sampleCreate', component: SampleCreateComponent },
     { path: 'home/samples/samplesCopy', component: SampleCopyComponent },
     { path: 'home/samples/characterization/:sampleId', component: CharacterizationComponent },
-    { path: 'home/samples/characterization/editcharacterization/:sampleId:/:type', component: EditcharacterizationComponent },
+    { path: 'home/samples/characterization/editcharacterization/:sampleId/:type', component: EditcharacterizationComponent },
     { path: 'home/samples/characterization/editcharacterization/:sampleId/:charId', component: EditcharacterizationComponent },
     { path: 'home/samples/composition/:sampleId', component: CompositionComponent },
     { path: 'home/samples/composition/functionalizingentity/:sampleId/:dataId', component: FunctionalizingentityComponent },
