@@ -91,4 +91,9 @@ export class CharacterizationComponent implements OnInit{
     addCharacterization(type) {
         this.router.navigate( ['home/samples/characterization/editcharacterization', Properties.CURRENT_SAMPLE_ID,type] );  // @FIXME  Don't hard code these
     }
+
+    // brings up existing characterization form //
+    editCharacterization(charId) {
+        this.router.navigate( ['home/samples/characterization/editcharacterization', Properties.CURRENT_SAMPLE_ID,charId] );  // @FIXME  Don't hard code these
+    }
 }
