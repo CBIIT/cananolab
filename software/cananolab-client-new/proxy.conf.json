@@ -1,7 +1,7 @@
 {
     "/caNanoLab":
     {
-        "target": "http://192.168.1.16:8090",
+        "target": "http://localhost:8080",
         "secure": true,
         "changeOrigin": true
     }

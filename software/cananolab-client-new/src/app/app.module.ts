@@ -61,7 +61,7 @@ import { SampleViewComponent } from './cananolab-client/main-display/samples/sam
 import { PointOfContactComponent } from './cananolab-client/point-of-contact/point-of-contact.component';
 import { PointOfContactEditorComponent } from './cananolab-client/point-of-contact/point-of-contact-editor/point-of-contact-editor.component';
 import { PointOfContactCreateComponent } from './cananolab-client/point-of-contact/point-of-contact-create/point-of-contact-create.component';
-import { CharacterizationComponent } from './cananolab-client/main-display/samples/characterization/characterization/characterization.component';
+import { CharacterizationComponent } from './cananolab-client/main-display/samples/characterization/characterization.component';
 import { CompositionComponent } from './cananolab-client/main-display/samples/composition/composition/composition.component';
 import { SamplePublicationsComponent } from './cananolab-client/main-display/samples/publications/sample-publications/sample-publications.component';
 import { FunctionalizingentityComponent } from './cananolab-client/main-display/samples/composition/functionalizingentity/functionalizingentity.component';

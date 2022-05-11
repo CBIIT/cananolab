@@ -76,19 +76,17 @@
 
     .experimentConfigurations td {
         padding-right:10px;
-        width:450px;
+        width:300px;
     }
      ul {
        padding-left:13px;
     }
 
-    .dataAndConditions {
-        min-width:450px;
-    }
 
     .dataAndConditions td{
         padding:5px;
         border:1px solid #ccc;
+        width:200px;
     }
 
     .dataAndConditions th{
@@ -101,7 +99,7 @@
     }
 
     .files {
-        min-width:450px;
+        min-width:650px;
     }
 
     .files td{

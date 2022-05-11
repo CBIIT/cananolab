@@ -77,10 +77,12 @@ export class FunctionalizingentityComponent implements OnInit {
     );
 }
 
+// cancels inherent function //
 cancelInherentFunction() {
     this.inherentFunctionIndex=null;
 };
 
+// cancels target form //
 cancelTarget() {
     if (this.targetIndex>=0) {
         this.inherentFunction.targets[this.targetIndex]=this.targetCopy;
@@ -88,6 +90,7 @@ cancelTarget() {
     this.targetIndex=null;
 };
 
+// deletes current inherent function //
 deleteInherentFunction() {
     if (confirm("Are you sure you want to delete this inherent function?")) {
         this.functionalizingEntityData['simpleFunctionBean']=this.inherentFunction;
@@ -104,6 +107,7 @@ deleteInherentFunction() {
     };
 };
 
+// deletes current target //
 deleteTarget() {
     if (confirm("Are you sure you want to delete this target?")) {
         this.inherentFunction.targets.splice(this.targetIndex,1);
@@ -112,6 +116,7 @@ deleteTarget() {
     };
 };
 
+// brings up add inherent function form //
 addInherentFunction() {
     this.inherentFunctionIndex=-1;
     this.inherentFunction = {
@@ -125,6 +130,7 @@ addInherentFunction() {
         "targets":[]};
 };
 
+// brings up edit inherent function form //
 editInherentFunction(inherentFunction,index) {
     this.inherentFunctionIndex=index;
     this.target = null;
@@ -134,6 +140,7 @@ editInherentFunction(inherentFunction,index) {
 
 };
 
+// brings up add target form //
 addTarget() {
     this.targetIndex=-1;
     this.target = {
@@ -144,6 +151,7 @@ addTarget() {
     };
 };
 
+// brings up edit target form //
 editTarget(target,index) {
     this.targetIndex=parseInt(index);
     this.target = target;
@@ -151,6 +159,7 @@ editTarget(target,index) {
     this.targetCopy = JSON.parse(JSON.stringify(target));
 };
 
+// saves curent inherent function //
 saveInherentFunction() {
     this.functionalizingEntityData['simpleFunctionBean']=this.inherentFunction;
     let url = this.httpClient.post( Properties.API_SERVER_URL + '/caNanoLab/rest/functionalizingEntity/saveFunction', this.functionalizingEntityData );
@@ -168,6 +177,7 @@ saveInherentFunction() {
     this.inherentFunctionIndex=null;
 };
 
+// saves current target //
 saveTarget() {
     if (this.targetIndex==-1) {
         this.inherentFunction.targets.push(this.target);
@@ -175,6 +185,7 @@ saveTarget() {
     this.targetIndex=null;
 };
 
+// gets all data for current functionalizing entity //
 getFunctionalizingEntityData(sampleId){
     let getUrl = Properties.API_SERVER_URL + '/caNanoLab/rest/functionalizingEntity/edit?sampleId=' + sampleId + '&dataId=' + this.dataId;
 
@@ -201,6 +212,8 @@ getFunctionalizingEntityData(sampleId){
     return results;
 
 }
+
+    // gets dropdown data //
     getSetupData(sampleId){
         let getUrl = Properties.API_SERVER_URL + '/caNanoLab/rest/functionalizingEntity/setup?sampleId=' + sampleId;
 
@@ -246,6 +259,7 @@ getFunctionalizingEntityData(sampleId){
         }
     };
 
+    // sets default data set for functionalizing entity for add //
     setDefaultDataSet() {
         console.log(this.sampleId)
         return {
@@ -265,6 +279,7 @@ getFunctionalizingEntityData(sampleId){
         };
     };
 
+    // deletes current functionalizing entity //
     deleteFunctionalizingEntity() {
         if (confirm("Are you sure you want to delete this functionalizing entity?")) {
             let url = this.httpClient.post( Properties.API_SERVER_URL + '/caNanoLab/rest/functionalizingEntity/delete', this.functionalizingEntityData );
@@ -277,10 +292,12 @@ getFunctionalizingEntityData(sampleId){
         };
     };
 
+    // resets functionalizing entity form //
     resetFunctionalizingEntity() {
         this.functionalizingEntityData = JSON.parse(JSON.stringify(this.functionalizingEntityDataTrailer))
     };
 
+    // saves functionalizing entity //
     submitFunctionalizingEntity() {
         let url = this.httpClient.post( Properties.API_SERVER_URL + '/caNanoLab/rest/functionalizingEntity/submit', this.functionalizingEntityData );
         url.subscribe( data => {

@@ -48,6 +48,7 @@ export class CharacterizationComponent implements OnInit{
         );
     }
 
+    // returns all data for this page //
     getCharacterizationData() {
         let results;
         try{
@@ -58,6 +59,7 @@ export class CharacterizationComponent implements OnInit{
         return results;
     }
 
+    // separates out all data into subsets of physico, in vivo, in vitro and other characterization types //
     separateDataSets(data) {
         let types =['in vitro characterization','in vivo characterization','physico-chemical characterization']
         data.forEach(item=> {
@@ -80,8 +82,13 @@ export class CharacterizationComponent implements OnInit{
         })
     }
 
+    // splits keywords for experiments and configurations //
     splitKeywords(keywords) {
-        console.log(keywords)
         return keywords.split('\n')
+    }
+
+    // brings up new characterization form //
+    addCharacterization(type) {
+        console.log(type)
     }
 }
