@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
-import { Properties } from '../../../../../../assets/properties';
-import { Consts } from '../../../../../constants';
+import { Properties } from '../../../../../assets/properties';
+import { Consts } from '../../../../constants';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { timeout } from 'rxjs/operators';
 

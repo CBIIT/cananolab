@@ -27,7 +27,7 @@ import { SampleAdvancedSearchComponent } from './cananolab-client/main-display/s
 import { SampleSearchResultsComponent } from './cananolab-client/main-display/samples/general-info/sample-search/sample-search-results/sample-search-results.component';
 import { SampleEditComponent } from './cananolab-client/main-display/samples/general-info/sample-edit/sample-edit.component';
 import { SampleViewComponent } from './cananolab-client/main-display/samples/sample-view/sample-view.component';
-import { CharacterizationComponent } from './cananolab-client/main-display/samples/characterization/characterization/characterization.component';
+import { CharacterizationComponent } from './cananolab-client/main-display/samples/characterization/characterization.component';
 import { CompositionComponent } from './cananolab-client/main-display/samples/composition/composition/composition.component';
 import { FunctionalizingentityComponent } from './cananolab-client/main-display/samples/composition/functionalizingentity/functionalizingentity.component';
 import { NanomaterialentityComponent } from './cananolab-client/main-display/samples/composition/nanomaterialentity/nanomaterialentity.component';
