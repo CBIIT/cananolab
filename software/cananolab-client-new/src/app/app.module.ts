@@ -74,6 +74,7 @@ import { ComposingElementFormComponent } from './cananolab-client/main-display/s
 import { ManageComposingElementComponent } from './cananolab-client/main-display/samples/composition/nanomaterialentity/manage-composing-element/manage-composing-element.component';
 import { OtherDropdownComponent } from './cananolab-client/common/components/other-dropdown/other-dropdown.component';
 import { SetObjectValueModule } from './cananolab-client/common/modules/set-object-value/set-object-value.module';
+import { EditcharacterizationComponent } from './cananolab-client/main-display/samples/characterization/editcharacterization/editcharacterization.component';
 
 @NgModule({
   declarations: [
@@ -144,7 +145,8 @@ import { SetObjectValueModule } from './cananolab-client/common/modules/set-obje
     ManageFileEditComponent,
     ComposingElementFormComponent,
     ManageComposingElementComponent,
-    OtherDropdownComponent
+    OtherDropdownComponent,
+    EditcharacterizationComponent
   ],
     imports: [
         BrowserModule,

@@ -28,6 +28,7 @@ import { SampleSearchResultsComponent } from './cananolab-client/main-display/sa
 import { SampleEditComponent } from './cananolab-client/main-display/samples/general-info/sample-edit/sample-edit.component';
 import { SampleViewComponent } from './cananolab-client/main-display/samples/sample-view/sample-view.component';
 import { CharacterizationComponent } from './cananolab-client/main-display/samples/characterization/characterization.component';
+import { EditcharacterizationComponent } from './cananolab-client/main-display/samples/characterization/editcharacterization/editcharacterization.component';
 import { CompositionComponent } from './cananolab-client/main-display/samples/composition/composition/composition.component';
 import { FunctionalizingentityComponent } from './cananolab-client/main-display/samples/composition/functionalizingentity/functionalizingentity.component';
 import { NanomaterialentityComponent } from './cananolab-client/main-display/samples/composition/nanomaterialentity/nanomaterialentity.component';
@@ -68,6 +69,8 @@ const routes: Routes = [
     { path: 'home/samples/sampleCreate', component: SampleCreateComponent },
     { path: 'home/samples/samplesCopy', component: SampleCopyComponent },
     { path: 'home/samples/characterization/:sampleId', component: CharacterizationComponent },
+    { path: 'home/samples/characterization/editcharacterization/:sampleId:/:type', component: EditcharacterizationComponent },
+    { path: 'home/samples/characterization/editcharacterization/:sampleId/:charId', component: EditcharacterizationComponent },
     { path: 'home/samples/composition/:sampleId', component: CompositionComponent },
     { path: 'home/samples/composition/functionalizingentity/:sampleId/:dataId', component: FunctionalizingentityComponent },
     { path: 'home/samples/composition/functionalizingentity/:sampleId', component: FunctionalizingentityComponent },

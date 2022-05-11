@@ -89,6 +89,6 @@ export class CharacterizationComponent implements OnInit{
 
     // brings up new characterization form //
     addCharacterization(type) {
-        console.log(type)
+        this.router.navigate( ['home/samples/characterization/editcharacterization', Properties.CURRENT_SAMPLE_ID,type] );  // @FIXME  Don't hard code these
     }
 }
