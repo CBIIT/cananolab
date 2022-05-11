@@ -67,7 +67,7 @@ const routes: Routes = [
     { path: 'home/samples/samplesAdvancedSearch', component: SampleAdvancedSearchComponent },
     { path: 'home/samples/sampleCreate', component: SampleCreateComponent },
     { path: 'home/samples/samplesCopy', component: SampleCopyComponent },
-    { path: 'home/samples/samplesCharacterization/:sampleId', component: CharacterizationComponent },
+    { path: 'home/samples/characterization/:sampleId', component: CharacterizationComponent },
     { path: 'home/samples/composition/:sampleId', component: CompositionComponent },
     { path: 'home/samples/composition/functionalizingentity/:sampleId/:dataId', component: FunctionalizingentityComponent },
     { path: 'home/samples/composition/functionalizingentity/:sampleId', component: FunctionalizingentityComponent },

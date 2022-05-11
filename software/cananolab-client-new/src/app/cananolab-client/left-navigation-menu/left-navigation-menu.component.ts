@@ -26,7 +26,7 @@ export class LeftNavigationMenuComponent implements OnInit{
 
     onCharacterizationClick(){
         this.currentSelectedItem = 2;
-        this.router.navigate( ['home/samples/samplesCharacterization', '?sampleId=' + Properties.CURRENT_SAMPLE_ID] );  // @FIXME  Don't hard code these
+        this.router.navigate( ['home/samples/characterization', Properties.CURRENT_SAMPLE_ID] );  // @FIXME  Don't hard code these
     }
 
 
@@ -41,7 +41,7 @@ export class LeftNavigationMenuComponent implements OnInit{
 
     onCompositionClick(){
         this.currentSelectedItem = 1;
-        this.router.navigate( ['home/samples/composition', '?sampleId=' + Properties.CURRENT_SAMPLE_ID] );  // @FIXME  Don't hard code these
+        this.router.navigate( ['home/samples/composition',Properties.CURRENT_SAMPLE_ID] );  // @FIXME  Don't hard code these
     }
 
     onPublicationsClick(){

@@ -3,5 +3,168 @@
     [toolHeadingName]="toolHeadingNameManage"
 >
 </canano-main-display-heading>
-<h4>sampleId: {{sampleId}}</h4>
-<h4>sampleName: {{sampleName}}</h4>
+
+
+<div class="sample-edit-div">
+    <div class="compositionSection" *ngFor="let a of types">
+        <div class="header">
+            {{a}} <button class="btn btn-primary btn-sm">Add</button>
+        </div>
+        <ng-container *ngFor="let b of characterizationData[a]">
+            <div class="compositionTitle">{{b.charName}}</div>
+            <ng-container *ngFor="let c of b.charsByAssayType | keyvalue">
+                <div class="compositionBody">
+                    <table class="dataMain" *ngFor="let d of c.value | keyvalue">
+                        <ng-container *ngFor="let e of d.value['displayableItems'] | keyvalue">
+                            <tr *ngIf="e.value.value.length">
+                                <td class="label">
+                                    {{e.value.name}}
+                                </td>
+                                <td *ngIf="e.value.name=='Experiment Configurations'">
+                                    <table class="experimentConfigurations">
+                                        <tr>
+                                            <ng-container *ngFor="let f of e.value.value">
+                                                <th *ngFor="let g of f | keyvalue">
+                                                    {{g.key}}
+                                                </th>
+                                            </ng-container>
+                                        </tr>
+                                        <tr>
+                                            <ng-container *ngFor="let f of e.value.value">
+                                                <td *ngFor="let g of f | keyvalue">
+                                                    <ul>
+                                                        <ng-container *ngFor="let h of g.value">
+                                                            <li *ngIf="h">
+                                                                {{h}}
+                                                            </li>
+                                                        </ng-container>
+                                                    </ul>
+                                                </td>
+                                            </ng-container>
+                                        </tr>
+                                    </table>
+                                </td>
+                                <td *ngIf="e.value.name=='Characterization Results'">
+                                    <ng-container *ngFor="let f of e.value.value">
+                                        <div *ngIf="f['Data and Conditions']">
+                                            <table class="dataAndConditions">
+                                                <tr *ngFor="let entry of f['Data and Conditions']">
+                                                    <ng-container *ngIf="entry.name=='colTitles'">
+                                                        <th *ngFor="let title of entry.value">
+                                                            <span [innerHTML]="title">{{title}}</span>
+                                                        </th>
+                                                    </ng-container>
+                                                    <ng-container *ngIf="entry.name=='colValues'">
+                                                        <td *ngFor="let title of entry.value">
+                                                            {{title}}
+                                                        </td>
+                                                    </ng-container>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                        <div *ngIf="f['Files']"><br />
+                                            <table class="files">
+                                                <tr>
+                                                    <th>
+                                                        Files
+                                                    </th>
+                                                    <th>
+                                                        Keywords
+                                                    </th>
+                                                    <th>
+                                                        Description
+                                                    </th>
+                                                </tr>
+                                                <tr *ngFor="let file of f['Files']">
+                                                    <td>
+                                                        <a href="" [href]="serverUrl+'/caNanoLab/rest/sample/download?fileId='+file.fileId">
+                                                            {{file['title']}}
+                                                        </a>
+                                                    </td>
+                                                    <td>
+                                                        <ul>
+                                                            <li *ngFor="let keyword of splitKeywords(file['keywordsString'])">
+                                                                {{keyword}}
+                                                            </li>
+                                                        </ul>
+                                                    </td>
+                                                    <td>{{file['description']}}</td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                    </ng-container>
+                                </td>
+                                <td *ngIf="e.value.name!='Characterization Results'&&e.value.name!='Experiment Configurations'">
+                                    {{e.value.value}}
+                                </td>
+                            </tr>
+                        </ng-container>
+                    </table>
+                </div>
+            </ng-container>
+        </ng-container>
+    </div>
+
+    <!-- <div class="compositionSection">
+        <div id="nanomaterialEntity" class="header">
+            Physico-Chemical Characterization <button class="btn btn-primary btn-sm">Add</button>
+        </div>
+        <span *ngFor="let e of physicoData">
+            <div class="compositionTitle">{{e.characterizationName}}</div>
+            <div class="compositionBody">
+                <table class="dataMain">
+                    <tr>
+                        <td class="label">
+                            Assay Type
+                        </td>
+                        <td>
+                            gel permeation chromatography
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </span>
+    </div>
+    <div class="compositionSection">
+        <div id="nanomaterialEntity" class="header">
+            In Vitro Characterization <button class="btn btn-primary btn-sm">Add</button>
+        </div>
+        <span *ngFor="let e of invitroData">
+            <div class="compositionTitle">{{e.characterizationName}}</div>
+            <div class="compositionBody">
+                test test test test test test test test test test test test test test test test test test test test test test test test<br />
+                test test test test test test test test test test test test test test test test test test test test test test test test<br />
+                test test test test test test test test test test test test test test test test test test test test test test test test<br />
+                test test test test test test test test test test test test test test test test test test test test test test test test<br />
+            </div>
+        </span>
+    </div>
+    <div class="compositionSection">
+        <div id="nanomaterialEntity" class="header">
+            In Vivo Characterization <button class="btn btn-primary btn-sm">Add</button>
+        </div>
+        <span *ngFor="let e of invivoData">
+            <div class="compositionTitle">{{e.characterizationName}}</div>
+            <div class="compositionBody">
+                test test test test test test test test test test test test test test test test test test test test test test test test<br />
+                test test test test test test test test test test test test test test test test test test test test test test test test<br />
+                test test test test test test test test test test test test test test test test test test test test test test test test<br />
+                test test test test test test test test test test test test test test test test test test test test test test test test<br />
+            </div>
+        </span>
+    </div>
+    <div class="compositionSection">
+        <div id="nanomaterialEntity" class="header">
+            Other <button class="btn btn-primary btn-sm">Add</button>
+        </div>
+        <span *ngFor="let e of otherData">
+            <div class="compositionTitle">{{e.characterizationName}}</div>
+            <div class="compositionBody">
+                test test test test test test test test test test test test test test test test test test test test test test test test<br />
+                test test test test test test test test test test test test test test test test test test test test test test test test<br />
+                test test test test test test test test test test test test test test test test test test test test test test test test<br />
+                test test test test test test test test test test test test test test test test test test test test test test test test<br />
+            </div>
+        </span>
+    </div> -->
+</div>
