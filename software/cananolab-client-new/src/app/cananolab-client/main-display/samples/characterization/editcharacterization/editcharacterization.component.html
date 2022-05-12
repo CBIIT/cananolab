@@ -1,1 +1,408 @@
-<p>editcharacterization works!</p>
+<canano-main-display-heading
+    [helpUrl]="helpUrl"
+    [toolHeadingName]="toolHeadingNameManage"
+>
+</canano-main-display-heading>
+<div class="sample-edit-div">
+    <div class="compositionSection" *ngIf="setupData">
+
+        <form action="" method="get" name="characterizationForm">
+            <div class="compositionBorder">
+                <table class="dataMain">
+                    <tr *ngIf="!charId">
+                        <td class="label">
+                            <label for="charType">
+                                Characterization Type*
+                            </label>
+                        </td>
+                        <td>
+                            <select (ngModelChange)="changeType($event)" name="charType" id="charType" [(ngModel)]="data.type">
+                                    <option *ngFor="let type of setupData['charTypesLookup']" [selected]="data.type===type" value="{{type}}">
+                                        {{type}}
+                                    </option>
+                            </select>
+                        </td>
+                        <td class="label">
+                            <label for="charNamePrompt">
+                                Characterization Name*
+                            </label>
+                        </td>
+                        <td>
+                            <select (ngModelChange)="changeName($event)" name="charNamePrompt" id="charNamePrompt" [(ngModel)]="data.name">
+                                <option value="" [selected]="data.name===''">--Select--</option>
+                                <option *ngFor="let type of setupData['charNamesForCurrentType']" [selected]="data.name===type" value="{{type}}">
+                                    {{type}}
+                                </option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="label">
+                            <label for="assayType">
+                                Assay Type
+                            </label>
+                        </td>
+                        <td>
+                            <select name="assayType" id="assayType" [(ngModel)]="data.assayType">
+                                <option value="" [selected]="data.assayType===''">--Select--</option>
+                                <option *ngFor="let type of setupData['assayTypesByCharNameLookup']" [selected]="data.assayType===type" value="{{type}}">
+                                    {{type}}
+                                </option>
+                            </select>
+                        </td>
+                        <td class="label">
+                            <label for="protocolId">
+                                Protocol Name - Version
+                            </label>
+                        </td>
+                        <td>
+                            <select name="protocolId" id="protocolId" [(ngModel)]="data.protocolId">
+                                <option value="" [selected]="data.protocolId===''">--Select--</option>
+                                <option *ngFor="let type of setupData['protocolLookup']" [selected]="data.protocolId===type" value="{{type}}">
+                                    {{type}}
+                                </option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="label">
+                            <label for="characterizationSourceId">
+                                Characterization Source
+                            </label>
+                        </td>
+                        <td>
+                            <select name="characterizationSourceId" id="characterizationSourceId" [(ngModel)]="data.characterizationSourceId">
+                                <option value="" [selected]="data.characterizationSourceId==0" [ngValue]="0">--Select--</option>
+                                <option *ngFor="let type of setupData['charSourceLookup']" [selected]="data.characterizationSourceId===type.id" value="{{type.id}}">
+                                    {{type.displayName}}
+                                </option>
+                            </select>
+                        </td>
+                        <td class="label">
+                            <label for="characterizationDate">
+                                Characterization Date
+                            </label>
+                        </td>
+                        <td>
+                            <input type="date" name="characterizationDate" id="characterizationDate" [(ngModel)]="data.characterizationDate">
+                        </td>
+                    </tr>
+                </table>
+            </div><br />
+            <ng-container *ngIf="data.name=='physical state'">
+                <div class="compositionBorder">
+                    <table class="dataMain">
+                        <tr colspan="2"><td class="label">Phsyical Properties</td></tr>
+                        <tr>
+                            <td class="label">
+                                <label for="property.type">
+                                    Type
+                                </label>
+                            </td>
+                            <td>
+                                <select name="property.type" id="property.type" [(ngModel)]="data.property.type">
+                                    <option value="" [selected]="data.property.type===''">--Select--</option>
+                                    <option *ngFor="let type of data.property['typeOptions']" [selected]="data.property.type===type" value="{{type}}">
+                                        {{type}}
+                                    </option>
+                                </select>
+                            </td>
+                        </tr>
+                    </table>
+                </div><br />
+            </ng-container>
+            <ng-container *ngIf="data.name=='shape'">
+                <div class="compositionBorder">
+                    <table class="dataMain">
+                        <tr colspan="4"><td class="label">Shape Properties</td></tr>
+                        <tr>
+                            <td class="label">
+                                <label for="property.type">
+                                    Type
+                                </label>
+                            </td>
+                            <td>
+                                <select name="property.type" id="property.type" [(ngModel)]="data.property.type">
+                                    <option value="" [selected]="!data.property.type" [ngValue]="null">--Select--</option>
+                                    <option *ngFor="let type of data.property['shapeTypeOptions']" [selected]="data.property.type===type" value="{{type}}">
+                                        {{type}}
+                                    </option>
+                                </select>
+                            </td>
+                            <td class="label">
+                                <label for="property.aspectRatio">
+                                    Aspect Ratio
+                                </label>
+                            </td>
+                            <td>
+                                <input type="number" name="property.aspectRatio" id="property.aspectRatio" [(ngModel)]="data.property.aspectRatio">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="label">
+                                <label for="property.minDimension">
+                                    Minimum Dimension
+                                </label>
+                            </td>
+                            <td>
+                                <input type="number" name="property.minDimension" id="property.minDimension" [(ngModel)]="data.property.minDimension">
+                                <select name="property.minDimensionUnit" id="property.minDimensionUnit" [(ngModel)]="data.property.minDimensionUnit">
+                                    <option value="" [selected]="!data.property['minDimensionUnit']" [ngValue]="null">--Select--</option>
+                                    <option *ngFor="let type of data.property['unitOptions']" [selected]="data.property.minDimensionUnit===type" value="{{type}}">
+                                        {{type}}
+                                    </option>
+                                </select>
+                            </td>
+                            <td class="label">
+                                <label for="property.maxDimension">
+                                    Maximum Dimension
+                                </label>
+                            </td>
+                            <td>
+                                <input type="number" name="property.maxDimension" id="property.maxDimension" [(ngModel)]="data.property.maxDimension">
+                                <select name="property.maxDimensionUnit" id="property.maxDimensionUnit" [(ngModel)]="data.property.maxDimensionUnit">
+                                    <option value="" [selected]="!data.property['maxDimensionUnit']" [ngValue]="null">--Select--</option>
+                                    <option *ngFor="let type of data.property['unitOptions']" [selected]="data.property.maxDimensionUnit===type" value="{{type}}">
+                                        {{type}}
+                                    </option>
+                                </select>
+                            </td>
+                        </tr>
+                    </table>
+                </div><br />
+            </ng-container>
+            <ng-container *ngIf="data.name=='solubility'">
+                <div class="compositionBorder">
+                    <table class="dataMain">
+                        <tr colspan="4"><td class="label">Solubility Properties</td></tr>
+                        <tr>
+                            <td class="label">
+                                <label for="property.solvent">
+                                    Solvent
+                                </label>
+                            </td>
+                            <td>
+                                <select name="property.solvent" id="property.solvent" [(ngModel)]="data.property.solvent">
+                                    <option value="" [selected]="!data.property.solvent" [ngValue]="null">--Select--</option>
+                                    <option *ngFor="let type of data.property['solventOptions']" [selected]="data.property.solvent===type" value="{{type}}">
+                                        {{type}}
+                                    </option>
+                                </select>
+                            </td>
+                            <td class="label">
+                                <label for="property.isSoluble">
+                                    Is Soluble
+                                </label>
+                            </td>
+                            <td>
+                                <select name="property.isSoluble" id="property.isSoluble" [(ngModel)]="data.property.isSoluble">
+                                    <option value="" [selected]="!data.property.isSoluble" [ngValue]="null">--Select--</option>
+                                    <option *ngFor="let type of data.property['isSolubleOptions']" [selected]="data.property.isSoluble===type" value="{{type}}">
+                                        {{type}}
+                                    </option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="label">
+                                <label for="property.criticalConcentration">
+                                    Critical Concentration
+                                </label>
+                            </td>
+                            <td>
+                                <input type="number" name="property.criticalConcentration" id="property.criticalConcentration" [(ngModel)]="data.property.criticalConcentration">
+                                <select name="property.concentrationUnit" id="property.concentrationUnit" [(ngModel)]="data.property.concentrationUnit">
+                                    <option value="" [selected]="!data.property.concentrationUnit" [ngValue]="null">--Select--</option>
+                                    <option *ngFor="let type of data.property['concentrationUnitOptions']" [selected]="data.property.concentrationUnit===type" value="{{type}}">
+                                        {{type}}
+                                    </option>
+                                </select>
+                            </td>
+                        </tr>
+                    </table>
+                </div><br />
+            </ng-container>
+            <ng-container *ngIf="data.name=='surface'">
+                <div class="compositionBorder">
+                    <table class="dataMain">
+                        <tr>
+                            <td colspan="2" class="label">Surcace Properties</td>
+                        </tr>
+                        <tr>
+                            <td class="label">
+                                <label for="property.isHydrophobic">
+                                    Is Hydrophobic
+                                </label>
+                            </td>
+                            <td>
+                                <select name="property.isHydrophobic" id="property.isHydrophobic" [(ngModel)]="data.property.isHydrophobic">
+                                    <option value="" [selected]="!data.property.isHydrophobic" [ngValue]="null">--Select--</option>
+                                    <option *ngFor="let type of data.property['isHydrophobicOptions']" [selected]="data.property.isHydrophobic===type" value="{{type}}">
+                                        {{type}}
+                                    </option>
+                                </select>
+                            </td>
+                        </tr>
+                    </table>
+                </div><br />
+            </ng-container>
+            <ng-container *ngIf="data.name=='cytotoxicity'">
+                <div class="compositionBorder">
+                    <table class="dataMain">
+                        <tr>
+                            <td class="label" colspan="2">Cytotoxicity Properties</td>
+                        </tr>
+                        <tr>
+                            <td class="label">
+                                <label for="property.cellLine">
+                                    Cell Line
+                                </label>
+                            </td>
+                            <td>
+                                <textarea rows="3" cols="120" name="property.cellLine" id="property.cellLine" [(ngModel)]="data.property.cellLine">
+                                    {{data.property.cellLine}}
+                                </textarea>
+                            </td>
+                        </tr>
+                    </table>
+                </div><br />
+            </ng-container>
+            <ng-container *ngIf="data.name=='enzyme induction'">
+                <div class="compositionBorder">
+                    <table class="dataMain">
+                        <tr>
+                            <td colspan="2" class="label">Enzyme Properties</td>
+                        </tr>
+                        <tr>
+                            <td class="label">
+                                <label for="property.enzymeName">
+                                    Enzyme Name
+                                </label>
+                            </td>
+                            <td>
+                                <select name="property.enzymeName" id="property.enzymeName" [(ngModel)]="data.property.enzymeName">
+                                    <option value="" [selected]="data.property.enzymeName===''">--Select--</option>
+                                    <option *ngFor="let type of data.property['enzymeNameOptions']" [selected]="data.property.enzymeName===type" value="{{type}}">
+                                        {{type}}
+                                    </option>
+                                </select>
+                            </td>
+                        </tr>
+                    </table>
+                </div><br />
+            </ng-container>
+            <ng-container *ngIf="data.name=='targeting'">
+                <div class="compositionBorder">
+                    <table class="dataMain">
+                        <tr>
+                            <td class="label" colspan="2">Targeting Properties</td>
+                        </tr>
+                        <tr>
+                            <td class="label">
+                                <label for="property.cellLine">
+                                    Cell Line
+                                </label>
+                            </td>
+                            <td>
+                                <textarea rows="3" cols="120" name="property.cellLine" id="property.cellLine" [(ngModel)]="data.property.cellLine">
+                                    {{data.property.cellLine}}
+                                </textarea>
+                            </td>
+                        </tr>
+                    </table>
+                </div><br />
+            </ng-container>
+            <ng-container *ngIf="data.name=='transfection'">
+                <div class="compositionBorder">
+                    <table class="dataMain">
+                        <tr>
+                            <td class="label" colspan="2">Transfection Properties</td>
+                        </tr>
+                        <tr>
+                            <td class="label">
+                                <label for="property.cellLine">
+                                    Cell Line
+                                </label>
+                            </td>
+                            <td>
+                                <textarea rows="3" cols="120" name="property.cellLine" id="property.cellLine" [(ngModel)]="data.property.cellLine">
+                                    {{data.property.cellLine}}
+                                </textarea>
+                            </td>
+                        </tr>
+                    </table>
+                </div><br />
+            </ng-container>
+
+            <div class="compositionBorder">
+                <table class="dataMain">
+                    <tr>
+                        <td class="label">
+                            <label for="designMethodsDescription">
+                                Design and Methods Description
+                            </label>
+                        </td>
+                        <td>
+                            <textarea [(ngModel)]="data.designMethodsDescription" name="designMethodsDescription" id="designMethodsDescription" rows="3" cols="120">
+
+                            </textarea>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="label">
+                            <label for="techniqueInstrument">
+                                Technique and Instrument
+                            </label>
+                        </td>
+                        <td>
+                            <button class="btn-canano btn-canano-primary btn-canano-xs mr-1">Add</button>
+                        </td>
+                    </tr>
+                </table>
+            </div><br />
+            <div class="compositionBorder">
+                <table class="dataMain">
+                    <tr>
+                        <td class="label">
+                            <label for="finding">
+                                Finding
+                            </label>
+                        </td>
+                        <td>
+                            <button class="btn-canano btn-canano-primary btn-canano-xs mr-1">Add</button>
+                        </td>
+                    </tr>
+                </table>
+            </div><br />
+            <div class="compositionBorder">
+                <table class="dataMain">
+                    <tr>
+                        <td class="label">
+                            <label for="analysisConclusion">
+                                Analysis and Conclusion
+                            </label>
+                        </td>
+                        <td>
+                            <textarea name="analysisConclusion" id="analysisConclusion" rows="3" cols="120" [(ngModel)]="data.analysisConclusion">
+
+                            </textarea>
+                        </td>
+                    </tr>
+                </table>
+            </div><br />
+            <div>
+                <table class="dataMain submit">
+                    <tr>
+                        <td *ngIf="charId" style="text-align:left;">
+                            <button (click)="deleteCharacterization()" class="btn-canano btn-canano-danger btn-canano-lg mr-1">Delete</button>
+                        </td>
+                        <td>
+                            <button (click)="resetCharacterization()" class="btn-canano btn-canano-danger btn-canano-lg mr-1">Reset</button>
+                            <button (click)="submitCharacterization()" class="btn-canano btn-canano-primary btn-canano-lg mr-1">Submit</button>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </form>
+    </div>
+</div>

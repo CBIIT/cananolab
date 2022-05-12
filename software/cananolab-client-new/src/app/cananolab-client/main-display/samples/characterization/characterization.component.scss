@@ -98,6 +98,21 @@
 
     }
 
+    .properties td{
+        padding:5px;
+        border:1px solid #ccc;
+        width:200px;
+    }
+
+    .properties th{
+        background-color:#0073b9;
+        color:#fff;
+        padding:5px;
+        vertical-align:top;
+        border:1px  solid #ccc;
+
+    }
+
     .files {
         min-width:650px;
     }
@@ -114,4 +129,8 @@
         vertical-align:top;
         border:1px  solid #ccc;
 
+    }
+
+    label {
+        font-weight:bold;
     }

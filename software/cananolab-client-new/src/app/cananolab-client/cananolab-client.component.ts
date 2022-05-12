@@ -26,6 +26,7 @@ export class CananolabClientComponent implements OnInit{
     }
 
     ngOnInit(): void{
+        console.log(this.properties)
     }
 
     async init(){

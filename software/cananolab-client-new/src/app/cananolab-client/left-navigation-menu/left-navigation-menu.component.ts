@@ -36,7 +36,7 @@ export class LeftNavigationMenuComponent implements OnInit{
     onGeneralInfoClick(){
         this.currentSelectedItem = 0;
         // this.router.navigate( ['home/samples/samplesEdit', '?sampleId=' + Properties.CURRENT_SAMPLE_ID] );  // @FIXME  Don't hard code these
-        this.router.navigate( ['home/samples/samplesView', '?sampleId=' + Properties.CURRENT_SAMPLE_ID] );  // @FIXME  Don't hard code these
+        this.router.navigate( ['home/samples/samplesView',Properties.CURRENT_SAMPLE_ID] );  // @FIXME  Don't hard code these
     }
 
     onCompositionClick(){
@@ -46,7 +46,7 @@ export class LeftNavigationMenuComponent implements OnInit{
 
     onPublicationsClick(){
         this.currentSelectedItem = 3;
-        this.router.navigate( ['home/samples/publications', '?sampleId=' + Properties.CURRENT_SAMPLE_ID] );  // @FIXME  Don't hard code these
+        this.router.navigate( ['home/samples/publications', Properties.CURRENT_SAMPLE_ID] );  // @FIXME  Don't hard code these
     }
 
 }

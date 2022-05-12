@@ -11,12 +11,12 @@
             {{a}} <button class="btn btn-primary btn-sm" (click)="addCharacterization(a)">Add</button>
         </div>
         <ng-container *ngFor="let b of characterizationData[a]">
-            <div class="compositionTitle">{{b.charName}}</div>
             <ng-container *ngFor="let c of b.charsByAssayType | keyvalue">
+                <div class="compositionTitle">{{c.key}}</div>
 
                 <div class="compositionBody">
                     <ng-container *ngFor="let d of c.value | keyvalue">
-                        <div class="editButton"><button class="btn btn-primary btn-sm" (click)="editCharacterization(d.value.charId)">Edit</button></div>
+                        <div class="editButton"><button class="btn btn-primary btn-sm" (click)="editCharacterization(d.value.charId,a, d.value.charClassName)">Edit</button></div>
                         <table class="dataMain">
                             <ng-container *ngFor="let e of d.value['displayableItems'] | keyvalue">
                                 <tr *ngIf="e.value.value.length">
@@ -49,8 +49,11 @@
                                     </td>
                                     <td *ngIf="e.value.name=='Characterization Results'">
                                         <ng-container *ngFor="let f of e.value.value">
+                                            <label for="dataConditions">
+                                                Data and Conditions
+                                            </label>
                                             <div *ngIf="f['Data and Conditions']">
-                                                <table class="dataAndConditions">
+                                                <table class="dataAndConditions" id="dataConditions">
                                                     <tr *ngFor="let entry of f['Data and Conditions']">
                                                         <ng-container *ngIf="entry.name=='colTitles'">
                                                             <th *ngFor="let title of entry.value">
@@ -97,7 +100,23 @@
                                             </div>
                                         </ng-container>
                                     </td>
-                                    <td *ngIf="e.value.name!='Characterization Results'&&e.value.name!='Experiment Configurations'">
+                                    <td *ngIf="e.value.name=='Properties'">
+                                        <table class="properties">
+                                            <tr *ngFor="let entry of e.value.value">
+                                                <ng-container *ngIf="entry.name=='colTitles'">
+                                                    <th *ngFor="let title of entry.value">
+                                                        <span [innerHTML]="title">{{title}}</span>
+                                                    </th>
+                                                </ng-container>
+                                                <ng-container *ngIf="entry.name=='colValues'">
+                                                    <td *ngFor="let title of entry.value">
+                                                        {{title}}
+                                                    </td>
+                                                </ng-container>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                    <td *ngIf="e.value.name!='Characterization Results'&&e.value.name!='Experiment Configurations'&&e.value.name!='Properties'">
                                         {{e.value.value}}
                                     </td>
                                 </tr>

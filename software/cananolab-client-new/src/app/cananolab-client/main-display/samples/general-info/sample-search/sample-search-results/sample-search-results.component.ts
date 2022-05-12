@@ -67,11 +67,11 @@ export class SampleSearchResultsComponent implements OnInit, OnDestroy{
 
 
     navigateToSampleEdit( sampleId ){
-        this.router.navigate(['home/samples/samplesEdit', '?sampleId=' + sampleId ]);  // @FIXME  Don't hard code these
+        this.router.navigate(['home/samples/samplesEdit',sampleId ]);  // @FIXME  Don't hard code these
     }
 
     navigateToSampleView(sampleId, sampleName){
-        this.router.navigate(['home/samples/samplesView', '?sampleId=' + sampleId + '&sampleName=' + sampleName ]);  // @FIXME  Don't hard code these
+        this.router.navigate(['home/samples/samplesView', sampleId, sampleName ]);  // @FIXME  Don't hard code these
     }
 
 
