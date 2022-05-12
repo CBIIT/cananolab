@@ -5,56 +5,56 @@
     padding:2px ;
 }
 
-.compositionSection {
+.editSection {
     margin:10px 5px 5px 5px;
     font-size:12px;
 }
-.compositionSection .compositionBorder {
+.editSection .editBorder {
     padding:0px;
     border:1px solid #ccc;
 }
-    .compositionSection td {
+    .editSection td {
         padding-bottom:13px !important;    font-size:12px ;
 
     }
 
-    .compositionSection .editButton{
+    .editSection .editButton{
         padding-top:5px;
         text-align:right;
     }
-    .compositionSection table.files{
+    .editSection table.files{
         width:100%;
     }
 
-    .compositionSection table.files th{
+    .editSection table.files th{
         width:200px;
     }
-    .compositionSection table.dataMain td{
+    .editSection table.dataMain td{
         vertical-align:top;
         width:250px;
         padding:10px !important;
     }
 
 
-    .compositionSection table.dataMain td.label{
+    .editSection table.dataMain td.label{
         font-weight:bold;
         width:200px !important;
         vertical-align:top;
     }
 
-    .compositionSection table.antibodyProperties td.label{
+    .editSection table.antibodyProperties td.label{
         font-weight:bold;
         width:100px !important;
         vertical-align:top;
     }
 
-    .compositionSection table.antibodyProperties{
+    .editSection table.antibodyProperties{
         font-weight:bold;
         width:600px !important;
         vertical-align:top;
     }
 
-    .compositionSection table.files td.label{
+    .editSection table.files td.label{
         font-weight:bold;
         width:200px;
         vertical-align:top;
@@ -74,4 +74,19 @@
 
     .dataMain.gray {
         background-color:#F4F4F5;
+    }
+
+    .dataMain.gray td{
+        border:none;
+    }
+
+
+    .inherentFunction th{
+        background-color:#0073b9;
+        color:#fff;
+        border:1px solid #ccc;
+    }
+
+    .inherentFunction td{
+        border:1px solid #ccc;
     }

@@ -5,56 +5,54 @@
     padding:2px ;
 }
 
-.compositionSection {
+.editSection {
     margin:10px 5px 5px 5px;
     font-size:12px;
 }
-.compositionSection .compositionBorder {
+.editSection .editBorder {
     padding:0px;
     border:1px solid #ccc;
 }
-    .compositionSection td {
-        padding-bottom:13px !important;    font-size:12px ;
 
-    }
 
-    .compositionSection .editButton{
+    .editSection .editButton{
         padding-top:5px;
         text-align:right;
     }
-    .compositionSection table.files{
+    .editSection table.files{
         width:100%;
     }
 
-    .compositionSection table.files th{
+    .editSection table.files th{
         width:200px;
     }
-    .compositionSection table.dataMain td{
+    .editSection table.dataMain td{
         vertical-align:top;
-        width:250px;
-        padding:10px !important;
+        padding:10px;
     }
 
 
-    .compositionSection table.dataMain td.label{
+
+
+    .editSection table.dataMain td.label{
         font-weight:bold;
         width:200px !important;
         vertical-align:top;
     }
 
-    .compositionSection table.antibodyProperties td.label{
+    .editSection table.antibodyProperties td.label{
         font-weight:bold;
         width:100px !important;
         vertical-align:top;
     }
 
-    .compositionSection table.antibodyProperties{
+    .editSection table.antibodyProperties{
         font-weight:bold;
         width:600px !important;
         vertical-align:top;
     }
 
-    .compositionSection table.files td.label{
+    .editSection table.files td.label{
         font-weight:bold;
         width:200px;
         vertical-align:top;
@@ -72,6 +70,46 @@
         text-align:right;
     }
 
+
+
+    .techniqueInstrument {
+        width:800px;
+    }
+    .editSection table.dataMain .techniqueInstrument td{
+        vertical-align:top;
+        border:1px solid #ccc !important;
+        padding:10px 10px 10px 10px !important;
+        margin:0px;
+    }
+
+    .techniqueInstrument th {
+        background-color:#0073b9;
+        border:1px solid #ccc;
+        color:#fff;
+    }
+
+    ul {
+        padding:0px 10px 0px 10px;
+    }
+
     .dataMain.gray {
         background-color:#F4F4F5;
+        padding:10px;
+        width:100%;
+    }
+    .editSection table.dataMain .techniqueInstrument td .dataMain.gray {
+        border:1px solid green;
+    }
+    .editSection table.dataMain .techniqueInstrument td .dataMain.gray td {
+        padding:10px !important;
+        border:none !important;
+
+    }
+.dataMain.gray td.label {
+        max-width:200px !important;
+        }
+.dataMain.gray th {
+        background-color:#fff;
+        color:#000;
+        border:none !important;
     }

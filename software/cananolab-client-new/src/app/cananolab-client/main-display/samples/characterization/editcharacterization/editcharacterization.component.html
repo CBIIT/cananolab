@@ -4,10 +4,10 @@
 >
 </canano-main-display-heading>
 <div class="sample-edit-div">
-    <div class="compositionSection" *ngIf="setupData">
-
+    <div class="editSection" *ngIf="setupData">
+        <!-- {{data | json}} -->
         <form action="" method="get" name="characterizationForm">
-            <div class="compositionBorder">
+            <div class="editBorder">
                 <table class="dataMain">
                     <tr *ngIf="!charId">
                         <td class="label">
@@ -90,7 +90,7 @@
                 </table>
             </div><br />
             <ng-container *ngIf="data.name=='physical state'">
-                <div class="compositionBorder">
+                <div class="editBorder">
                     <table class="dataMain">
                         <tr colspan="2"><td class="label">Phsyical Properties</td></tr>
                         <tr>
@@ -112,7 +112,7 @@
                 </div><br />
             </ng-container>
             <ng-container *ngIf="data.name=='shape'">
-                <div class="compositionBorder">
+                <div class="editBorder">
                     <table class="dataMain">
                         <tr colspan="4"><td class="label">Shape Properties</td></tr>
                         <tr>
@@ -172,7 +172,7 @@
                 </div><br />
             </ng-container>
             <ng-container *ngIf="data.name=='solubility'">
-                <div class="compositionBorder">
+                <div class="editBorder">
                     <table class="dataMain">
                         <tr colspan="4"><td class="label">Solubility Properties</td></tr>
                         <tr>
@@ -223,7 +223,7 @@
                 </div><br />
             </ng-container>
             <ng-container *ngIf="data.name=='surface'">
-                <div class="compositionBorder">
+                <div class="editBorder">
                     <table class="dataMain">
                         <tr>
                             <td colspan="2" class="label">Surcace Properties</td>
@@ -247,7 +247,7 @@
                 </div><br />
             </ng-container>
             <ng-container *ngIf="data.name=='cytotoxicity'">
-                <div class="compositionBorder">
+                <div class="editBorder">
                     <table class="dataMain">
                         <tr>
                             <td class="label" colspan="2">Cytotoxicity Properties</td>
@@ -268,7 +268,7 @@
                 </div><br />
             </ng-container>
             <ng-container *ngIf="data.name=='enzyme induction'">
-                <div class="compositionBorder">
+                <div class="editBorder">
                     <table class="dataMain">
                         <tr>
                             <td colspan="2" class="label">Enzyme Properties</td>
@@ -292,7 +292,7 @@
                 </div><br />
             </ng-container>
             <ng-container *ngIf="data.name=='targeting'">
-                <div class="compositionBorder">
+                <div class="editBorder">
                     <table class="dataMain">
                         <tr>
                             <td class="label" colspan="2">Targeting Properties</td>
@@ -313,7 +313,7 @@
                 </div><br />
             </ng-container>
             <ng-container *ngIf="data.name=='transfection'">
-                <div class="compositionBorder">
+                <div class="editBorder">
                     <table class="dataMain">
                         <tr>
                             <td class="label" colspan="2">Transfection Properties</td>
@@ -334,7 +334,7 @@
                 </div><br />
             </ng-container>
 
-            <div class="compositionBorder">
+            <div class="editBorder">
                 <table class="dataMain">
                     <tr>
                         <td class="label">
@@ -358,9 +358,81 @@
                             <button class="btn-canano btn-canano-primary btn-canano-xs mr-1">Add</button>
                         </td>
                     </tr>
+                    <tr>
+                        <td>
+                            &nbsp;
+                        </td>
+                        <td>
+                            <table class="techniqueInstrument">
+                                <tr>
+                                    <th>
+                                        Technique
+                                    </th>
+                                    <th>
+                                        Instruments
+                                    </th>
+                                    <th>
+                                        Description
+                                    </th>
+                                    <th>
+                                        &nbsp;
+                                    </th>
+                                </tr>
+                                <tr *ngFor="let technique of data.techniqueInstruments.experiments">
+                                    <td>{{technique.techniqueType}}</td>
+                                    <td>
+                                        <ul>
+                                            <li *ngFor="let instrument of technique.instruments">
+                                                {{instrument.type}} ({{instrument.manufacturer}}, {{instrument.modelName}})
+                                            </li>
+                                        </ul>
+                                    </td>
+                                    <td>
+                                        {{technique.description}}
+                                    </td>
+                                    <td>
+                                        <button class="btn-canano btn-canano-primary btn-canano-xs mr-1">Edit</button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="4">
+
+                                        <table class="dataMain gray">
+                                            <tr>
+                                                <th colspan="2">
+                                                    Technique and Instrument Info
+                                                </th>
+                                            </tr>
+                                            <tr>
+                                                <td class="label">
+                                                    Technique*
+                                                </td>
+                                                <td>
+                                                    dropdown
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="label">
+                                                    Abbreviation
+                                                </td>
+                                                <td></td>
+                                            </tr>
+                                            <tr>
+                                                <td class="label">
+                                                    Instrument
+                                                </td>
+                                                <td></td>
+                                            </tr>
+
+                                        </table>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
                 </table>
             </div><br />
-            <div class="compositionBorder">
+            <div class="editBorder">
                 <table class="dataMain">
                     <tr>
                         <td class="label">
@@ -374,7 +446,7 @@
                     </tr>
                 </table>
             </div><br />
-            <div class="compositionBorder">
+            <div class="editBorder">
                 <table class="dataMain">
                     <tr>
                         <td class="label">

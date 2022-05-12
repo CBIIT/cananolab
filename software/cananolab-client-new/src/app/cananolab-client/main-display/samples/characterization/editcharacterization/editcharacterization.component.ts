@@ -61,24 +61,7 @@ export class EditcharacterizationComponent implements OnInit {
                     );
                 }
                 else {
-                    let url = this.httpClient.get(Properties.API_SERVER_URL + '/caNanoLab/rest/characterization/setupUpdate?sampleId='+this.sampleId+'&charType='+this.type + '&charId='+this.charId+'&charClassName='+this.charClassName);
-                    url.subscribe(
-                        data=>{
-                            this.data = data;
-                            this.dataTrailer = JSON.parse(JSON.stringify(this.data));
-                            this.data.characterizationDate = this.formatDate(this.data.characterizationDate)
-                            this.setupData = [];
-                            this.setupData['assayTypesByCharNameLookup'] = data['assayTypesByCharNameLookup'];
-                            this.setupData['protocolLookup'] = data['protocolLookup'];
-                            this.setupData['charSourceLookup'] = data['charSourceLookup'];
-                            this.setupData['techniqueTypeLookup']=data['techniqueInstruments']['techniqueTypeLookup'];
-                            this.setupData['manufacturerLookup']=data['techniqueInstruments']['manufacturerLookup'];
-                        },
-                        error=> {
-                            console.log('error')
-                        }
-                    );
-
+                    this.getCharacterizationData();
                 }
 
             }
@@ -171,6 +154,26 @@ export class EditcharacterizationComponent implements OnInit {
         }
         let newDate = tempDate.getFullYear().toString()+'-'+month+'-'+day
         return newDate
+    }
+
+    getCharacterizationData() {
+        let url = this.httpClient.get(Properties.API_SERVER_URL + '/caNanoLab/rest/characterization/setupUpdate?sampleId='+this.sampleId+'&charType='+this.type + '&charId='+this.charId+'&charClassName='+this.charClassName);
+        url.subscribe(
+            data=>{
+                this.data = data;
+                this.dataTrailer = JSON.parse(JSON.stringify(this.data));
+                this.data.characterizationDate = this.formatDate(this.data.characterizationDate)
+                this.setupData = [];
+                this.setupData['assayTypesByCharNameLookup'] = data['assayTypesByCharNameLookup'];
+                this.setupData['protocolLookup'] = data['protocolLookup'];
+                this.setupData['charSourceLookup'] = data['charSourceLookup'];
+                this.setupData['techniqueTypeLookup']=data['techniqueInstruments']['techniqueTypeLookup'];
+                this.setupData['manufacturerLookup']=data['techniqueInstruments']['manufacturerLookup'];
+            },
+            error=> {
+                console.log('error')
+            }
+        );
     }
 
     deleteCharacterization() {
