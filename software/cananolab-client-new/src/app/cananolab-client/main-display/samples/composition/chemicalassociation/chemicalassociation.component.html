@@ -3,7 +3,7 @@
 </canano-main-display-heading>
 
 <div class="sample-edit-div">
-    <div class="compositionSection">
+    <div class="compositionSection" *ngIf="setupData">
         <form action="" method="get">
         <div class="compositionBorder">
             <table class="dataMain">
@@ -65,7 +65,7 @@
                         <label for="compositionTypeB">Element*</label>
                     </td>
                 </tr>
-                <tr>
+                <tr *ngIf="nanomaterialEntityOptions.length && functionalizingEntityOptions.length">
                     <td>
                         <ng-container *ngIf="chemicalAssociationData['associatedElementA']">
                         <div>
