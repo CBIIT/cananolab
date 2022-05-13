@@ -12,29 +12,29 @@
                         <label for="associationType">Association Type</label>
                     </td>
                     <td>
-                        <select id="associationType" [(ngModel)]="chemicalAssociationData.type" name="associationType">
-                            <option value="" [selected]="chemicalAssociationData.type===''">--Select--</option>
-                            <option *ngFor="let type of setupData['chemicalAssociationTypes']" [selected]="chemicalAssociationData.type===type" value="{{type}}">
+                        <select (ngModelChange)="addOtherValue('type',data.type)" id="associationType" [(ngModel)]="data.type" name="associationType">
+                            <option value="" [selected]="data.type===''">--Select--</option>
+                            <option *ngFor="let type of setupData['chemicalAssociationTypes']" [selected]="data.type===type" value="{{type}}">
                                 {{type}}
                             </option>
                             <option value="[other]">[other]</option>
 
                         </select>
-                        <div *ngIf="chemicalAssociationData.type ==='[other]'">
-                            <canano-other-dropdown (saveOther)="saveOther($event)" [label]="'Association Type'" [value]="currentDropdownValues['type']" [field]="'type'" [array]="'chemicalAssociationTypes'">
+                        <div *ngIf="data.type ==='[other]'">
+                            <canano-other-dropdown (saveOther)="saveOther($event)" [label]="'Association Type'" [value]="currentDropdownValues['type']" [field]="'data.type'" [array]="'chemicalAssociationTypes'">
 
                             </canano-other-dropdown>
                         </div>
                     </td>
                 </tr>
-                <tr *ngIf="chemicalAssociationData.type==='attachment'">
+                <tr *ngIf="data.type==='attachment'">
                     <td class="label">
                         <label for="bondType">Bond Type*</label>
                     </td>
                     <td>
-                        <select id="associationType" [(ngModel)]="chemicalAssociationData.bondType" name="bondType">
-                            <option value="" [selected]="chemicalAssociationData.bondType===''">--Select--</option>
-                            <option *ngFor="let type of setupData['bondTypes']" [selected]="chemicalAssociationData.bondType===type" value="{{type}}">
+                        <select id="associationType" [(ngModel)]="data.bondType" name="bondType">
+                            <option value="" [selected]="data.bondType===''">--Select--</option>
+                            <option *ngFor="let type of setupData['bondTypes']" [selected]="data.bondType===type" value="{{type}}">
                                 {{type}}
                             </option>
                         </select>
@@ -45,8 +45,8 @@
                         <label for="description">Description</label>
                     </td>
                     <td>
-                        <textarea id="description" name="description" [(ngModel)]="chemicalAssociationData.description" rows="3" cols="65">
-                            {{chemicalAssociationData.description}}
+                        <textarea id="description" name="description" [(ngModel)]="data.description" rows="3" cols="65">
+                            {{data.description}}
                         </textarea>
                     </td>
                 </tr>
@@ -67,30 +67,30 @@
                 </tr>
                 <tr *ngIf="nanomaterialEntityOptions.length && functionalizingEntityOptions.length">
                     <td>
-                        <ng-container *ngIf="chemicalAssociationData['associatedElementA']">
+                        <ng-container *ngIf="data['associatedElementA']">
                         <div>
-                            <select (ngModelChange)="changeCompositionType('compositionTypeA',$event)" id="compositionTypeA" [(ngModel)]="chemicalAssociationData.associatedElementA.compositionType" name="compositionTypeA">
-                                <option value="" [selected]="chemicalAssociationData.associatedElementA.compositionType===''">--Select--</option>
-                                <option *ngFor="let type of setupData['associationCompositionTypes']" [selected]="chemicalAssociationData.associatedElementA.compositionType===type" value="{{type}}">
+                            <select (ngModelChange)="changeCompositionType('compositionTypeA',$event)" id="compositionTypeA" [(ngModel)]="data.associatedElementA.compositionType" name="compositionTypeA">
+                                <option value="" [selected]="data.associatedElementA.compositionType===''">--Select--</option>
+                                <option *ngFor="let type of setupData['associationCompositionTypes']" [selected]="data.associatedElementA.compositionType===type" value="{{type}}">
                                     {{type}}
                                 </option>
                             </select>
                         </div>
-                        <div class="element" *ngIf="entityOptionsA.length && chemicalAssociationData.associatedElementA.compositionType">
-                            <select (ngModelChange)="changeEntityId('compositionTypeA',chemicalAssociationData.associatedElementA.compositionType,$event)" id="entityIdA" name="entityIdA" [(ngModel)]="chemicalAssociationData.associatedElementA.entityId">
-                                <option value="" [selected]="chemicalAssociationData.associatedElementA.entityId===''">--Select--</option>
-                                <option *ngFor="let type of entityOptionsA" [ngValue]="type.domainId" [selected]="type.domainId==chemicalAssociationData.associatedElementA.entityId">
+                        <div class="element" *ngIf="entityOptionsA.length && data.associatedElementA.compositionType">
+                            <select (ngModelChange)="changeEntityId('compositionTypeA',data.associatedElementA.compositionType,$event)" id="entityIdA" name="entityIdA" [(ngModel)]="data.associatedElementA.entityId">
+                                <option value="" [selected]="data.associatedElementA.entityId===''">--Select--</option>
+                                <option *ngFor="let type of entityOptionsA" [ngValue]="type.domainId" [selected]="type.domainId==data.associatedElementA.entityId">
                                         {{type.type}}
-                                        <ng-container *ngIf="chemicalAssociationData.associatedElementA.compositionType=='functionalizing entity'">
+                                        <ng-container *ngIf="data.associatedElementA.compositionType=='functionalizing entity'">
                                             {{type.displayName}}
                                         </ng-container>
                                 </option>
                             </select>
                         </div>
-                        <div class="element" *ngIf="chemicalAssociationData.associatedElementA.compositionType && chemicalAssociationData.associatedElementA.compositionType=='nanomaterial entity' && chemicalAssociationData.associatedElementA.entityId">
+                        <div class="element" *ngIf="data.associatedElementA.compositionType && data.associatedElementA.compositionType=='nanomaterial entity' && data.associatedElementA.entityId">
 
-                            <select id="composingElementIdA" name="composingElementIdA" [(ngModel)]="chemicalAssociationData.associatedElementA.composingElement.id">
-                                <option value="" [selected]="chemicalAssociationData.associatedElementA.composingElement.id===''">--Select--</option>
+                            <select id="composingElementIdA" name="composingElementIdA" [(ngModel)]="data.associatedElementA.composingElement.id">
+                                <option value="" [selected]="data.associatedElementA.composingElement.id===''">--Select--</option>
                                 <option *ngFor="let type of composingElementOptionsA" [ngValue]="type.id">
                                     {{type.type}} (name:{{type.name}})
                                 </option>
@@ -100,30 +100,30 @@
                     </td>
                     <td>associated with</td>
                     <td>
-                        <ng-container *ngIf="chemicalAssociationData['associatedElementB']">
+                        <ng-container *ngIf="data['associatedElementB']">
                             <div>
-                                <select (ngModelChange)="changeCompositionType('compositionTypeB',$event)" id="compositionTypeB" [(ngModel)]="chemicalAssociationData.associatedElementB.compositionType" name="compositionTypeB">
-                                    <option value="" [selected]="chemicalAssociationData.associatedElementB.compositionType===''">--Select--</option>
-                                    <option *ngFor="let type of setupData['associationCompositionTypes']" [selected]="chemicalAssociationData.associatedElementB.compositionType===type" value="{{type}}">
+                                <select (ngModelChange)="changeCompositionType('compositionTypeB',$event)" id="compositionTypeB" [(ngModel)]="data.associatedElementB.compositionType" name="compositionTypeB">
+                                    <option value="" [selected]="data.associatedElementB.compositionType===''">--Select--</option>
+                                    <option *ngFor="let type of setupData['associationCompositionTypes']" [selected]="data.associatedElementB.compositionType===type" value="{{type}}">
                                         {{type}}
                                     </option>
                                 </select>
                             </div>
-                            <div class="element" *ngIf="entityOptionsB.length && chemicalAssociationData.associatedElementB.compositionType">
-                                <select (ngModelChange)="changeEntityId('compositionTypeB',chemicalAssociationData.associatedElementB.compositionType,$event)" id="entityIdB" name="entityIdB" [(ngModel)]="chemicalAssociationData.associatedElementB.entityId">
-                                    <option value="" [selected]="chemicalAssociationData.associatedElementB.entityId===''">--Select--</option>
-                                    <option *ngFor="let type of entityOptionsB" [ngValue]="type.domainId" [selected]="type.domainId==chemicalAssociationData.associatedElementB.entityId">
+                            <div class="element" *ngIf="entityOptionsB.length && data.associatedElementB.compositionType">
+                                <select (ngModelChange)="changeEntityId('compositionTypeB',data.associatedElementB.compositionType,$event)" id="entityIdB" name="entityIdB" [(ngModel)]="data.associatedElementB.entityId">
+                                    <option value="" [selected]="data.associatedElementB.entityId===''">--Select--</option>
+                                    <option *ngFor="let type of entityOptionsB" [ngValue]="type.domainId" [selected]="type.domainId==data.associatedElementB.entityId">
                                             {{type.type}}
-                                            <ng-container *ngIf="chemicalAssociationData.associatedElementB.compositionType=='functionalizing entity'">
+                                            <ng-container *ngIf="data.associatedElementB.compositionType=='functionalizing entity'">
                                                 {{type.displayName}}
                                             </ng-container>
                                     </option>
                                 </select>
                             </div>
-                            <div class="element" *ngIf="chemicalAssociationData.associatedElementB.compositionType && chemicalAssociationData.associatedElementB.compositionType=='nanomaterial entity' && chemicalAssociationData.associatedElementB.entityId">
+                            <div class="element" *ngIf="data.associatedElementB.compositionType && data.associatedElementB.compositionType=='nanomaterial entity' && data.associatedElementB.entityId">
 
-                                <select id="composingElementIdB" name="composingElementIdB" [(ngModel)]="chemicalAssociationData.associatedElementB.composingElement.id">
-                                    <option value="" [selected]="chemicalAssociationData.associatedElementB.composingElement.id===''">--Select--</option>
+                                <select id="composingElementIdB" name="composingElementIdB" [(ngModel)]="data.associatedElementB.composingElement.id">
+                                    <option value="" [selected]="data.associatedElementB.composingElement.id===''">--Select--</option>
                                     <option *ngFor="let type of composingElementOptionsB" [ngValue]="type.id">
                                         {{type.type}} (name:{{type.name}})
                                     </option>

@@ -15,16 +15,16 @@
                         </label>
                     </td>
                     <td colspan="3">
-                        <select (ngModelChange)="addOtherValue('type',functionalizingEntityData.type)" id="entityType" [(ngModel)]="functionalizingEntityData.type" name="entityType">
-                            <option value="" [selected]="functionalizingEntityData.type===''">--Select--</option>
-                            <option *ngFor="let type of setupData['functionalizingEntityTypes']" [selected]="functionalizingEntityData.type===type" value="{{type}}">
+                        <select (ngModelChange)="addOtherValue('type',data.type)" id="entityType" [(ngModel)]="data.type" name="entityType">
+                            <option value="" [selected]="data.type===''">--Select--</option>
+                            <option *ngFor="let type of setupData['functionalizingEntityTypes']" [selected]="data.type===type" value="{{type}}">
                                 {{type}}
                             </option>
                             <option value="[other]">[other]</option>
 
                         </select>
-                        <div *ngIf="functionalizingEntityData.type ==='[other]'">
-                            <canano-other-dropdown (saveOther)="saveOther($event)" [label]="'Functionalizing Entity Type'" [value]="currentDropdownValues['type']" [field]="'type'" [array]="'functionalizingEntityTypes'">
+                        <div *ngIf="data.type ==='[other]'">
+                            <canano-other-dropdown (saveOther)="saveOther($event)" [label]="'Functionalizing Entity Type'" [value]="currentDropdownValues['type']" [field]="'data.type'" [array]="'functionalizingEntityTypes'">
 
                             </canano-other-dropdown>
                         </div>
@@ -38,7 +38,7 @@
                         </label>
                     </td>
                     <td colspan="3">
-                        <input [(ngModel)]="functionalizingEntityData.name" id="chemicalName" type="text" name="name" size="70">
+                        <input [(ngModel)]="data.name" id="chemicalName" type="text" name="name" size="70">
                     </td>
                 </tr>
                 <tr>
@@ -48,9 +48,9 @@
                         </label>
                     </td>
                     <td>
-                        <select id="pubchemDatasource" [(ngModel)]="functionalizingEntityData.pubChemDataSourceName" name="pubchemDatasource">
-                            <option value="" [selected]="functionalizingEntityData.pubChemDataSourceName===''">--Select--</option>
-                            <option *ngFor="let type of setupData['pubChemDataSources']" [selected]="functionalizingEntityData.pubChemDataSourceName===type" value="{{type}}">
+                        <select id="pubchemDatasource" [(ngModel)]="data.pubChemDataSourceName" name="pubchemDatasource">
+                            <option value="" [selected]="data.pubChemDataSourceName===''">--Select--</option>
+                            <option *ngFor="let type of setupData['pubChemDataSources']" [selected]="data.pubChemDataSourceName===type" value="{{type}}">
                                 {{type}}
                             </option>
                         </select>
@@ -61,7 +61,7 @@
                         </label>
                     </td>
                     <td>
-                        <input [(ngModel)]="functionalizingEntityData.pubChemId" id="pubchemId" type="number" name="pubchemId" size="30">
+                        <input [(ngModel)]="data.pubChemId" id="pubchemId" type="number" name="pubchemId" size="30">
                     </td>
                 </tr>
                 <tr>
@@ -71,7 +71,7 @@
                         </label>
                     </td>
                     <td>
-                        <input [(ngModel)]="functionalizingEntityData.value" id="amount" type="text" name="value">
+                        <input [(ngModel)]="data.value" id="amount" type="text" name="value">
                     </td>
                     <td class="label">
                         <label for="amountUnit">
@@ -79,17 +79,17 @@
                         </label>
                     </td>
                     <td>
-                        <select (ngModelChange)="addOtherValue('valueUnit',functionalizingEntityData.valueUnit)" id="amountUnit" [(ngModel)]="functionalizingEntityData.valueUnit" name="valueUnit">
-                            <option value="" [selected]="functionalizingEntityData.functionalizingEntityUnits===''">--Select--</option>
-                            <option *ngFor="let type of setupData['functionalizingEntityUnits']" [selected]="functionalizingEntityData.valueUnit===type" value="{{type}}">
+                        <select (ngModelChange)="addOtherValue('valueUnit',data.valueUnit)" id="amountUnit" [(ngModel)]="data.valueUnit" name="valueUnit">
+                            <option value="" [selected]="data.functionalizingEntityUnits===''">--Select--</option>
+                            <option *ngFor="let type of setupData['functionalizingEntityUnits']" [selected]="data.valueUnit===type" value="{{type}}">
                                 {{type}}
                             </option>
                             <option value="[other]">
                                 [other]
                             </option>
                         </select>
-                        <div *ngIf="functionalizingEntityData.valueUnit ==='[other]'">
-                            <canano-other-dropdown (saveOther)="saveOther($event)" [label]="'Amount Unit'" [value]="currentDropdownValues['valueUnit']" [field]="'valueUnit'" [array]="'functionalizingEntityUnits'">
+                        <div *ngIf="data.valueUnit ==='[other]'">
+                            <canano-other-dropdown (saveOther)="saveOther($event)" [label]="'Amount Unit'" [value]="currentDropdownValues['valueUnit']" [field]="'data.valueUnit'" [array]="'functionalizingEntityUnits'">
 
                             </canano-other-dropdown>
                         </div>
@@ -102,17 +102,17 @@
                         </label>
                     </td>
                     <td>
-                        <select (ngModelChange)="addOtherValue('molecularFormulaType',functionalizingEntityData.molecularFormulaType)" id="molecularFormulaType" [(ngModel)]="functionalizingEntityData.molecularFormulaType" name="molecularFormulaType">
-                            <option value="" [selected]="functionalizingEntityData.molecularFormulaType===''">--Select--</option>
-                            <option *ngFor="let type of setupData['molecularFormulaTypes']" [selected]="functionalizingEntityData.molecularFormulaType==type" value="{{type}}">
+                        <select (ngModelChange)="addOtherValue('molecularFormulaType',data.molecularFormulaType)" id="molecularFormulaType" [(ngModel)]="data.molecularFormulaType" name="molecularFormulaType">
+                            <option value="" [selected]="data.molecularFormulaType===''">--Select--</option>
+                            <option *ngFor="let type of setupData['molecularFormulaTypes']" [selected]="data.molecularFormulaType==type" value="{{type}}">
                                 {{type}}
                             </option>
                             <option value="[other]">
                                 [other]
                             </option>
                         </select>
-                        <div *ngIf="functionalizingEntityData.molecularFormulaType ==='[other]'">
-                            <canano-other-dropdown (saveOther)="saveOther($event)" [label]="'Molecular Formula Type'" [value]="currentDropdownValues['molecularFormulaType']" [field]="'molecularFormulaType'" [array]="'molecularFormulaTypes'">
+                        <div *ngIf="data.molecularFormulaType ==='[other]'">
+                            <canano-other-dropdown (saveOther)="saveOther($event)" [label]="'Molecular Formula Type'" [value]="currentDropdownValues['molecularFormulaType']" [field]="'data.molecularFormulaType'" [array]="'molecularFormulaTypes'">
 
                             </canano-other-dropdown>
                         </div>
@@ -124,7 +124,7 @@
 
                     </td>
                     <td>
-                        <textarea [(ngModel)]="functionalizingEntityData.molecularFormula" rows="2" cols="80" id="molecularFormula" name="molecularFormula">{{functionalizingEntityData.molecularFormula}}</textarea>
+                        <textarea [(ngModel)]="data.molecularFormula" rows="2" cols="80" id="molecularFormula" name="molecularFormula">{{data.molecularFormula}}</textarea>
                     </td>
                 </tr>
                 <tr>
@@ -134,17 +134,17 @@
                         </label>
                     </td>
                     <td>
-                        <select (ngModelChange)="addOtherValue('activationMethodType',functionalizingEntityData.activationMethodType)" id="activationMethodType" [(ngModel)]="functionalizingEntityData.activationMethodType" name="activationMethodType">
-                            <option value="" [selected]="functionalizingEntityData.activationMethodType===''">--Select--</option>
-                            <option *ngFor="let type of setupData['activationMethods']" [selected]="functionalizingEntityData.activationMethodType==type" value="{{type}}">
+                        <select (ngModelChange)="addOtherValue('activationMethodType',data.activationMethodType)" id="activationMethodType" [(ngModel)]="data.activationMethodType" name="activationMethodType">
+                            <option value="" [selected]="data.activationMethodType===''">--Select--</option>
+                            <option *ngFor="let type of setupData['activationMethods']" [selected]="data.activationMethodType==type" value="{{type}}">
                                 {{type}}
                             </option>
                             <option value="[other]">
                                 [other]
                             </option>
                         </select>
-                        <div *ngIf="functionalizingEntityData.activationMethodType ==='[other]'">
-                            <canano-other-dropdown (saveOther)="saveOther($event)" [label]="'Activation Method'" [value]="currentDropdownValues['activationMethod']" [field]="'activationMethodType'" [array]="'activationMethods'">
+                        <div *ngIf="data.activationMethodType ==='[other]'">
+                            <canano-other-dropdown (saveOther)="saveOther($event)" [label]="'Activation Method'" [value]="currentDropdownValues['activationMethodType']" [field]="'data.activationMethodType'" [array]="'activationMethods'">
 
                             </canano-other-dropdown>
                         </div>
@@ -155,7 +155,7 @@
                         </label>
                     </td>
                     <td>
-                        <input [(ngModel)]="functionalizingEntityData.activationEffect" id="activationEffect" type="text" name="activationEffect" size="70">
+                        <input [(ngModel)]="data.activationEffect" id="activationEffect" type="text" name="activationEffect" size="70">
                     </td>
                 </tr>
                 <tr>
@@ -165,12 +165,12 @@
                         </label>
                     </td>
                     <td colspan="3">
-                        <textarea [(ngModel)]="functionalizingEntityData.description" rows="2" cols="80" id="description" name="description">{{functionalizingEntityData.description}}</textarea>
+                        <textarea [(ngModel)]="data.description" rows="2" cols="80" id="description" name="description">{{data.description}}</textarea>
                     </td>
                 </tr>
             </table>
         </div><br />
-        <div class="editBorder" *ngIf="functionalizingEntityData.type=='antibody'">
+        <div class="editBorder" *ngIf="data.type=='antibody'">
             <table class="dataMain">
                 <tr>
                     <td class="label">
@@ -187,17 +187,17 @@
                                     </label>
                                 </td>
                                 <td>
-                                    <select (ngModelChange)="addOtherValue('domainEntity.type',functionalizingEntityData.domainEntity.type)" id="type" [(ngModel)]="functionalizingEntityData['domainEntity']['type']" name="type">
-                                        <option value="" [selected]="functionalizingEntityData.domainEntity['type']===''">--Select--</option>
-                                        <option *ngFor="let type of setupData['antibodyTypes']" [selected]="functionalizingEntityData.domainEntity['type']==type" value="{{type}}">
+                                    <select (ngModelChange)="addOtherValue('domainEntity.type',data.domainEntity.type)" id="type" [(ngModel)]="data['domainEntity']['type']" name="type">
+                                        <option value="" [selected]="data.domainEntity['type']===''">--Select--</option>
+                                        <option *ngFor="let type of setupData['antibodyTypes']" [selected]="data.domainEntity['type']==type" value="{{type}}">
                                             {{type}}
                                         </option>
                                         <option value="[other]">
                                             [other]
                                         </option>
                                     </select>
-                                    <div *ngIf="functionalizingEntityData.domainEntity.type ==='[other]'">
-                                        <canano-other-dropdown (saveOther)="saveOther($event)" [label]="'Type'" [value]="currentDropdownValues['domainEntity.type']" [field]="'domainEntity.type'" [array]="'antibodyTypes'">
+                                    <div *ngIf="data.domainEntity.type ==='[other]'">
+                                        <canano-other-dropdown (saveOther)="saveOther($event)" [label]="'Type'" [value]="currentDropdownValues['domainEntity.type']" [field]="'data.domainEntity.type'" [array]="'antibodyTypes'">
 
                                         </canano-other-dropdown>
                                     </div>
@@ -208,17 +208,17 @@
                                     </label>
                                 </td>
                                 <td>
-                                    <select (ngModelChange)="addOtherValue('domainEntity.isoType',functionalizingEntityData.domainEntity.isoType)" id="isoType" [(ngModel)]="functionalizingEntityData['domainEntity']['isoType']" name="isoType">
-                                        <option value="" [selected]="functionalizingEntityData.domainEntity['isoType']===''">--Select--</option>
-                                        <option *ngFor="let type of setupData['antibodyIsotypes']" [selected]="functionalizingEntityData.domainEntity['isoType']==type" value="{{type}}">
+                                    <select (ngModelChange)="addOtherValue('domainEntity.isoType',data.domainEntity.isoType)" id="isoType" [(ngModel)]="data['domainEntity']['isoType']" name="isoType">
+                                        <option value="" [selected]="data.domainEntity['isoType']===''">--Select--</option>
+                                        <option *ngFor="let type of setupData['antibodyIsotypes']" [selected]="data.domainEntity['isoType']==type" value="{{type}}">
                                             {{type}}
                                         </option>
                                         <option value="[other]">
                                             [other]
                                         </option>
                                     </select>
-                                    <div *ngIf="functionalizingEntityData.domainEntity.isoType ==='[other]'">
-                                        <canano-other-dropdown (saveOther)="saveOther($event)" [label]="'Isotype'" [value]="currentDropdownValues['domainEntity.isoType']" [field]="'domainEntity.isoType'" [array]="'antibodyIsotypes'">
+                                    <div *ngIf="data.domainEntity.isoType ==='[other]'">
+                                        <canano-other-dropdown (saveOther)="saveOther($event)" [label]="'Isotype'" [value]="currentDropdownValues['domainEntity.isoType']" [field]="'data.domainEntity.isoType'" [array]="'antibodyIsotypes'">
 
                                         </canano-other-dropdown>
                                     </div>
@@ -229,17 +229,17 @@
                                     </label>
                                 </td>
                                 <td>
-                                    <select (ngModelChange)="addOtherValue('domainEntity.species',functionalizingEntityData.domainEntity.species)" id="species" [(ngModel)]="functionalizingEntityData['domainEntity']['species']" name="species">
-                                        <option value="" [selected]="functionalizingEntityData.domainEntity['species']===''">--Select--</option>
-                                        <option *ngFor="let type of setupData['speciesTypes']" [selected]="functionalizingEntityData.domainEntity['species']==type" value="{{type}}">
+                                    <select (ngModelChange)="addOtherValue('domainEntity.species',data.domainEntity.species)" id="species" [(ngModel)]="data['domainEntity']['species']" name="species">
+                                        <option value="" [selected]="data.domainEntity['species']===''">--Select--</option>
+                                        <option *ngFor="let type of setupData['speciesTypes']" [selected]="data.domainEntity['species']==type" value="{{type}}">
                                             {{type}}
                                         </option>
                                         <option value="[other]">
                                             [other]
                                         </option>
                                     </select>
-                                    <div *ngIf="functionalizingEntityData.domainEntity.species ==='[other]'">
-                                        <canano-other-dropdown (saveOther)="saveOther($event)" [label]="'Species'" [value]="currentDropdownValues['domainEntity.species']" [field]="'domainEntity.species'" [array]="'speciesTypes'">
+                                    <div *ngIf="data.domainEntity.species ==='[other]'">
+                                        <canano-other-dropdown (saveOther)="saveOther($event)" [label]="'Species'" [value]="currentDropdownValues['domainEntity.species']" [field]="'data.domainEntity.species'" [array]="'speciesTypes'">
 
                                         </canano-other-dropdown>
                                     </div>
@@ -251,7 +251,7 @@
             </table>
         </div>
 
-        <div class="editBorder" *ngIf="functionalizingEntityData.type=='biopolymer'">
+        <div class="editBorder" *ngIf="data.type=='biopolymer'">
             <table class="dataMain">
                 <tr>
                     <td class="label" colspan="2">
@@ -263,17 +263,17 @@
                         <label for="biopolymerType">Type*</label>
                     </td>
                     <td>
-                        <select (ngModelChange)="addOtherValue('domainEntity.type',functionalizingEntityData.domainEntity.type)" id="biopolymerType" [(ngModel)]="functionalizingEntityData['domainEntity']['type']" name="biopolymerType">
-                            <option value="" [selected]="functionalizingEntityData.domainEntity['type']===''">--Select--</option>
-                            <option *ngFor="let type of setupData['biopolymerTypes']" [selected]="functionalizingEntityData.domainEntity['type']==type" value="{{type}}">
+                        <select (ngModelChange)="addOtherValue('domainEntity.type',data.domainEntity.type)" id="biopolymerType" [(ngModel)]="data['domainEntity']['type']" name="biopolymerType">
+                            <option value="" [selected]="data.domainEntity['type']===''">--Select--</option>
+                            <option *ngFor="let type of setupData['biopolymerTypes']" [selected]="data.domainEntity['type']==type" value="{{type}}">
                                 {{type}}
                             </option>
                             <option value="[other]">
                                 [other]
                             </option>
                         </select>
-                        <div *ngIf="functionalizingEntityData.domainEntity.type ==='[other]'">
-                            <canano-other-dropdown (saveOther)="saveOther($event)" [label]="'Type'" [value]="currentDropdownValues['domainEntity.type']" [field]="'domainEntity.type'" [array]="'biopolymerTypes'">
+                        <div *ngIf="data.domainEntity.type ==='[other]'">
+                            <canano-other-dropdown (saveOther)="saveOther($event)" [label]="'Type'" [value]="currentDropdownValues['domainEntity.type']" [field]="'data.domainEntity.type'" [array]="'biopolymerTypes'">
 
                             </canano-other-dropdown>
                         </div>
@@ -285,15 +285,15 @@
                         <label for="biopolymerSequence">Sequence</label>
                     </td>
                     <td>
-                        <textarea name="biopolymerSequence" [(ngModel)]="functionalizingEntityData.domainEntity.sequence" rows="3" cols="80">
-                            {{functionalizingEntityData.sequence}}
+                        <textarea name="biopolymerSequence" [(ngModel)]="data.domainEntity.sequence" rows="3" cols="80">
+                            {{data.sequence}}
                         </textarea>
                     </td>
                 </tr>
             </table>
         </div>
 
-        <div class="editBorder" *ngIf="functionalizingEntityData.type=='small molecule'">
+        <div class="editBorder" *ngIf="data.type=='small molecule'">
             <table class="dataMain">
                 <tr>
                     <td class="label" colspan="2">
@@ -305,12 +305,12 @@
                         <label for="smallMoleculeAlternateName">Alternate Name</label>
                     </td>
                     <td>
-                        <input type="text" id="smallMoleculeAlternateName" name="smallMoleculeAlternateName" value="" [(ngModel)]="functionalizingEntityData.domainEntity.alternateName" size="90">
+                        <input type="text" id="smallMoleculeAlternateName" name="smallMoleculeAlternateName" value="" [(ngModel)]="data.domainEntity.alternateName" size="90">
                     </td>
                 </tr>
             </table>
         </div>
-        <br *ngIf="functionalizingEntityData.type=='antibody' || functionalizingEntityData.type=='biopolymer' || functionalizingEntityData.type=='small molecule'" />
+        <br *ngIf="data.type=='antibody' || data.type=='biopolymer' || data.type=='small molecule'" />
         <div class="editBorder">
             <table class="dataMain">
                 <tr>
@@ -343,7 +343,7 @@
 
                                     </th>
                                 </tr>
-                                <tr *ngFor="let iFunction of functionalizingEntityData.functionList; let i= index ">
+                                <tr *ngFor="let iFunction of data.functionList; let i= index ">
                                     <td>{{iFunction.type}}</td>
                                     <td>{{iFunction.modality}}</td>
                                     <td>
@@ -541,7 +541,7 @@
                         </label>
                     </td>
                     <td>
-                        <select id="otherSampleNames" name="otherSampleNames" multiple="true" size="10" [(ngModel)]="functionalizingEntityData.otherSampleNames">
+                        <select id="otherSampleNames" name="otherSampleNames" multiple="true" size="10" [(ngModel)]="data.otherSampleNames">
                             <option *ngFor="let sn of setupData['otherSampleNames']" value="{{sn}}" >
                                 {{sn}}
                             </option>
@@ -558,7 +558,7 @@
                     </td>
                     <td>
                         <button (click)="resetFunctionalizingEntity()" class="btn-canano btn-canano-danger btn-canano-lg mr-1">Reset</button>
-                        <button [disabled]="functionalizingEntityData.type==='' || functionalizingEntityData.name===''" (click)="submitFunctionalizingEntity()" class="btn-canano btn-canano-primary btn-canano-lg mr-1">Submit</button>
+                        <button [disabled]="data.type==='' || data.name===''" (click)="submitFunctionalizingEntity()" class="btn-canano btn-canano-primary btn-canano-lg mr-1">Submit</button>
                     </td>
                 </tr>
             </table>

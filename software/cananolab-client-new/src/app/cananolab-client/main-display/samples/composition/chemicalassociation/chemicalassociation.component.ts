@@ -17,8 +17,8 @@ export class ChemicalassociationComponent implements OnInit {
   sampleName = Properties.CURRENT_SAMPLE_NAME;
   helpUrl =  Consts.HELP_URL_SAMPLE_COMPOSITION;
   toolHeadingNameManage = 'Sample Composition';
-  chemicalAssociationData;
-  chemicalAssociationDataTrailer;
+  data;
+  dataTrailer;
   nanomaterialEntityOptions;
   functionalizingEntityOptions;
   composingElementOptionsA;
@@ -44,8 +44,8 @@ export class ChemicalassociationComponent implements OnInit {
         this.nanomaterialEntityOptions = [];
         this.functionalizingEntityOptions = [];
 
-        this.chemicalAssociationData = this.setDefaultDataSet();
-        this.chemicalAssociationDataTrailer = this.setDefaultDataSet();
+        this.data = this.setDefaultDataSet();
+        this.dataTrailer = this.setDefaultDataSet();
       this.route.params.subscribe(
           ( params: Params ) => {
             this.sampleId = params['sampleId'];
@@ -58,11 +58,11 @@ export class ChemicalassociationComponent implements OnInit {
                   Properties.CURRENT_SAMPLE_ID = this.sampleId;
               };
               if (this.dataId) {
-                this.chemicalAssociationData = this.getChemicalAssociationData().subscribe(
+                this.data = this.getdata().subscribe(
                     data => {
                         Properties.SAMPLE_TOOLS = true;
-                        this.chemicalAssociationData = data;
-                        this.chemicalAssociationDataTrailer = JSON.parse(JSON.stringify(this.chemicalAssociationData));
+                        this.data = data;
+                        this.dataTrailer = JSON.parse(JSON.stringify(this.data));
                         Properties.CURRENT_SAMPLE_NAME = data['sampleName'];
                         this.loadSetupData();
                     } );
@@ -79,7 +79,7 @@ export class ChemicalassociationComponent implements OnInit {
       );
   }
 
-  getChemicalAssociationData(){
+  getdata(){
     let getUrl = Properties.API_SERVER_URL + '/caNanoLab/rest/chemicalAssociation/edit?sampleId=' + this.sampleId + '&dataId=' + this.dataId;
 
     if( Properties.DEBUG_CURL ){
@@ -135,6 +135,7 @@ setDefaultDataSet() {
 
 // set pointer fields to old values when adding other //
 addOtherValue(field,currentValue) {
+    console.log(field,currentValue)
     this.currentDropdownValues[field]=currentValue;
     this.otherValue='';
     this.currentField=field;
@@ -144,17 +145,17 @@ addOtherValue(field,currentValue) {
 saveOther(newItem: Object) {
     if (newItem['change'] && newItem['value']) {
         this.setupData[newItem['array']].push(newItem['value']);
-        this.chemicalAssociationData.setValue(newItem['field'],newItem['value']);
+        this.setValue(newItem['field'],newItem['value']);
     }
     else {
-        this.chemicalAssociationData.setValue(newItem['field'],newItem['value']);
+        this.setValue(newItem['field'],newItem['value']);
     }
 };
 changeEntityId(compositionType,entity, val) {
     // no need to do anything if functionalizing entity //
     if (entity=='nanomaterial entity') {
         if (compositionType==='compositionTypeA') {
-            this.chemicalAssociationData.assoentityDisplayName
+            this.data.assoentityDisplayName
             let url = this.httpClient.post( Properties.API_SERVER_URL + '/caNanoLab/rest/chemicalAssociation/getComposingElementsByNanomaterialEntityId?id='+val,{});
             url.subscribe( data => {
                 this.composingElementOptionsA=data;
@@ -177,14 +178,14 @@ changeEntityId(compositionType,entity, val) {
     if (compositionType=='compositionTypeA') {
         this.entityOptionsA.forEach(element => {
             if (element.domainId==val) {
-                this.chemicalAssociationData.associatedElementA.entityDisplayName=element.displayName;
+                this.data.associatedElementA.entityDisplayName=element.displayName;
             }
         });
     }
     else {
         this.entityOptionsB.forEach(element => {
             if (element.domainId==val) {
-                this.chemicalAssociationData.associatedElementB.entityDisplayName=element.displayName;
+                this.data.associatedElementB.entityDisplayName=element.displayName;
             }
         });
     }
@@ -202,7 +203,7 @@ changeCompositionType(compositionType,val) {
 
 deleteChemicalAssociation() {
     if (confirm("Are you sure you want to delete this functionalizing entity?")) {
-        let url = this.httpClient.post( Properties.API_SERVER_URL + '/caNanoLab/rest/chemicalAssociation/delete',this.chemicalAssociationData);
+        let url = this.httpClient.post( Properties.API_SERVER_URL + '/caNanoLab/rest/chemicalAssociation/delete',this.data);
         url.subscribe( data => {
             this.router.navigate( ['home/samples/composition', this.sampleId] );
         },
@@ -213,11 +214,11 @@ deleteChemicalAssociation() {
 }
 
 resetChemicalAssociation() {
-    this.chemicalAssociationData = JSON.parse(JSON.stringify(this.chemicalAssociationDataTrailer));
+    this.data = JSON.parse(JSON.stringify(this.dataTrailer));
 }
 
 submitChemicalAssociation() {
-    let url = this.httpClient.post( Properties.API_SERVER_URL + '/caNanoLab/rest/chemicalAssociation/submit',this.chemicalAssociationData);
+    let url = this.httpClient.post( Properties.API_SERVER_URL + '/caNanoLab/rest/chemicalAssociation/submit',this.data);
     url.subscribe( data => {
         this.router.navigate( ['home/samples/composition', this.sampleId] );
     },
@@ -231,11 +232,11 @@ selectAssociatedElement(entityId,domainId) {
 }
 
 loadDropdowns() {
-    console.log(this.chemicalAssociationData.associatedElementA.compositionType,this.chemicalAssociationData.associatedElementA.entityId)
-    this.changeEntityId('compositionTypeA',this.chemicalAssociationData.associatedElementA.compositionType,this.chemicalAssociationData.associatedElementA.entityId)
-    this.changeEntityId('compositionTypeB',this.chemicalAssociationData.associatedElementB.compositionType,this.chemicalAssociationData.associatedElementB.entityId)
-    this.changeCompositionType('compositionTypeA',this.chemicalAssociationData.associatedElementA.compositionType)
-    this.changeCompositionType('compositionTypeB',this.chemicalAssociationData.associatedElementB.compositionType)
+    console.log(this.data.associatedElementA.compositionType,this.data.associatedElementA.entityId)
+    this.changeEntityId('compositionTypeA',this.data.associatedElementA.compositionType,this.data.associatedElementA.entityId)
+    this.changeEntityId('compositionTypeB',this.data.associatedElementB.compositionType,this.data.associatedElementB.entityId)
+    this.changeCompositionType('compositionTypeA',this.data.associatedElementA.compositionType)
+    this.changeCompositionType('compositionTypeB',this.data.associatedElementB.compositionType)
 
 }
 

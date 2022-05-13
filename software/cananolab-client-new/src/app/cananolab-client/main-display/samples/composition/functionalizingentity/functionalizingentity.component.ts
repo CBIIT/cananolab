@@ -28,8 +28,8 @@ export class FunctionalizingentityComponent implements OnInit {
     //targetIndex;
 
     inherentFunctionTrailer;
-    functionalizingEntityData;
-    functionalizingEntityDataTrailer;
+    data;
+    dataTrailer;
     helpUrl =  Consts.HELP_URL_SAMPLE_COMPOSITION;
     otherValue;
     sampleName = Properties.CURRENT_SAMPLE_NAME;
@@ -50,8 +50,8 @@ export class FunctionalizingentityComponent implements OnInit {
           this.sampleId = params['sampleId'];
           this.dataId = params['dataId'];
           this.currentDropdownValues = {};
-          this.functionalizingEntityData = this.setDefaultDataSet();
-          this.functionalizingEntityDataTrailer = this.setDefaultDataSet();
+          this.data = this.setDefaultDataSet();
+          this.dataTrailer = this.setDefaultDataSet();
           if(
                 this.sampleId <= 0 ){
                     this.sampleId = Properties.CURRENT_SAMPLE_ID;
@@ -59,11 +59,11 @@ export class FunctionalizingentityComponent implements OnInit {
                 Properties.CURRENT_SAMPLE_ID = this.sampleId;
             };
             if (this.dataId) {
-                this.functionalizingEntityData = this.getFunctionalizingEntityData(this.sampleId).subscribe(
+                this.data = this.getdata(this.sampleId).subscribe(
                     data => {
                         Properties.SAMPLE_TOOLS = true;
-                        this.functionalizingEntityData = data;
-                        this.functionalizingEntityDataTrailer = JSON.parse(JSON.stringify(this.functionalizingEntityData));
+                        this.data = data;
+                        this.dataTrailer = JSON.parse(JSON.stringify(this.data));
                         Properties.CURRENT_SAMPLE_NAME = data['sampleName'];
                     } );
             };
@@ -93,11 +93,11 @@ cancelTarget() {
 // deletes current inherent function //
 deleteInherentFunction() {
     if (confirm("Are you sure you want to delete this inherent function?")) {
-        this.functionalizingEntityData['simpleFunctionBean']=this.inherentFunction;
-        let url = this.httpClient.post( Properties.API_SERVER_URL + '/caNanoLab/rest/functionalizingEntity/removeFunction', this.functionalizingEntityData );
+        this.data['simpleFunctionBean']=this.inherentFunction;
+        let url = this.httpClient.post( Properties.API_SERVER_URL + '/caNanoLab/rest/functionalizingEntity/removeFunction', this.data );
         url.subscribe( data => {
-            this.functionalizingEntityData=data;
-            this.functionalizingEntityDataTrailer = JSON.parse(JSON.stringify(this.functionalizingEntityData));
+            this.data=data;
+            this.dataTrailer = JSON.parse(JSON.stringify(this.data));
         },
         err => {
             console.error( 'Error ', err );
@@ -161,11 +161,11 @@ editTarget(target,index) {
 
 // saves curent inherent function //
 saveInherentFunction() {
-    this.functionalizingEntityData['simpleFunctionBean']=this.inherentFunction;
-    let url = this.httpClient.post( Properties.API_SERVER_URL + '/caNanoLab/rest/functionalizingEntity/saveFunction', this.functionalizingEntityData );
+    this.data['simpleFunctionBean']=this.inherentFunction;
+    let url = this.httpClient.post( Properties.API_SERVER_URL + '/caNanoLab/rest/functionalizingEntity/saveFunction', this.data );
     url.subscribe( data => {
-        this.functionalizingEntityData=data;
-        this.functionalizingEntityDataTrailer = JSON.parse(JSON.stringify(this.functionalizingEntityData));
+        this.data=data;
+        this.dataTrailer = JSON.parse(JSON.stringify(this.data));
 
     },
     err => {
@@ -186,7 +186,7 @@ saveTarget() {
 };
 
 // gets all data for current functionalizing entity //
-getFunctionalizingEntityData(sampleId){
+getdata(sampleId){
     let getUrl = Properties.API_SERVER_URL + '/caNanoLab/rest/functionalizingEntity/edit?sampleId=' + sampleId + '&dataId=' + this.dataId;
 
     if( Properties.DEBUG_CURL ){
@@ -243,6 +243,8 @@ getFunctionalizingEntityData(sampleId){
 
     // set pointer fields to old values when adding other //
     addOtherValue(field,currentValue) {
+        console.log(this)
+        console.log(typeof(this));
         this.currentDropdownValues[field]=currentValue;
         this.otherValue='';
         this.currentField=field;
@@ -252,10 +254,11 @@ getFunctionalizingEntityData(sampleId){
     saveOther(newItem: Object) {
         if (newItem['change'] && newItem['value']) {
             this.setupData[newItem['array']].push(newItem['value']);
-            this.functionalizingEntityData.setValue(newItem['field'],newItem['value']);
+            this.setValue(newItem['field'],newItem['value']);
         }
         else {
-            this.functionalizingEntityData.setValue(newItem['field'],newItem['value']);
+            console.log(newItem['field'])
+            this.setValue(newItem['field'],newItem['value']);
         }
     };
 
@@ -282,7 +285,7 @@ getFunctionalizingEntityData(sampleId){
     // deletes current functionalizing entity //
     deleteFunctionalizingEntity() {
         if (confirm("Are you sure you want to delete this functionalizing entity?")) {
-            let url = this.httpClient.post( Properties.API_SERVER_URL + '/caNanoLab/rest/functionalizingEntity/delete', this.functionalizingEntityData );
+            let url = this.httpClient.post( Properties.API_SERVER_URL + '/caNanoLab/rest/functionalizingEntity/delete', this.data );
             url.subscribe( data => {
                 this.router.navigate( ['home/samples/composition', this.sampleId] );
             },
@@ -294,12 +297,12 @@ getFunctionalizingEntityData(sampleId){
 
     // resets functionalizing entity form //
     resetFunctionalizingEntity() {
-        this.functionalizingEntityData = JSON.parse(JSON.stringify(this.functionalizingEntityDataTrailer))
+        this.data = JSON.parse(JSON.stringify(this.dataTrailer))
     };
 
     // saves functionalizing entity //
     submitFunctionalizingEntity() {
-        let url = this.httpClient.post( Properties.API_SERVER_URL + '/caNanoLab/rest/functionalizingEntity/submit', this.functionalizingEntityData );
+        let url = this.httpClient.post( Properties.API_SERVER_URL + '/caNanoLab/rest/functionalizingEntity/submit', this.data );
         url.subscribe( data => {
             this.router.navigate( ['home/samples/composition', this.sampleId] );
 
