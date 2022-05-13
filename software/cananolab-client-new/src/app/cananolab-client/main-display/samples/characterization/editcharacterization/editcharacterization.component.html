@@ -355,7 +355,7 @@
                             </label>
                         </td>
                         <td>
-                            <button class="btn-canano btn-canano-primary btn-canano-xs mr-1">Add</button>
+                            <button (click)="addTechniqueInstrument()" class="btn-canano btn-canano-primary btn-canano-xs mr-1">Add</button>
                         </td>
                     </tr>
                     <tr>
@@ -378,7 +378,7 @@
                                         &nbsp;
                                     </th>
                                 </tr>
-                                <tr *ngFor="let technique of data.techniqueInstruments.experiments">
+                                <tr *ngFor="let technique of data.techniqueInstruments.experiments;let tIndex= index">
                                     <td>{{technique.techniqueType}}</td>
                                     <td>
                                         <ul>
@@ -391,39 +391,158 @@
                                         {{technique.description}}
                                     </td>
                                     <td>
-                                        <button class="btn-canano btn-canano-primary btn-canano-xs mr-1">Edit</button>
+                                        <button (click)="editTechniqueInstrument(tIndex,technique)" class="btn-canano btn-canano-primary btn-canano-xs mr-1">Edit</button>
                                     </td>
                                 </tr>
-                                <tr>
+                                <tr *ngIf="techniqueIndex!=null">
                                     <td colspan="4">
-
                                         <table class="dataMain gray">
                                             <tr>
-                                                <th colspan="2">
-                                                    Technique and Instrument Info
-                                                </th>
-                                            </tr>
-                                            <tr>
                                                 <td class="label">
-                                                    Technique*
+                                                    <label for="techniqueInstrument.techniqueType">
+                                                        Technique*
+                                                    </label>
                                                 </td>
                                                 <td>
-                                                    dropdown
+                                                    <select (ngModelChange)="changeInstrumentType" name="techniqueInstrument.techniqueType" id="techniqueInstrument.techniqueType" [(ngModel)]="techniqueInstrument.techniqueType">
+                                                        <option value="" [selected]="techniqueInstrument.techniqueType===''">--Select--</option>
+                                                        <option *ngFor="let type of setupData['techniqueTypeLookup']" [selected]="techniqueInstrument.techniqueType===type" value="{{type}}">
+                                                            {{type}}
+                                                        </option>
+                                                    </select>
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <td class="label">
-                                                    Abbreviation
+                                                    <label for="techniqueInstrument.abbreviation">
+                                                        Abbreviation
+                                                    </label>
                                                 </td>
-                                                <td></td>
+                                                <td>
+                                                    <input type="text" name="techniqueInstrument.abbreviation" id="techniqueInstrument.abbreviation" [(ngModel)]="techniqueInstrument.abbreviation">
+                                                </td>
                                             </tr>
                                             <tr>
                                                 <td class="label">
                                                     Instrument
                                                 </td>
-                                                <td></td>
+                                                <td>
+                                                    <button [disabled]="!techniqueInstrument.techniqueType" (click)="addInstrument()" class="btn-canano btn-canano-primary btn-canano-xs mr-1">Add</button>
+                                                </td>
                                             </tr>
+                                            <tr *ngIf="techniqueInstrument.instruments.length">
+                                                <td></td>
+                                                <td>
+                                                    <table class="instruments">
+                                                        <tr>
+                                                            <th>
+                                                                Manufacturer
+                                                            </th>
+                                                            <th>
+                                                                Model Name
+                                                            </th>
+                                                            <th>
+                                                                Type
+                                                            </th>
+                                                            <th>
 
+                                                            </th>
+                                                        </tr>
+                                                        <tr *ngFor="let instrument of techniqueInstrument.instruments; let iIndex=index">
+                                                            <td>
+                                                                {{instrument.manufacturer}}
+                                                            </td>
+                                                            <td>
+                                                                {{instrument.modelName}}
+                                                            </td>
+                                                            <td>
+                                                                {{instrument.type}}
+                                                            </td>
+                                                            <td>
+                                                                <button (click)="editInstrument(instrument,iIndex)" class="btn-canano btn-canano-primary btn-canano-xs mr-1">Edit</button>
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+                                                </td>
+                                            </tr>
+                                            <tr *ngIf="instrumentIndex!=null">
+                                                <td></td>
+                                                <td>
+                                                    <table class="instruments form">
+                                                        <tr>
+                                                            <td class="label">
+                                                                <label for="instrument.manufacturer">
+                                                                    Manufacturer
+                                                                </label>
+                                                            </td>
+                                                            <td>
+                                                                <select name="instrument.manufacturer" id="instrument.manufacturer" [(ngModel)]="instrument.manufacturer">
+                                                                    <option value="" [selected]="instrument.manufacturer===''">--Select--</option>
+                                                                    <option *ngFor="let type of setupData['manufacturerLookup']" [selected]="instrument.manufacturer===type" value="{{type}}">
+                                                                        {{type}}
+                                                                    </option>
+                                                                </select>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="label">
+                                                                <label for="instrument.modelName">
+                                                                    Model Name
+                                                                </label>
+                                                            </td>
+                                                            <td>
+                                                                <input type="text" name="instrument.modelName" id="instrument.modelName" [(ngModel)]="instrument.modelName">
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="label">
+                                                                <label for="instrument.type">
+                                                                    Type
+                                                                </label>
+                                                            </td>
+                                                            <td>
+                                                                <select name="instrument.type" id="instrument.type" [(ngModel)]="instrument.type">
+                                                                    <option value="" [selected]="instrument.type===''">--Select--</option>
+                                                                    <option *ngFor="let type of setupData['instrumentTypeLookup']" [selected]="instrument.type===type" value="{{type}}">
+                                                                        {{type}}
+                                                                    </option>
+                                                                </select>                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>
+                                                                <button *ngIf="instrumentIndex!=-1" (click)="deleteInstrument()" class="btn-canano btn-canano-danger btn-canano-xs mr-1">Delete</button>
+                                                            </td>
+                                                            <td class="submit">
+                                                                <button (click)="saveInstrument()" class="btn-canano btn-canano-primary btn-canano-xs mr-1">Save</button>
+                                                                <button (click)="cancelInstrument()" class="btn-canano btn-canano-default btn-canano-xs mr-1">Cancel</button>
+
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="label">
+                                                    <label for="techniqueInstrument.abbreviation">
+                                                        Description
+                                                    </label>
+                                                </td>
+                                                <td>
+                                                    <textarea name="techniqueInstrument.description" [(ngModel)]="techniqueInstrument.description" rows="5" cols="70">
+                                                        {{techniqueInstrument.description}}
+                                                    </textarea>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <button *ngIf="techniqueIndex!=-1" (click)="deleteTechniqueInstrument()" class="btn-canano btn-canano-danger btn-canano-xs mr-1">Delete</button>
+                                                </td>
+                                                <td class="submit">
+                                                    <button (click)="saveTechniqueInstrument()" class="btn-canano btn-canano-primary btn-canano-xs mr-1">Save</button>
+                                                    <button (click)="cancelTechniqueInstrument()" class="btn-canano btn-canano-default btn-canano-xs mr-1">Cancel</button>
+                                                </td>
+
+                                            </tr>
                                         </table>
                                     </td>
                                 </tr>

@@ -5,6 +5,7 @@ import { Consts } from '../../../../../constants';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { timeout } from 'rxjs/operators';
 import { url } from 'inspector';
+import { APP_BASE_HREF } from '@angular/common';
 
 @Component({
   selector: 'canano-editcharacterization',
@@ -23,6 +24,11 @@ export class EditcharacterizationComponent implements OnInit {
     setupData;
     charClassName;
     numDataModifier;
+    techniqueIndex;
+    techniqueInstrument;
+    instrument;
+    instrumentTrailer;
+    instrumentIndex;
     constructor( private router: Router, private route: ActivatedRoute,private httpClient: HttpClient ){
     }
 
@@ -61,11 +67,140 @@ export class EditcharacterizationComponent implements OnInit {
                     );
                 }
                 else {
-                    this.getCharacterizationData();
+                    let url = this.httpClient.get(Properties.API_SERVER_URL + '/caNanoLab/rest/characterization/setupUpdate?sampleId='+this.sampleId+'&charType='+this.type + '&charId='+this.charId+'&charClassName='+this.charClassName);
+                    url.subscribe(
+                        data=>{
+                            this.data = data;
+                            this.setCharacterizationData();
+                        },
+                        error=> {
+
+                        });
                 }
 
             }
         );
+    }
+
+    addInstrument(index) {
+        this.instrument={
+            "modelName":"",
+            "manufacturer":"",
+            "type":""
+        }
+        this.instrumentIndex=-1;
+    }
+
+    editInstrument(instrument, index) {
+        this.instrumentIndex=index;
+        this.instrument=instrument;
+        this.instrumentTrailer=JSON.parse(JSON.stringify(this.instrument));
+    }
+
+    cancelInstrument() {
+        if (this.instrumentIndex>-1) {
+            console.log(this.techniqueInstrument)
+            this.techniqueInstrument.instruments[this.instrumentIndex]=JSON.parse(JSON.stringify(this.instrumentTrailer));
+        }
+        this.instrumentIndex=null;
+    }
+
+    deleteInstrument() {
+        if (confirm("Are you sure you want to delete this instrument?")) {
+            this.techniqueInstrument.instruments.splice(this.instrumentIndex,1);
+            this.instrumentIndex=null;
+        }
+    }
+
+    saveInstrument() {
+        if (this.instrumentIndex==-1) {
+            this.techniqueInstrument.instruments.push(this.instrument);
+        }
+        this.instrumentIndex=null;
+    }
+
+    addTechniqueInstrument() {
+        this.instrumentIndex=null;
+        this.techniqueIndex=-1;
+        this.setupTechniqueInstrument();
+    }
+
+    editTechniqueInstrument(index, technique) {
+        this.instrumentIndex=null;
+        this.techniqueIndex=index;
+        this.techniqueInstrument = JSON.parse(JSON.stringify(technique));
+        this.techniqueInstrument.dirty=1;
+        this.getInstrumentTypes()
+
+        console.log(index)
+    }
+
+    changeInstrumentType() {
+        this.getInstrumentTypes();
+    }
+
+    cancelTechniqueInstrument() {
+        this.instrumentIndex=null;
+        this.techniqueIndex=null;
+    }
+
+    deleteTechniqueInstrument() {
+        if (confirm("Are you sure you want to delete this technique and instrument?")) {
+
+            let url = this.httpClient.post(Properties.API_SERVER_URL+'/caNanoLab/rest/characterization/removeExperimentConfig',this.techniqueInstrument);
+            url.subscribe(data=> {
+                this.data=data;
+                this.setCharacterizationData();
+            },
+            error=> {
+
+            });
+            this.techniqueIndex=null;
+            this.instrumentIndex=null;
+        }
+    }
+
+    getInstrumentTypes() {
+        let url = this.httpClient.get(Properties.API_SERVER_URL+'/caNanoLab/rest/characterization/getInstrumentTypesByTechniqueType?techniqueType='+this.techniqueInstrument.techniqueType);
+        url.subscribe(data=> {
+            this.setupData['instrumentTypeLookup']=data;
+        },
+        error=> {
+            console.log('error')
+        });
+    }
+
+    saveTechniqueInstrument() {
+        if (this.techniqueIndex==-1) {
+            this.data.techniqueInstruments.experiments.push(this.techniqueInstrument);
+            let url = this.httpClient.post(Properties.API_SERVER_URL+'/caNanoLab/rest/characterization/saveExperimentConfig',this.data);
+
+            // push technique, call save and overwrite this.data //
+        }
+
+        this.data.techniqueInstruments.experiments[this.techniqueIndex]=this.techniqueInstrument;
+            let url = this.httpClient.post(Properties.API_SERVER_URL+'/caNanoLab/rest/characterization/saveExperimentConfig',this.data);
+            url.subscribe(
+                data=> {
+                    this.data=data;
+                    this.setCharacterizationData();
+                },
+                error=> {
+                    console.log('error');
+
+                }
+            )
+
+        this.techniqueIndex=null;
+        this.instrumentIndex=null;
+    }
+
+    setupTechniqueInstrument() {
+        this.techniqueInstrument = {
+            "techniqueType":"",
+            "dirty":1,
+            "instruments":[]
+        }
     }
 
     setupDefaultDataSet() {
@@ -142,7 +277,6 @@ export class EditcharacterizationComponent implements OnInit {
     }
 
     formatDate(date) {
-        console.log(date)
         let tempDate = new Date(date);
         let month = (tempDate.getMonth()+1).toString();
         if (parseInt(month)<10) {
@@ -156,28 +290,28 @@ export class EditcharacterizationComponent implements OnInit {
         return newDate
     }
 
-    getCharacterizationData() {
-        let url = this.httpClient.get(Properties.API_SERVER_URL + '/caNanoLab/rest/characterization/setupUpdate?sampleId='+this.sampleId+'&charType='+this.type + '&charId='+this.charId+'&charClassName='+this.charClassName);
-        url.subscribe(
-            data=>{
-                this.data = data;
-                this.dataTrailer = JSON.parse(JSON.stringify(this.data));
-                this.data.characterizationDate = this.formatDate(this.data.characterizationDate)
-                this.setupData = [];
-                this.setupData['assayTypesByCharNameLookup'] = data['assayTypesByCharNameLookup'];
-                this.setupData['protocolLookup'] = data['protocolLookup'];
-                this.setupData['charSourceLookup'] = data['charSourceLookup'];
-                this.setupData['techniqueTypeLookup']=data['techniqueInstruments']['techniqueTypeLookup'];
-                this.setupData['manufacturerLookup']=data['techniqueInstruments']['manufacturerLookup'];
-            },
-            error=> {
-                console.log('error')
-            }
-        );
+    setCharacterizationData() {
+        this.dataTrailer = JSON.parse(JSON.stringify(this.data));
+        this.data.characterizationDate = this.formatDate(this.data.characterizationDate)
+        this.setupData = [];
+        this.setupData['instrumentTypeLookup'] = [];
+        this.setupData['assayTypesByCharNameLookup'] = this.data['assayTypesByCharNameLookup'];
+        this.setupData['protocolLookup'] = this.data['protocolLookup'];
+        this.setupData['charSourceLookup'] = this.data['charSourceLookup'];
+        this.setupData['techniqueTypeLookup']=this.data['techniqueInstruments']['techniqueTypeLookup'];
+        this.setupData['manufacturerLookup']=this.data['techniqueInstruments']['manufacturerLookup'];
     }
 
     deleteCharacterization() {
-
+        if (confirm('Are you sure you wish to delete this characterization')) {
+            let url = this.httpClient.post(Properties.API_SERVER_URL+'/caNanoLab/rest/characterization/removeCharacterization',this.data);
+            url.subscribe(data=> {
+                this.router.navigate( ['home/samples/characterization', this.sampleId] );
+            },
+            error=> {
+                console.log('error')
+            })
+        }
     }
 
     resetCharacterization() {

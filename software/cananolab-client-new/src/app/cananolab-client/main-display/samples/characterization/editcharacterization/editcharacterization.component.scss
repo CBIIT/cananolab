@@ -63,15 +63,6 @@
         padding:10px;
     }
 
-    .dataMain.submit {
-        width:100%;
-    }
-    .dataMain.submit td {
-        text-align:right;
-    }
-
-
-
     .techniqueInstrument {
         width:800px;
     }
@@ -98,7 +89,7 @@
         width:100%;
     }
     .editSection table.dataMain .techniqueInstrument td .dataMain.gray {
-        border:1px solid green;
+        border:1px solid #ccc;
     }
     .editSection table.dataMain .techniqueInstrument td .dataMain.gray td {
         padding:10px !important;
@@ -109,7 +100,32 @@
         max-width:200px !important;
         }
 .dataMain.gray th {
-        background-color:#fff;
-        color:#000;
+        background-color:#0073b9;
+        color:#fff;
         border:none !important;
     }
+
+    .editSection table.dataMain .techniqueInstrument td .dataMain.gray td.submit {
+        text-align:right;
+    }
+    .dataMain.submit {
+        width:100%;
+    }
+    .dataMain.submit td {
+        text-align:right;
+    }
+
+
+    .instruments {
+        width:90%;
+        border:1px solid #ccc !important;
+    }
+
+
+
+    .instruments.form{
+        border:1px solid #ccc !important;
+        background-color:#fff;
+    }
+
+
