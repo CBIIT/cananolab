@@ -243,8 +243,6 @@ getdata(sampleId){
 
     // set pointer fields to old values when adding other //
     addOtherValue(field,currentValue) {
-        console.log(this)
-        console.log(typeof(this));
         this.currentDropdownValues[field]=currentValue;
         this.otherValue='';
         this.currentField=field;
@@ -253,11 +251,10 @@ getdata(sampleId){
     // save other value //
     saveOther(newItem: Object) {
         if (newItem['change'] && newItem['value']) {
-            this.setupData[newItem['array']].push(newItem['value']);
+            this.addDropdownItem(newItem['array'],newItem['value']);
             this.setValue(newItem['field'],newItem['value']);
         }
         else {
-            console.log(newItem['field'])
             this.setValue(newItem['field'],newItem['value']);
         }
     };

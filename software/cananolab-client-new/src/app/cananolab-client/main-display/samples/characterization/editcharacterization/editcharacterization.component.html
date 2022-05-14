@@ -4,8 +4,7 @@
 >
 </canano-main-display-heading>
 <div class="sample-edit-div">
-    <div class="editSection" *ngIf="setupData">
-        <!-- {{data | json}} -->
+    <div class="editSection" *ngIf="data">
         <form action="" method="get" name="characterizationForm">
             <div class="editBorder">
                 <table class="dataMain">
@@ -16,11 +15,18 @@
                             </label>
                         </td>
                         <td>
-                            <select (ngModelChange)="changeType($event)" name="charType" id="charType" [(ngModel)]="data.type">
-                                    <option *ngFor="let type of setupData['charTypesLookup']" [selected]="data.type===type" value="{{type}}">
+                            <select (ngModelChange)="changeType($event);addOtherValue('type',data.type)" name="charType" id="charType" [(ngModel)]="data.type">
+                                <option value="" [selected]="data.type===''">--Select--</option>
+                                    <option *ngFor="let type of data['charTypesLookup']" [selected]="data.type===type" value="{{type}}">
                                         {{type}}
                                     </option>
-                            </select>
+                                    <option [hidden]="data.type!='other'" value="" [selected]="data.type=='other'" value="other">[other]</option>
+                                </select>
+                            <div *ngIf="data.type ==='other'">
+                                <canano-other-dropdown (saveOther)="saveOther($event)" [label]="'Characterization Type'" [value]="''" [field]="'data.type'" [array]="'data.charTypesLookup'">
+
+                                </canano-other-dropdown>
+                            </div>
                         </td>
                         <td class="label">
                             <label for="charNamePrompt">
@@ -28,12 +34,17 @@
                             </label>
                         </td>
                         <td>
-                            <select (ngModelChange)="changeName($event)" name="charNamePrompt" id="charNamePrompt" [(ngModel)]="data.name">
+                            <select (ngModelChange)="changeName($event); addOtherValue('name',data.name)" name="charNamePrompt" id="charNamePrompt" [(ngModel)]="data.name">
                                 <option value="" [selected]="data.name===''">--Select--</option>
-                                <option *ngFor="let type of setupData['charNamesForCurrentType']" [selected]="data.name===type" value="{{type}}">
+                                <option *ngFor="let type of data['charNamesForCurrentType']" [selected]="data.name===type" value="{{type}}">
                                     {{type}}
                                 </option>
                             </select>
+                            <div *ngIf="data.name ==='other'">
+                                <canano-other-dropdown (saveOther)="saveOther($event)" [label]="'Characterization Name'" [value]="currentDropdownValues['name']" [field]="'data.name'" [array]="'data.charNamesForCurrentType'">
+
+                                </canano-other-dropdown>
+                            </div>
                         </td>
                     </tr>
                     <tr>
@@ -43,12 +54,17 @@
                             </label>
                         </td>
                         <td>
-                            <select name="assayType" id="assayType" [(ngModel)]="data.assayType">
+                            <select (ngModelChange)="addOtherValue('assayType',data.assayType)" name="assayType" id="assayType" [(ngModel)]="data.assayType">
                                 <option value="" [selected]="data.assayType===''">--Select--</option>
-                                <option *ngFor="let type of setupData['assayTypesByCharNameLookup']" [selected]="data.assayType===type" value="{{type}}">
+                                <option *ngFor="let type of data['assayTypesByCharNameLookup']" [selected]="data.assayType===type" value="{{type}}">
                                     {{type}}
                                 </option>
                             </select>
+                            <div *ngIf="data.assayType ==='other'">
+                                <canano-other-dropdown (saveOther)="saveOther($event)" [label]="'Assay Type'" [value]="currentDropdownValues['assayType']" [field]="'data.assayType'" [array]="'data.assayTypesByCharNameLookup'">
+
+                                </canano-other-dropdown>
+                            </div>
                         </td>
                         <td class="label">
                             <label for="protocolId">
@@ -57,9 +73,9 @@
                         </td>
                         <td>
                             <select name="protocolId" id="protocolId" [(ngModel)]="data.protocolId">
-                                <option value="" [selected]="data.protocolId===''">--Select--</option>
-                                <option *ngFor="let type of setupData['protocolLookup']" [selected]="data.protocolId===type" value="{{type}}">
-                                    {{type}}
+                                <option value="0" [selected]="data.protocolId==0">--Select--</option>
+                                <option *ngFor="let type of data['protocolLookup']" [selected]="data.protocolId===type" [ngValue]="type.domainId">
+                                    {{type.displayName}}
                                 </option>
                             </select>
                         </td>
@@ -73,7 +89,7 @@
                         <td>
                             <select name="characterizationSourceId" id="characterizationSourceId" [(ngModel)]="data.characterizationSourceId">
                                 <option value="" [selected]="data.characterizationSourceId==0" [ngValue]="0">--Select--</option>
-                                <option *ngFor="let type of setupData['charSourceLookup']" [selected]="data.characterizationSourceId===type.id" value="{{type.id}}">
+                                <option *ngFor="let type of data['charSourceLookup']" [selected]="data.characterizationSourceId===type.id" [ngValue]="type.id">
                                     {{type.displayName}}
                                 </option>
                             </select>
@@ -89,251 +105,294 @@
                     </tr>
                 </table>
             </div><br />
-            <ng-container *ngIf="data.name=='physical state'">
-                <div class="editBorder">
-                    <table class="dataMain">
-                        <tr colspan="2"><td class="label">Phsyical Properties</td></tr>
-                        <tr>
-                            <td class="label">
-                                <label for="property.type">
-                                    Type
-                                </label>
-                            </td>
-                            <td>
-                                <select name="property.type" id="property.type" [(ngModel)]="data.property.type">
-                                    <option value="" [selected]="data.property.type===''">--Select--</option>
-                                    <option *ngFor="let type of data.property['typeOptions']" [selected]="data.property.type===type" value="{{type}}">
-                                        {{type}}
-                                    </option>
-                                </select>
-                            </td>
-                        </tr>
-                    </table>
-                </div><br />
-            </ng-container>
-            <ng-container *ngIf="data.name=='shape'">
-                <div class="editBorder">
-                    <table class="dataMain">
-                        <tr colspan="4"><td class="label">Shape Properties</td></tr>
-                        <tr>
-                            <td class="label">
-                                <label for="property.type">
-                                    Type
-                                </label>
-                            </td>
-                            <td>
-                                <select name="property.type" id="property.type" [(ngModel)]="data.property.type">
-                                    <option value="" [selected]="!data.property.type" [ngValue]="null">--Select--</option>
-                                    <option *ngFor="let type of data.property['shapeTypeOptions']" [selected]="data.property.type===type" value="{{type}}">
-                                        {{type}}
-                                    </option>
-                                </select>
-                            </td>
-                            <td class="label">
-                                <label for="property.aspectRatio">
-                                    Aspect Ratio
-                                </label>
-                            </td>
-                            <td>
-                                <input type="number" name="property.aspectRatio" id="property.aspectRatio" [(ngModel)]="data.property.aspectRatio">
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="label">
-                                <label for="property.minDimension">
-                                    Minimum Dimension
-                                </label>
-                            </td>
-                            <td>
-                                <input type="number" name="property.minDimension" id="property.minDimension" [(ngModel)]="data.property.minDimension">
-                                <select name="property.minDimensionUnit" id="property.minDimensionUnit" [(ngModel)]="data.property.minDimensionUnit">
-                                    <option value="" [selected]="!data.property['minDimensionUnit']" [ngValue]="null">--Select--</option>
-                                    <option *ngFor="let type of data.property['unitOptions']" [selected]="data.property.minDimensionUnit===type" value="{{type}}">
-                                        {{type}}
-                                    </option>
-                                </select>
-                            </td>
-                            <td class="label">
-                                <label for="property.maxDimension">
-                                    Maximum Dimension
-                                </label>
-                            </td>
-                            <td>
-                                <input type="number" name="property.maxDimension" id="property.maxDimension" [(ngModel)]="data.property.maxDimension">
-                                <select name="property.maxDimensionUnit" id="property.maxDimensionUnit" [(ngModel)]="data.property.maxDimensionUnit">
-                                    <option value="" [selected]="!data.property['maxDimensionUnit']" [ngValue]="null">--Select--</option>
-                                    <option *ngFor="let type of data.property['unitOptions']" [selected]="data.property.maxDimensionUnit===type" value="{{type}}">
-                                        {{type}}
-                                    </option>
-                                </select>
-                            </td>
-                        </tr>
-                    </table>
-                </div><br />
-            </ng-container>
-            <ng-container *ngIf="data.name=='solubility'">
-                <div class="editBorder">
-                    <table class="dataMain">
-                        <tr colspan="4"><td class="label">Solubility Properties</td></tr>
-                        <tr>
-                            <td class="label">
-                                <label for="property.solvent">
-                                    Solvent
-                                </label>
-                            </td>
-                            <td>
-                                <select name="property.solvent" id="property.solvent" [(ngModel)]="data.property.solvent">
-                                    <option value="" [selected]="!data.property.solvent" [ngValue]="null">--Select--</option>
-                                    <option *ngFor="let type of data.property['solventOptions']" [selected]="data.property.solvent===type" value="{{type}}">
-                                        {{type}}
-                                    </option>
-                                </select>
-                            </td>
-                            <td class="label">
-                                <label for="property.isSoluble">
-                                    Is Soluble
-                                </label>
-                            </td>
-                            <td>
-                                <select name="property.isSoluble" id="property.isSoluble" [(ngModel)]="data.property.isSoluble">
-                                    <option value="" [selected]="!data.property.isSoluble" [ngValue]="null">--Select--</option>
-                                    <option *ngFor="let type of data.property['isSolubleOptions']" [selected]="data.property.isSoluble===type" value="{{type}}">
-                                        {{type}}
-                                    </option>
-                                </select>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="label">
-                                <label for="property.criticalConcentration">
-                                    Critical Concentration
-                                </label>
-                            </td>
-                            <td>
-                                <input type="number" name="property.criticalConcentration" id="property.criticalConcentration" [(ngModel)]="data.property.criticalConcentration">
-                                <select name="property.concentrationUnit" id="property.concentrationUnit" [(ngModel)]="data.property.concentrationUnit">
-                                    <option value="" [selected]="!data.property.concentrationUnit" [ngValue]="null">--Select--</option>
-                                    <option *ngFor="let type of data.property['concentrationUnitOptions']" [selected]="data.property.concentrationUnit===type" value="{{type}}">
-                                        {{type}}
-                                    </option>
-                                </select>
-                            </td>
-                        </tr>
-                    </table>
-                </div><br />
-            </ng-container>
-            <ng-container *ngIf="data.name=='surface'">
-                <div class="editBorder">
-                    <table class="dataMain">
-                        <tr>
-                            <td colspan="2" class="label">Surcace Properties</td>
-                        </tr>
-                        <tr>
-                            <td class="label">
-                                <label for="property.isHydrophobic">
-                                    Is Hydrophobic
-                                </label>
-                            </td>
-                            <td>
-                                <select name="property.isHydrophobic" id="property.isHydrophobic" [(ngModel)]="data.property.isHydrophobic">
-                                    <option value="" [selected]="!data.property.isHydrophobic" [ngValue]="null">--Select--</option>
-                                    <option *ngFor="let type of data.property['isHydrophobicOptions']" [selected]="data.property.isHydrophobic===type" value="{{type}}">
-                                        {{type}}
-                                    </option>
-                                </select>
-                            </td>
-                        </tr>
-                    </table>
-                </div><br />
-            </ng-container>
-            <ng-container *ngIf="data.name=='cytotoxicity'">
-                <div class="editBorder">
-                    <table class="dataMain">
-                        <tr>
-                            <td class="label" colspan="2">Cytotoxicity Properties</td>
-                        </tr>
-                        <tr>
-                            <td class="label">
-                                <label for="property.cellLine">
-                                    Cell Line
-                                </label>
-                            </td>
-                            <td>
-                                <textarea rows="3" cols="120" name="property.cellLine" id="property.cellLine" [(ngModel)]="data.property.cellLine">
-                                    {{data.property.cellLine}}
-                                </textarea>
-                            </td>
-                        </tr>
-                    </table>
-                </div><br />
-            </ng-container>
-            <ng-container *ngIf="data.name=='enzyme induction'">
-                <div class="editBorder">
-                    <table class="dataMain">
-                        <tr>
-                            <td colspan="2" class="label">Enzyme Properties</td>
-                        </tr>
-                        <tr>
-                            <td class="label">
-                                <label for="property.enzymeName">
-                                    Enzyme Name
-                                </label>
-                            </td>
-                            <td>
-                                <select name="property.enzymeName" id="property.enzymeName" [(ngModel)]="data.property.enzymeName">
-                                    <option value="" [selected]="data.property.enzymeName===''">--Select--</option>
-                                    <option *ngFor="let type of data.property['enzymeNameOptions']" [selected]="data.property.enzymeName===type" value="{{type}}">
-                                        {{type}}
-                                    </option>
-                                </select>
-                            </td>
-                        </tr>
-                    </table>
-                </div><br />
-            </ng-container>
-            <ng-container *ngIf="data.name=='targeting'">
-                <div class="editBorder">
-                    <table class="dataMain">
-                        <tr>
-                            <td class="label" colspan="2">Targeting Properties</td>
-                        </tr>
-                        <tr>
-                            <td class="label">
-                                <label for="property.cellLine">
-                                    Cell Line
-                                </label>
-                            </td>
-                            <td>
-                                <textarea rows="3" cols="120" name="property.cellLine" id="property.cellLine" [(ngModel)]="data.property.cellLine">
-                                    {{data.property.cellLine}}
-                                </textarea>
-                            </td>
-                        </tr>
-                    </table>
-                </div><br />
-            </ng-container>
-            <ng-container *ngIf="data.name=='transfection'">
-                <div class="editBorder">
-                    <table class="dataMain">
-                        <tr>
-                            <td class="label" colspan="2">Transfection Properties</td>
-                        </tr>
-                        <tr>
-                            <td class="label">
-                                <label for="property.cellLine">
-                                    Cell Line
-                                </label>
-                            </td>
-                            <td>
-                                <textarea rows="3" cols="120" name="property.cellLine" id="property.cellLine" [(ngModel)]="data.property.cellLine">
-                                    {{data.property.cellLine}}
-                                </textarea>
-                            </td>
-                        </tr>
-                    </table>
-                </div><br />
-            </ng-container>
+            <ng-container *ngIf="propertiesLoaded">
 
+                <ng-container *ngIf="data.name=='physical state'">
+                    <div class="editBorder">
+                        <table class="dataMain">
+                            <tr colspan="2"><td class="label">Phsyical Properties</td></tr>
+                            <tr>
+                                <td class="label">
+                                    <label for="property.type">
+                                        Type
+                                    </label>
+                                </td>
+                                <td>
+                                    <select (ngModelChange)="addOtherValue('data.property.type',data.property.type)" name="property.type" id="property.type" [(ngModel)]="data.property.type">
+                                        <option value="" [selected]="data.property.type===''">--Select--</option>
+                                        <option *ngFor="let type of data.property['typeOptions']" [selected]="data.property.type===type" value="{{type}}">
+                                            {{type}}
+                                        </option>
+                                    </select>
+                                    <div *ngIf="data.property.type ==='other'">
+                                        <canano-other-dropdown (saveOther)="saveOther($event)" [label]="'Physical Type'" [value]="currentDropdownValues['data.property.type']" [field]="'data.property.type'" [array]="'data.property.typeOptions'">
+
+                                        </canano-other-dropdown>
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                    </div><br />
+                </ng-container>
+                <ng-container *ngIf="data.name=='shape'">
+                    <div class="editBorder">
+                        <table class="dataMain">
+                            <tr colspan="4"><td class="label">Shape Properties</td></tr>
+                            <tr>
+                                <td class="label">
+                                    <label for="property.type">
+                                        Type
+                                    </label>
+                                </td>
+                                <td>
+                                    <select (ngModelChange)="addOtherValue('data.property.type',data.property.type)" name="property.type" id="property.type" [(ngModel)]="data.property.type">
+                                        <option value="" [selected]="!data.property.type" [ngValue]="null">--Select--</option>
+                                        <option *ngFor="let type of data.property['shapeTypeOptions']" [selected]="data.property.type===type" value="{{type}}">
+                                            {{type}}
+                                        </option>
+                                    </select>
+                                    <div *ngIf="data.property['type'] ==='other'">
+                                        <canano-other-dropdown (saveOther)="saveOther($event)" [label]="'Shape'" [value]="currentDropdownValues['data.property.type']" [field]="'data.property.type'" [array]="'data.property.shapeTypeOptions'">
+
+                                        </canano-other-dropdown>
+                                    </div>
+                                </td>
+                                <td class="label">
+                                    <label for="property.aspectRatio">
+                                        Aspect Ratio
+                                    </label>
+                                </td>
+                                <td>
+                                    <input type="text" name="property.aspectRatio" id="property.aspectRatio" [(ngModel)]="data.property.aspectRatio">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="label">
+                                    <label for="property.minDimension">
+                                        Minimum Dimension
+                                    </label>
+                                </td>
+                                <td>
+                                    <input type="number" name="property.minDimension" id="property.minDimension" [(ngModel)]="data.property.minDimension">
+                                    <select (ngModelChange)="addOtherValue('data.property.minDimensionUnit',data.property.minDimensionUnit)" name="property.minDimensionUnit" id="property.minDimensionUnit" [(ngModel)]="data.property.minDimensionUnit">
+                                        <option value="" [selected]="!data.property['minDimensionUnit']" [ngValue]="null">--Select--</option>
+                                        <option *ngFor="let type of data.property['unitOptions']" [selected]="data.property.minDimensionUnit===type" value="{{type}}">
+                                            {{type}}
+                                        </option>
+                                    </select>
+                                    <div *ngIf="data.property['minDimensionUnit'] ==='other'">
+                                        <canano-other-dropdown (saveOther)="saveOther($event)" [label]="'Unit Option'" [value]="currentDropdownValues['data.property.minDimensionUnit']" [field]="'data.property.minDimensionUnit'" [array]="'data.property.unitOptions'">
+
+                                        </canano-other-dropdown>
+                                    </div>
+                                </td>
+                                <td class="label">
+                                    <label for="property.maxDimension">
+                                        Maximum Dimension
+                                    </label>
+                                </td>
+                                <td>
+                                    <input type="number" name="property.maxDimension" id="property.maxDimension" [(ngModel)]="data.property.maxDimension">
+                                    <select (ngModelChange)="addOtherValue('data.property.maxDimensionUnit',data.property.maxDimensionUnit)" name="property.maxDimensionUnit" id="property.maxDimensionUnit" [(ngModel)]="data.property.maxDimensionUnit">
+                                        <option value="" [selected]="!data.property['maxDimensionUnit']" [ngValue]="null">--Select--</option>
+                                        <option *ngFor="let type of data.property['unitOptions']" [selected]="data.property.maxDimensionUnit===type" value="{{type}}">
+                                            {{type}}
+                                        </option>
+                                    </select>
+                                    <div *ngIf="data.property['maxDimensionUnit'] ==='other'">
+                                        <canano-other-dropdown (saveOther)="saveOther($event)" [label]="'Unit Option'" [value]="currentDropdownValues['data.property.maxDimensionUnit']" [field]="'data.property.maxDimensionUnit'" [array]="'data.property.unitOptions'">
+
+                                        </canano-other-dropdown>
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                    </div><br />
+                </ng-container>
+                <ng-container *ngIf="data.name=='solubility'">
+                    <div class="editBorder">
+                        <table class="dataMain">
+                            <tr colspan="4"><td class="label">Solubility Properties</td></tr>
+                            <tr>
+                                <td class="label">
+                                    <label for="property.solvent">
+                                        Solvent
+                                    </label>
+                                </td>
+                                <td>
+                                    <select (ngModelChange)="addOtherValue('data.property.solvent',data.property.solvent)" name="property.solvent" id="property.solvent" [(ngModel)]="data.property.solvent">
+                                        <option [selected]="!data.property['solvent']" [ngValue]="null">--Select--</option>
+                                        <option *ngFor="let type of data.property['solventOptions']" [selected]="data.property.solvent===type" value="{{type}}">
+                                            {{type}}
+                                        </option>
+                                    </select>
+                                    <div *ngIf="data.property['solvent'] ==='other'">
+                                        <canano-other-dropdown (saveOther)="saveOther($event)" [label]="'Solvent'" [value]="currentDropdownValues['data.property.solvent']" [field]="'data.property.solvent'" [array]="'data.property.solventOptions'">
+
+                                        </canano-other-dropdown>
+                                    </div>
+                                </td>
+                                <td class="label">
+                                    <label for="property.isSoluble">
+                                        Is Soluble
+                                    </label>
+                                </td>
+                                <td>
+                                    <select (ngModelChange)="addOtherValue('data.property.isSoluble',data.property.isSoluble)" name="property.isSoluble" id="property.isSoluble" [(ngModel)]="data.property.isSoluble">
+                                        <option [selected]="!data.property['isSoluble']" [ngValue]="null">--Select--</option>
+                                        <option *ngFor="let type of data.property['isSolubleOptions']" [selected]="data.property.isSoluble===type" value="{{type}}">
+                                            {{type}}
+                                        </option>
+                                    </select>
+                                    <div *ngIf="data.property['isSoluble'] ==='other'">
+                                        <canano-other-dropdown (saveOther)="saveOther($event)" [label]="'Is Soluble'" [value]="currentDropdownValues['data.property.isSoluble']" [field]="'data.property.isSoluble'" [array]="'data.property.isSolubleOptions'">
+
+                                        </canano-other-dropdown>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="label">
+                                    <label for="property.criticalConcentration">
+                                        Critical Concentration
+                                    </label>
+                                </td>
+                                <td>
+                                    <input type="number" name="property.criticalConcentration" id="property.criticalConcentration" [(ngModel)]="data.property.criticalConcentration">
+
+                                    <select (ngModelChange)="addOtherValue('data.property.concentrationUnit',data.property.concentrationUnit)" name="property.concentrationUnit" id="property.concentrationUnit" [(ngModel)]="data.property.concentrationUnit">
+                                        <option [selected]="!data.property['concentrationUnit']" [ngValue]="null">--Select--</option>
+                                        <option *ngFor="let type of data.property['concentrationUnitOptions']" [selected]="data.property.concentrationUnit===type" value="{{type}}">
+                                            {{type}}
+                                        </option>
+                                    </select>
+                                    <div *ngIf="data.property['concentrationUnit'] ==='other'">
+                                        <canano-other-dropdown (saveOther)="saveOther($event)" [label]="'Concentration Unit Option'" [value]="currentDropdownValues['data.property.concentrationUnit']" [field]="'data.property.concentrationUnit'" [array]="'data.property.concentrationUnitOptions'">
+
+                                        </canano-other-dropdown>
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                    </div><br />
+                </ng-container>
+                <ng-container *ngIf="data.name=='surface'">
+                    <div class="editBorder">
+                        <table class="dataMain">
+                            <tr>
+                                <td colspan="2" class="label">Surcace Properties</td>
+                            </tr>
+                            <tr>
+                                <td class="label">
+                                    <label for="property.isHydrophobic">
+                                        Is Hydrophobic
+                                    </label>
+                                </td>
+                                <td>
+                                    <select name="property.isHydrophobic" id="property.isHydrophobic" [(ngModel)]="data.property.isHydrophobic">
+                                        <option value="" [selected]="!data.property.isHydrophobic" [ngValue]="null">--Select--</option>
+                                        <option *ngFor="let type of data.property['isHydrophobicOptions']" [selected]="data.property.isHydrophobic===type" value="{{type}}">
+                                            {{type}}
+                                        </option>
+                                    </select>
+                                </td>
+                            </tr>
+                        </table>
+                    </div><br />
+                </ng-container>
+                <ng-container *ngIf="data.name=='cytotoxicity'">
+                    <div class="editBorder">
+                        <table class="dataMain">
+                            <tr>
+                                <td class="label" colspan="2">Cytotoxicity Properties</td>
+                            </tr>
+                            <tr>
+                                <td class="label">
+                                    <label for="property.cellLine">
+                                        Cell Line
+                                    </label>
+                                </td>
+                                <td>
+                                    <textarea rows="3" cols="120" name="property.cellLine" id="property.cellLine" [(ngModel)]="data.property.cellLine">
+                                        {{data.property.cellLine}}
+                                    </textarea>
+                                </td>
+                            </tr>
+                        </table>
+                    </div><br />
+                </ng-container>
+                <ng-container *ngIf="data.name=='enzyme induction'">
+                    <div class="editBorder">
+                        <table class="dataMain">
+                            <tr>
+                                <td colspan="2" class="label">Enzyme Properties</td>
+                            </tr>
+                            <tr>
+                                <td class="label">
+                                    <label for="property.enzymeName">
+                                        Enzyme Name
+                                    </label>
+                                </td>
+                                <td>
+                                    <select (ngModelChange)="addOtherValue('data.property.enzymeName',data.property.enzymeName)" name="property.enzymeName" id="property.enzymeName" [(ngModel)]="data.property.enzymeName">
+                                        <option [selected]="data.property['enzymeName']===''" [ngValue]="''">--Select--</option>
+                                        <option *ngFor="let type of data.property['enzymeNameOptions']" [selected]="data.property.enzymeName===type" value="{{type}}">
+                                            {{type}}
+                                        </option>
+                                    </select>
+                                    <div *ngIf="data.property['enzymeName'] ==='other'">
+                                        <canano-other-dropdown (saveOther)="saveOther($event)" [label]="'Enzyme Name'" [value]="currentDropdownValues['data.property.enzymeName']" [field]="'data.property.enzymeName'" [array]="'data.property.enzymeNameOptions'">
+
+                                        </canano-other-dropdown>
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                    </div><br />
+                </ng-container>
+                <ng-container *ngIf="data.name=='targeting'">
+                    <div class="editBorder">
+                        <table class="dataMain">
+                            <tr>
+                                <td class="label" colspan="2">Targeting Properties</td>
+                            </tr>
+                            <tr>
+                                <td class="label">
+                                    <label for="property.cellLine">
+                                        Cell Line
+                                    </label>
+                                </td>
+                                <td>
+                                    <textarea rows="3" cols="120" name="property.cellLine" id="property.cellLine" [(ngModel)]="data.property.cellLine">
+                                        {{data.property.cellLine}}
+                                    </textarea>
+                                </td>
+                            </tr>
+                        </table>
+                    </div><br />
+                </ng-container>
+                <ng-container *ngIf="data.name=='transfection'">
+                    <div class="editBorder">
+                        <table class="dataMain">
+                            <tr>
+                                <td class="label" colspan="2">Transfection Properties</td>
+                            </tr>
+                            <tr>
+                                <td class="label">
+                                    <label for="property.cellLine">
+                                        Cell Line
+                                    </label>
+                                </td>
+                                <td>
+                                    <textarea rows="3" cols="120" name="property.cellLine" id="property.cellLine" [(ngModel)]="data.property.cellLine">
+                                        {{data.property.cellLine}}
+                                    </textarea>
+                                </td>
+                            </tr>
+                        </table>
+                    </div><br />
+                </ng-container>
+            </ng-container>
             <div class="editBorder">
                 <table class="dataMain">
                     <tr>
@@ -364,7 +423,7 @@
                         </td>
                         <td>
                             <table class="techniqueInstrument">
-                                <tr>
+                                <tr *ngIf="data.techniqueInstruments.experiments.length">
                                     <th>
                                         Technique
                                     </th>
@@ -404,12 +463,17 @@
                                                     </label>
                                                 </td>
                                                 <td>
-                                                    <select (ngModelChange)="changeInstrumentType" name="techniqueInstrument.techniqueType" id="techniqueInstrument.techniqueType" [(ngModel)]="techniqueInstrument.techniqueType">
+                                                    <select (ngModelChange)="changeInstrumentType($event);addOtherValue('techniqueInstrument.techniqueType',techniqueInstrument.techniqueType)" name="techniqueInstrument.techniqueType" id="techniqueInstrument.techniqueType" [(ngModel)]="techniqueInstrument.techniqueType">
                                                         <option value="" [selected]="techniqueInstrument.techniqueType===''">--Select--</option>
-                                                        <option *ngFor="let type of setupData['techniqueTypeLookup']" [selected]="techniqueInstrument.techniqueType===type" value="{{type}}">
+                                                        <option *ngFor="let type of data.techniqueInstruments['techniqueTypeLookup']" [selected]="techniqueInstrument.techniqueType===type" value="{{type}}">
                                                             {{type}}
                                                         </option>
                                                     </select>
+                                                    <div *ngIf="techniqueInstrument.techniqueType ==='other'">
+                                                        <canano-other-dropdown (saveOther)="saveOther($event)" [label]="'Technique'" [value]="currentDropdownValues['techniqueInstrument.techniqueType']" [field]="'techniqueInstrument.techniqueType'" [array]="'data.techniqueInstruments.techniqueTypeLookup'">
+
+                                                        </canano-other-dropdown>
+                                                    </div>
                                                 </td>
                                             </tr>
                                             <tr>
@@ -476,12 +540,17 @@
                                                                 </label>
                                                             </td>
                                                             <td>
-                                                                <select name="instrument.manufacturer" id="instrument.manufacturer" [(ngModel)]="instrument.manufacturer">
-                                                                    <option value="" [selected]="instrument.manufacturer===''">--Select--</option>
-                                                                    <option *ngFor="let type of setupData['manufacturerLookup']" [selected]="instrument.manufacturer===type" value="{{type}}">
+                                                                <select (ngModelChange)="addOtherValue('instrument.manufacturer',instrument.manufacturer)" name="instrument.manufacturer" id="instrument.manufacturer" [(ngModel)]="instrument.manufacturer">
+                                                                    <option [selected]="instrument.manufacturer===''" [ngValue]="''">--Select--</option>
+                                                                    <option *ngFor="let type of data.techniqueInstruments['manufacturerLookup']" [selected]="instrument.manufacturer===type" value="{{type}}">
                                                                         {{type}}
                                                                     </option>
                                                                 </select>
+                                                                <div *ngIf="instrument.manufacturer ==='other'">
+                                                                    <canano-other-dropdown (saveOther)="saveOther($event)" [label]="'Manufacturer'" [value]="currentDropdownValues['instrument.manufacturer']" [field]="'instrument.manufacturer'" [array]="'data.techniqueInstruments.manufacturerLookup'">
+
+                                                                    </canano-other-dropdown>
+                                                                </div>
                                                             </td>
                                                         </tr>
                                                         <tr>
@@ -501,12 +570,17 @@
                                                                 </label>
                                                             </td>
                                                             <td>
-                                                                <select name="instrument.type" id="instrument.type" [(ngModel)]="instrument.type">
-                                                                    <option value="" [selected]="instrument.type===''">--Select--</option>
+                                                                <select (ngModelChange)="addOtherValue('instrument.type',instrument.type)" name="instrument.type" id="instrument.type" [(ngModel)]="instrument.type">
+                                                                    <option [selected]="instrument.type===''" [ngValue]="''">--Select--</option>
                                                                     <option *ngFor="let type of setupData['instrumentTypeLookup']" [selected]="instrument.type===type" value="{{type}}">
                                                                         {{type}}
                                                                     </option>
-                                                                </select>                                                            </td>
+                                                                </select>
+                                                                <div *ngIf="instrument.type ==='other'">
+                                                                    <canano-other-dropdown (saveOther)="saveOther($event)" [label]="'Type'" [value]="currentDropdownValues['instrument.type']" [field]="'instrument.type'" [array]="'setupData.instrumentTypeLookup'">
+
+                                                                    </canano-other-dropdown>
+                                                                </div>                                                                                                                           </td>
                                                         </tr>
                                                         <tr>
                                                             <td>
@@ -560,6 +634,13 @@
                             </label>
                         </td>
                         <td>
+                            <table>
+                                <tr *ngFor="let finding of data.finding">
+                                    <td>
+                                        {{finding|json}}
+                                    </td>
+                                </tr>
+                            </table>
                             <button class="btn-canano btn-canano-primary btn-canano-xs mr-1">Add</button>
                         </td>
                     </tr>

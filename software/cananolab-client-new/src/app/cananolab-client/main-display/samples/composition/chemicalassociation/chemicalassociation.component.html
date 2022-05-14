@@ -21,7 +21,7 @@
 
                         </select>
                         <div *ngIf="data.type ==='[other]'">
-                            <canano-other-dropdown (saveOther)="saveOther($event)" [label]="'Association Type'" [value]="currentDropdownValues['type']" [field]="'data.type'" [array]="'chemicalAssociationTypes'">
+                            <canano-other-dropdown (saveOther)="saveOther($event)" [label]="'Association Type'" [value]="currentDropdownValues['type']" [field]="'data.type'" [array]="'setupData.chemicalAssociationTypes'">
 
                             </canano-other-dropdown>
                         </div>

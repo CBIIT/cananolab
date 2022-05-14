@@ -24,7 +24,7 @@
 
                         </select>
                         <div *ngIf="data.type ==='[other]'">
-                            <canano-other-dropdown (saveOther)="saveOther($event)" [label]="'Functionalizing Entity Type'" [value]="currentDropdownValues['type']" [field]="'data.type'" [array]="'functionalizingEntityTypes'">
+                            <canano-other-dropdown (saveOther)="saveOther($event)" [label]="'Functionalizing Entity Type'" [value]="currentDropdownValues['type']" [field]="'data.type'" [array]="'setupData.functionalizingEntityTypes'">
 
                             </canano-other-dropdown>
                         </div>
@@ -89,7 +89,7 @@
                             </option>
                         </select>
                         <div *ngIf="data.valueUnit ==='[other]'">
-                            <canano-other-dropdown (saveOther)="saveOther($event)" [label]="'Amount Unit'" [value]="currentDropdownValues['valueUnit']" [field]="'data.valueUnit'" [array]="'functionalizingEntityUnits'">
+                            <canano-other-dropdown (saveOther)="saveOther($event)" [label]="'Amount Unit'" [value]="currentDropdownValues['valueUnit']" [field]="'data.valueUnit'" [array]="'setupData.functionalizingEntityUnits'">
 
                             </canano-other-dropdown>
                         </div>
@@ -112,7 +112,7 @@
                             </option>
                         </select>
                         <div *ngIf="data.molecularFormulaType ==='[other]'">
-                            <canano-other-dropdown (saveOther)="saveOther($event)" [label]="'Molecular Formula Type'" [value]="currentDropdownValues['molecularFormulaType']" [field]="'data.molecularFormulaType'" [array]="'molecularFormulaTypes'">
+                            <canano-other-dropdown (saveOther)="saveOther($event)" [label]="'Molecular Formula Type'" [value]="currentDropdownValues['molecularFormulaType']" [field]="'data.molecularFormulaType'" [array]="'setupData.molecularFormulaTypes'">
 
                             </canano-other-dropdown>
                         </div>
@@ -144,7 +144,7 @@
                             </option>
                         </select>
                         <div *ngIf="data.activationMethodType ==='[other]'">
-                            <canano-other-dropdown (saveOther)="saveOther($event)" [label]="'Activation Method'" [value]="currentDropdownValues['activationMethodType']" [field]="'data.activationMethodType'" [array]="'activationMethods'">
+                            <canano-other-dropdown (saveOther)="saveOther($event)" [label]="'Activation Method'" [value]="currentDropdownValues['activationMethodType']" [field]="'data.activationMethodType'" [array]="'setupData.activationMethods'">
 
                             </canano-other-dropdown>
                         </div>
@@ -197,7 +197,7 @@
                                         </option>
                                     </select>
                                     <div *ngIf="data.domainEntity.type ==='[other]'">
-                                        <canano-other-dropdown (saveOther)="saveOther($event)" [label]="'Type'" [value]="currentDropdownValues['domainEntity.type']" [field]="'data.domainEntity.type'" [array]="'antibodyTypes'">
+                                        <canano-other-dropdown (saveOther)="saveOther($event)" [label]="'Type'" [value]="currentDropdownValues['domainEntity.type']" [field]="'data.domainEntity.type'" [array]="'setupData.antibodyTypes'">
 
                                         </canano-other-dropdown>
                                     </div>
@@ -218,7 +218,7 @@
                                         </option>
                                     </select>
                                     <div *ngIf="data.domainEntity.isoType ==='[other]'">
-                                        <canano-other-dropdown (saveOther)="saveOther($event)" [label]="'Isotype'" [value]="currentDropdownValues['domainEntity.isoType']" [field]="'data.domainEntity.isoType'" [array]="'antibodyIsotypes'">
+                                        <canano-other-dropdown (saveOther)="saveOther($event)" [label]="'Isotype'" [value]="currentDropdownValues['domainEntity.isoType']" [field]="'data.domainEntity.isoType'" [array]="'setupData.antibodyIsotypes'">
 
                                         </canano-other-dropdown>
                                     </div>
@@ -239,7 +239,7 @@
                                         </option>
                                     </select>
                                     <div *ngIf="data.domainEntity.species ==='[other]'">
-                                        <canano-other-dropdown (saveOther)="saveOther($event)" [label]="'Species'" [value]="currentDropdownValues['domainEntity.species']" [field]="'data.domainEntity.species'" [array]="'speciesTypes'">
+                                        <canano-other-dropdown (saveOther)="saveOther($event)" [label]="'Species'" [value]="currentDropdownValues['domainEntity.species']" [field]="'data.domainEntity.species'" [array]="'setupData.speciesTypes'">
 
                                         </canano-other-dropdown>
                                     </div>
@@ -273,7 +273,7 @@
                             </option>
                         </select>
                         <div *ngIf="data.domainEntity.type ==='[other]'">
-                            <canano-other-dropdown (saveOther)="saveOther($event)" [label]="'Type'" [value]="currentDropdownValues['domainEntity.type']" [field]="'data.domainEntity.type'" [array]="'biopolymerTypes'">
+                            <canano-other-dropdown (saveOther)="saveOther($event)" [label]="'Type'" [value]="currentDropdownValues['domainEntity.type']" [field]="'data.domainEntity.type'" [array]="'setupData.biopolymerTypes'">
 
                             </canano-other-dropdown>
                         </div>

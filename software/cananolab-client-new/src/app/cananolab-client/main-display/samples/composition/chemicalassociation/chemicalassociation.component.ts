@@ -135,7 +135,6 @@ setDefaultDataSet() {
 
 // set pointer fields to old values when adding other //
 addOtherValue(field,currentValue) {
-    console.log(field,currentValue)
     this.currentDropdownValues[field]=currentValue;
     this.otherValue='';
     this.currentField=field;
@@ -144,13 +143,16 @@ addOtherValue(field,currentValue) {
 // save other value //
 saveOther(newItem: Object) {
     if (newItem['change'] && newItem['value']) {
-        this.setupData[newItem['array']].push(newItem['value']);
+        console.log(newItem['array'],newItem['value'])
+        this.addDropdownItem(newItem['array'],newItem['value']);
         this.setValue(newItem['field'],newItem['value']);
     }
     else {
+        console.log(newItem['field'])
         this.setValue(newItem['field'],newItem['value']);
     }
 };
+
 changeEntityId(compositionType,entity, val) {
     // no need to do anything if functionalizing entity //
     if (entity=='nanomaterial entity') {
