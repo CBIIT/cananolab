@@ -112,12 +112,16 @@ export class EditcharacterizationComponent implements OnInit {
 
     addFinding() {
         this.findingIndex=-1;
+        setTimeout(function() {
+            document.getElementById('findingsEditForm').scrollIntoView();
+        },100);
+
         this.currentFinding={
             "columnHeaders":[],
             "dirty":1,
             "numberOfColumns":"",
             "numberOfRows":""
-        }
+        };
     };
 
     addInstrument(index) {
@@ -334,6 +338,9 @@ export class EditcharacterizationComponent implements OnInit {
         this.columnOrder=null;
         this.currentFinding=JSON.parse(JSON.stringify(finding));
         this.findingIndex=index;
+        setTimeout(function() {
+            document.getElementById('findingsEditForm').scrollIntoView();
+        },100);
     };
 
     editInstrument(instrument, index) {
