@@ -75,6 +75,7 @@ import { ManageComposingElementComponent } from './cananolab-client/main-display
 import { OtherDropdownComponent } from './cananolab-client/common/components/other-dropdown/other-dropdown.component';
 import { SetObjectValueModule } from './cananolab-client/common/modules/set-object-value/set-object-value.module';
 import { EditcharacterizationComponent } from './cananolab-client/main-display/samples/characterization/editcharacterization/editcharacterization.component';
+import { FileComponent } from './cananolab-client/common/components/file/file.component';
 
 @NgModule({
   declarations: [
@@ -146,7 +147,8 @@ import { EditcharacterizationComponent } from './cananolab-client/main-display/s
     ComposingElementFormComponent,
     ManageComposingElementComponent,
     OtherDropdownComponent,
-    EditcharacterizationComponent
+    EditcharacterizationComponent,
+    FileComponent
   ],
     imports: [
         BrowserModule,
