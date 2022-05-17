@@ -84,7 +84,12 @@ export class CharacterizationComponent implements OnInit{
 
     // splits keywords for experiments and configurations //
     splitKeywords(keywords) {
-        return keywords.split('\n')
+        if (keywords) {
+            return keywords.split('\n')
+        }
+        else {
+            return ''
+        }
     }
 
     // brings up new characterization form //

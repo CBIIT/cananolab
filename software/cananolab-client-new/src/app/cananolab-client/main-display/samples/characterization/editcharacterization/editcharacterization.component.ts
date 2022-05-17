@@ -544,6 +544,17 @@ export class EditcharacterizationComponent implements OnInit {
         }
     };
 
+    // splits keywords for experiments and configurations //
+    splitKeywords(keywords) {
+        console.log(keywords)
+        if (keywords) {
+            return keywords.split('\n')
+        }
+        else {
+            return ''
+        }
+    }
+
     submitCharacterization() {
         this.data.characterizationDate = new Date(this.data.characterizationDate+' 00:00');
         let url = this.httpClient.post(Properties.API_SERVER_URL+'/caNanoLab/rest/characterization/saveCharacterization',this.data);

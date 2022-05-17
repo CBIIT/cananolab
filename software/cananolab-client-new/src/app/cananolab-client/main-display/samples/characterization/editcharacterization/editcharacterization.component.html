@@ -679,7 +679,13 @@
                                                                     {{file['title']}}
                                                                 </a>
                                                             </td>
-                                                            <td>{{file.keywordsStr}}</td>
+                                                            <td>
+                                                                <ul>
+                                                                    <li *ngFor="let keyword of splitKeywords(file['keywordsStr'])">
+                                                                        {{keyword}}
+                                                                    </li>
+                                                                </ul>
+                                                            </td>
                                                             <td>{{file.description}}</td>
                                                         </tr>
                                                     </table>
@@ -908,7 +914,7 @@
                                                                                 {{file['title']}}
                                                                             </a>
                                                                         </td>
-                                                                        <td>{{file.keywordsStr}}</td>
+                                                                        <td>{{splitKeywords(currentFile.keywordsStr)}}</td>
                                                                         <td>{{file.description}}</td>
                                                                         <td>
                                                                             <button (click)="editFileForm(file,fileIndex)" class="btn-canano btn-canano-primary btn-canano-xs mr-1">Edit</button>
@@ -987,7 +993,7 @@
                                                                         </td>
                                                                         <td>
                                                                             <textarea id="currentFile.keywordsStr" name="currentFile.keywordsStr" rows="3" cols="60" [(ngModel)]="currentFile.keywordsStr">
-                                                                                {{currentFile.keywordsStr}}
+                                                                               {{currentFile.keywordsStr}}
                                                                             </textarea>
                                                                         </td>
                                                                     </tr>
