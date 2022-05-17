@@ -3,11 +3,6 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Properties } from '../../../../../../assets/properties';
 import { Consts } from '../../../../../constants';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { timeout } from 'rxjs/operators';
-import { url } from 'inspector';
-import { APP_BASE_HREF } from '@angular/common';
-import { threadId } from 'worker_threads';
-import { timeStamp } from 'console';
 
 @Component({
   selector: 'canano-editcharacterization',
