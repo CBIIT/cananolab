@@ -914,10 +914,17 @@
                                                                                 {{file['title']}}
                                                                             </a>
                                                                         </td>
-                                                                        <td>{{splitKeywords(currentFile.keywordsStr)}}</td>
+                                                                        <td>
+                                                                            <ul>
+                                                                                <li *ngFor="let keyword of splitKeywords(file.keywordsStr)">
+                                                                                    {{keyword}}
+                                                                                </li>
+                                                                            </ul>
+                                                                        </td>
                                                                         <td>{{file.description}}</td>
                                                                         <td>
-                                                                            <button (click)="editFileForm(file,fileIndex)" class="btn-canano btn-canano-primary btn-canano-xs mr-1">Edit</button>
+                                                                            <!-- the edit does not work on old application <button (click)="editFileForm(file,fileIndex)" class="btn-canano btn-canano-primary btn-canano-xs mr-1">Edit</button> -->
+                                                                            <button (click)="deleteFile(file, fileIndex)" class="btn-canano btn-canano-danger btn-canano-xs mr-1">Delete</button>
                                                                         </td>
                                                                     </tr>
                                                                 </table>

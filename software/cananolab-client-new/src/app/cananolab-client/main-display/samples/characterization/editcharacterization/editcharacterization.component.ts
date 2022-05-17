@@ -264,7 +264,22 @@ export class EditcharacterizationComponent implements OnInit {
         }
     };
 
-    deleteFile() {
+    deleteFile(file, fileIndex) {
+        this.currentFinding['theFile']=file;
+        if (confirm('Are you sure you wish to delete this file?')) {
+            this.currentFinding.files.splice(fileIndex,1);
+            this.currentFinding.dirty=1;
+            this.currentFinding['theFileIndex']=fileIndex;
+            let url = this.httpClient.post(Properties.API_SERVER_URL+'/caNanoLab/rest/characterization/removeFile',this.currentFinding)
+            url.subscribe(data=> {
+                this.currentFinding=data;
+            },
+            error=> {
+                console.log('error')
+            })
+        }
+        console.log(this.currentFinding)
+        console.log(file,this.currentFinding, fileIndex)
 
     }
 
@@ -546,7 +561,6 @@ export class EditcharacterizationComponent implements OnInit {
 
     // splits keywords for experiments and configurations //
     splitKeywords(keywords) {
-        console.log(keywords)
         if (keywords) {
             return keywords.split('\n')
         }
