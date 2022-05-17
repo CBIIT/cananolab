@@ -43,7 +43,8 @@ export class EditcharacterizationComponent implements OnInit {
     setupData;
     techniqueIndex;
     techniqueInstrument;
-    theFile: File | null = null;
+    theFile:FormData=null;;
+    fileName;
     type;
 
     constructor( private router: Router, private route: ActivatedRoute,private httpClient: HttpClient ){
@@ -102,11 +103,15 @@ export class EditcharacterizationComponent implements OnInit {
 
     addFileForm() {
         this.currentFile={
+            "uriExternal":false,
+            "externalUrl":"",
             "title":"",
-            "keywordStr":"",
+            "keywordsStr":"",
             "type":"",
-            "description":""
-        }
+            "description":"",
+            "sampleId":this.sampleId,
+            "uri":""
+            }
         this.fileIndex=-1;
     };
 
@@ -120,7 +125,8 @@ export class EditcharacterizationComponent implements OnInit {
             "columnHeaders":[],
             "dirty":1,
             "numberOfColumns":"",
-            "numberOfRows":""
+            "numberOfRows":"",
+            "files":[]
         };
     };
 
@@ -408,11 +414,45 @@ export class EditcharacterizationComponent implements OnInit {
     }
 
     saveFile() {
+        console.log(this.fileIndex)
+        this.theFile.append('uriExternal',this.currentFile['uriExternal']);
+        this.theFile.append('externalUrl',this.currentFile['externalUrl']);
+        this.theFile.append('type',this.currentFile['type']);
+        this.theFile.append('title',this.currentFile['title']);
+        this.theFile.append('keywordsStr',this.currentFile['keywordsStr']);
+        this.theFile.append('description',this.currentFile['description']);
+        console.log(this.currentFile)
+        let uploadUrl=this.httpClient.post(Properties.API_SERVER_URL+'/caNanoLab/rest/core/uploadFile',this.theFile);
+        uploadUrl.subscribe(data=> {
+            if (this.fileIndex==-1) {
+                this.currentFinding.files.push(data);
+            }
+            else {
+                console.log(this.currentFinding)
+                this.currentFinding.files[this.fileIndex]=data;
+            }
+            console.log(this.theFile)
+            this.currentFinding['dirty']=1;
+            this.currentFinding.theFile=this.currentFile;
+            this.currentFinding['theFile']['uri']=data['fileName']
+            // this.currentFinding['theFile']=data;
+            let saveUrl=this.httpClient.post(Properties.API_SERVER_URL+'/caNanoLab/rest/characterization/saveFile',this.currentFinding) ;
+            saveUrl.subscribe(data=> {
+                this.currentFinding=data;
+            },
+            error=> {
+                console.log('file save error')
+            })
+        },
+        error=> {
+            console.log('error')
+        })
         if (this.fileIndex==-1) {
+            this.currentFinding.files
             console.log('push file')
         }
         else {
-
+            console.log('call upload')
         }
         this.fileIndex=null;
     }
@@ -533,11 +573,21 @@ export class EditcharacterizationComponent implements OnInit {
     };
 
     uploadFile(event) {
-        this.theFile = event[0];
+        // console.log(event.target.files);
+        this.theFile = new FormData();
+        const tFile = event.target.files.item(0);
+        console.log(tFile)
+        this.theFile.append('myFile', tFile, tFile.name);
+        this.fileName=tFile.name;
         console.log(this.theFile)
-        // const tFile = value.target.files[0];
-        // this.theFile.append('file', tFile, tFile.name);
-        // console.log(this.theFile)
-        // this.fileName=tFile.name;
+        // this.currentFile['myFile']=file;
+        // console.log(files.item(0))
+        // const formData = new FormData();
+        // let thisFile=files.item(0);
+        // const formData: FormData = new FormData();
+        // formData.append('fileKey',thisFile,thisFile.name);
+        // console.log(formData);
+        // this.currentFile['myFile']=files.item(0);
+        // console.log(this.currentFile);
     }
 }

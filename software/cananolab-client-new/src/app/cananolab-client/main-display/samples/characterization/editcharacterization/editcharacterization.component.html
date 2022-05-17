@@ -902,10 +902,14 @@
                                                                         <th></th>
                                                                     </tr>
                                                                     <tr *ngFor="let file of currentFinding.files; let fileIndex=index">
-                                                                        <td>a</td>
-                                                                        <td>b</td>
-                                                                        <td>c</td>
-                                                                        <td>d</td>
+                                                                        <td>{{file.type}}</td>
+                                                                        <td>
+                                                                            <a href="" [href]="serverUrl+'/caNanoLab/rest/sample/download?fileId='+file.id">
+                                                                                {{file['title']}}
+                                                                            </a>
+                                                                        </td>
+                                                                        <td>{{file.keywordsStr}}</td>
+                                                                        <td>{{file.description}}</td>
                                                                         <td>
                                                                             <button (click)="editFileForm(file,fileIndex)" class="btn-canano btn-canano-primary btn-canano-xs mr-1">Edit</button>
                                                                         </td>
@@ -917,16 +921,46 @@
                                                             <td>
                                                                 <table>
                                                                     <tr>
+                                                                        <td colspan="2">
+                                                                            <label for="fileUpload">
+                                                                                Upload
+                                                                            </label>
+                                                                            <input type="radio" name="curentFile.uriExternal" id="fileUpload" [value]="false" [(ngModel)]="currentFile.uriExternal">
+                                                                            <label for="fileURL">
+                                                                                Enter File URL
+                                                                            </label>
+                                                                            <input type="radio" name="curentFile.uriExternal" id="fileURL" [value]="true" [(ngModel)]="currentFile.uriExternal">
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr *ngIf="currentFile.uriExternal==1">
+                                                                        <td class="label">
+                                                                            <label for="uriExternal">
+                                                                                File URL
+                                                                            </label>
+                                                                        </td>
                                                                         <td>
-                                                                            <input (change)="uploadFile($event.target.files)" type="file" name="currentFile.uploadFile" >
+                                                                            <input id="uriExternal" *ngIf="currentFile.uriExternal==1" type="text" name="currentFile.externalUrl" [(ngModel)]="currentFile.externalUrl">
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr *ngIf="currentFile.uriExternal==0">
+                                                                        <td class="label">
+                                                                            <label for="file">
+                                                                                File
+                                                                            </label>
+                                                                        </td>
+                                                                        <td>
+                                                                            <input id="file" (change)="uploadFile($event)" type="file" name="currentFile.uploadFile">
                                                                         </td>
                                                                     </tr>
                                                                     <tr>
                                                                         <td class="label">
-                                                                            File Type*
+                                                                            <label for="currentFile.fileType">
+                                                                                File Type*
+                                                                            </label>
                                                                         </td>
                                                                         <td>
-                                                                            <select name="currentFile.type" [(ngModel)]="currentFile.type">
+                                                                            <select name="currentFile.type" [(ngModel)]="currentFile.type" id="currentFile.fileType">
+                                                                                <option [select]="currentFile.type===''" [ngValue]="''">--Select</option>
                                                                                 <option>document</option>
                                                                                 <option>graph</option>
                                                                                 <option>image</option>
@@ -937,28 +971,34 @@
                                                                     </tr>
                                                                     <tr>
                                                                         <td class="label">
-                                                                            File Title*
+                                                                            <label for="currentFile.title">
+                                                                                File Title*
+                                                                            </label>
                                                                         </td>
                                                                         <td>
-                                                                            <input type="text" name="currentFile.title" [(ngModel)]="currentFile.title">
+                                                                            <input id="currentFile.title" type="text" name="currentFile.title" [(ngModel)]="currentFile.title">
                                                                         </td>
                                                                     </tr>
                                                                     <tr>
                                                                         <td class="label">
-                                                                            Keywords
+                                                                            <label for="currentFile.keywordsStr">
+                                                                                Keywords
+                                                                            </label>
                                                                         </td>
                                                                         <td>
-                                                                            <textarea name="currentFile.keywordsStr" rows="3" cols="60" [(ngModel)]="currentFile.keywordStr">
-                                                                                {{currentFile.keywordStr}}
+                                                                            <textarea id="currentFile.keywordsStr" name="currentFile.keywordsStr" rows="3" cols="60" [(ngModel)]="currentFile.keywordsStr">
+                                                                                {{currentFile.keywordsStr}}
                                                                             </textarea>
                                                                         </td>
                                                                     </tr>
                                                                     <tr>
                                                                         <td class="label">
-                                                                            Description
+                                                                            <label for="currentFile.description">
+                                                                                Description
+                                                                            </label>
                                                                         </td>
                                                                         <td>
-                                                                            <textarea name="currentFile.description" rows="3" cols="60" [(ngModel)]="currentFile.description">
+                                                                            <textarea id="currentFile.description" name="currentFile.description" rows="3" cols="60" [(ngModel)]="currentFile.description">
                                                                                 {{currentFile.description}}
                                                                             </textarea>
                                                                         </td>
