@@ -9,24 +9,29 @@
     margin:10px 5px 5px 5px;
     font-size:12px;
 }
-.editSection .editBorder {
+.editBorder{
     padding:0px;
     border:1px solid #ccc;
 }
 
+label {
+    font-weight:bold;
+    padding:0px 3px 0px 10px;
+}
 
-    .editSection .editButton{
+
+.editButton{
         padding-top:5px;
         text-align:right;
     }
-    .editSection table.files{
+.files{
         width:100%;
     }
 
-    .editSection table.files th{
+.files th{
         width:200px;
     }
-    .editSection table.dataMain td{
+.dataMain td{
         vertical-align:top;
         padding:10px;
     }
@@ -34,25 +39,25 @@
 
 
 
-    .editSection table.dataMain td.label{
+.dataMain td.label{
         font-weight:bold;
         width:200px !important;
         vertical-align:top;
     }
 
-    .editSection table.antibodyProperties td.label{
+.antibodyProperties td.label{
         font-weight:bold;
         width:100px !important;
         vertical-align:top;
     }
 
-    .editSection table.antibodyProperties{
+.antibodyProperties{
         font-weight:bold;
         width:600px !important;
         vertical-align:top;
     }
 
-    .editSection table.files td.label{
+.files td.label{
         font-weight:bold;
         width:200px;
         vertical-align:top;
@@ -66,7 +71,7 @@
     .techniqueInstrument {
         width:800px;
     }
-    .editSection table.dataMain .techniqueInstrument td{
+.dataMain .techniqueInstrument td{
         vertical-align:top;
         border:1px solid #ccc !important;
         padding:10px 10px 10px 10px !important;
@@ -88,10 +93,10 @@
         padding:10px;
         width:100%;
     }
-    .editSection table.dataMain .techniqueInstrument td .dataMain.gray {
+.techniqueInstrument td .dataMain.gray {
         border:1px solid #ccc;
     }
-    .editSection table.dataMain .techniqueInstrument td .dataMain.gray td {
+.techniqueInstrument td .dataMain.gray td {
         padding:10px !important;
         border:none !important;
 
@@ -100,12 +105,12 @@
         max-width:200px !important;
         }
 .dataMain.gray th {
-        background-color:#0073b9;
+        // background-color:#0073b9;
         color:#fff;
         border:none !important;
     }
 
-    .editSection table.dataMain .techniqueInstrument td .dataMain.gray td.submit {
+.techniqueInstrument td .dataMain.gray td.submit {
         text-align:right;
     }
     .dataMain.submit {
@@ -129,3 +134,74 @@
     }
 
 
+    .findings th {
+        background-color:#0073b9;
+        border:1px solid #ccc;
+        color:#fff;
+    }
+    .findings {
+        width:800px;
+        margin:10px;
+        border:1px solid #ccc !important;
+    }
+
+
+    .editBorder b {
+        margin-left:10px;
+    }
+
+.dataMain .findings td{
+        vertical-align:top;
+        border:1px solid #ccc !important;
+        padding:10px 10px 10px 10px !important;
+        margin:0px;
+    }
+.dataMain .findings.edit td{
+        vertical-align:top;
+        border: none !important;
+        padding:10px 10px 10px 10px !important;
+        margin:0px;
+    }
+
+    .findings.edit td.submit {
+        text-align:right;
+    }
+
+    .dataAndConditions {
+        border:1px solid #fff;
+        background-color:#fff;
+        width:100%;
+        }
+        .dataAndConditions.columnOrder th {
+            color:#000 !important;
+            }
+    .dataAndConditions th {
+        background-color:transparent !important;
+    }
+    .dataAndConditions.files {
+        border:1px solid #ccc;
+    }
+    .dataAndConditions.files th{
+        border:1px solid #ccc !important;
+        background-color:#0073b9 !important;
+        padding:10px 10px 10px 10px !important;
+        vertical-align:top;
+        width:200px;
+    }
+    .findings.edit .dataAndConditions.files td {
+        border:1px solid #ccc !important;
+    }
+
+
+    input[type='number']{
+        width:75px;
+    }
+
+    .columnHeaderDefinitions {
+        border:1px solid #ccc;
+        background-color:#fff;
+        width:100%;
+    }
+    .columnHeaderDefinitions td{
+        border:31px solid #ccc !important;
+    }

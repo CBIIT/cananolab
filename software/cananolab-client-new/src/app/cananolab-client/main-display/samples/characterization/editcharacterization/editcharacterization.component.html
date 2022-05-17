@@ -5,6 +5,8 @@
 </canano-main-display-heading>
 <div class="sample-edit-div">
     <div class="editSection" *ngIf="data">
+        <!-- {{data|json}}<br /><br />
+        {{setupData|json}} -->
         <form action="" method="get" name="characterizationForm">
             <div class="editBorder">
                 <table class="dataMain">
@@ -634,14 +636,363 @@
                             </label>
                         </td>
                         <td>
+                            <button (click)="addFinding()" class="btn-canano btn-canano-primary btn-canano-xs mr-1">Add</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+                            <ng-container *ngFor="let finding of data.finding; let fIndex=index">
+                                <div class="editBorder" *ngIf="finding.rows.length||finding.files.length">
+                                    <table>
+                                        <tr>
+                                            <td>
+                                                <B>Data and Conditions</B>
+                                                    <table class="findings">
+                                                        <tr>
+                                                            <th *ngFor="let header of finding.columnHeaders">
+                                                                {{header.columnName}}
+                                                            </th>
+                                                        </tr>
+                                                        <tr *ngFor="let row of finding.rows">
+                                                            <td *ngFor="let column of row.cells">
+                                                                <span *ngIf="column.operand!='='">
+                                                                    {{column.operand}}
+                                                                </span>
+                                                                {{column.value}}
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+                                                <ng-container *ngIf="finding.files.length">
+                                                    <B>Files</B><br />
+                                                    <table class="findings">
+                                                        <tr>
+                                                            <th>File Type</th>
+                                                            <th>Title and Download Link</th>
+                                                            <th>Keywords</th>
+                                                            <th>Description</th>
+                                                        </tr>
+                                                        <tr *ngFor="let file of finding.files">
+                                                            <td>{{file.type}}</td>
+                                                            <td>
+                                                                <a href="" [href]="serverUrl+'/caNanoLab/rest/sample/download?fileId='+file.id">
+                                                                    {{file['title']}}
+                                                                </a>
+                                                            </td>
+                                                            <td>{{file.keywordsStr}}</td>
+                                                            <td>{{file.description}}</td>
+                                                        </tr>
+                                                    </table>
+                                                </ng-container>
+                                            </td>
+                                            <td><br />
+                                                <button (click)="editFinding(fIndex, finding)" class="btn-canano btn-canano-primary btn-canano-xs mr-1">Edit</button>
+                                            </td>
+                                        </tr>
+                                    </table>
+
+                                </div><br />
+                            </ng-container>
+                            <div class="editBorder">
                             <table>
-                                <tr *ngFor="let finding of data.finding">
-                                    <td>
-                                        {{finding|json}}
+                                <tr *ngIf="findingIndex!=null">
+                                    <td colspan="2">
+                                        <table class="findings edit">
+                                            <tr>
+                                                <td colspan="2">
+                                                    <table class="dataMain gray">
+                                                        <tr>
+                                                            <td class="submit">
+                                                                <label for="finding.columns">
+                                                                    Columns
+                                                                </label>
+                                                                <input type="number" name="columns" id="finding.columns" [(ngModel)]="currentFinding.numberOfColumns">
+                                                                <label for="finding.rows">
+                                                                    Rows
+                                                                </label>
+                                                                <input type="number" name="rows" id="finding.rows" [(ngModel)]="currentFinding.numberOfRows"><br />
+                                                                <button (click)="updateRowsColumns()" class="btn-canano btn-canano-primary btn-canano-xs mr-1">Update</button>
+                                                                <button (click)="editColumnOrder()" class="btn-canano btn-canano-primary btn-canano-xs mr-1">Set Column Order</button>
+                                                                <button class="btn-canano btn-canano-primary btn-canano-xs mr-1">Import CSV</button>
+
+                                                            </td>
+                                                        </tr>
+                                                        <tr *ngIf="columnOrder!=null">
+                                                            <td>
+                                                                <table class="dataAndConditions columnOrder">
+                                                                    <tr>
+                                                                        <td [colSpan]="columnOrder.columnHeaders.length">
+                                                                            <h3>Column Order</h3>
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <th *ngFor="let columnHeader of columnOrder.columnHeaders">
+                                                                            {{columnHeader.columnName}}
+                                                                        </th>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td *ngFor="let columnHeader of columnOrder.columnHeaders; let cIndex=index">
+                                                                            <input type="number" [(ngModel)]="columnHeader.columnOrder" [name]="'c'+cIndex+'.columnOrder'">
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td [colSpan]="columnOrder.columnHeaders.length">
+                                                                            <button (click)="saveColumnOrder()" class="btn-canano btn-canano-primary btn-canano-xs mr-1">Save</button>
+                                                                            <button (click)="cancelColumnOrder()" class="btn-canano btn-canano-default btn-canano-xs mr-1">Cancel</button>
+                                                                        </td>
+                                                                    </tr>
+                                                                </table>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="label">
+                                                                Data and Conditions
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>
+                                                                <table class="dataAndConditions">
+                                                                    <tr>
+                                                                        <td [colSpan]="currentFinding.numberOfColumns">
+                                                                            <h3>Column Data</h3>
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <th *ngFor="let columnHeader of currentFinding.columnHeaders; let columnHeaderIndex=index">
+                                                                            <a [routerLink]="" (click)="editColumnForm(columnHeader, columnHeaderIndex)">
+                                                                                {{columnHeader.columnName}}
+                                                                            </a>
+                                                                        </th>
+                                                                        <th></th>
+                                                                    </tr>
+                                                                    <tr *ngIf="columnHeaderIndex!=null">
+                                                                        <td [colSpan]="currentFinding.numberOfColumns">
+                                                                            <table class="columnHeaderDefinitions">
+                                                                                <tr>
+                                                                                    <td colspan="2">
+                                                                                        <h5>Column Definitions</h5>
+                                                                                        <br />
+                                                                                        At least one column must be of type Datum.
+                                                                                    </td>
+                                                                                </tr>
+                                                                                <tr>
+                                                                                    <td class="label">
+                                                                                        <label for="columnHeader.columnType">
+                                                                                            Column Type*
+                                                                                        </label>
+                                                                                    </td>
+                                                                                    <td>
+                                                                                        <select (ngModelChange)="changeColumnType($event,true)" name="columnHeader.columnType" [(ngModel)]="columnHeader.columnType">
+                                                                                            <option [selected]="columnHeader.columnType===null" [ngValue]="null">--Select--</option>
+                                                                                            <option [selected]="columnHeader.columnType==='datum'">datum</option>
+                                                                                            <option [selected]="columnHeader.columnType==='condition'">condition</option>
+                                                                                        </select>
+                                                                                    </td>
+                                                                                </tr>
+                                                                                <tr>
+                                                                                    <td class="label">
+                                                                                        <label for="columnHeader.columnName">
+                                                                                            Column Name*
+                                                                                        </label>
+                                                                                    </td>
+                                                                                    <td>
+                                                                                        <select (ngModelChange)="addOtherValue('columnHeader.columnName',columnHeader.columnName);changeColumnName($event,true)" name="columnHeader.columnName" [disabled]="columnHeader.columnType==null" [(ngModel)]="columnHeader.columnName">
+                                                                                            <option [selected]="columnHeader.columnName===null" [ngValue]="null">--Select--</option>
+                                                                                            <option *ngFor="let name of setupData.columnNameOptions" [selected]="columnHeader.columnName==name">
+                                                                                                {{name}}
+                                                                                            </option>
+                                                                                        </select>
+                                                                                        <div *ngIf="columnHeader.columnName ==='other'">
+                                                                                            <canano-other-dropdown (saveOther)="saveOther($event)" [label]="'Name'" [value]="currentDropdownValues['columnHeader.columnName']" [field]="'columnHeader.columnName'" [array]="'setupData.columnNameOptions'">
+
+                                                                                            </canano-other-dropdown>
+                                                                                        </div>
+                                                                                    </td>
+                                                                                </tr>
+                                                                                <tr>
+                                                                                    <td class="label">
+                                                                                        <label for="columnHeader.valueType">
+                                                                                            Column Value Type
+                                                                                        </label>
+                                                                                    </td>
+                                                                                    <td>
+                                                                                        <select (ngModelChange)="addOtherValue('columnHeader.valueType',columnHeader.valueType)" name="columnHeader.valueType" [disabled]="columnHeader.columnType==null || columnHeader.columnName==null" [(ngModel)]="columnHeader.valueType">
+                                                                                            <option [selected]="columnHeader.valueType===null" [ngValue]="null">--Select--</option>
+                                                                                            <option *ngFor="let name of data.datumConditionValueTypeLookup" [selected]="columnHeader.valueType==name">
+                                                                                                {{name}}
+                                                                                            </option>
+                                                                                        </select>
+                                                                                        <div *ngIf="columnHeader.valueType ==='other'">
+                                                                                            <canano-other-dropdown (saveOther)="saveOther($event)" [label]="'Value Type'" [value]="currentDropdownValues['columnHeader.valueType']" [field]="'columnHeader.valueType'" [array]="'data.datumConditionValueTypeLookup'">
+
+                                                                                            </canano-other-dropdown>
+                                                                                        </div>
+                                                                                    </td>
+                                                                                </tr>
+                                                                                <tr>
+                                                                                    <td class="label">
+                                                                                        <label for="columnHeader.valueUnit">
+                                                                                            Column Value Unit
+                                                                                        </label>
+                                                                                    </td>
+                                                                                    <td>
+                                                                                        <select (ngModelChange)="addOtherValue('columnHeader.valueUnit',columnHeader.valueUnit)" name="columnHeader.valueUnit" id="columnHeader.valueUnit" [(ngModel)]="columnHeader.valueUnit">
+                                                                                            <option [selected]="columnHeader.valueUnit==null" [ngValue]="null">--Select--</option>
+                                                                                            <option *ngFor="let type of setupData.valueUnitOptions" [selected]="columnHeader.valueUnit===type" value="{{type}}">
+                                                                                                {{type}}
+                                                                                            </option>
+                                                                                        </select>
+                                                                                        <div *ngIf="columnHeader.valueUnit ==='other'">
+                                                                                            <canano-other-dropdown (saveOther)="saveOther($event)" [label]="'Value Unit'" [value]="currentDropdownValues['columnHeader.valueUnit']" [field]="'columnHeader.valueUnit'" [array]="'setupData.valueUnitOptions'">
+
+                                                                                            </canano-other-dropdown>
+                                                                                        </div>
+
+                                                                                    </td>
+                                                                                </tr>
+                                                                                <tr>
+                                                                                    <td class="label">
+                                                                                        <label for="columnHeader.constantValue">
+                                                                                            Constant Value
+                                                                                        </label>
+                                                                                    </td>
+                                                                                    <td>
+                                                                                        <input type="text" name="columnHeader.constantValue" id="columnHeader.constantValue" [(ngModel)]="columnHeader.constantValue">
+                                                                                    </td>
+                                                                                </tr>
+                                                                                <tr>
+                                                                                    <td>
+                                                                                    </td>
+                                                                                    <td>
+                                                                                        <button (click)="saveColumnForm()" [disabled]="columnHeader.columnType==null||columnHeader.columnName==null" class="btn-canano btn-canano-primary btn-canano-xs mr-1">Save</button>
+                                                                                        <button (click)="cancelColumnForm()" class="btn-canano btn-canano-default btn-canano-xs mr-1">Cancel</button>
+                                                                                    </td>
+                                                                                </tr>
+                                                                            </table>
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr *ngFor="let row of currentFinding.rows;let rIndex=index">
+                                                                        <td *ngFor="let column of row.cells; let cIndex=index">
+
+                                                                            <select [name]="'column.operand'+rIndex+cIndex" [(ngModel)]="column.operand">
+                                                                                <option *ngFor="let modifier of setupData.datumNumberModifier" [selected]="column.operand===modifier" [ngValue]="modifier">{{modifier}}</option>
+                                                                            </select>
+                                                                            <input type="text" [name]="'column.value'+rIndex+cIndex" [(ngModel)]="column.value" size="10">
+                                                                        </td>
+                                                                        <td>
+                                                                            <button (click)="deleteFindingRow(rIndex)" class="btn-canano btn-canano-danger btn-canano-xs mr-1">Delete</button>
+                                                                        </td>
+                                                                    </tr>
+                                                                </table>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="label">
+                                                                Files &nbsp;&nbsp;&nbsp;&nbsp;<button (click)="addFileForm()" class="btn-canano btn-canano-primary btn-canano-xs mr-1">Add</button>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>
+                                                                <table class="dataAndConditions files">
+                                                                    <tr>
+                                                                        <th>File Type</th>
+                                                                        <th>Title and Download Link	</th>
+                                                                        <th>Keywords</th>
+                                                                        <th>Description</th>
+                                                                        <th></th>
+                                                                    </tr>
+                                                                    <tr *ngFor="let file of currentFinding.files; let fileIndex=index">
+                                                                        <td>a</td>
+                                                                        <td>b</td>
+                                                                        <td>c</td>
+                                                                        <td>d</td>
+                                                                        <td>
+                                                                            <button (click)="editFileForm(file,fileIndex)" class="btn-canano btn-canano-primary btn-canano-xs mr-1">Edit</button>
+                                                                        </td>
+                                                                    </tr>
+                                                                </table>
+                                                            </td>
+                                                        </tr>
+                                                        <tr *ngIf="fileIndex!=null">
+                                                            <td>
+                                                                <table>
+                                                                    <tr>
+                                                                        <td>
+                                                                            <input (change)="uploadFile($event.target.files)" type="file" name="currentFile.uploadFile" >
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td class="label">
+                                                                            File Type*
+                                                                        </td>
+                                                                        <td>
+                                                                            <select name="currentFile.type" [(ngModel)]="currentFile.type">
+                                                                                <option>document</option>
+                                                                                <option>graph</option>
+                                                                                <option>image</option>
+                                                                                <option>movie</option>
+                                                                                <option>spread sheet</option>
+                                                                            </select>
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td class="label">
+                                                                            File Title*
+                                                                        </td>
+                                                                        <td>
+                                                                            <input type="text" name="currentFile.title" [(ngModel)]="currentFile.title">
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td class="label">
+                                                                            Keywords
+                                                                        </td>
+                                                                        <td>
+                                                                            <textarea name="currentFile.keywordsStr" rows="3" cols="60" [(ngModel)]="currentFile.keywordStr">
+                                                                                {{currentFile.keywordStr}}
+                                                                            </textarea>
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td class="label">
+                                                                            Description
+                                                                        </td>
+                                                                        <td>
+                                                                            <textarea name="currentFile.description" rows="3" cols="60" [(ngModel)]="currentFile.description">
+                                                                                {{currentFile.description}}
+                                                                            </textarea>
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td>
+                                                                            <button (click)="deleteFile()" class="btn-canano btn-canano-danger btn-canano-xs mr-1">Delete</button>
+                                                                        </td>
+                                                                        <td>
+                                                                            <button (click)="saveFile()" class="btn-canano btn-canano-primary btn-canano-xs mr-1">Save</button>
+                                                                            <button (click)="cancelFile()" class="btn-canano btn-canano-default btn-canano-xs mr-1">Cancel</button>
+
+                                                                        </td>
+                                                                    </tr>
+                                                                </table>
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <button (click)="deleteFinding()" class="btn-canano btn-canano-danger btn-canano-xs mr-1">Delete</button>
+                                                </td>
+                                                <td class="submit">
+                                                    <button (click)="saveFinding()" class="btn-canano btn-canano-primary btn-canano-xs mr-1">Save</button>
+                                                    <button (click)="cancelFinding()" class="btn-canano btn-canano-default btn-canano-xs mr-1">Cancel</button>
+                                                </td>
+                                            </tr>
+                                        </table>
                                     </td>
                                 </tr>
                             </table>
-                            <button class="btn-canano btn-canano-primary btn-canano-xs mr-1">Add</button>
+                            </div>
                         </td>
                     </tr>
                 </table>
