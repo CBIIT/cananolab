@@ -17,7 +17,14 @@
     </tr>
     <tr *ngFor="let file of data[fileArray]">
         <td>{{file.type}}</td>
-        <td>{{file.title}}</td>
+        <td>
+            <a href="" [href]="serverUrl+'/caNanoLab/rest/sample/download?fileId='+file.id" *ngIf="!file.uriExternal">
+                {{file['title']}}
+            </a>
+            <a href="" [href]="file.externalUrl" *ngIf="file.uriExternal">
+                {{file['title']}}
+            </a>
+        </td>
         <td>{{file.keywordsStr}}</td>
         <td>{{file.description}}</td>
         <td>
