@@ -19,6 +19,7 @@ export class ChemicalassociationComponent implements OnInit {
   toolHeadingNameManage = 'Sample Composition';
   data;
   dataTrailer;
+  fileIndex;
   nanomaterialEntityOptions;
   functionalizingEntityOptions;
   composingElementOptionsA;
@@ -113,6 +114,7 @@ setDefaultDataSet() {
         "type":"",
         "bondType":"",
         "description":"",
+        "files":[],
         "associatedElementA":{
             "compositionType":"",
             "entityId":"",
@@ -269,6 +271,15 @@ loadSetupData() {
     err => {
         console.error( 'Error ', err );
     });
+}
+
+changeFile(newItem:Object) {
+    if (newItem['type']=='save'||newItem['type']=='delete') {
+        this.data=newItem['data'];
+        this.dataTrailer = JSON.parse(JSON.stringify(this.data));
+
+
+    }
 }
 
 

@@ -2,6 +2,8 @@
 [toolHeadingName]="toolHeadingNameManage">
 
 </canano-main-display-heading>
+
+
 <div class="sample-edit-div">
     <div class="editSection">
         <form action="" method="get" name="functionalizingEntityForm">
@@ -509,25 +511,9 @@
                         File
                     </td>
                     <td>
-                        <button class="btn-canano btn-canano-primary btn-canano-xs mr-1">Add</button>
-                    </td>
-                </tr>
-                <tr>
-                    <td colspan="2">
-                        <table class="dataMain">
-                            <tr>
-                                <th>File Type</th>
-                                <th>Title and Download Link</th>
-                                <th>Keywords</th>
-                                <th>Description</th>
-                            </tr>
-                            <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                       </table>
+                        <canano-file (changeFile)="changeFile($event)" [saveUrl]="'/caNanoLab/rest/functionalizingEntity/saveFile'" [deleteUrl]="'/caNanoLab/rest/functionalizingEntity/removeFile'" [sampleId]="sampleId"[data]="data" [fileIndex]="fileIndex" [fileVariable]="'fileBean'" [fileArray]="'fileList'">
+
+                        </canano-file>
                     </td>
                 </tr>
             </table>

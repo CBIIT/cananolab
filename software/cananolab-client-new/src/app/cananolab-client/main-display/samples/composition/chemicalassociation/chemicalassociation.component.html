@@ -142,25 +142,9 @@
                         File
                     </td>
                     <td>
-                        <button class="btn-canano btn-canano-primary btn-canano-xs mr-1">Add</button>
-                    </td>
-                </tr>
-                <tr>
-                    <td colspan="2">
-                       <table>
-                           <tr>
-                                <th>File Type</th>
-                                <th>Title and Download Link</th>
-                                <th>Keywords</th>
-                                <th>Description</th>
-                            </tr>
-                            <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                       </table>
+                        <canano-file (changeFile)="changeFile($event)" [saveUrl]="'/caNanoLab/rest/chemicalAssociation/saveFile'" [deleteUrl]="'/caNanoLab/rest/chemicalAssociation/removeFile'" [fileVariable]="'simpleFile'" [sampleId]="sampleId" [data]="data" [fileArray]="'files'">
+
+                        </canano-file>
                     </td>
                 </tr>
             </table>

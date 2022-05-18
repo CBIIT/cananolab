@@ -30,6 +30,7 @@ export class FunctionalizingentityComponent implements OnInit {
     inherentFunctionTrailer;
     data;
     dataTrailer;
+    fileIndex;
     helpUrl =  Consts.HELP_URL_SAMPLE_COMPOSITION;
     otherValue;
     sampleName = Properties.CURRENT_SAMPLE_NAME;
@@ -75,6 +76,10 @@ export class FunctionalizingentityComponent implements OnInit {
                 } );
         }
     );
+}
+
+addFile() {
+    this.fileIndex=-1;
 }
 
 // cancels inherent function //
@@ -261,7 +266,6 @@ getdata(sampleId){
 
     // sets default data set for functionalizing entity for add //
     setDefaultDataSet() {
-        console.log(this.sampleId)
         return {
             "sampleId":this.sampleId,
             "type":"",
@@ -308,5 +312,14 @@ getdata(sampleId){
             console.error( 'Error ', err );
         });
     };
+
+    changeFile(newItem:Object) {
+        console.log(newItem)
+        if (newItem['type']=='save') {
+            this.data=newItem['data'];
+            this.dataTrailer = JSON.parse(JSON.stringify(this.data));
+
+        }
+    }
 
 }
