@@ -6,7 +6,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { timeout } from 'rxjs/operators';
 import { PointOfContactService } from '../../../../point-of-contact/point-of-contact.service';
 import { ApiService } from '../../../../common/services/api.service';
-
+import { NavigationService } from '../../../../common/services/navigation.service';
 @Component( {
     selector: 'canano-sample-edit',
     templateUrl: './sample-edit.component.html',
@@ -22,11 +22,12 @@ export class SampleEditComponent implements OnInit, OnDestroy{
     pointOfContacts;
     showPointOfContactCreate = false;
 
-    constructor( private route: ActivatedRoute, private httpClient: HttpClient,
+    constructor( private navigationService:NavigationService,private route: ActivatedRoute, private httpClient: HttpClient,
                  private pointOfContactService: PointOfContactService, private apiService: ApiService ){
     }
 
     ngOnInit(): void{
+        this.navigationService.setCurrentSelectedItem(0);
         this.route.params.subscribe(
             ( params: Params ) => {
                 this.sampleId = params['sampleId'].replace( /^.*\?sampleId=/, '' );

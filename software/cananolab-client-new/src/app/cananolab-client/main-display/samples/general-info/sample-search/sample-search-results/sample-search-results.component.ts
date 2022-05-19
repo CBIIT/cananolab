@@ -67,6 +67,7 @@ export class SampleSearchResultsComponent implements OnInit, OnDestroy{
 
 
     navigateToSampleEdit( sampleId ){
+        console.log('test')
         this.router.navigate(['home/samples/samplesEdit',sampleId ]);  // @FIXME  Don't hard code these
     }
 

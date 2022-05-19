@@ -5,7 +5,7 @@ import { Consts } from '../../../../../constants';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { timeout } from 'rxjs/operators';
 import { Router } from '@angular/router';
-
+import { NavigationService } from '../../../../common/services/navigation.service';
 @Component({
   selector: 'canano-functionalizingentity',
   templateUrl: './functionalizingentity.component.html',
@@ -42,10 +42,11 @@ export class FunctionalizingentityComponent implements OnInit {
     targetCopy;
     targetIndex;
 
-  constructor( private router: Router, private route: ActivatedRoute,private httpClient: HttpClient ){
+  constructor( private navigationService:NavigationService,private router: Router, private route: ActivatedRoute,private httpClient: HttpClient ){
   }
 
   ngOnInit(): void{
+      this.navigationService.setCurrentSelectedItem(1);
     this.route.params.subscribe(
         ( params: Params ) => {
           this.sampleId = params['sampleId'];

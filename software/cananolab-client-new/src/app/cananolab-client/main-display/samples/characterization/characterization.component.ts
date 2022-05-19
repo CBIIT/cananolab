@@ -4,7 +4,7 @@ import { Properties } from '../../../../../assets/properties';
 import { Consts } from '../../../../constants';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { timeout } from 'rxjs/operators';
-
+import { NavigationService } from '../../../common/services/navigation.service';
 @Component( {
     selector: 'canano-characterization',
     templateUrl: './characterization.component.html',
@@ -25,10 +25,11 @@ export class CharacterizationComponent implements OnInit{
     types = ['physico-chemical characterization', 'in vitro characterization','in vivo characterization','other']
     serverUrl = Properties.API_SERVER_URL;
 
-    constructor( private router: Router, private route: ActivatedRoute,private httpClient: HttpClient ){
+    constructor( private navigationService:NavigationService, private router: Router, private route: ActivatedRoute,private httpClient: HttpClient ){
     }
 
     ngOnInit(): void{
+        this.navigationService.setCurrentSelectedItem(2);
         this.route.params.subscribe(
             ( params: Params ) => {
                 this.sampleId = params['sampleId'].replace( /^.*\?sampleId=/, '' );
@@ -40,6 +41,8 @@ export class CharacterizationComponent implements OnInit{
                 };
                 this.getCharacterizationData().subscribe( data => {
                     this.separateDataSets(data);
+                    Properties.SAMPLE_TOOLS = true;
+
                 },
                 err => {
                     console.error( 'Error ', err );

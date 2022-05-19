@@ -289,15 +289,13 @@ entry['dataId']: {{entry['dataId']}}
 
     <div class="editSection">
         <div id="nanomaterialEntity" class="header">
-            Composition File <button class="btn btn-primary btn-sm">Add</button>
+            Composition File <button (click)="onCompositionFileClick(-1)" class="btn btn-primary btn-sm">Add</button>
         </div>
-        <span *ngFor="let compositionfile of compositionData['compositionfile'] | keyvalue; let index = index">
+        <ng-container *ngFor="let compositionfile of compositionData['compositionfile'] | keyvalue; let index = index">
         <div class="compositionTitle">{{compositionfile.key}}</div>
         <div class="compositionBody" *ngFor="let file of compositionfile.value">
-<!--
-            <div class="editButton"><button class="btn btn-primary btn-sm" (click)="onCompositionFileClick(entry.dataId)">Edit</button></div>
--->
-            <div>
+            <div class="editButton"><button class="btn btn-primary btn-sm" (click)="onCompositionFileClick(file.dataId)">Edit</button></div>
+            <div class="files">
                 <table class="dataMain files">
                     <tr>
                         <td class="label">Title and Download Link</td>
@@ -328,7 +326,7 @@ entry['dataId']: {{entry['dataId']}}
                 </table>
             </div>
         </div>
-        </span>
+    </ng-container>
     </div>
 </div>
 

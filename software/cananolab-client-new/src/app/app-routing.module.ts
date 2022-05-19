@@ -76,6 +76,7 @@ const routes: Routes = [
     { path: 'home/samples/composition/functionalizingentity/:sampleId', component: FunctionalizingentityComponent },
     { path: 'home/samples/composition/nanomaterialentity/:sampleId/:dataId/:sampleName', component: NanomaterialentityComponent },
     { path: 'home/samples/composition/compositionfile/:sampleId/:dataId', component: CompositionfileComponent },
+    { path: 'home/samples/composition/compositionfile/:sampleId', component: CompositionfileComponent },
     { path: 'home/samples/composition/chemicalassociation/:sampleId/:dataId', component: ChemicalassociationComponent },
     { path: 'home/samples/composition/chemicalassociation/:sampleId', component: ChemicalassociationComponent },
     { path: 'home/samples/publications/:sampleId', component: SamplePublicationsComponent },

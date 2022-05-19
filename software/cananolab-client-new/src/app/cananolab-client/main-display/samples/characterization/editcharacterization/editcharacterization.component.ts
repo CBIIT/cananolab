@@ -3,6 +3,7 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Properties } from '../../../../../../assets/properties';
 import { Consts } from '../../../../../constants';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { NavigationService } from '../../../../common/services/navigation.service';
 
 @Component({
   selector: 'canano-editcharacterization',
@@ -42,10 +43,11 @@ export class EditcharacterizationComponent implements OnInit {
     fileName;
     type;
 
-    constructor( private router: Router, private route: ActivatedRoute,private httpClient: HttpClient ){
+    constructor( private navigationService:NavigationService,private router: Router, private route: ActivatedRoute,private httpClient: HttpClient ){
     }
 
   ngOnInit(): void {
+    this.navigationService.setCurrentSelectedItem(2);
     this.currentDropdownValues = {};
         this.route.params.subscribe(
             ( params: Params ) => {
@@ -53,6 +55,7 @@ export class EditcharacterizationComponent implements OnInit {
                 this.charId = params['charId'];
                 this.type = params['type'];
                 this.charClassName = params['charClassName'];
+
                 if(
                     this.sampleId <= 0 ){
                     this.sampleId = Properties.CURRENT_SAMPLE_ID;
@@ -63,6 +66,8 @@ export class EditcharacterizationComponent implements OnInit {
                     let url = this.httpClient.get(Properties.API_SERVER_URL + '/caNanoLab/rest/characterization/setupAdd?sampleId='+this.sampleId+'&charType='+this.type);
                     url.subscribe(
                         data=>{
+                            Properties.SAMPLE_TOOLS = true;
+
                             this.data = data;
                             this.data.name='';
                             this.data.assayType='';
@@ -82,6 +87,8 @@ export class EditcharacterizationComponent implements OnInit {
                     let url = this.httpClient.get(Properties.API_SERVER_URL + '/caNanoLab/rest/characterization/setupUpdate?sampleId='+this.sampleId+'&charType='+this.type + '&charId='+this.charId+'&charClassName='+this.charClassName);
                     url.subscribe(
                         data=>{
+                            Properties.SAMPLE_TOOLS = true;
+
                             this.data = data;
                             this.propertiesLoaded=true;
                             this.setCharacterizationData();

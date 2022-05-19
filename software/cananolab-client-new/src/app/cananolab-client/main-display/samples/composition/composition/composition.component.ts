@@ -5,7 +5,7 @@ import { Consts } from '../../../../../constants';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { timeout } from 'rxjs/operators';
 import { Router } from '@angular/router';
-
+import { NavigationService } from '../../../../common/services/navigation.service';
 @Component( {
     selector: 'canano-composition',
     templateUrl: './composition.component.html',
@@ -18,10 +18,11 @@ export class CompositionComponent implements OnInit{
     toolHeadingNameManage = 'Sample Composition';
     compositionData;
 
-    constructor( private router: Router, private route: ActivatedRoute,private httpClient: HttpClient ){
+    constructor( private navigationService:NavigationService,private router: Router, private route: ActivatedRoute,private httpClient: HttpClient ){
     }
 
     ngOnInit(): void{
+        this.navigationService.setCurrentSelectedItem(1);
         this.route.params.subscribe(
             ( params: Params ) => {
                 this.sampleId = params['sampleId'].replace( /^.*\?sampleId=/, '' );
@@ -87,13 +88,19 @@ export class CompositionComponent implements OnInit{
             this.router.navigate( ['home/samples/composition/functionalizingentity', Properties.CURRENT_SAMPLE_ID, dataId] );  // @FIXME  Don't hard code these
         }
     }
+
     onNanomaterialEntityClick(dataId){
         console.log('MHL onNanomaterialEntityClick: ', dataId);
         console.log('MHL onNanomaterialEntityClick this.sampleName: ', this.sampleName);
         this.router.navigate( ['home/samples/composition/nanomaterialentity', Properties.CURRENT_SAMPLE_ID, dataId, this.sampleName] );  // @FIXME  Don't hard code these
     }
     onCompositionFileClick(dataId){
-        this.router.navigate( ['home/samples/composition/compositionfile', Properties.CURRENT_SAMPLE_ID, dataId] );  // @FIXME  Don't hard code these
+        if (dataId==-1){
+            this.router.navigate( ['home/samples/composition/compositionfile', Properties.CURRENT_SAMPLE_ID] );  // @FIXME  Don't hard code these
+        }
+        else {
+            this.router.navigate( ['home/samples/composition/compositionfile', Properties.CURRENT_SAMPLE_ID, dataId] );  // @FIXME  Don't hard code these
+        }
     }
 
 
