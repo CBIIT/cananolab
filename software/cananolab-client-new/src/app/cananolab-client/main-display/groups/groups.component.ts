@@ -84,6 +84,9 @@ export class GroupsComponent implements OnInit {
         },100);
         let url=this.httpClient.get(Properties.API_SERVER_URL+'/caNanoLab/rest/community/editCollaborationGroup?groupId='+group.id);
         url.subscribe(data=> {
+            setTimeout(function() {
+                document.getElementById('collaborationForm').scrollIntoView();
+            },100);
             this.collaborationGroup=data;
             console.log(data)
             this.collaborationGroupTrailer=JSON.parse(JSON.stringify(data));
