@@ -53,7 +53,10 @@ export class MyFavoritesComponent implements OnInit{
         console.log( 'MHL favToDelete: ', favToDelete );
         this.apiService.doPost( Consts.QUERY_DELETE_FAVORITE, favToDelete ).subscribe(
             data => {
-                console.log( 'MHL deleteSampleFromFavorites: ', data );
+                this.favSamples = <any>data['samples'];
+                this.favProtocols = <any>data['protocols'];
+                this.favPublications = <any>data['publications'];
+
             },
             err => {
                 console.log( 'MHL ERROR deleteSampleFromFavorites: ', err );
