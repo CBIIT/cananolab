@@ -42,11 +42,33 @@ export class MyFavoritesComponent implements OnInit{
     }
 
     deleteProtocolFromFavorites( favToDelete ){
-        this.deleteSampleFromFavorites( favToDelete );
+        this.apiService.doPost( Consts.QUERY_DELETE_FAVORITE, favToDelete ).subscribe(
+            data => {
+                this.favSamples = <any>data['samples'];
+                this.favProtocols = <any>data['protocols'];
+                this.favPublications = <any>data['publications'];
+
+            },
+            err => {
+                console.log( 'MHL ERROR deleteSampleFromFavorites: ', err );
+
+            }
+        );
     }
 
     deletePublicationFromFavorites( favToDelete ){
-        this.deleteSampleFromFavorites( favToDelete );
+        this.apiService.doPost( Consts.QUERY_DELETE_FAVORITE, favToDelete ).subscribe(
+            data => {
+                this.favSamples = <any>data['samples'];
+                this.favProtocols = <any>data['protocols'];
+                this.favPublications = <any>data['publications'];
+
+            },
+            err => {
+                console.log( 'MHL ERROR deleteSampleFromFavorites: ', err );
+
+            }
+        );
     }
 
     deleteSampleFromFavorites( favToDelete ){
