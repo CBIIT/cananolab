@@ -26,3 +26,16 @@
 .buttons .buttons{
     text-align:right;
 }
+
+
+.editSection table.dataMain td.label{
+    font-weight:bold;
+    width:200px !important;
+    vertical-align:top;
+}
+
+.editSection table.antibodyProperties td.label{
+    font-weight:bold;
+    width:100px !important;
+    vertical-align:top;
+}

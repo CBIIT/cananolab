@@ -1,1 +1,198 @@
-<p>groups works!</p>
+<canano-main-display-heading [helpUrl]="helpUrl"
+[toolHeadingName]="toolHeadingNameManage">
+
+</canano-main-display-heading>
+
+<div class="sample-edit-div">
+    <div class="editSection">
+        <form action="" method="get" name="functionalizingEntityForm">
+        <div class="editBorder">
+            <table class="dataMain">
+                <tr>
+                    <td>
+                        <h5>Existing Collaboration Groups</h5>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <table class="display">
+                            <tr>
+                                <th>Name</th>
+                                <th>Description</th>
+                                <th>Owner</th>
+                                <th>Users</th>
+                                <th></th>
+                            </tr>
+                            <ng-container *ngFor="let group of data; let groupIndex=index">
+                                <tr>
+                                    <td>
+                                        <button *ngIf="!group['expand']" (click)="expand(group,groupIndex,true)" class="btn-canano btn-canano-primary btn-canano-xs mr-1">+</button>
+                                        <button *ngIf="group['expand']" (click)="expand(group,groupIndex,false)" class="btn-canano btn-canano-primary btn-canano-xs mr-1">-</button>
+                                        {{group.name}}
+                                    </td>
+                                    <td>{{group.description}}</td>
+                                    <td>{{group.ownerName}}</td>
+                                    <td>
+                                        <ul>
+                                            <li *ngFor="let user of group.userAccesses; let userIndex=index">
+                                                {{user.recipientDisplayName}}
+                                            </li>
+                                        </ul>
+                                    </td>
+                                    <td>
+                                        <button (click)="editCollaborationGroup(group)" class="btn-canano btn-canano-primary btn-canano-xs mr-1">Edit</button>
+                                    </td>
+                                </tr>
+                                <tr *ngIf="group['expand']">
+                                    <td colspan="5">
+                                        <table class="display">
+                                            <tr>
+                                                <th>Sample Name</th>
+                                                <th>Primary Point of Contact</th>
+                                                <th>Composition</th>
+                                                <th>Functions</th>
+                                                <th>Characterizations</th>
+                                                <th>Data Availability</th>
+                                                <th>Created Date</th>
+                                            </tr>
+                                            <tr *ngFor="let sample of sampleData[group.id]">
+                                                <td>{{sample.sampleName}}</td>
+                                                <td>{{sample.pointOfContact}}</td>
+                                                <td>
+                                                    <ul>
+                                                        <li *ngFor="let composition of sample.composition">
+                                                            {{composition}}
+                                                        </li>
+                                                    </ul>
+                                                </td>
+                                                <td>
+                                                    <ul>
+                                                        <li *ngFor="let function of sample.functions">
+                                                            {{function}}
+                                                        </li>
+                                                    </ul>
+                                                </td>
+                                                <td>
+                                                    <ul>
+                                                        <li *ngFor="let characterization of sample.characterizations">
+                                                            {{characterization}}
+                                                        </li>
+                                                    </ul>
+                                                </td>
+                                                <td>{{sample.dataAvailability}}</td>
+                                                <td>{{sample.createdDate}}</td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </ng-container>
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td><br />
+                        <h5>New Collaboration Group&nbsp;&nbsp;&nbsp;<button (click)="addCollaborationGroup()" class="btn-canano btn-canano-primary btn-canano-xs mr-1">Add</button></h5>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <ng-container *ngIf="collaborationIndex!=null&&collaborationGroup">
+            <br />
+            <div class="editBorder">
+                <table class="dataMain" id="collaborationForm">
+                    <tr>
+                        <td class="label">
+                            <label for="name">
+                                Name*
+                            </label>
+                        </td>
+                        <td>
+                            <input type="text" name="name" [(ngModel)]="collaborationGroup.name">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="label">
+                            <label for="description">
+                                Description
+                            </label>
+                        </td>
+                        <td>
+                            <textarea name="description" rows="5" cols="75" [(ngModel)]="collaborationGroup.description">
+                                {{collaborationGroup.description}}
+                            </textarea>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="label">
+                            <label for="user">
+                                User
+                            </label>
+                        </td>
+                        <td>
+                            <button (click)="addUser()" class="btn-canano btn-canano-primary btn-canano-xs mr-1">Add</button><br /><br />
+                            <table id="user" class="display" *ngIf="collaborationGroup.userAccesses.length" >
+                                <tr>
+                                    <th>
+                                        Login Name
+                                    </th>
+                                    <th></th>
+                                </tr>
+                                <tr *ngFor="let user of collaborationGroup.userAccesses;let userIndex=index">
+                                    <td>
+                                        {{user.recipient}}
+                                    </td>
+                                    <td>
+                                        <button (click)="deleteUser(user,userIndex)" class="btn-canano btn-canano-danger btn-canano-xs mr-1">Delete</button>
+                                    </td>
+                                </tr>
+                            </table>
+                            <ng-container *ngIf="userFormIndex!=null">
+                                <br />
+                                <div class="editBorder">
+                                    <table>
+                                        <tr>
+                                            <td class="label">
+                                                <label for="userInfoBean['recipient']">
+                                                    User Login Name*
+                                                </label>
+                                            </td>
+                                            <td>
+                                                <input type="text" name="recipient" [(ngModel)]="userInfoBean.recipient">
+                                                &nbsp;<button (click)="searchForUser()" class="btn-canano btn-canano-primary btn-canano-xs mr-1">Search for User</button>
+                                            </td>
+                                            <td *ngIf="users">
+                                                <select name="users" [(ngModel)]="userInfoBean.recipient">
+                                                    <option [selected]="userInfoBean['recipient']==''" [ngValue]="''">--Select--</option>
+                                                    <option *ngFor="let user of users | keyvalue" [ngValue]="user.key">
+                                                        {{user.value}}
+                                                    </option>
+                                                </select>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="2" class="buttons">
+                                                <button (click)="saveUser()" [disabled]="userInfoBean.recipient==''" class="btn-canano btn-canano-primary btn-canano-xs mr-1">Save</button>
+                                                <button (click)="cancelUser()" class="btn-canano btn-canano-default btn-canano-xs mr-1">Cancel</button>
+                                            </td>
+                                            <td></td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </ng-container>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <button (click)="deleteCollaborationGroup()" *ngIf="collaborationIndex!=-1" class="btn-canano btn-canano-danger btn-canano-xs mr-1">Delete</button>
+                        </td>
+                        <td>
+                            <button (click)="saveCollaborationGroup()" [disabled]="collaborationGroup.name==''" class="btn-canano btn-canano-primary btn-canano-xs mr-1">Save</button>
+                            <button (click)="cancelCollaborationGroup()" class="btn-canano btn-canano-default btn-canano-xs mr-1">Cancel</button>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </ng-container>
+        </form>
+    </div>
+</div>

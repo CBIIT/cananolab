@@ -1,15 +1,167 @@
 import { Component, OnInit } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Properties } from '../../../../assets/properties';
+import { UrlResolver } from '@angular/compiler';
 
 @Component({
   selector: 'canano-groups',
   templateUrl: './groups.component.html',
-  styleUrls: ['./groups.component.scss']
+  styleUrls: ['../../../btn-bravo-canano.scss','./groups.component.scss']
 })
 export class GroupsComponent implements OnInit {
+    helpUrl='javascript:openHelpWindow('+'https://wiki.nci.nih.gov/display/caNanoLab/Managing+Collaboration+Groups' + ')';
+    toolHeadingNameManage='Manage Collaboration Groups';
+    data;
+    sampleData;
+    collaborationGroup;
+    collaborationGroupTrailer;
+    collaborationIndex;
+    userFormIndex;
+    userInfoBean;
+    users;
 
-  constructor() { }
+    constructor(private httpClient:HttpClient) { }
 
-  ngOnInit(): void {
-  }
+    ngOnInit(): void {
+        this.sampleData={};
+        let url = this.httpClient.get(Properties.API_SERVER_URL+'/caNanoLab/rest/community/getCollaborationGroups');
+        url.subscribe(data=> {
+            this.data=data;
+        },
+        error=> {
+            console.log('erorr')
+        })
+    }
+
+    addCollaborationGroup() {
+        this.collaborationIndex=-1;
+        this.collaborationGroup={
+            "userAccesses":[]
+        }
+        let url = this.httpClient.get(Properties.API_SERVER_URL+'/caNanoLab/rest/community/setupNew');
+        url.subscribe(data=> {
+        },
+        error=> {
+
+        })
+        setTimeout(function() {
+            document.getElementById('collaborationForm').scrollIntoView();
+        },100);
+    }
+
+    addUser() {
+        this.userFormIndex=-1;
+        this.users=null;
+        this.userInfoBean={
+            "recipient":""
+        };
+    }
+
+    cancelCollaborationGroup() {
+        this.collaborationIndex=null;
+    }
+
+    cancelUser() {
+        this.userFormIndex=null;
+    }
+
+    deleteCollaborationGroup() {
+        if (confirm("Are you sure you wish to delete this collaboration group?")) {
+            let url = this.httpClient.post(Properties.API_SERVER_URL+'/caNanoLab/rest/community/deleteCollaborationGroups',this.collaborationGroup);
+            url.subscribe(data=>{
+                this.data=data;
+            },
+            error=> {
+
+            })
+        }
+    };
+
+    editCollaborationGroup(group) {
+        this.collaborationIndex=group.id;
+        setTimeout(function() {
+            document.getElementById('collaborationForm').scrollIntoView();
+        },100);
+        let url=this.httpClient.get(Properties.API_SERVER_URL+'/caNanoLab/rest/community/editCollaborationGroup?groupId='+group.id);
+        url.subscribe(data=> {
+            this.collaborationGroup=data;
+            console.log(data)
+            this.collaborationGroupTrailer=JSON.parse(JSON.stringify(data));
+        })
+    }
+
+    deleteUser(user,index) {
+        if (confirm("Are you sure you wish to delete this user?")) {
+            this.userInfoBean=user;
+            let url = this.httpClient.post(Properties.API_SERVER_URL+'/caNanoLab/rest/community/deleteUserAccess',this.userInfoBean);
+            url.subscribe(data=> {
+                this.collaborationGroup=data;
+            },
+            error=> {
+
+            })
+        };
+    };
+
+    expand(group,index,expand) {
+        if (expand) {
+            let url = this.httpClient.get(Properties.API_SERVER_URL+'/caNanoLab/rest/community/getsamples?groupId='+group.id);
+            url.subscribe(data=> {
+                this.sampleData[group.id]=data;
+            },
+            error=> {
+
+            })
+            group['expand']=true;
+        }
+        else {
+            console.log('')
+            group['expand']=false;
+        }
+        console.log(group.expand)
+    }
+
+    saveCollaborationGroup() {
+        let url = this.httpClient.post(Properties.API_SERVER_URL+'/caNanoLab/rest/community/addCollaborationGroups',this.collaborationGroup);
+        url.subscribe(data=> {
+            this.data=data;
+            this.collaborationIndex=null;
+        },
+        error=> {
+
+        })
+    }
+
+    saveUser() {
+        let userAccess={
+            "accessType":"user",
+            "recipient":this.userInfoBean.recipient,
+            "recipientDisplayName":"",
+            "roleDisplayName":"READ",
+            "roleName":"R"
+        }
+        let url = this.httpClient.post(Properties.API_SERVER_URL+'/caNanoLab/rest/community/addUserAccess',userAccess);
+        url.subscribe(data=>{
+            this.collaborationGroup.userAccesses=data['userAccesses'];
+
+            this.userFormIndex=null;
+        },
+        error=>{
+
+        })
+    }
+
+    searchForUser() {
+        if (!this.userInfoBean['recipient']) {
+            this.userInfoBean['recipient']='';
+        };
+        let url=this.httpClient.get(Properties.API_SERVER_URL+'/caNanoLab/rest/core/getUsers?searchStr='+this.userInfoBean['recipient']+'&dataOwner=');
+        url.subscribe(data=>{
+            this.users=data;
+        },
+        error=> {
+
+        })
+    }
 
 }
