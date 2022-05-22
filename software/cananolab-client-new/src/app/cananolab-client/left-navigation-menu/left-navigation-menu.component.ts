@@ -10,7 +10,7 @@ import { UtilService } from '../common/services/util.service';
 import { Properties } from '../../../assets/properties';
 import { ActivatedRoute } from '@angular/router';
 import { NavigationService } from '../common/services/navigation.service';
-
+import { Params } from '@angular/router';
 @Component( {
     selector: 'canano-left-navigation-menu',
     templateUrl: './left-navigation-menu.component.html',
@@ -19,12 +19,15 @@ import { NavigationService } from '../common/services/navigation.service';
 export class LeftNavigationMenuComponent implements OnInit{
     topHeading = 'Navigation Tree';
     currentSelectedItem = 0;
+    sampleId;
 
     constructor( private navigationService: NavigationService,private route:ActivatedRoute,private router: Router, private utilService: UtilService ){
     }
 
     ngOnInit(): void{
-        this.currentSelectedItem=this.navigationService.getCurrentSelectedItem()
+
+        this.currentSelectedItem=this.navigationService.getCurrentSelectedItem();
+        console.log(this.currentSelectedItem)
     }
 
     onCharacterizationClick(){

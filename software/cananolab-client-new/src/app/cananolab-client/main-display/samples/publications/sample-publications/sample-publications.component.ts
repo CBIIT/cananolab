@@ -8,6 +8,9 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import { Properties } from '../../../../../../assets/properties';
 import { Consts } from '../../../../../constants';
+import { NavigationService } from '../../../../common/services/navigation.service';
+import { HttpClient } from '@angular/common/http';
+import { Router } from '@angular/router';
 
 @Component( {
     selector: 'canano-sample-publications',
@@ -19,11 +22,71 @@ export class SamplePublicationsComponent implements OnInit{
     sampleName = Properties.CURRENT_SAMPLE_NAME;
     helpUrl = Consts.HELP_URL_SAMPLE_PUBLICATIONS;
     toolHeadingNameManage = 'Sample ' + this.sampleName + ' Publication';
-    constructor( private route: ActivatedRoute ){
+    propertiesLoaded;
+    data;
+    publicationData;
+
+    constructor( private router:Router,private httpClient:HttpClient,private navigationService:NavigationService,private route: ActivatedRoute ){
     }
 
     ngOnInit(): void{
+        this.publicationData={};
+        this.navigationService.setCurrentSelectedItem(3);
+        this.route.params.subscribe(
+            ( params: Params ) => {
+                console.log('ere')
+                this.sampleId=params['sampleId']
+                if(
+                    this.sampleId <= 0 ){
+                    this.sampleId = Properties.CURRENT_SAMPLE_ID;
+                }else{
+                    Properties.CURRENT_SAMPLE_ID = this.sampleId;
+                };
+                let url = this.httpClient.get(Properties.API_SERVER_URL+'/caNanoLab/rest/publication/summaryView?sampleId='+this.sampleId)
+                url.subscribe(data=> {
+                    console.log(data)
+                    this.data=data;
+                    this.propertiesLoaded=true;
+                    Properties.SAMPLE_TOOLS = true;
+                    this.separateDataSets(data);
 
+                },
+                error=>{
+
+                })
+            })
+
+
+    }
+
+    editPublication(type) {
+        this.router.navigate(['/home/samples/publications/editPublication',this.sampleId,type]);
+    }
+
+    separateDataSets(data) {
+        let defaultCategories = ['book chapter','editorial','peer review article','proceeding','report','review'];
+        defaultCategories.forEach(item=> {
+            this.publicationData[item]=[];
+        });
+
+        let keys = Object.keys(data.category2Publications);
+        keys.forEach(category=> {
+            if (!this.publicationData[category]){
+                this.publicationData[category]=[];
+            }
+
+            let currentArray=data.category2Publications[category];
+            if (currentArray.length) {
+                currentArray.forEach(item=> {
+                    this.publicationData[category].push(item);
+                })
+            }
+        })
+
+    }
+
+    splitKeywords(keywords) {
+        return keywords.split('\n')
     }
 
 }

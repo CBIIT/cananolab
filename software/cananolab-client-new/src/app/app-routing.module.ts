@@ -37,7 +37,7 @@ import { ChemicalassociationComponent } from './cananolab-client/main-display/sa
 import { SamplePublicationsComponent } from './cananolab-client/main-display/samples/publications/sample-publications/sample-publications.component';
 import { SampleAdvancedSearchResultsComponent } from './cananolab-client/main-display/samples/general-info/sample-search/sample-advanced-search-results/sample-advanced-search-results.component';
 import { ProtocolViewComponent } from './cananolab-client/main-display/protocols/protocol-view/protocol-view.component';
-
+import { EditpublicationComponent } from './cananolab-client/main-display/samples/publications/editpublication/editpublication.component';
 const routes: Routes = [
     { path: '', component: HomeComponent },
     { path: 'home', component: HomeComponent },
@@ -80,6 +80,7 @@ const routes: Routes = [
     { path: 'home/samples/composition/chemicalassociation/:sampleId/:dataId', component: ChemicalassociationComponent },
     { path: 'home/samples/composition/chemicalassociation/:sampleId', component: ChemicalassociationComponent },
     { path: 'home/samples/publications/:sampleId', component: SamplePublicationsComponent },
+    { path: 'home/samples/publications/editPublication/:sampleId/:type', component: EditpublicationComponent },
 
     { path: 'home/curation', component: CurationComponent },
     { path: 'home/groups', component: GroupsComponent },

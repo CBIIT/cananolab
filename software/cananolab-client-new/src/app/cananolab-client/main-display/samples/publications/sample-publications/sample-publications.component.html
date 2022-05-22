@@ -3,5 +3,58 @@
     [toolHeadingName]="toolHeadingNameManage"
 >
 </canano-main-display-heading>
-<h4>sampleId: {{sampleId}}</h4>
-<h4>sampleName: {{sampleName}}</h4>
+
+<div class="sample-edit-div" *ngIf="data">
+    <div class="editSection" *ngFor="let publicationCategory of publicationData | keyvalue">
+        <div class="header">
+            {{publicationCategory.key}} <button (click)="editPublication(publicationCategory.key)" class="btn btn-primary btn-sm">Add</button>
+        </div>
+        <ng-container *ngFor="let publication of publicationData[publicationCategory.key]; let publicationIndex=index">
+            <div class="publication">
+                <table class="publication">
+                    <tr>
+                        <td class="label">
+                            Bibliography Info
+                        </td>
+                        <td [innerHTML]="publication.displayName">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="label">
+                            Description
+                        </td>
+                        <td>
+                            {{publication.description}}
+                        </td>
+                    </tr>
+                    <tr *ngIf="publication.keywordsStr!=''">
+                        <td class="label">
+                            Keywords
+                        </td>
+                        <td>
+                            <ul>
+                                <li *ngFor="let keyword of splitKeywords(publication.keywordsStr)">
+                                    {{keyword}}
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="label">
+                            Publication Status
+                        </td>
+                        <td>
+                            {{publication.status}}
+                        </td>
+                    </tr>
+                    <tr *ngIf="publicationIndex+1<publicationData[publicationCategory.key].length">
+                        <td colspan="2">
+                            <hr>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+
+        </ng-container>
+    </div>
+</div>
