@@ -11,7 +11,7 @@ import { Consts } from '../../../../../constants';
 import { NavigationService } from '../../../../common/services/navigation.service';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
-
+import { ApiService } from '../../../../common/services/api.service';
 @Component( {
     selector: 'canano-sample-publications',
     templateUrl: './sample-publications.component.html',
@@ -21,12 +21,12 @@ export class SamplePublicationsComponent implements OnInit{
     sampleId = Properties.CURRENT_SAMPLE_ID;
     sampleName = Properties.CURRENT_SAMPLE_NAME;
     helpUrl = Consts.HELP_URL_SAMPLE_PUBLICATIONS;
-    toolHeadingNameManage = 'Sample ' + this.sampleName + ' Publication';
     propertiesLoaded;
     data;
     publicationData;
+    toolHeadingNameManage;
 
-    constructor( private router:Router,private httpClient:HttpClient,private navigationService:NavigationService,private route: ActivatedRoute ){
+    constructor( private apiService:ApiService,private router:Router,private httpClient:HttpClient,private navigationService:NavigationService,private route: ActivatedRoute ){
     }
 
     ngOnInit(): void{
@@ -34,8 +34,11 @@ export class SamplePublicationsComponent implements OnInit{
         this.navigationService.setCurrentSelectedItem(3);
         this.route.params.subscribe(
             ( params: Params ) => {
-                console.log('ere')
-                this.sampleId=params['sampleId']
+                this.sampleId=params['sampleId'];
+                this.apiService.getSampleName(this.sampleId).subscribe(
+                    data=>this.toolHeadingNameManage='Sample ' +data['sampleName'] + ' Publication'
+                )
+
                 if(
                     this.sampleId <= 0 ){
                     this.sampleId = Properties.CURRENT_SAMPLE_ID;

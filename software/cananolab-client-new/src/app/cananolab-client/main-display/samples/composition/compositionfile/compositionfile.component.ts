@@ -6,6 +6,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { timeout } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { NavigationService } from '../../../../common/services/navigation.service';
+import { ApiService } from '../../../../common/services/api.service';
 @Component({
   selector: 'canano-compositionfile',
   templateUrl: './compositionfile.component.html',
@@ -23,7 +24,7 @@ export class CompositionfileComponent implements OnInit {
     toolHeadingNameManage = 'Sample ' + this.sampleName + ' Composition File';
     serverUrl = Properties.API_SERVER_URL;
 
-  constructor( private navigationService:NavigationService,private router: Router, private route: ActivatedRoute,private httpClient: HttpClient ){
+  constructor( private apiService:ApiService,private navigationService:NavigationService,private router: Router, private route: ActivatedRoute,private httpClient: HttpClient ){
   }
 
     ngOnInit(): void{
@@ -38,6 +39,9 @@ export class CompositionfileComponent implements OnInit {
                 }else{
                     Properties.CURRENT_SAMPLE_ID = this.sampleId;
                 };
+                this.apiService.getSampleName(this.sampleId).subscribe(
+                    data=>this.toolHeadingNameManage='Sample ' +data['sampleName'] + ' Composition File'
+                )
                 let url = this.httpClient.get(Properties.API_SERVER_URL+'/caNanoLab/rest/compositionFile/setup?sampleId='+this.sampleId);
                 url.subscribe(data=> {
                     Properties.SAMPLE_TOOLS=true;

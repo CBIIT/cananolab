@@ -7,7 +7,7 @@
         <div id="nanomaterialEntity" class="header">
             Nanomaterial Entity <button class="btn btn-primary btn-sm">Add</button>
         </div>
-        <span *ngFor="let nanomaterial of compositionData['nanomaterialentity'] | keyvalue; let index = index">
+        <span *ngFor="let nanomaterial of data['nanomaterialentity'] | keyvalue; let index = index">
         <div class="compositionTitle">{{nanomaterial.key}}</div>
         <div class="compositionBody" *ngFor="let entry of nanomaterial.value">
 entry['dataId']: {{entry['dataId']}}
@@ -136,7 +136,7 @@ entry['dataId']: {{entry['dataId']}}
         <div id="nanomaterialEntity" class="header">
             Functionalizing Entity <button class="btn btn-primary btn-sm" (click)="onFunctionalizingEntityClick(-1)">Add</button>
         </div>
-        <span *ngFor="let functionalizingentity of compositionData['functionalizingentity'] | keyvalue; let index = index">
+        <span *ngFor="let functionalizingentity of data['functionalizingentity'] | keyvalue; let index = index">
 
         <div class="compositionTitle">{{functionalizingentity.key}}</div>
         <div class="compositionBody" *ngFor="let entry of functionalizingentity.value">
@@ -249,7 +249,7 @@ entry['dataId']: {{entry['dataId']}}
         <div id="nanomaterialEntity" class="header">
             Chemical Association<button (click)="onChemicalAssociationClick(-1)" class="btn btn-primary btn-sm">Add</button>
         </div>
-        <span *ngFor="let chemicalassociation of compositionData['chemicalassociation'] | keyvalue; let index = index">
+        <span *ngFor="let chemicalassociation of data['chemicalassociation'] | keyvalue; let index = index">
         <div class="compositionTitle">{{chemicalassociation.key}}</div>
         <div class="compositionBody" *ngFor="let entry of chemicalassociation.value">
             <div class="editButton"><button class="btn btn-primary btn-sm" (click)="onChemicalAssociationClick(entry.dataId)">Edit</button></div>
@@ -291,10 +291,10 @@ entry['dataId']: {{entry['dataId']}}
         <div id="nanomaterialEntity" class="header">
             Composition File <button (click)="onCompositionFileClick(-1)" class="btn btn-primary btn-sm">Add</button>
         </div>
-        <ng-container *ngFor="let compositionfile of compositionData['compositionfile'] | keyvalue; let index = index">
+        <ng-container *ngFor="let compositionfile of data['compositionfile'] | keyvalue; let index = index">
         <div class="compositionTitle">{{compositionfile.key}}</div>
         <div class="compositionBody" *ngFor="let file of compositionfile.value">
-            <div class="editButton"><button class="btn btn-primary btn-sm" (click)="onCompositionFileClick(file.dataId)">Edit</button></div>
+                <div class="editButton"><button class="btn btn-primary btn-sm" (click)="onCompositionFileClick(file.dataId)">Edit</button></div>
             <div class="files">
                 <table class="dataMain files">
                     <tr>

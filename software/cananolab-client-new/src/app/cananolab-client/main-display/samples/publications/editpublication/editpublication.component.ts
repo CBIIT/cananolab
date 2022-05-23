@@ -7,6 +7,7 @@ import { Consts } from '../../../../../constants';
 import { NavigationService } from '../../../../common/services/navigation.service';
 import { url } from 'inspector';
 import { i18nMetaToJSDoc } from '@angular/compiler/src/render3/view/i18n/meta';
+import { ApiService } from '../../../../common/services/api.service';
 @Component({
   selector: 'canano-editpublication',
   templateUrl: './editpublication.component.html',
@@ -37,7 +38,7 @@ export class EditpublicationComponent implements OnInit {
     theFile;
     type;
 
-  constructor(private navigationService:NavigationService,private httpClient:HttpClient,private route:ActivatedRoute,private router:Router) { }
+  constructor(private apiService:ApiService,private navigationService:NavigationService,private httpClient:HttpClient,private route:ActivatedRoute,private router:Router) { }
 
   ngOnInit(): void {
     this.navigationService.setCurrentSelectedItem(3);
@@ -56,20 +57,23 @@ export class EditpublicationComponent implements OnInit {
             this.sampleId=params['sampleId'];
             this.type=params['type'];
             this.publicationId=params['publicationId'];
+            if (this.sampleId) {
+                this.apiService.getSampleName(this.sampleId).subscribe(data=>this.sampleName=data['sampleName'])
 
-            console.log(this.sampleId,this.type,this.publicationId)
+            }
 
             if(
                 this.sampleId <= 0 ){
                 this.sampleId = Properties.CURRENT_SAMPLE_ID;
             }else{
                 Properties.CURRENT_SAMPLE_ID = this.sampleId;
+                console.log('should be here')
             };
+
             this.type=params['type'];
             let url=this.httpClient.get(Properties.API_SERVER_URL+'/caNanoLab/rest/publication/setup');
             url.subscribe(data=> {
                 if (this.sampleId) { Properties.SAMPLE_TOOLS = true; }
-
                 this.setupData=data;
                 this.setupData['otherSampleNames']=[];
             },
@@ -95,6 +99,7 @@ export class EditpublicationComponent implements OnInit {
                     })
                 }
                 else {
+                    this.toolHeadingNameManage='Create Publication';
                     this.setupNewPublication();
                 }
 

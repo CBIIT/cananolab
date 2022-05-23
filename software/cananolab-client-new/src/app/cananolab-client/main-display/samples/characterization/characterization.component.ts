@@ -5,6 +5,8 @@ import { Consts } from '../../../../constants';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { timeout } from 'rxjs/operators';
 import { NavigationService } from '../../../common/services/navigation.service';
+import { ApiService } from '../../../common/services/api.service';
+
 @Component( {
     selector: 'canano-characterization',
     templateUrl: './characterization.component.html',
@@ -12,9 +14,9 @@ import { NavigationService } from '../../../common/services/navigation.service';
 } )
 export class CharacterizationComponent implements OnInit{
     sampleId = Properties.CURRENT_SAMPLE_ID;
-    sampleName = Properties.CURRENT_SAMPLE_NAME;
+    sampleName;
+    toolHeadingNameManage;
     helpUrl = Consts.HELP_URL_SAMPLE_CHARACTERIZATION;
-    toolHeadingNameManage = 'Sample ' + this.sampleName + ' Characterization';
     characterizationData =
         {
             "physico-chemical characterization":[],
@@ -25,14 +27,17 @@ export class CharacterizationComponent implements OnInit{
     types = ['physico-chemical characterization', 'in vitro characterization','in vivo characterization','other']
     serverUrl = Properties.API_SERVER_URL;
 
-    constructor( private navigationService:NavigationService, private router: Router, private route: ActivatedRoute,private httpClient: HttpClient ){
+    constructor( private apiService:ApiService,private navigationService:NavigationService, private router: Router, private route: ActivatedRoute,private httpClient: HttpClient ){
     }
 
     ngOnInit(): void{
         this.navigationService.setCurrentSelectedItem(2);
         this.route.params.subscribe(
             ( params: Params ) => {
-                this.sampleId = params['sampleId'].replace( /^.*\?sampleId=/, '' );
+                this.sampleId = params['sampleId'];
+                this.apiService.getSampleName(this.sampleId).subscribe(
+                    data=>this.toolHeadingNameManage='Sample ' +data['sampleName'] + ' Characterization'
+                )
                 if(
                     this.sampleId <= 0 ){
                     this.sampleId = Properties.CURRENT_SAMPLE_ID;
@@ -42,7 +47,6 @@ export class CharacterizationComponent implements OnInit{
                 this.getCharacterizationData().subscribe( data => {
                     this.separateDataSets(data);
                     Properties.SAMPLE_TOOLS = true;
-
                 },
                 err => {
                     console.error( 'Error ', err );
@@ -66,7 +70,6 @@ export class CharacterizationComponent implements OnInit{
     separateDataSets(data) {
         let types =['in vitro characterization','in vivo characterization','physico-chemical characterization']
         data.forEach(item=> {
-            console.log(item)
             item.charName=Object.keys(item.charsByAssayType)[0]
             if (item.type=='in vitro characterization') {
                 this.characterizationData['in vitro characterization'].push(item);

@@ -6,6 +6,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { timeout } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { NavigationService } from '../../../../common/services/navigation.service';
+import { ApiService } from '../../../../common/services/api.service';
 @Component({
   selector: 'canano-chemicalassociation',
   templateUrl: './chemicalassociation.component.html',
@@ -31,7 +32,7 @@ export class ChemicalassociationComponent implements OnInit {
   currentDropdownValues;
   currentField;
   errors;
-    constructor( private navigationService:NavigationService,private router: Router, private route: ActivatedRoute,private httpClient: HttpClient ){
+    constructor( private apiService:ApiService,private navigationService:NavigationService,private router: Router, private route: ActivatedRoute,private httpClient: HttpClient ){
     }
 
 
@@ -58,6 +59,9 @@ export class ChemicalassociationComponent implements OnInit {
               }else{
                   Properties.CURRENT_SAMPLE_ID = this.sampleId;
               };
+              this.apiService.getSampleName(this.sampleId).subscribe(
+                data=>this.toolHeadingNameManage='Sample ' +data['sampleName'] + ' Chemical Association'
+            )
               if (this.dataId) {
                 this.data = this.getdata().subscribe(
                     data => {

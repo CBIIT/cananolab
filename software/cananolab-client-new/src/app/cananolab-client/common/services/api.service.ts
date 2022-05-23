@@ -36,7 +36,10 @@ export class ApiService{
 
     }
 
-
+    getSampleName(sampleId) {
+        let url = this.httpClient.get(Properties.API_SERVER_URL+'/caNanoLab/rest/sample/getCurrentSampleName?sampleId='+sampleId);
+        return url;
+    }
     /**
      *  @TESTING These kind of functions will call api services, not be a part of it
      */

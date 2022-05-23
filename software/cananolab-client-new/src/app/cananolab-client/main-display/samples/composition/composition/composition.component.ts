@@ -6,6 +6,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { timeout } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { NavigationService } from '../../../../common/services/navigation.service';
+import { ApiService } from '../../../../common/services/api.service';
 @Component( {
     selector: 'canano-composition',
     templateUrl: './composition.component.html',
@@ -15,31 +16,31 @@ export class CompositionComponent implements OnInit{
     sampleId = Properties.CURRENT_SAMPLE_ID;
     sampleName = Properties.CURRENT_SAMPLE_NAME;
     helpUrl =  Consts.HELP_URL_SAMPLE_COMPOSITION;
-    toolHeadingNameManage = 'Sample Composition';
-    compositionData;
+    toolHeadingNameManage;
+    data;
 
-    constructor( private navigationService:NavigationService,private router: Router, private route: ActivatedRoute,private httpClient: HttpClient ){
+    constructor( private apiService:ApiService,private navigationService:NavigationService,private router: Router, private route: ActivatedRoute,private httpClient: HttpClient ){
     }
 
     ngOnInit(): void{
         this.navigationService.setCurrentSelectedItem(1);
         this.route.params.subscribe(
             ( params: Params ) => {
-                this.sampleId = params['sampleId'].replace( /^.*\?sampleId=/, '' );
+                this.sampleId = params['sampleId'];
                 if(
                     this.sampleId <= 0 ){
                     this.sampleId = Properties.CURRENT_SAMPLE_ID;
                 }else{
                     Properties.CURRENT_SAMPLE_ID = this.sampleId;
                 };
-                this.compositionData = this.getCompositionEditData().subscribe(
+                this.apiService.getSampleName(this.sampleId).subscribe(
+                    data=>this.toolHeadingNameManage='Sample ' +data['sampleName'] + ' Composition'
+                )
+                this.data = this.getCompositionEditData().subscribe(
                     data => {
-                        console.log(data)
                         Properties.SAMPLE_TOOLS = true;
-                        this.compositionData = data;
+                        this.data = data;
                         Properties.CURRENT_SAMPLE_NAME = data['sampleName'];
-                        console.log('MHL Properties.CURRENT_SAMPLE_NAME: ', Properties.CURRENT_SAMPLE_NAME );
-                        console.log('MHL getCompositionEditData: ', this.getCompositionEditData() );
                     } );
             }
         );

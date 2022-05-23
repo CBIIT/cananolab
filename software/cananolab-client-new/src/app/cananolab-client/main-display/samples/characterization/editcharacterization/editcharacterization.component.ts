@@ -4,7 +4,7 @@ import { Properties } from '../../../../../../assets/properties';
 import { Consts } from '../../../../../constants';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { NavigationService } from '../../../../common/services/navigation.service';
-
+import { ApiService } from '../../../../common/services/api.service';
 @Component({
   selector: 'canano-editcharacterization',
   templateUrl: './editcharacterization.component.html',
@@ -12,7 +12,7 @@ import { NavigationService } from '../../../../common/services/navigation.servic
 })
 export class EditcharacterizationComponent implements OnInit {
     sampleId = Properties.CURRENT_SAMPLE_ID;
-    sampleName = Properties.CURRENT_SAMPLE_NAME;
+    sampleName;
     helpUrl = Consts.HELP_URL_SAMPLE_CHARACTERIZATION;
     toolHeadingNameManage = 'Sample ' + this.sampleName + ' Characterization';
     serverUrl = Properties.API_SERVER_URL;
@@ -41,7 +41,7 @@ export class EditcharacterizationComponent implements OnInit {
     fileName;
     type;
 
-    constructor( private navigationService:NavigationService,private router: Router, private route: ActivatedRoute,private httpClient: HttpClient ){
+    constructor( private apiService:ApiService,private navigationService:NavigationService,private router: Router, private route: ActivatedRoute,private httpClient: HttpClient ){
     }
 
   ngOnInit(): void {
@@ -60,6 +60,11 @@ export class EditcharacterizationComponent implements OnInit {
                 }else{
                     Properties.CURRENT_SAMPLE_ID = this.sampleId;
                 };
+                this.apiService.getSampleName(this.sampleId).subscribe(
+                    data=>this.toolHeadingNameManage='Submit Publication for '+data['sampleName'])
+
+
+
                 if (!this.charId) {
                     let url = this.httpClient.get(Properties.API_SERVER_URL + '/caNanoLab/rest/characterization/setupAdd?sampleId='+this.sampleId+'&charType='+this.type);
                     url.subscribe(
