@@ -16,9 +16,6 @@ export class FunctionalizingentityComponent implements OnInit {
     // currentDropdownValue is the previous dropdown value selected //
     // This is used to reset the dropdown if other is selected and canceled //
     currentDropdownValues;
-    // currentField is the current dropdown field on the form //
-    // This is used to reset the dropdown if other is selected and canceled //
-    currentField;
     dataId;
     error;
     inherentFunction;
@@ -32,7 +29,6 @@ export class FunctionalizingentityComponent implements OnInit {
     dataTrailer;
     fileIndex;
     helpUrl =  Consts.HELP_URL_SAMPLE_COMPOSITION;
-    otherValue;
     sampleName = Properties.CURRENT_SAMPLE_NAME;
     sampleId;
     setupData;
@@ -250,8 +246,6 @@ getdata(sampleId){
     // set pointer fields to old values when adding other //
     addOtherValue(field,currentValue) {
         this.currentDropdownValues[field]=currentValue;
-        this.otherValue='';
-        this.currentField=field;
     };
 
     // save other value //

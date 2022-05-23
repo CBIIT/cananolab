@@ -24,7 +24,6 @@ export class EditcharacterizationComponent implements OnInit {
     columnOrder;
     columnHeaderIndex;
     currentDropdownValues;
-    currentField;
     currentFinding;
     currentFile;
     data;
@@ -34,7 +33,6 @@ export class EditcharacterizationComponent implements OnInit {
     instrument;
     instrumentTrailer;
     instrumentIndex;
-    otherValue;
     propertiesLoaded;
     setupData;
     techniqueIndex;
@@ -143,11 +141,7 @@ export class EditcharacterizationComponent implements OnInit {
 
     // set pointer fields to old values when adding other //
     addOtherValue(field,currentValue) {
-        console.log('am i here', field, currentValue)
-        this.currentField='';
         this.currentDropdownValues[field]=currentValue;
-        this.otherValue='';
-        this.currentField=field;
     };
 
     addTechniqueInstrument() {

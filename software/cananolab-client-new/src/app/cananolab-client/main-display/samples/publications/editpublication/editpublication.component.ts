@@ -17,7 +17,6 @@ export class EditpublicationComponent implements OnInit {
     authorIndex;
     currentAuthor;
     currentDropdownValues;
-    currentField;
     currentFile;
     data;
     dataTrailer;
@@ -25,7 +24,6 @@ export class EditpublicationComponent implements OnInit {
     fileName;
     helpUrl = Consts.HELP_URL_SAMPLE_CHARACTERIZATION;
     message;
-    otherValue;
     publicationId;
     recipientList;
     sampleId = Properties.CURRENT_SAMPLE_ID;
@@ -167,10 +165,7 @@ export class EditpublicationComponent implements OnInit {
 
     // set pointer fields to old values when adding other //
     addOtherValue(field,currentValue) {
-        this.currentField='';
         this.currentDropdownValues[field]=currentValue;
-        this.otherValue='';
-        this.currentField=field;
     };
 
     cancelAuthor() {

@@ -22,10 +22,10 @@
                             <option *ngFor="let type of setupData['functionalizingEntityTypes']" [selected]="data.type===type" value="{{type}}">
                                 {{type}}
                             </option>
-                            <option value="[other]">[other]</option>
+                            <option value="other">other</option>
 
                         </select>
-                        <div *ngIf="data.type ==='[other]'">
+                        <div *ngIf="data.type ==='other'">
                             <canano-other-dropdown (saveOther)="saveOther($event)" [label]="'Functionalizing Entity Type'" [value]="currentDropdownValues['type']" [field]="'data.type'" [array]="'setupData.functionalizingEntityTypes'">
 
                             </canano-other-dropdown>

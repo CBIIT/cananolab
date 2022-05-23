@@ -29,7 +29,6 @@ export class ChemicalassociationComponent implements OnInit {
   entityOptionsB;
   setupData;
   currentDropdownValues;
-  otherValue;
   currentField;
   errors;
     constructor( private navigationService:NavigationService,private router: Router, private route: ActivatedRoute,private httpClient: HttpClient ){
@@ -136,12 +135,10 @@ setDefaultDataSet() {
 };
 
 
-// set pointer fields to old values when adding other //
-addOtherValue(field,currentValue) {
-    this.currentDropdownValues[field]=currentValue;
-    this.otherValue='';
-    this.currentField=field;
-};
+    // set pointer fields to old values when adding other //
+    addOtherValue(field,currentValue) {
+        this.currentDropdownValues[field]=currentValue;
+    };
 
 // save other value //
 saveOther(newItem: Object) {
