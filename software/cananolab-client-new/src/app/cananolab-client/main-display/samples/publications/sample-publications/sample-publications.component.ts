@@ -59,9 +59,15 @@ export class SamplePublicationsComponent implements OnInit{
 
     }
 
-    editPublication(type) {
+    addPublication(type) {
         this.router.navigate(['/home/samples/publications/editPublication',this.sampleId,type]);
     }
+
+    editPublication(type,publicationId) {
+        console.log(publicationId)
+        this.router.navigate(['/home/samples/publications/editPublication',this.sampleId,publicationId,type]);
+    }
+
 
     separateDataSets(data) {
         let defaultCategories = ['book chapter','editorial','peer review article','proceeding','report','review'];

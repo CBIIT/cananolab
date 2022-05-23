@@ -81,6 +81,8 @@ const routes: Routes = [
     { path: 'home/samples/composition/chemicalassociation/:sampleId', component: ChemicalassociationComponent },
     { path: 'home/samples/publications/:sampleId', component: SamplePublicationsComponent },
     { path: 'home/samples/publications/editPublication/:sampleId/:type', component: EditpublicationComponent },
+    { path: 'home/samples/publications/editPublication/:sampleId/:publicationId/:type', component: EditpublicationComponent },
+    { path: 'home/samples/publications/editPublication/:publicationId', component: EditpublicationComponent },
 
     { path: 'home/curation', component: CurationComponent },
     { path: 'home/groups', component: GroupsComponent },

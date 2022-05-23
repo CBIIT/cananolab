@@ -1,11 +1,498 @@
 <canano-main-display-heading
     [helpUrl]="helpUrl"
     [toolHeadingName]="toolHeadingNameManage"
+    id="top"
 >
 </canano-main-display-heading>
-
-<div class="sample-edit-div" *ngIf="setupData">
+<div class="sample-edit-div" *ngIf="data&&setupData">
+    <div class="error" *ngIf="errors['error']">
+        {{errors['error']}}
+    </div>
+    <div class="error" *ngIf="message">
+        {{message}}
+    </div>
     <div class="editSection">
-       sads
+        <form action="" method="get" name="publicationForm">
+            <div class="editBorder">
+                <table class="dataMain">
+                    <tr>
+                        <td class="label">
+                            <label for="category">
+                                Publication Type*
+                            </label>
+                        </td>
+                        <td>
+                            <select (ngModelChange)="addOtherValue('category',data.category)" id="category" name="data.category" [(ngModel)]="data.category">
+                                <option [selected]="data.category===''" [ngValue]="''">--Select--</option>
+                                <option *ngFor="let type of setupData['publicationCategories']" [selected]="type==data.type">{{type}}</option>
+                                <option>other</option>
+                            </select>
+                            <div *ngIf="data.category ==='other'">
+                                <canano-other-dropdown (saveOther)="saveOther($event)" [label]="'Publication Type'" [value]="currentDropdownValues['category']" [field]="'data.category'" [array]="'setupData.publicationCategories'">
+
+                                </canano-other-dropdown>
+                            </div>
+                        </td>
+                        <td class="label">
+                            <label for="status">
+                                Publication Status*
+                            </label>
+                        </td>
+                        <td colspan="4">
+                            <select (ngModelChange)="addOtherValue('status',data.status)" id="category" name="status" [(ngModel)]="data.status">
+                                <option [selected]="data.status===''" [ngValue]="''">--Select--</option>
+                                <option *ngFor="let type of setupData['publicationStatuses']" [selected]="type==data.status">{{type}}</option>
+                                <option>other</option>
+                            </select>
+                            <div *ngIf="data.status ==='other'">
+                                <canano-other-dropdown (saveOther)="saveOther($event)" [label]="'Publication Status'" [value]="currentDropdownValues['status']" [field]="'data.status'" [array]="'setupData.publicationStatuses'">
+
+                                </canano-other-dropdown>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr *ngIf="['book chapter','report'].indexOf(data.category)==-1">
+                        <td class="label">
+                            <label for="pubMedId">
+                                PubMed ID
+                            </label>
+                        </td>
+                        <td colspan="5">
+                            <input (focusout)="lookupPubMedId($event)" id="pubMedId" type="text" name="pubMedId" size="70" [(ngModel)]="data.pubMedId">
+                        </td>
+                    </tr>
+                    <tr *ngIf="['book chapter','report'].indexOf(data.category)==-1">
+                        <td class="label">
+                            <label for="digitalObjectId">
+                                Digital Object ID
+                            </label>
+                        </td>
+                        <td colspan="5">
+                            <input id="digitalObjectId" type="text" name="digitalObjectId" size="70" [(ngModel)]="data.digitalObjectId">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="label">
+                            <label for="title">
+                                Title*
+                            </label>
+                        </td>
+                        <td colspan="5">
+                            <input id="title" type="text" name="title" size="70" [(ngModel)]="data.title">
+                        </td>
+                    </tr>
+                    <tr *ngIf="['book chapter','report'].indexOf(data.category)==-1">
+                        <td class="label">
+                            <label for="journal">
+                                Journal
+                            </label>
+                        </td>
+                        <td colspan="5">
+                            <input id="journal" type="text" name="journal" size="70" [(ngModel)]="data.journalName">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="label">
+                            <label for="year">
+                                Year of Publication
+                            </label>
+                        </td>
+                        <td colspan="5">
+                            <input id="year" type="text" name="year" size="4" [(ngModel)]="data.year">
+                        </td>
+                    </tr>
+                    <tr *ngIf="['book chapter','report'].indexOf(data.category)==-1">
+                        <td class="label">
+                            <label for="volume">
+                                Volume
+                            </label>
+                        </td>
+                        <td>
+                            <input id="volume" type="text" name="volume" size="6" [(ngModel)]="data.volume">
+                        </td>
+                        <td class="label">
+                            <label for="startPage">
+                                Start Page
+                            </label>
+                        </td>
+                        <td>
+                            <input id="startPage" type="text" name="startPage" size="6" [(ngModel)]="data.startPage">
+                        </td>
+                        <td class="label">
+                            <label for="endPage">
+                                End Page
+                            </label>
+                        </td>
+                        <td>
+                            <input id="endPage" type="text" name="endPage" size="6" [(ngModel)]="data.endPage">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="label">
+                            Authors
+                        </td>
+                        <td colspan="5">
+                            <button (click)="addAuthor()" class="btn-canano btn-canano-primary btn-canano-xs mr-1">Add</button>
+                        </td>
+                    </tr>
+                    <tr *ngIf="data.authors.length">
+                        <td></td>
+                        <td colspan="5">
+                            <table class="authors">
+                                <tr>
+                                    <th>First Name</th>
+                                    <th>Last Name</th>
+                                    <th>Initials</th>
+                                    <th></th>
+                                </tr>
+                                <tr *ngFor="let author of data['authors'];let authorIndex=index">
+                                    <td>
+                                        {{author.lastName}}
+                                    </td>
+                                    <td>
+                                        {{author.firstName}}
+                                    </td>
+                                    <td>
+                                        {{author.initial}}
+                                    </td>
+                                    <td>
+                                        <button (click)="editAuthor(authorIndex,author)" class="btn-canano btn-canano-primary btn-canano-xs mr-1">Edit</button>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr *ngIf="authorIndex!=null">
+                        <td></td>
+                        <td colspan="5">
+                            <table class="authorForm">
+                                <tr>
+                                    <td class="label">
+                                        <label for="lastName">
+                                            Last Name
+                                        </label>
+                                    </td>
+                                    <td class="field">
+                                        <input type="text" name="lastName" [(ngModel)]="currentAuthor.lastName">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="label">
+                                        <label for="firstName">
+                                            First Name
+                                        </label>
+                                    </td>
+                                    <td class="field">
+                                        <input type="text" name="firstName" [(ngModel)]="currentAuthor.firstName">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="label">
+                                        <label for="initial">
+                                           Initials
+                                        </label>
+                                    </td>
+                                    <td class="field">
+                                        <input type="text" name="initial" [(ngModel)]="currentAuthor.initial">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <button (click)="deleteAuthor(authorIndex)" [hidden]="authorIndex==-1" class="btn-canano btn-canano-danger btn-canano-xs mr-1">Delete</button>
+                                    </td>
+                                    <td class="field">
+                                        <button (click)="saveAuthor()" [disabled]="currentAuthor.lastName=='' || currentAuthor.firstName==''" class="btn-canano btn-canano-primary btn-canano-xs mr-1">Save</button>
+                                        <button (click)="cancelAuthor()" class="btn-canano btn-canano-default btn-canano-xs mr-1">Cancel</button>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="label">
+                            <label for="keywordsStr">
+                                Keywords<br />
+                                (one keyword per line)
+                            </label>
+                        </td>
+                        <td colspan="5">
+                            <textarea id="keywordsStr" name="keywordsStr" rows="5" cols="70" [(ngModel)]="data.keywordsStr">
+                                {{data.keywordsStr}}
+                            </textarea>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="label">
+                            <label for="description">
+                                Description
+                            </label>
+
+                        </td>
+                        <td colspan="5">
+                            <textarea id="description" name="description" rows="5" cols="70" [(ngModel)]="data.description">
+
+                            </textarea>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="label">
+                            <label for="researchAreas">
+                                Research Category
+                            </label>
+                        </td>
+                        <td colspan="5">
+                            <select size="7" id="researchAreas" name="researchAreas" multiple="multiple" [(ngModel)]="data.researchAreas">
+                                <option *ngFor="let area of setupData['publicationResearchAreas']" [ngValue]="area">{{area}}</option>
+                            </select>
+                        </td>
+                    </tr>
+                </table>
+            </div><br />
+            <div class="editBorder">
+                <table class="dataMain">
+                    <tr>
+                        <td class="label">File</td>
+                        <td class="files">
+                            <label for="fileUpload">
+                                Upload
+                            </label>
+                            <input type="radio" name="curentFile.uriExternal" id="fileUpload" [value]="false" [(ngModel)]="currentFile.uriExternal">
+                            &nbsp;
+                            &nbsp;
+                            <label for="fileURL">
+                                Enter File URL
+                            </label>
+                            <input type="radio" name="curentFile.uriExternal" id="fileURL" [value]="true" [(ngModel)]="currentFile.uriExternal">
+                            <br />
+                            <ng-container *ngIf="currentFile.uriExternal==1">
+                                <input id="uriExternal" *ngIf="currentFile.uriExternal==1" type="text" name="currentFile.externalUrl" [(ngModel)]="currentFile.externalUrl" size="60">
+                            </ng-container>
+                            <ng-container *ngIf="currentFile.uriExternal==0">
+                                <input id="file" (change)="uploadFile($event)" type="file" name="currentFile.uploadFile" [(ngModel)]="currentFile.file">
+                                <ng-container *ngIf="data['uri']">
+                                    <br />
+                                    <a [href]="serverUrl+'/caNanoLab/rest/publication/download?fileId='+data.fileId">Current File</a>
+                                </ng-container>
+                            </ng-container>
+                        </td>
+                    </tr>
+                </table>
+            </div><br />
+
+            <div class="editBorder" *ngIf="sampleId">
+                <table [ngClass]="{'otherSampleNames':!setupData['otherSampleNames'].length,'dataMain':setupData['otherSampleNames'].length}">
+                    <tr *ngIf="!setupData['otherSampleNames'].length">
+                        <td class="label">
+                            There are no other samples to copy annotation to.
+                        </td>
+                    </tr>
+                    <tr *ngIf="setupData['otherSampleNames'].length">
+                        <td class="label">
+                            <label for="otherSampleNames">
+                                Copy to other samples with the same primary organization?
+                            </label>
+                        </td>
+                        <td>
+                            <select size="7" id="otherSampleNames" name="otherSampleNames" multiple="multiple" [(ngModel)]="data.otherSampleNames">
+                                <option *ngFor="let s of setupData['otherSampleNames']" [ngValue]="s">{{s}}</option>
+                            </select>
+                        </td>
+                    </tr>
+                </table>
+            </div><br />
+
+            <div class="editBorder" *ngIf="!sampleId">
+                <table class="dataMain">
+                    <tr>
+                        <td class="label">
+                            Sample Name
+                        </td>
+                        <td>
+                            <textarea name="sampleName" [(ngModel)]="data.sampleNamesStr" rows="5" cols="60">
+
+                            </textarea>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+                            <button (click)="getSampleList()" class="btn-canano btn-canano-primary btn-canano-xs mr-1">Search for Samples</button>
+                        </td>
+                    </tr>
+                    <tr *ngIf="sampleList.length">
+                        <td></td>
+                        <td>
+                            <table>
+                                <tr>
+                                    <td>
+                                        <select name="samples" [(ngModel)]="samples" multiple="multiple" size="10">
+                                            <option *ngFor="let option of sampleList">
+                                                {{option}}
+                                            </option>
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <button (click)="selectSamples()" class="btn-canano btn-canano-primary btn-canano-xs mr-1">Select</button>
+                                    </td>
+                                </tr>
+                            </table>
+
+                        </td>
+                    </tr>
+                </table>
+            </div><br />
+
+            <div class="editBorder">
+                <table class="dataMain">
+                    <tr>
+                        <td class="label">
+                            Access to the Publication
+                        </td>
+                        <td>
+                            <button (click)="addAccess()" [disabled]="data['title']=='' || data['status']==''||data['category']==''" class="btn-canano btn-canano-primary btn-canano-xs mr-1">Add</button>
+                        </td>
+                    </tr>
+                    <tr *ngIf="data.groupAccesses.length">
+                        <td></td>
+                        <td>
+                            <table class="authors">
+                                <tr>
+                                    <th>Group Name</th>
+                                    <th>Access</th>
+                                    <th></th>
+                                </tr>
+                                <tr *ngFor="let group of data.groupAccesses; let groupIndex=index">
+                                    <td>{{group.recipientDisplayName}}</td>
+                                    <td>{{group.roleDisplayName}}</td>
+                                    <td>
+                                        <button (click)="editAccess(groupIndex,group)" class="btn-canano btn-canano-primary btn-canano-xs mr-1">Edit</button>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr *ngIf="data.userAccesses.length">
+                        <td></td>
+                        <td>
+                            <table class="authors">
+                                <tr>
+                                    <th>User Login Name	</th>
+                                    <th>Access</th>
+                                    <th></th>
+                                </tr>
+                                <tr *ngFor="let user of data.userAccesses; let userIndex=index">
+                                    <td>{{user.recipientDisplayName}}</td>
+                                    <td>{{user.roleDisplayName}}</td>
+                                    <td>
+                                        <button (click)="editAccess(userIndex,user)" class="btn-canano btn-canano-primary btn-canano-xs mr-1">Edit</button>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr *ngIf="accessIndex!=null">
+                        <td></td>
+                        <td>
+                            <table class="authorForm">
+                                <tr>
+                                    <td class="label">
+                                        <label for="accessType">
+                                            Access By*
+                                        </label>
+                                    </td>
+                                    <td class="field" colspan="2">
+                                        <input (ngModelChange)="changeAccessType($event)" type="radio" name="accessType.group" id="accessType.group" [value]="'group'" [(ngModel)]="theAccess['accessType']">
+                                        <label for="accessType.group">
+                                            Collaboration Group
+                                        </label>
+                                        &nbsp;
+                                        <input (ngModelChange)="changeAccessType($event)" type="radio" name="accessType.user" id="accessType.user" [value]="'user'" [(ngModel)]="theAccess['accessType']">
+                                        <label for="accessType.user">
+                                            User
+                                        </label>
+                                        &nbsp;
+                                        <input (ngModelChange)="changeAccessType($event)" type="radio" name="accessType.role" id="accessType.role" [value]="'role'" [(ngModel)]="theAccess['accessType']">
+                                        <label for="accessType.role">
+                                            Role
+                                        </label>
+                                    </td>
+                                </tr>
+                                <tr *ngIf="theAccess.accessType&&theAccess.accessType!='role'">
+                                    <td class="label">
+                                        <label for="access.recipient">
+                                            <span *ngIf="theAccess.accessType=='group'">
+                                                Collaboration Group Name*
+                                            </span>
+                                            <span *ngIf="theAccess.accessType=='user'">
+                                                User Login Name*
+                                            </span>
+                                        </label>
+                                    </td>
+                                    <td class="field">
+                                        <button (click)="getRecipientList()" class="btn-canano btn-canano-primary btn-canano-xs mr-1">Search</button>
+                                        <ng-container *ngIf="recipientList">
+                                            &nbsp;&nbsp;
+                                            <select name="access.recipient" [(ngModel)]="theAccess.recipient">
+                                                <option [selected]="theAccess.recipient===''" [ngValue]="''">--select</option>
+                                                <ng-container *ngIf="theAccess.accessType=='group'">
+                                                    <option *ngFor="let group of recipientList">
+                                                        {{group}}
+                                                    </option>
+                                                </ng-container>
+                                                <ng-container *ngIf="theAccess.accessType=='user'">
+                                                    <option *ngFor="let user of recipientList|keyvalue" [ngValue]="user.key">
+                                                        {{user.value}}
+                                                    </option>
+                                                </ng-container>
+
+                                            </select>
+                                        </ng-container>
+
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="label">
+                                        <label for="access.roleName">
+                                            Access to the Publication*
+                                        </label>
+                                    </td>
+                                    <td class="field">
+                                        <select [disabled]="theAccess.accessType=='role'" name="access.roleName" [(ngModel)]="theAccess.roleName">
+                                            <option [selected]="theAccess.roleName===''" [ngValue]="''">--Select--</option>
+                                            <option *ngFor="let role of setupData.csmRoleNames | keyvalue" [ngValue]="role.key" [selected]="role.key==theAccess.roleName">
+                                                {{role.value}}
+                                            </option>
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <button (click)="deleteAccess()" *ngIf="accessIndex!=-1" class="btn-canano btn-canano-danger btn-canano-xs mr-1">Delete</button>
+                                    </td>
+                                    <td>
+                                        <button (click)="saveAccess()" [disabled]="theAccess.accessType==''||theAccess.roleName==''||theAccess.recipient==''" class="btn-canano btn-canano-primary btn-canano-xs mr-1">Save</button>
+                                        <button (click)="cancelAccess()" class="btn-canano btn-canano-default btn-canano-xs mr-1">Cancel</button>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <br />
+            <div>
+                <table class="dataMain submit">
+                    <tr>
+                        <td *ngIf="publicationId" style="text-align:left;">
+                            <button (click)="delete()" class="btn-canano btn-canano-danger btn-canano-lg mr-1">Delete</button>
+                        </td>
+                        <td>
+                            <button (click)="resetPublication()" class="btn-canano btn-canano-danger btn-canano-lg mr-1">Reset</button>
+                            <button [disabled]="data.category==''||data.status==''||data.title==''" (click)="submit()" class="btn-canano btn-canano-primary btn-canano-lg mr-1">Submit</button>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </form>
     </div>
 </div>

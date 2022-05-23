@@ -25,7 +25,7 @@
                                     <option [hidden]="data.type!='other'" value="" [selected]="data.type=='other'" value="other">[other]</option>
                                 </select>
                             <div *ngIf="data.type ==='other'">
-                                <canano-other-dropdown (saveOther)="saveOther($event)" [label]="'Characterization Type'" [value]="''" [field]="'data.type'" [array]="'data.charTypesLookup'">
+                                <canano-other-dropdown (saveOther)="saveOther($event)" [label]="'Characterization Type'" [value]="currentDropdownValues['type']" [field]="'data.type'" [array]="'data.charTypesLookup'">
 
                                 </canano-other-dropdown>
                             </div>
