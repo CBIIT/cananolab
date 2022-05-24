@@ -9,7 +9,7 @@
             <table class="dataMain">
                 <tr *ngIf="!dataId">
                     <td class="label">
-                        <label for="associationType">Association Type</label>
+                        <label for="associationType">Association Type*</label>
                     </td>
                     <td>
                         <select (ngModelChange)="addOtherValue('type',data.type)" id="associationType" [(ngModel)]="data.type" name="associationType">
@@ -69,7 +69,7 @@
                     <td>
                         <ng-container *ngIf="data['associatedElementA']">
                         <div>
-                            <select (ngModelChange)="changeCompositionType('compositionTypeA',$event)" id="compositionTypeA" [(ngModel)]="data.associatedElementA.compositionType" name="compositionTypeA">
+                            <select (ngModelChange)="changeCompositionType('compositionTypeA',$event,false)" id="compositionTypeA" [(ngModel)]="data.associatedElementA.compositionType" name="compositionTypeA">
                                 <option value="" [selected]="data.associatedElementA.compositionType===''">--Select--</option>
                                 <option *ngFor="let type of setupData['associationCompositionTypes']" [selected]="data.associatedElementA.compositionType===type" value="{{type}}">
                                     {{type}}
@@ -102,7 +102,7 @@
                     <td>
                         <ng-container *ngIf="data['associatedElementB']">
                             <div>
-                                <select (ngModelChange)="changeCompositionType('compositionTypeB',$event)" id="compositionTypeB" [(ngModel)]="data.associatedElementB.compositionType" name="compositionTypeB">
+                                <select (ngModelChange)="changeCompositionType('compositionTypeB',$event,false)" id="compositionTypeB" [(ngModel)]="data.associatedElementB.compositionType" name="compositionTypeB">
                                     <option value="" [selected]="data.associatedElementB.compositionType===''">--Select--</option>
                                     <option *ngFor="let type of setupData['associationCompositionTypes']" [selected]="data.associatedElementB.compositionType===type" value="{{type}}">
                                         {{type}}
@@ -157,7 +157,7 @@
                     </td>
                     <td>
                         <button (click)="resetChemicalAssociation()" class="btn-canano btn-canano-danger btn-canano-lg mr-1">Reset</button>
-                        <button (click)="submitChemicalAssociation()" class="btn-canano btn-canano-primary btn-canano-lg mr-1">Submit</button>
+                        <button [disabled]="isSubmissionValid()" (click)="submitChemicalAssociation()" class="btn-canano btn-canano-primary btn-canano-lg mr-1">Submit</button>
                     </td>
                 </tr>
             </table>

@@ -74,6 +74,7 @@ export class ChemicalassociationComponent implements OnInit {
               }
               else {
                   this.loadSetupData();
+
               }
 
 
@@ -111,7 +112,43 @@ export class ChemicalassociationComponent implements OnInit {
 
 }
 
+isSubmissionValid() {
+    if (this.data.type=='') {
+        return true
+    }
+    if (this.data.type=='attachment'&&this.data.bondType=='') {
+        return true
+    }
+    let AKeys=Object.keys(this.data['associatedElementA']);
+    let BKeys=Object.keys(this.data['associatedElementB']);
+    let ACount=[];
+    let BCount=[];
 
+    AKeys.forEach(item=> {
+        if (this.data['associatedElementA'][item]=='') {
+            ACount.push(item)
+        }
+        if (this.data['associatedElementA']['compositionType']=='nanomaterial entity') {
+            if (this.data['associatedElementA']['composingElement']['id']=='') {
+                ACount.push(item)
+            }
+        }
+    })
+    BKeys.forEach(item=> {
+        if (this.data['associatedElementB'][item]=='') {
+            BCount.push(item)
+        }
+        if (this.data['associatedElementB']['compositionType']=='nanomaterial entity') {
+            if (this.data['associatedElementB']['composingElement']['id']=='') {
+                BCount.push(item)
+            }
+        }
+    })
+    if (ACount.length||BCount.length) {
+        return true
+    }
+    return false
+}
 setDefaultDataSet() {
     return {
         "sampleId":this.sampleId,
@@ -147,12 +184,10 @@ setDefaultDataSet() {
 // save other value //
 saveOther(newItem: Object) {
     if (newItem['change'] && newItem['value']) {
-        console.log(newItem['array'],newItem['value'])
         this.addDropdownItem(newItem['array'],newItem['value']);
         this.setValue(newItem['field'],newItem['value']);
     }
     else {
-        console.log(newItem['field'])
         this.setValue(newItem['field'],newItem['value']);
     }
 };
@@ -197,13 +232,25 @@ changeEntityId(compositionType,entity, val) {
     }
 }
 
-changeCompositionType(compositionType,val) {
+changeCompositionType(compositionType,val,edit) {
 
     if (compositionType==='compositionTypeA') {
         this.entityOptionsA = val=='nanomaterial entity' ? this.nanomaterialEntityOptions:this.functionalizingEntityOptions;
+        if (!edit) {
+            this.data['associatedElementA']['entityId']=''
+            this.data['associatedElementA']['entityDisplayName']=''
+            this.data['associatedElementA']['composingElement']={'id':''}
+        }
+
     }
     else {
         this.entityOptionsB = val=='nanomaterial entity' ? this.nanomaterialEntityOptions:this.functionalizingEntityOptions;
+        if (!edit) {
+            this.data['associatedElementB']['entityId']=''
+            this.data['associatedElementB']['entityDisplayName']=''
+            this.data['associatedElementB']['composingElement']={'id':''}
+        }
+
     }
 }
 
@@ -238,11 +285,10 @@ selectAssociatedElement(entityId,domainId) {
 }
 
 loadDropdowns() {
-    console.log(this.data.associatedElementA.compositionType,this.data.associatedElementA.entityId)
     this.changeEntityId('compositionTypeA',this.data.associatedElementA.compositionType,this.data.associatedElementA.entityId)
     this.changeEntityId('compositionTypeB',this.data.associatedElementB.compositionType,this.data.associatedElementB.entityId)
-    this.changeCompositionType('compositionTypeA',this.data.associatedElementA.compositionType)
-    this.changeCompositionType('compositionTypeB',this.data.associatedElementB.compositionType)
+    this.changeCompositionType('compositionTypeA',this.data.associatedElementA.compositionType,true)
+    this.changeCompositionType('compositionTypeB',this.data.associatedElementB.compositionType,true)
 
 }
 
@@ -254,12 +300,12 @@ loadSetupData() {
         nanoUrl.subscribe( data => {
             let functionalizingUrl = this.httpClient.post( Properties.API_SERVER_URL + '/caNanoLab/rest/chemicalAssociation/getAssociatedElementOptions?compositionType=functionalizing entity',{});
             this.nanomaterialEntityOptions=data;
-            console.log(data)
             functionalizingUrl.subscribe( data => {
                 this.functionalizingEntityOptions=data;
                 if (this.dataId) {
                     this.loadDropdowns();
                 }
+                Properties.SAMPLE_TOOLS = true;
 
             },
             err => {

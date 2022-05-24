@@ -1,5 +1,5 @@
 <button (click)="addFile()" class="btn-canano btn-canano-primary btn-canano-xs mr-1">Add</button><br /><br />
-<table class="fileTable">
+<table class="fileTable" *ngIf="data[fileArray].length">
     <tr>
         <th>
             File Type
