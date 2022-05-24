@@ -21,7 +21,7 @@ export class EditpublicationComponent implements OnInit {
     dataTrailer;
     errors;
     fileName;
-    helpUrl = Consts.HELP_URL_SAMPLE_CHARACTERIZATION;
+    helpUrl = Consts.HELP_URL_SAMPLE_PUBLICATIONS;
     message;
     publicationId;
     recipientList;
@@ -38,6 +38,7 @@ export class EditpublicationComponent implements OnInit {
   constructor(private apiService:ApiService,private navigationService:NavigationService,private httpClient:HttpClient,private route:ActivatedRoute,private router:Router) { }
 
   ngOnInit(): void {
+      console.log(Consts)
     this.navigationService.setCurrentSelectedItem(3);
     this.currentDropdownValues={};
     this.recipientList;
@@ -80,6 +81,8 @@ export class EditpublicationComponent implements OnInit {
 
             if (this.publicationId) {
                 if (this.publicationId!=-1) {
+                    this.toolHeadingNameManage='Edit Publication';
+
                     var editUrl;
                     if (this.sampleId) {
                         editUrl=this.httpClient.get(Properties.API_SERVER_URL+'/caNanoLab/rest/publication/edit?publicationId='+this.publicationId+'&sampleId='+this.sampleId);
@@ -414,7 +417,7 @@ export class EditpublicationComponent implements OnInit {
             this.router.navigate( ['home/samples/publications', this.sampleId] );  // @FIXME  Don't hard code these
         }
         else {
-            this.router.navigate( ['home/samples/publications/editPublication', data[1]] );  // @FIXME  Don't hard code these
+            this.router.navigate( ['home/samples/publications/publication', data[1]] );  // @FIXME  Don't hard code these
             this.message='Publication successfully updated with the title '+this.data['title'];
             setTimeout(function() {
                 document.getElementById('top').scrollIntoView();

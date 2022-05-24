@@ -62,12 +62,12 @@ export class SamplePublicationsComponent implements OnInit{
     }
 
     addPublication(type) {
-        this.router.navigate(['/home/samples/publications/editPublication',this.sampleId,type]);
+        this.router.navigate(['/home/samples/publications/publication',this.sampleId,type]);
     }
 
-    editPublication(type,publicationId) {
+    editpublication(type,publicationId) {
         console.log(publicationId)
-        this.router.navigate(['/home/samples/publications/editPublication',this.sampleId,publicationId,type]);
+        this.router.navigate(['/home/samples/publications/publication',this.sampleId,publicationId,type]);
     }
 
 

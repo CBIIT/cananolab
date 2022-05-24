@@ -1,0 +1,160 @@
+<canano-main-display-heading
+    [helpUrl]="'https://wiki.nci.nih.gov/display/caNanoLab/Managing+Publications+in+caNanoLab#ManagingPublicationsincaNanoLab-SearchPublications'"
+    [toolHeadingName]="'Publication Search Results'"
+>
+</canano-main-display-heading>
+
+<div class="sample-edit-div">
+    <div class="editSection">
+        <div *ngFor="let i of searchResultsPageToDisplay">
+            {{i|json}}
+        </div>
+
+            <span
+            style="font-size: 12px;"
+            class="ml-2"
+        >
+            {{searchResults.length}} Item{{(searchResults.length > 1 ? 's' : '')}} found, displaying
+            {{(currentPage * pageLength) + 1}}
+            -{{    (((currentPage * pageLength) + pageLength) > searchResults.length) ? searchResults.length : (currentPage * pageLength) + pageLength   }}
+        </span>
+
+        <span style="font-size: 12px"
+        class="search-results-pager"
+  >
+              <!-- Page length number setting  -->
+              <span class="ml-5">
+                  Show
+                  <input
+                      class="number-spinner rows-per-page-spinner"
+                      min="1"
+                      max="{{maxPageLength}}"
+                      type="number"
+                      [(ngModel)]="pageLength"
+                      (change)="onPageLengthChange()"
+                  >
+                  entries
+              </span>
+
+      <!-- Pager buttons -->
+
+          </span><br /><br /><br />
+          <table class="search-results-table">
+
+
+            <!-- -----  Header row  ----- -->
+            <tr class="search-results-tr">
+                <th
+                    *ngFor="let col of columnHeadings; let i = index;"
+
+                    class="search-results-th unselectable">
+                    <label for="sortClick" (click)="onSortClick(i)">{{col}}</label>
+
+                    <!-- No sorting for "Actions" column -->
+                    <span *ngIf="i > 0"
+                          id=sortClick
+                          (click)="onSortClick(i)"
+                    >
+
+                        <span *ngIf="i > 0">
+                            <!-- Add sorting icons -->
+                            <img
+                                *ngIf="sortingStates[i] === sortState.SORT_UP"
+                                src="assets/images/upTriangle2White.png"
+                            />
+                            <img
+                                *ngIf="sortingStates[i] === sortState.SORT_DOWN"
+                                src="assets/images/downTriangle2White.png"
+                            />
+                            <!-- space/place holder -->
+                            <img
+                                *ngIf="sortingStates[i] === sortState.NO_SORT"
+                                src="assets/images/place_holder.png"
+                            />
+                        </span>
+                    </span>
+                    <!-- END Add sorting icons -->
+                </th>
+            </tr>
+            <!-- -----  END Header row  ----- -->
+
+
+            <tr *ngFor="let publication of searchResultsPageToDisplay; let even=even; let odd=odd; let i=index"
+                class="search-results-tr"
+                [ngClass]="{
+                        'search-results-tr-even': even,
+                        'search-results--tr-odd': odd
+                    }"
+            >
+
+
+
+                <td class="search-results-td" >
+                    <span
+                        *ngIf="properties.LOGGED_IN"
+                        style="color: #00f; text-decoration: underline;"
+                        class="clicker"
+                        (click)="navigateToPublication(publication['id'])"
+                    >Edit</span>
+
+
+                    <span
+                        *ngIf="! properties.LOGGED_IN"
+                        style="color: #00f; text-decoration: underline;"
+                        class="clicker"
+                        (click)="navigateToPublication(publication['id'])"
+                    >View</span>
+                    <br>
+
+                    <span  style="color: #00f; text-decoration: underline;"
+                        (click)="addToFavorites(publication['id'] )"
+                        class="clicker"
+                    >Add to Favorites</span>
+
+                </td>
+
+                <td class="search-results-td" >
+                    <span [innerHtml]="publication.displayName"></span></td>
+
+                <td class="search-results-td" [innerHTML]="publication['publicationType']"></td>
+                <td class="search-results-td" >
+                    <ul>
+                        <li *ngFor="let researchArea of publication['researchAreas']">
+                            {{researchArea}}
+                        </li>
+                    </ul>
+                </td>
+
+                <td class="search-results-td" >
+                    <ul>
+                        <li *ngFor="let sample of publication['sampleNames']">
+                            {{sample}}
+                        </li>
+                    </ul>
+                </td>
+
+                <td class="search-results-td" >
+                    {{publication['descriptionDetail']}}
+                </td>
+
+                <td class="search-results-td" >
+                    {{publication.status}}
+                </td>
+
+                <td class="search-results-td" >
+                    {{publication['createdDate']  | date : "shortDate"}}
+                </td>
+
+            </tr>
+
+        </table>
+
+
+
+    </div>
+    <canano-search-results-pager
+    style="float: right;"
+    [totalCount]=searchResultsCount
+    [startingPageLength]=pageLength
+></canano-search-results-pager>
+</div>

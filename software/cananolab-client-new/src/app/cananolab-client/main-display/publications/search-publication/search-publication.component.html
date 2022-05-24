@@ -3,6 +3,11 @@
     [toolHeadingName]="'Publication Search'"
 >
 </canano-main-display-heading>
+
+<div class="error" *ngIf="errors['error']">
+    {{errors['error']}}
+</div>
+
 <div class="sample-edit-div">
     <form name="publicationSearchForm">
     <div class="editSection">

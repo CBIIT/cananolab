@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Properties } from '../../../../../assets/properties';
+import { SearchPublicationService } from './search-publication.service';
+import { ApiService } from '../../../common/services/api.service';
+import { ActivatedRoute,Router } from '@angular/router';
+
 @Component({
   selector: 'canano-search-publication',
   templateUrl: './search-publication.component.html',
@@ -8,14 +12,17 @@ import { Properties } from '../../../../../assets/properties';
 })
 export class SearchPublicationComponent implements OnInit {
     data;
+    dataResults;
     dataTrailer;
+    errors;
     helpUrl;
     toolHeadingNameManage;
     setupData;
 
-    constructor(private httpClient:HttpClient) { }
+    constructor(private router:Router,private apiService:ApiService,private searchPublicationService:SearchPublicationService,private httpClient:HttpClient) { }
 
     ngOnInit(): void {
+        this.errors={};
         this.getSetupData();
         this.data={
             "category":null,
@@ -40,9 +47,10 @@ export class SearchPublicationComponent implements OnInit {
         let url=this.httpClient.get(Properties.API_SERVER_URL+'/caNanoLab/rest/publication/setup');
         url.subscribe(data=> {
             this.setupData=data;
+            this.errors={};
         },
         errors=> {
-
+            this.errors=errors;
         })
     }
 
@@ -51,8 +59,15 @@ export class SearchPublicationComponent implements OnInit {
     }
 
     searchPublication() {
-        console.log(this.data)
-    }
+        this.apiService.doPost('caNanoLab/rest/publication/searchPublication',this.data).subscribe(data=> {
+            this.errors={};
+            this.searchPublicationService.setPublicationSearchResults(data);
+            this.router.navigate( ['home/publications/publicationSearchResults'] );
 
+        },
+        error=> {
+            this.errors=error;
+        })
+    }
 
 }

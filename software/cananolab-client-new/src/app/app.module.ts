@@ -77,6 +77,7 @@ import { SetObjectValueModule } from './cananolab-client/common/modules/set-obje
 import { EditcharacterizationComponent } from './cananolab-client/main-display/samples/characterization/editcharacterization/editcharacterization.component';
 import { FileComponent } from './cananolab-client/common/components/file/file.component';
 import { EditpublicationComponent } from './cananolab-client/main-display/samples/publications/editpublication/editpublication.component';
+import { SearchpublicationresultsComponent } from './cananolab-client/main-display/publications/search-publication-results/searchpublicationresults/searchpublicationresults.component';
 
 @NgModule({
   declarations: [
@@ -150,7 +151,8 @@ import { EditpublicationComponent } from './cananolab-client/main-display/sample
     OtherDropdownComponent,
     EditcharacterizationComponent,
     FileComponent,
-    EditpublicationComponent
+    EditpublicationComponent,
+    SearchpublicationresultsComponent
   ],
     imports: [
         BrowserModule,

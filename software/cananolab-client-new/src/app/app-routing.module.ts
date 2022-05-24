@@ -38,6 +38,8 @@ import { SamplePublicationsComponent } from './cananolab-client/main-display/sam
 import { SampleAdvancedSearchResultsComponent } from './cananolab-client/main-display/samples/general-info/sample-search/sample-advanced-search-results/sample-advanced-search-results.component';
 import { ProtocolViewComponent } from './cananolab-client/main-display/protocols/protocol-view/protocol-view.component';
 import { EditpublicationComponent } from './cananolab-client/main-display/samples/publications/editpublication/editpublication.component';
+import { SearchpublicationresultsComponent } from './cananolab-client/main-display/publications/search-publication-results/searchpublicationresults/searchpublicationresults.component';
+
 const routes: Routes = [
     { path: '', component: HomeComponent },
     { path: 'home', component: HomeComponent },
@@ -45,6 +47,7 @@ const routes: Routes = [
     { path: 'home/publications', component: PublicationsComponent },
     { path: 'home/publications/submitPublication', component: SubmitPublicationComponent },
     { path: 'home/publications/searchPublication', component: SearchPublicationComponent },
+    { path: 'home/publications/publicationSearchResults', component: SearchpublicationresultsComponent },
 
     { path: 'home/protocols/protocolCreateComponent', component: ProtocolCreateCharlieComponent },
     { path: 'home/protocols/protocolSearchComponent', component: ProtocolSearchComponent },
@@ -80,9 +83,9 @@ const routes: Routes = [
     { path: 'home/samples/composition/chemicalassociation/:sampleId/:dataId', component: ChemicalassociationComponent },
     { path: 'home/samples/composition/chemicalassociation/:sampleId', component: ChemicalassociationComponent },
     { path: 'home/samples/publications/:sampleId', component: SamplePublicationsComponent },
-    { path: 'home/samples/publications/editPublication/:sampleId/:type', component: EditpublicationComponent },
-    { path: 'home/samples/publications/editPublication/:sampleId/:publicationId/:type', component: EditpublicationComponent },
-    { path: 'home/samples/publications/editPublication/:publicationId', component: EditpublicationComponent },
+    { path: 'home/samples/publications/publication/:sampleId/:type', component: EditpublicationComponent },
+    { path: 'home/samples/publications/publication/:sampleId/:publicationId/:type', component: EditpublicationComponent },
+    { path: 'home/samples/publications/publication/:publicationId', component: EditpublicationComponent },
 
     { path: 'home/curation', component: CurationComponent },
     { path: 'home/groups', component: GroupsComponent },
