@@ -3,30 +3,31 @@
     [toolHeadingName]="toolHeadingName"
 >
 </canano-main-display-heading>
+<div class="mainSection">
+    <div class="mainBorder">
 
-<div
-   class="publications-div ml-1 mt-1"
->
-    This is the manage publications section. Publications can include book chapters, editorials, peer review articles, reports, reviews and other forms of documents. In this section, depending on your authorization level, you may submit a new publication or search for an existing publication.
+         This is the manage publications section. Publications can include book chapters, editorials, peer review articles, reports, reviews and other forms of documents. In this section, depending on your authorization level, you may submit a new publication or search for an existing publication.
 
+
+     <div class="links-panel card ml-1 mt-2">
+         <div  class="card-header mb-0 pb-0">
+             <span class="card-title unselectable m-0 p-0">
+                 <h5>Publication Links</h5>
+             </span>
+
+         </div>
+         <div class="card-body">
+             <a class="link-clicker" routerLink="/home/samples/publications/publication/-1">Crate a New Publication</a><br>
+             Select to create a new publication.<br><br>
+
+             <a  class="link-clicker" routerLink="searchPublication">Search Existing Publication</a><br>
+             Enter search criteria to obtain information on publications of interest.<br><br>
+
+             <a  class="link-clicker" routerLink="searchSamplesByPublication">Search for Samples by Publication</a><br>
+             Enter DOI/Pubmed Id to obtain the related sample information.<br>
+
+         </div>
+     </div>
+    </div>
 </div>
 
-<div class="publication-links-panel card ml-1 mt-2">
-    <div  class="card-header mb-0 pb-0">
-        <span class="card-title unselectable m-0 p-0">
-            <h5>Publication Links</h5>
-        </span>
-
-    </div>
-    <div class="card-body">
-        <a class="link-clicker" routerLink="/home/samples/publications/publication/-1">Crate a New Publication</a><br>
-        Select to create a new publication.<br><br>
-
-        <a  class="link-clicker" routerLink="searchPublication">Search Existing Publication</a><br>
-        Enter search criteria to obtain information on publications of interest.<br><br>
-
-        <a  class="link-clicker" routerLink="searchSamplesByPublication">Search for Samples by Publication</a><br>
-        Enter DOI/Pubmed Id to obtain the related sample information.<br>
-
-    </div>
-</div>

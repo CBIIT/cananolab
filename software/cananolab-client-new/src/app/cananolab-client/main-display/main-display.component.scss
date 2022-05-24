@@ -8,12 +8,44 @@
     padding:2px ;
 }
 
-.editSection {
+.mainSection {
     margin:10px 5px 5px 5px;
     font-size:12px;
 
 }
-.editBorder {
+.mainBorder {
     padding:5px;
     border:1px solid #ccc;
+}
+
+.dataMain  {
+    margin:5px;
+    width:90%;
+}
+
+.dataMain td.label {
+    width:200px;
+    padding:10px;
+    font-weight:bold;
+    vertical-align:top;
+}
+.dataMain td {
+    padding:10px;
+    vertical-align:top;
+}
+
+.dataMain td.buttons {
+    text-align:right;
+}
+
+
+.links-panel{
+    width: 500px;  // @FIXME - make a const
+}
+
+.create-search-button-group{
+    float: right;
+}
+.create-delete-button-group{
+    float: left;
 }

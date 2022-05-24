@@ -2,15 +2,4 @@
 @import "../../../app.component";
 @import "../../../btn-canano";
 @import "../../cananolab-client.component";
-
-.protocols-links-panel{
-    width: 500px;  // @FIXME - make a const
-}
-
-.protocol-create-search-button-group{
-    float: right;
-}
-
-.protocol-create-delete-button-group{
-    float: left;
-}
+@import "../../main-display/main-display.component.scss";

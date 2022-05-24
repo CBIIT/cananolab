@@ -10,9 +10,9 @@
     {{message}}
 </div>
 <div class="sample-edit-div">
-    <div class="editSection">
+    <div class="mainSection">
         <form action="" method="get" name="functionalizingEntityForm">
-        <div class="editBorder">
+        <div class="mainBorder">
             <table class="dataMain">
                 <!--Only Used for Add-->
                 <tr *ngIf="!dataId">
@@ -177,7 +177,7 @@
                 </tr>
             </table>
         </div><br />
-        <div class="editBorder" *ngIf="data.type=='antibody'">
+        <div class="mainBorder" *ngIf="data.type=='antibody'">
             <table class="dataMain">
                 <tr>
                     <td class="label">
@@ -258,7 +258,7 @@
             </table>
         </div>
 
-        <div class="editBorder" *ngIf="data.type=='biopolymer'">
+        <div class="mainBorder" *ngIf="data.type=='biopolymer'">
             <table class="dataMain">
                 <tr>
                     <td class="label" colspan="2">
@@ -300,7 +300,7 @@
             </table>
         </div>
 
-        <div class="editBorder" *ngIf="data.type=='small molecule'">
+        <div class="mainBorder" *ngIf="data.type=='small molecule'">
             <table class="dataMain">
                 <tr>
                     <td class="label" colspan="2">
@@ -318,7 +318,7 @@
             </table>
         </div>
         <br *ngIf="data.type=='antibody' || data.type=='biopolymer' || data.type=='small molecule'" />
-        <div class="editBorder">
+        <div class="mainBorder">
             <table class="dataMain">
                 <tr>
                     <td class="label">
@@ -369,7 +369,7 @@
 
                                 <tr *ngIf="inherentFunctionIndex!=null">
                                     <td colspan="5">
-                                        <div class="editBorder">
+                                        <div class="mainBorder">
                                             <table class="dataMain gray" width="100%">
                                                 <tr>
                                                     <td class="label">
@@ -421,7 +421,7 @@
                                                 <tr [hidden]="inherentFunction.type!='targeting function' || !inherentFunction.targets.length">
                                                     <td>&nbsp;</td>
                                                     <td colspan="3">
-                                                        <div class="editBorder" style="width:450px">
+                                                        <div class="mainBorder" style="width:450px">
                                                             <table class="dataMain" width="100%">
                                                                 <tr>
                                                                     <th>Type</th>
@@ -443,7 +443,7 @@
                                                 <tr *ngIf="targetIndex!=null">
                                                     <td>&nbsp;</td>
                                                     <td colspan="3">
-                                                        <div class="editBorder" style="width:450px">
+                                                        <div class="mainBorder" style="width:450px">
                                                             <table class="dataMain" width="100%">
                                                                 <tr>
                                                                     <td class="label">
@@ -512,7 +512,7 @@
                 </tr>
             </table>
         </div><br />
-        <div class="editBorder">
+        <div class="mainBorder">
             <table class="dataMain">
                 <tr>
                     <td class="label">
@@ -526,7 +526,7 @@
                 </tr>
             </table>
         </div><br />
-        <div class="editBorder">
+        <div class="mainBorder">
             <table class="dataMain">
                 <tr>
                     <td class="label">

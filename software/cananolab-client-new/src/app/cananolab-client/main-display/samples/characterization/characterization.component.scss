@@ -1,63 +1,63 @@
 @import "../../../main-display/main-display.component.scss";
 
-    .editSection td {
+    .mainSection td {
         padding-bottom:13px !important;    font-size:12px ;
 
     }
-    .editSection .compositionTitle {
+    .mainSection .compositionTitle {
             padding:10px;
             background-color:#0073b9;
             color:#fff;
             text-transform: capitalize;
     }
 
-    .editSection .compositionBody {
+    .mainSection .compositionBody {
         background-color:#f5f5f5;
     }
 
-    .editSection .header {
+    .mainSection .header {
         background-color:#005518;
         color:#fff;
         padding:10px;
     }
 
-        .editSection .header .btn {
+        .mainSection .header .btn {
             margin-left:10px;
         }
 
-    .editSection .editButton{
+    .mainSection .editButton{
         padding-top:5px;
         text-align:right;
     }
-    .editSection table.dataMain.files{
+    .mainSection table.dataMain.files{
         margin-bottom:10px;
     }
-    .editSection table.dataMain td{
+    .mainSection table.dataMain td{
         vertical-align:top;
     }
-    .editSection table.dataMain .properties{
+    .mainSection table.dataMain .properties{
         text-transform: capitalize;
     }
-    .editSection table.dataMain .properties th{
+    .mainSection table.dataMain .properties th{
         text-align:left;
         width:150px;
         vertical-align:top;
         padding-right:20px;
     }
-    .editSection table.dataMain td.label{
+    .mainSection table.dataMain td.label{
         font-weight:bold;
         width:200px;
         vertical-align:top;
     }
 
-    .editSection table.dataMain .properties td{
+    .mainSection table.dataMain .properties td{
         text-align:left;
         width:150px;
         vertical-align:top;
         padding-right:20px;
     }
 
-    .editSection table.dataMain .properties.files{
+    .mainSection table.dataMain .properties.files{
         border:1px solid #ccc;
         width:100%;
         margin-bottom:5px;

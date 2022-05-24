@@ -1,47 +1,47 @@
 @import "../../../../main-display/main-display.component.scss";
 
-    .editSection td {
+    .mainSection td {
         padding-bottom:13px !important;    font-size:12px ;
 
     }
 
-    .editSection .editButton{
+    .mainSection .editButton{
         padding-top:5px;
         text-align:right;
     }
-    .editSection table.files{
+    .mainSection table.files{
         width:100%;
     }
 
-    .editSection table.files th{
+    .mainSection table.files th{
         width:200px;
     }
-    .editSection table.dataMain td{
+    .mainSection table.dataMain td{
         vertical-align:top;
         width:250px;
         padding:10px !important;
     }
 
 
-    .editSection table.dataMain td.label{
+    .mainSection table.dataMain td.label{
         font-weight:bold;
         width:200px !important;
         vertical-align:top;
     }
 
-    .editSection table.antibodyProperties td.label{
+    .mainSection table.antibodyProperties td.label{
         font-weight:bold;
         width:100px !important;
         vertical-align:top;
     }
 
-    .editSection table.antibodyProperties{
+    .mainSection table.antibodyProperties{
         font-weight:bold;
         width:600px !important;
         vertical-align:top;
     }
 
-    .editSection table.files td.label{
+    .mainSection table.files td.label{
         font-weight:bold;
         width:200px;
         vertical-align:top;

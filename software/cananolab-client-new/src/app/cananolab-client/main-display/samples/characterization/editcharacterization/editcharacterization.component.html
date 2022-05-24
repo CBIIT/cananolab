@@ -10,9 +10,9 @@
     {{message}}
 </div>
 <div class="sample-edit-div">
-    <div class="editSection" *ngIf="data">
+    <div class="mainSection" *ngIf="data">
         <form action="" method="get" name="characterizationForm">
-            <div class="editBorder">
+            <div class="mainBorder">
                 <table class="dataMain">
                     <tr *ngIf="!charId">
                         <td class="label">
@@ -114,7 +114,7 @@
             <ng-container *ngIf="propertiesLoaded">
 
                 <ng-container *ngIf="data.name=='physical state'">
-                    <div class="editBorder">
+                    <div class="mainBorder">
                         <table class="dataMain">
                             <tr colspan="2"><td class="label">Phsyical Properties</td></tr>
                             <tr>
@@ -141,7 +141,7 @@
                     </div><br />
                 </ng-container>
                 <ng-container *ngIf="data.name=='shape'">
-                    <div class="editBorder">
+                    <div class="mainBorder">
                         <table class="dataMain">
                             <tr colspan="4"><td class="label">Shape Properties</td></tr>
                             <tr>
@@ -216,7 +216,7 @@
                     </div><br />
                 </ng-container>
                 <ng-container *ngIf="data.name=='solubility'">
-                    <div class="editBorder">
+                    <div class="mainBorder">
                         <table class="dataMain">
                             <tr colspan="4"><td class="label">Solubility Properties</td></tr>
                             <tr>
@@ -283,7 +283,7 @@
                     </div><br />
                 </ng-container>
                 <ng-container *ngIf="data.name=='surface'">
-                    <div class="editBorder">
+                    <div class="mainBorder">
                         <table class="dataMain">
                             <tr>
                                 <td colspan="2" class="label">Surcace Properties</td>
@@ -307,7 +307,7 @@
                     </div><br />
                 </ng-container>
                 <ng-container *ngIf="data.name=='cytotoxicity'">
-                    <div class="editBorder">
+                    <div class="mainBorder">
                         <table class="dataMain">
                             <tr>
                                 <td class="label" colspan="2">Cytotoxicity Properties</td>
@@ -328,7 +328,7 @@
                     </div><br />
                 </ng-container>
                 <ng-container *ngIf="data.name=='enzyme induction'">
-                    <div class="editBorder">
+                    <div class="mainBorder">
                         <table class="dataMain">
                             <tr>
                                 <td colspan="2" class="label">Enzyme Properties</td>
@@ -357,7 +357,7 @@
                     </div><br />
                 </ng-container>
                 <ng-container *ngIf="data.name=='targeting'">
-                    <div class="editBorder">
+                    <div class="mainBorder">
                         <table class="dataMain">
                             <tr>
                                 <td class="label" colspan="2">Targeting Properties</td>
@@ -378,7 +378,7 @@
                     </div><br />
                 </ng-container>
                 <ng-container *ngIf="data.name=='transfection'">
-                    <div class="editBorder">
+                    <div class="mainBorder">
                         <table class="dataMain">
                             <tr>
                                 <td class="label" colspan="2">Transfection Properties</td>
@@ -399,7 +399,7 @@
                     </div><br />
                 </ng-container>
             </ng-container>
-            <div class="editBorder">
+            <div class="mainBorder">
                 <table class="dataMain">
                     <tr>
                         <td class="label">
@@ -631,7 +631,7 @@
                     </tr>
                 </table>
             </div><br />
-            <div class="editBorder">
+            <div class="mainBorder">
                 <table class="dataMain">
                     <tr>
                         <td class="label">
@@ -647,7 +647,7 @@
                         <td></td>
                         <td>
                             <ng-container *ngFor="let finding of data.finding; let fIndex=index">
-                                <div class="editBorder" *ngIf="finding.rows.length||finding.files.length">
+                                <div class="mainBorder" *ngIf="finding.rows.length||finding.files.length">
                                     <table>
                                         <tr>
                                             <td>
@@ -703,7 +703,7 @@
 
                                 </div><br />
                             </ng-container>
-                            <div class="editBorder" *ngIf="findingIndex!=null">
+                            <div class="mainBorder" *ngIf="findingIndex!=null">
                             <table>
                                 <tr>
                                     <td colspan="2">
@@ -1054,7 +1054,7 @@
                     </tr>
                 </table>
             </div><br />
-            <div class="editBorder">
+            <div class="mainBorder">
                 <table class="dataMain">
                     <tr>
                         <td class="label">

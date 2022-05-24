@@ -11,9 +11,9 @@
     <div class="error" *ngIf="message">
         {{message}}
     </div>
-    <div class="editSection">
+    <div class="mainSection">
         <form action="" method="get" name="publicationForm">
-            <div class="editBorder">
+            <div class="mainBorder">
                 <table class="dataMain">
                     <tr>
                         <td class="label">
@@ -248,7 +248,7 @@
                     </tr>
                 </table>
             </div><br />
-            <div class="editBorder">
+            <div class="mainBorder">
                 <table class="dataMain">
                     <tr>
                         <td class="label">File</td>
@@ -279,7 +279,7 @@
                 </table>
             </div><br />
 
-            <div class="editBorder" *ngIf="sampleId">
+            <div class="mainBorder" *ngIf="sampleId">
                 <table [ngClass]="{'otherSampleNames':!setupData['otherSampleNames'].length,'dataMain':setupData['otherSampleNames'].length}">
                     <tr *ngIf="!setupData['otherSampleNames'].length">
                         <td class="label">
@@ -301,7 +301,7 @@
                 </table>
             </div><br />
 
-            <div class="editBorder" *ngIf="!sampleId">
+            <div class="mainBorder" *ngIf="!sampleId">
                 <table class="dataMain">
                     <tr>
                         <td class="label">
@@ -342,7 +342,7 @@
                 </table>
             </div><br />
 
-            <div class="editBorder">
+            <div class="mainBorder">
                 <table class="dataMain">
                     <tr>
                         <td class="label">

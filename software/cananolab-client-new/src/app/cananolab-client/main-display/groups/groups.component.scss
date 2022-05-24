@@ -1,27 +1,7 @@
 @import "../../main-display/main-display.component.scss";
 
 
-.dataMain  {
-    margin:5px;
-    width:90%;
-}
 
-    .dataMain td {
-        padding:10px;
-        vertical-align:top;
-    }
-
-        .dataMain td.label {
-            width:200px;
-            padding:10px;
-            font-weight:bold;
-            vertical-align:top;
-        }
-
-
-        .dataMain td.buttons {
-            text-align:right;
-        }
 
 .display {
     min-width:600px;
