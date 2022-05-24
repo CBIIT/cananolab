@@ -58,7 +58,7 @@ export class FunctionalizingentityComponent implements OnInit {
                 Properties.CURRENT_SAMPLE_ID = this.sampleId;
             };
             this.apiService.getSampleName(this.sampleId).subscribe(
-                data=>this.toolHeadingNameManage='Sample ' +data['sampleName'] + ' Functionalizing Entity'
+                data=>this.toolHeadingNameManage='Edit ' +data['sampleName'] + ' Functionalizing Entity'
             )
             if (this.dataId) {
                 this.data = this.getdata(this.sampleId).subscribe(

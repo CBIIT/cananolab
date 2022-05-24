@@ -5,8 +5,6 @@ import { Params } from '@angular/router';
 import { Properties } from '../../../../../../assets/properties';
 import { Consts } from '../../../../../constants';
 import { NavigationService } from '../../../../common/services/navigation.service';
-import { url } from 'inspector';
-import { i18nMetaToJSDoc } from '@angular/compiler/src/render3/view/i18n/meta';
 import { ApiService } from '../../../../common/services/api.service';
 @Component({
   selector: 'canano-editpublication',
@@ -28,12 +26,11 @@ export class EditpublicationComponent implements OnInit {
     publicationId;
     recipientList;
     sampleId = Properties.CURRENT_SAMPLE_ID;
-    sampleName = Properties.CURRENT_SAMPLE_NAME;
     sampleList;
     samples;
     serverUrl = Properties.API_SERVER_URL;
     setupData;
-    toolHeadingNameManage = 'Sample ' + this.sampleName + ' Publication';
+    toolHeadingNameManage;
     theAccess;
     theFile;
     type;
@@ -58,7 +55,7 @@ export class EditpublicationComponent implements OnInit {
             this.type=params['type'];
             this.publicationId=params['publicationId'];
             if (this.sampleId) {
-                this.apiService.getSampleName(this.sampleId).subscribe(data=>this.sampleName=data['sampleName'])
+                this.apiService.getSampleName(this.sampleId).subscribe(data=>this.toolHeadingNameManage='Edit '+data['sampleName']+' Publication')
 
             }
 

@@ -19,7 +19,6 @@ import { ApiService } from '../../../../common/services/api.service';
 } )
 export class SamplePublicationsComponent implements OnInit{
     sampleId = Properties.CURRENT_SAMPLE_ID;
-    sampleName = Properties.CURRENT_SAMPLE_NAME;
     helpUrl = Consts.HELP_URL_SAMPLE_PUBLICATIONS;
     propertiesLoaded;
     data;

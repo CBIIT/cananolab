@@ -14,7 +14,7 @@ export class EditcharacterizationComponent implements OnInit {
     sampleId = Properties.CURRENT_SAMPLE_ID;
     sampleName;
     helpUrl = Consts.HELP_URL_SAMPLE_CHARACTERIZATION;
-    toolHeadingNameManage = 'Sample ' + this.sampleName + ' Characterization';
+    toolHeadingNameManage;
     serverUrl = Properties.API_SERVER_URL;
 
 
@@ -61,7 +61,7 @@ export class EditcharacterizationComponent implements OnInit {
                     Properties.CURRENT_SAMPLE_ID = this.sampleId;
                 };
                 this.apiService.getSampleName(this.sampleId).subscribe(
-                    data=>this.toolHeadingNameManage='Submit Publication for '+data['sampleName'])
+                    data=>this.toolHeadingNameManage='Edit '+data['sampleName']+ ' Characterization')
 
 
 

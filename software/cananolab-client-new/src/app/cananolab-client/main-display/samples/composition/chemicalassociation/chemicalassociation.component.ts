@@ -60,7 +60,7 @@ export class ChemicalassociationComponent implements OnInit {
                   Properties.CURRENT_SAMPLE_ID = this.sampleId;
               };
               this.apiService.getSampleName(this.sampleId).subscribe(
-                data=>this.toolHeadingNameManage='Sample ' +data['sampleName'] + ' Chemical Association'
+                data=>this.toolHeadingNameManage='Edit ' +data['sampleName'] + ' Chemical Association'
             )
               if (this.dataId) {
                 this.data = this.getdata().subscribe(

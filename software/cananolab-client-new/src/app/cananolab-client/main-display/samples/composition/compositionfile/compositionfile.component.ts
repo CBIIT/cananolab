@@ -40,7 +40,7 @@ export class CompositionfileComponent implements OnInit {
                     Properties.CURRENT_SAMPLE_ID = this.sampleId;
                 };
                 this.apiService.getSampleName(this.sampleId).subscribe(
-                    data=>this.toolHeadingNameManage='Sample ' +data['sampleName'] + ' Composition File'
+                    data=>this.toolHeadingNameManage='Edit ' +data['sampleName'] + ' Composition File'
                 )
                 let url = this.httpClient.get(Properties.API_SERVER_URL+'/caNanoLab/rest/compositionFile/setup?sampleId='+this.sampleId);
                 url.subscribe(data=> {
