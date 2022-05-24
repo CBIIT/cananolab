@@ -31,6 +31,7 @@ export class StatusDisplayService{
             data => {
                 // Set user as "Logged in"
                 Properties.logged_in = true;
+                console.log(data);
             },
             ( err ) => {
                 console.log( 'ERROR getUserGroups: ', err );

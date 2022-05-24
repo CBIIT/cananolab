@@ -13,6 +13,7 @@ import { Router } from '@angular/router';
 import { UtilService } from './common/services/util.service';
 import { ApiService } from './common/services/api.service';
 import { TopMainMenuService } from './top-main-menu/top-main-menu.service';
+import { StatusDisplayService } from './status-display/status-display.service';
 @Component( {
     selector: 'canano-cananolab-client',
     templateUrl: './cananolab-client.component.html',
@@ -22,7 +23,7 @@ export class CananolabClientComponent implements OnInit{
 
     properties = Properties;
 
-    constructor( private topMainMenuService:TopMainMenuService,private apiService:ApiService,private configurationService: ConfigurationService, private router: Router,
+    constructor( private statusDisplayService:StatusDisplayService,private topMainMenuService:TopMainMenuService,private apiService:ApiService,private configurationService: ConfigurationService, private router: Router,
                  private utilService: UtilService ){
     }
 
@@ -34,6 +35,8 @@ export class CananolabClientComponent implements OnInit{
                 this.properties['LOGGED_IN']=true;
                 this.properties['logged_in']=true;
                 this.properties['current_user']=keys[0];
+                this.statusDisplayService.updateUser(this.properties['current_user'])
+
                 this.topMainMenuService.showOnlyMenuItems(
                     [
                         'HOME',

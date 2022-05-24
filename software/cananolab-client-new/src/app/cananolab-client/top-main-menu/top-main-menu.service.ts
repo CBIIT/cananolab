@@ -140,7 +140,6 @@ export class TopMainMenuService{
 
     init(){
         this.topMenuValuesArray = Object.values( TopMenuItems );
-        console.log(TopMenuItems)
         this.topMenuKeysArray = Object.keys( TopMenuItems );
 
         // Initialize to all enabled and all visible.

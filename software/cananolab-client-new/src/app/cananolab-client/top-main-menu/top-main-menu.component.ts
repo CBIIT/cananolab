@@ -35,7 +35,6 @@ export class TopMainMenuComponent implements OnInit, OnDestroy {
                private router: Router) { }
 
  async ngOnInit() {
-    console.log(this.topMenuItemNames)
      this.topMainMenuService.enableTopMenuArrayEmitter.pipe( takeUntil( this.ngUnsubscribe ) ).subscribe(
          ( data ) => {
              this.enableMenuArray = data;
@@ -43,7 +42,6 @@ export class TopMainMenuComponent implements OnInit, OnDestroy {
 
      this.topMainMenuService.visibleMenuArrayEmitter.pipe( takeUntil( this.ngUnsubscribe ) ).subscribe(
          ( data ) => {
-             console.log(data)
              this.visibleMenuArray = data;
          } );
 

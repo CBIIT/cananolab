@@ -53,7 +53,6 @@ export class ApiService{
         this.doGet( Consts.QUERY_GET_TABS, '' ).subscribe(
             data => {
                 if( data['tabs'][0][0] === 'HOME' ){
-                    console.log( 'Good testRestCall test with server: ', data['tabs'][0][0] );
                 }else{
                     console.error( 'Bad testRestCall answer from server!  testRestCall()' );
                 }
@@ -99,7 +98,6 @@ export class ApiService{
             let simpleSearchUrl = Properties.API_SERVER_URL + '/' + queryType;
             if( Properties.DEBUG_CURL ){
                 let curl = 'curl -k \'' + Properties.API_SERVER_URL + '/' + queryType + '\' -d \'' + query + '\'';
-                console.log( curl );
             }
 
             let headers = null;
@@ -155,7 +153,6 @@ export class ApiService{
             let simpleSearchUrl = Properties.API_SERVER_URL + '/' + queryType;
             if( Properties.DEBUG_CURL ){
                 let curl = 'curl -k \'' + Properties.API_SERVER_URL + '/' + queryType + '\' -d \'' + query + '\'';
-                console.log( curl );
             }
 
             let headers = null;
@@ -287,7 +284,6 @@ export class ApiService{
 
             if( Properties.DEBUG_CURL ){
                 let curl = 'curl  -v -d  \'' + data + '\' ' + ' -k \'' + post_url + '\'';
-                console.log( curl );
             }
 
             let options =
@@ -299,8 +295,6 @@ export class ApiService{
 
             this.httpClient.post( post_url, data, options ).pipe( timeout( Properties.HTTP_TIMEOUT ) ).subscribe(
                 ( loginReturnData ) => {
-
-                    console.log( 'Successful Login: ', loginReturnData );
                     Properties.LOGGED_IN = true;
                     Properties.current_user = user;
 
