@@ -278,7 +278,8 @@ getdata(sampleId){
             },
             "valueUnit":"",
             "name":"",
-            "functionList":[]
+            "functionList":[],
+            "fileList":[]
         };
     };
 
