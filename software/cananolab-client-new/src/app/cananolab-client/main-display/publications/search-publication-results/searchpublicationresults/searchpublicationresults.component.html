@@ -14,7 +14,11 @@
             {{(currentPage * pageLength) + 1}}
             -{{    (((currentPage * pageLength) + pageLength) > searchResults.length) ? searchResults.length : (currentPage * pageLength) + pageLength   }}
         </span>
-
+        <canano-search-results-pager
+        style="float: right;"
+        [totalCount]=searchResultsCount
+        [startingPageLength]=pageLength
+    ></canano-search-results-pager>
         <span style="font-size: 12px"
         class="search-results-pager"
   >
@@ -34,7 +38,7 @@
 
       <!-- Pager buttons -->
 
-          </span><br /><br /><br />
+          </span><br /><br />
           <table class="search-results-table">
 
 
@@ -103,7 +107,7 @@
                     <br>
 
                     <span  style="color: #00f; text-decoration: underline;"
-                        (click)="addToFavorites(publication['id'] )"
+                        (click)="addToFavorites(publication)"
                         class="clicker"
                     >Add to Favorites</span>
 

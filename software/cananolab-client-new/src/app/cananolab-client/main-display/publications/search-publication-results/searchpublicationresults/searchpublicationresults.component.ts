@@ -7,6 +7,7 @@ import { Consts,SortState} from '../../../../../constants';
 import { StatusDisplayService } from '../../../../status-display/status-display.service';
 import { Subject } from 'rxjs';
 import { Router } from '@angular/router';
+import { ApiService } from '../../../../common/services/api.service';
 @Component({
   selector: 'canano-searchpublicationresults',
   templateUrl: './searchpublicationresults.component.html',
@@ -33,7 +34,7 @@ export class SearchpublicationresultsComponent implements OnInit {
 
     private ngUnsubscribe: Subject<boolean> = new Subject<boolean>();
 
-    constructor(private router:Router,private statusDisplayService:StatusDisplayService,private searchResultsPagerService:SearchResultsPagerService,private searchPublicationService:SearchPublicationService) { }
+    constructor(private apiService:ApiService,private router:Router,private statusDisplayService:StatusDisplayService,private searchResultsPagerService:SearchResultsPagerService,private searchPublicationService:SearchPublicationService) { }
 
     ngOnInit(): void {
         this.searchResults = this.searchPublicationService.getPublicationSearchResults();
@@ -45,10 +46,14 @@ export class SearchpublicationresultsComponent implements OnInit {
                 this.setupPage();
             } );
 
-
+            console.log(this.properties)
         this.statusDisplayService.updateUserEmitter.pipe( timeout( Properties.HTTP_TIMEOUT ) ).subscribe(
             data => {
+                console.log('is nothing happening?')
                 this.userName = data;
+            },
+            error=>{
+                console.log('error')
             } );
 
 
@@ -62,9 +67,18 @@ export class SearchpublicationresultsComponent implements OnInit {
         this.router.navigate(['/home/samples/publications/publication',publicationId]);
     }
 
-    // navigateToSampleView(publicationId){
-    //     this.router.navigate(['home/samples/publications/publication', publicationId ]);  // @FIXME  Don't hard code these
-    // }
+    addToFavorites(publication) {
+        let data = {
+            "dataId":publication.id,
+            "dataName":publication.displayName,
+            "dataType":"publication",
+            "editable":publication.editable,
+            "loginName":this.userName,
+            "pubMedId":publication.pubMedId
+        }
+        console.log(data)
+        // this.apiService.doPost('caNanoLab/rest/core/addFavorite',)
+    }
 
     onPageLengthChange(){
         if( this.pageLength < 1 ){
@@ -77,6 +91,10 @@ export class SearchpublicationresultsComponent implements OnInit {
         this.pageCount = Math.ceil( this.searchResultsCount / this.pageLength );
         this.searchResultsPagerService.setPageCount( this.pageCount );
         this.setupPage(); // Sets this page as the currently vied search results.
+    }
+
+    onSortClick( i ){
+        console.log( 'onSortClick: ', i );
     }
 
     setupPage(){

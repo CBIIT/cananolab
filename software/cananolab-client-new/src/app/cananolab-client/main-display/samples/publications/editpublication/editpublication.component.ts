@@ -88,7 +88,6 @@ export class EditpublicationComponent implements OnInit {
                         editUrl=this.httpClient.get(Properties.API_SERVER_URL+'/caNanoLab/rest/publication/edit?publicationId='+this.publicationId+'&sampleId='+this.sampleId);
                     }
                     else {
-                        console.log('here')
                         editUrl=this.httpClient.get(Properties.API_SERVER_URL+'/caNanoLab/rest/publication/edit?publicationId='+this.publicationId+'&sampleId=');
                     }
                     editUrl.subscribe(data=> {
