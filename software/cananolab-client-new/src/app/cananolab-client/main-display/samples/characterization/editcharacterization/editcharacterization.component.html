@@ -1078,7 +1078,7 @@
                         </td>
                         <td>
                             <button (click)="resetCharacterization()" class="btn-canano btn-canano-danger btn-canano-lg mr-1">Reset</button>
-                            <button (click)="submitCharacterization()" class="btn-canano btn-canano-primary btn-canano-lg mr-1">Submit</button>
+                            <button [disabled]="data.type=='' || data.name==''" (click)="submitCharacterization()" class="btn-canano btn-canano-primary btn-canano-lg mr-1">Submit</button>
                         </td>
                     </tr>
                 </table>
