@@ -6,34 +6,39 @@
     width:90%;
 }
 
-.dataMain td.label {
-    width:200px;
-    padding:10px;
-    font-weight:bold;
-    vertical-align:top;
-}
-.dataMain td {
-    padding:10px;
-    vertical-align:top;
-}
+    .dataMain td {
+        padding:10px;
+        vertical-align:top;
+    }
 
-.dataMain td.buttons {
-    text-align:right;
-}
+        .dataMain td.label {
+            width:200px;
+            padding:10px;
+            font-weight:bold;
+            vertical-align:top;
+        }
+
+
+        .dataMain td.buttons {
+            text-align:right;
+        }
 
 .display {
     min-width:600px;
     }
-.display th {
-    background-color:#0073b9;
-    color:#fff;
-    border:1px solid #ccc;
-    padding:10px;
-    width:200px;
-}
 
-.display td {
-    border:1px solid #ccc;
-    padding:10px;
-    vertical-align:top;
-}
+    .display td {
+        border:1px solid #ccc;
+        padding:10px;
+        vertical-align:top;
+    }
+
+    .display th {
+        background-color:#0073b9;
+        color:#fff;
+        border:1px solid #ccc;
+        padding:10px;
+        width:200px;
+    }
+
+
