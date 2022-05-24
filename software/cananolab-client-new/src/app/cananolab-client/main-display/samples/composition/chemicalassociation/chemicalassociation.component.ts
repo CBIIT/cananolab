@@ -20,7 +20,9 @@ export class ChemicalassociationComponent implements OnInit {
   toolHeadingNameManage = 'Sample Composition';
   data;
   dataTrailer;
+  errors;
   fileIndex;
+  message;
   nanomaterialEntityOptions;
   functionalizingEntityOptions;
   composingElementOptionsA;
@@ -31,7 +33,6 @@ export class ChemicalassociationComponent implements OnInit {
   setupData;
   currentDropdownValues;
   currentField;
-  errors;
     constructor( private apiService:ApiService,private navigationService:NavigationService,private router: Router, private route: ActivatedRoute,private httpClient: HttpClient ){
     }
 
@@ -70,6 +71,10 @@ export class ChemicalassociationComponent implements OnInit {
                         this.dataTrailer = JSON.parse(JSON.stringify(this.data));
                         Properties.CURRENT_SAMPLE_NAME = data['sampleName'];
                         this.loadSetupData();
+                        this.errors={};
+                    },
+                    error=>{
+                        this.errors=error;
                     } );
               }
               else {
@@ -200,18 +205,20 @@ changeEntityId(compositionType,entity, val) {
             let url = this.httpClient.post( Properties.API_SERVER_URL + '/caNanoLab/rest/chemicalAssociation/getComposingElementsByNanomaterialEntityId?id='+val,{});
             url.subscribe( data => {
                 this.composingElementOptionsA=data;
+                this.errors={};
             },
             err => {
-                console.error( 'Error ', err );
+                this.errors=err;
             });
         }
         else {
             let url = this.httpClient.post( Properties.API_SERVER_URL + '/caNanoLab/rest/chemicalAssociation/getComposingElementsByNanomaterialEntityId?id='+val,{});
             url.subscribe( data => {
                 this.composingElementOptionsB=data;
+                this.errors={};
             },
             err => {
-                console.error( 'Error ', err );
+                this.errors=err;
             });
         }
     };
@@ -259,9 +266,10 @@ deleteChemicalAssociation() {
         let url = this.httpClient.post( Properties.API_SERVER_URL + '/caNanoLab/rest/chemicalAssociation/delete',this.data);
         url.subscribe( data => {
             this.router.navigate( ['home/samples/composition', this.sampleId] );
+            this.errors={};
         },
         err => {
-            console.error( 'Error ', err );
+            this.errors=err;
         });
     }
 }
@@ -274,9 +282,10 @@ submitChemicalAssociation() {
     let url = this.httpClient.post( Properties.API_SERVER_URL + '/caNanoLab/rest/chemicalAssociation/submit',this.data);
     url.subscribe( data => {
         this.router.navigate( ['home/samples/composition', this.sampleId] );
+        this.errors={};
     },
     err => {
-        console.error( 'Error ', err );
+        this.errors=err;
     });
 }
 
@@ -301,6 +310,7 @@ loadSetupData() {
             let functionalizingUrl = this.httpClient.post( Properties.API_SERVER_URL + '/caNanoLab/rest/chemicalAssociation/getAssociatedElementOptions?compositionType=functionalizing entity',{});
             this.nanomaterialEntityOptions=data;
             functionalizingUrl.subscribe( data => {
+                this.errors={};
                 this.functionalizingEntityOptions=data;
                 if (this.dataId) {
                     this.loadDropdowns();
@@ -309,15 +319,15 @@ loadSetupData() {
 
             },
             err => {
-                console.error( 'Error ', err );
+                this.errors=err;
             });
         },
         err => {
-            console.error( 'Error ', err );
+            this.errors=err;
         });
     },
     err => {
-        console.error( 'Error ', err );
+        this.errors=err;
     });
 }
 

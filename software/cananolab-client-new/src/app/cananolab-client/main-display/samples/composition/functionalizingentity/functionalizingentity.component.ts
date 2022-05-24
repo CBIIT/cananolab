@@ -18,7 +18,7 @@ export class FunctionalizingentityComponent implements OnInit {
     // This is used to reset the dropdown if other is selected and canceled //
     currentDropdownValues;
     dataId;
-    error;
+    errors;
     inherentFunction;
 
     // use these instead to determine open or closed form //
@@ -30,6 +30,7 @@ export class FunctionalizingentityComponent implements OnInit {
     dataTrailer;
     fileIndex;
     helpUrl =  Consts.HELP_URL_SAMPLE_COMPOSITION;
+    message;
     sampleName = Properties.CURRENT_SAMPLE_NAME;
     sampleId;
     setupData;
@@ -44,6 +45,7 @@ export class FunctionalizingentityComponent implements OnInit {
 
   ngOnInit(): void{
       this.navigationService.setCurrentSelectedItem(1);
+      this.errors={};
     this.route.params.subscribe(
         ( params: Params ) => {
           this.sampleId = params['sampleId'];
@@ -63,10 +65,14 @@ export class FunctionalizingentityComponent implements OnInit {
             if (this.dataId) {
                 this.data = this.getdata(this.sampleId).subscribe(
                     data => {
+                        this.errors={};
                         Properties.SAMPLE_TOOLS = true;
                         this.data = data;
                         this.dataTrailer = JSON.parse(JSON.stringify(this.data));
                         Properties.CURRENT_SAMPLE_NAME = data['sampleName'];
+                    },
+                    error=> {
+                        this.errors=error;
                     } );
             };
 
@@ -74,6 +80,10 @@ export class FunctionalizingentityComponent implements OnInit {
                 data => {
                     Properties.SAMPLE_TOOLS = true;
                     this.setupData = data;
+                    this.errors={};
+                },
+                error=>{
+                    this.errors=error;
                 } );
         }
     );
@@ -104,9 +114,10 @@ deleteInherentFunction() {
         url.subscribe( data => {
             this.data=data;
             this.dataTrailer = JSON.parse(JSON.stringify(this.data));
+            this.errors={};
         },
         err => {
-            console.error( 'Error ', err );
+            this.errors=err;
         });
         this.inherentFunctionIndex=null;
         this.targetIndex=null;
@@ -172,10 +183,10 @@ saveInherentFunction() {
     url.subscribe( data => {
         this.data=data;
         this.dataTrailer = JSON.parse(JSON.stringify(this.data));
-
+        this.errors={};
     },
     err => {
-        console.error( 'Error ', err );
+        this.errors=err;
     });
     this.inherentFunction=null;
     this.target=null;
@@ -289,9 +300,10 @@ getdata(sampleId){
             let url = this.httpClient.post( Properties.API_SERVER_URL + '/caNanoLab/rest/functionalizingEntity/delete', this.data );
             url.subscribe( data => {
                 this.router.navigate( ['home/samples/composition', this.sampleId] );
+                this.errors={};
             },
             err => {
-                console.error( 'Error ', err );
+                this.errors=err;
             });
         };
     };
@@ -306,10 +318,11 @@ getdata(sampleId){
         let url = this.httpClient.post( Properties.API_SERVER_URL + '/caNanoLab/rest/functionalizingEntity/submit', this.data );
         url.subscribe( data => {
             this.router.navigate( ['home/samples/composition', this.sampleId] );
+            this.errors={};
 
         },
         err => {
-            console.error( 'Error ', err );
+            this.errors=err;
         });
     };
 

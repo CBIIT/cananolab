@@ -17,6 +17,8 @@ export class CompositionfileComponent implements OnInit {
     setupData;
     data;
     dataTrailer;
+    errors;
+    message;
     theFile;
     sampleId = Properties.CURRENT_SAMPLE_ID;
     sampleName = Properties.CURRENT_SAMPLE_NAME;
@@ -44,19 +46,22 @@ export class CompositionfileComponent implements OnInit {
                 )
                 let url = this.httpClient.get(Properties.API_SERVER_URL+'/caNanoLab/rest/compositionFile/setup?sampleId='+this.sampleId);
                 url.subscribe(data=> {
+                    this.errors={};
                     Properties.SAMPLE_TOOLS=true;
                     this.setupData=data;
                 },
                 error=> {
-
+                    this.errors=error;
                 });
                 if (this.dataId) {
                     let url = this.httpClient.get(Properties.API_SERVER_URL+'/caNanoLab/rest/compositionFile/edit?sampleId='+this.sampleId+'&dataId='+this.dataId);
                     url.subscribe(data=> {
+                        this.errors={};
                         this.data=data;
                         this.dataTrailer=JSON.parse(JSON.stringify(this.data));
                     },
                     error=> {
+                        this.errors=error;
 
                     })
                 }
@@ -74,9 +79,11 @@ export class CompositionfileComponent implements OnInit {
         {
             let url = this.httpClient.post(Properties.API_SERVER_URL+'/caNanoLab/rest/compositionFile/delete',this.data);
             url.subscribe(data=> {
+                this.errors={};
                 this.router.navigate( ['home/samples/composition', this.sampleId] );
             },
             error=> {
+                this.errors=error;
 
             })
         }
@@ -103,11 +110,12 @@ export class CompositionfileComponent implements OnInit {
           let saveUrl=this.httpClient.post(Properties.API_SERVER_URL+'/caNanoLab/rest/compositionFile/submit',this.data) ;
           saveUrl.subscribe(data=> {
               this.data=data;
+              this.errors={};
               this.router.navigate( ['home/samples/composition', this.sampleId] );
           },
           error=> {
-              console.log('file save error')
-          })
+            this.errors=error;
+        })
         }
         else {
           this.theFile.append('uriExternal',this.data['uriExternal']);
@@ -118,18 +126,21 @@ export class CompositionfileComponent implements OnInit {
           this.theFile.append('description',this.data['description']);
           let uploadUrl = this.httpClient.post(Properties.API_SERVER_URL+'/caNanoLab/rest/core/uploadFile', this.theFile);
           uploadUrl.subscribe(data=> {
+                this.errors={};
                 this.data['uri']=data['fileName'];
-              let saveUrl=this.httpClient.post(Properties.API_SERVER_URL+'/caNanoLab/rest/compositionFile/submit',this.data) ;
-              saveUrl.subscribe(data=> {
+                let saveUrl=this.httpClient.post(Properties.API_SERVER_URL+'/caNanoLab/rest/compositionFile/submit',this.data) ;
+                saveUrl.subscribe(data=> {
+                this.errors={};
                   this.data=data;
                   this.router.navigate( ['home/samples/composition', this.sampleId] );
 
               },
               error=> {
-                  console.log('file save error')
-              })
+                this.errors=error;
+            })
           },
           error=> {
+            this.errors=error;
 
           })
         }

@@ -28,11 +28,13 @@ export class EditcharacterizationComponent implements OnInit {
     currentFile;
     data;
     dataTrailer;
+    errors;
     findingIndex;
     fileIndex;
     instrument;
     instrumentTrailer;
     instrumentIndex;
+    message;
     propertiesLoaded;
     setupData;
     techniqueIndex;
@@ -70,7 +72,7 @@ export class EditcharacterizationComponent implements OnInit {
                     url.subscribe(
                         data=>{
                             Properties.SAMPLE_TOOLS = true;
-
+                            this.errors={};
                             this.data = data;
                             this.data.name='';
                             this.data.assayType='';
@@ -82,7 +84,7 @@ export class EditcharacterizationComponent implements OnInit {
 
                         },
                         error=> {
-                            console.log('error')
+                            this.errors=error;
                         }
                     );
                 }
@@ -91,6 +93,7 @@ export class EditcharacterizationComponent implements OnInit {
                     url.subscribe(
                         data=>{
                             Properties.SAMPLE_TOOLS = true;
+                            this.errors={};
 
                             this.data = data;
                             this.propertiesLoaded=true;
@@ -98,6 +101,7 @@ export class EditcharacterizationComponent implements OnInit {
                             console.log('am i here')
                         },
                         error=> {
+                            this.errors=error;
 
                         });
                 }
@@ -191,12 +195,14 @@ export class EditcharacterizationComponent implements OnInit {
         console.log(value,isDropdown)
         let url = this.httpClient.get(Properties.API_SERVER_URL+'/caNanoLab/rest/characterization/getColumnNameOptionsByType?columnType='+value+'&charName='+this.data.name+'&assayType=');
         url.subscribe(data=> {
+            this.errors={};
             this.setupData.columnNameOptions=data;
             if (isDropdown) {
                 this.columnHeader.columnName=null;
             }
         },
         error=> {
+            this.errors=error;
 
         })
     };
@@ -208,13 +214,14 @@ export class EditcharacterizationComponent implements OnInit {
     changeColumnName(value, isDropdown) {
         let url = this.httpClient.get(Properties.API_SERVER_URL+'/caNanoLab/rest/characterization/getColumnValueUnitOptions?columnName='+value+'&conditionProperty=null');
         url.subscribe(data=> {
+            this.errors={};
             this.setupData.valueUnitOptions=data;
             if (isDropdown) {
                 this.columnHeader.valueUnit=null;
             }
         },
         error=> {
-            console.log('error')
+            this.errors=error;
         })
     };
 
@@ -223,21 +230,23 @@ export class EditcharacterizationComponent implements OnInit {
         let assayUrl = this.httpClient.get(Properties.API_SERVER_URL + '/caNanoLab/rest/characterization/getAssayTypesByCharName?charName='+name);
         assayUrl.subscribe(
             data=> {
+                this.errors={};
                 this.data['assayTypesByCharNameLookup'] = data;
             },
             error=> {
-                console.log('error')
+                this.errors=error;
             }
         );
         let charPropertiesUrl = this.httpClient.get(Properties.API_SERVER_URL + '/caNanoLab/rest/characterization/getCharProperties?charName='+name);
         this.propertiesLoaded=null;
         charPropertiesUrl.subscribe(
             data=> {
+                this.errors={};
                 this.data['property'] = data;
                 this.propertiesLoaded=true;
             },
             error=> {
-                console.log('error')
+                this.errors=error;
             }
         );
 
@@ -253,7 +262,7 @@ export class EditcharacterizationComponent implements OnInit {
                 this.data.charNamesForCurrentType = data;
             },
             error=> {
-                console.log('error')
+                this.errors=error;
             }
         )
     };
@@ -262,10 +271,11 @@ export class EditcharacterizationComponent implements OnInit {
         if (confirm('Are you sure you wish to delete this characterization')) {
             let url = this.httpClient.post(Properties.API_SERVER_URL+'/caNanoLab/rest/characterization/removeCharacterization',this.data);
             url.subscribe(data=> {
+                this.errors={};
                 this.router.navigate( ['home/samples/characterization', this.sampleId] );
             },
             error=> {
-                console.log('error')
+                this.errors=error;
             })
         }
     };
@@ -278,10 +288,11 @@ export class EditcharacterizationComponent implements OnInit {
             this.currentFinding['theFileIndex']=fileIndex;
             let url = this.httpClient.post(Properties.API_SERVER_URL+'/caNanoLab/rest/characterization/removeFile',this.currentFinding)
             url.subscribe(data=> {
+                this.errors={};
                 this.currentFinding=data;
             },
             error=> {
-                console.log('error')
+                this.errors=error;
             })
         }
         console.log(this.currentFinding)
@@ -295,11 +306,12 @@ export class EditcharacterizationComponent implements OnInit {
             this.findingIndex=null;
             let url = this.httpClient.post(Properties.API_SERVER_URL+'/caNanoLab/rest/characterization/removeFinding',this.currentFinding);
             url.subscribe(data=> {
+                this.errors={};
                 this.data=data;
                 this.setCharacterizationData();
             },
             error=> {
-                console.log('error')
+                this.errors=error;
             })
         }
     };
@@ -323,10 +335,12 @@ export class EditcharacterizationComponent implements OnInit {
             let url = this.httpClient.post(Properties.API_SERVER_URL+'/caNanoLab/rest/characterization/removeExperimentConfig',this.techniqueInstrument);
             url.subscribe(data=> {
                 this.data=data;
+                this.errors={};
                 this.dataTrailer=JSON.parse(JSON.stringify(this.data));
                 this.setCharacterizationData();
             },
             error=> {
+                this.errors=error;
 
             });
             this.techniqueIndex=null;
@@ -396,10 +410,11 @@ export class EditcharacterizationComponent implements OnInit {
     getInstrumentTypes(value) {
         let url = this.httpClient.get(Properties.API_SERVER_URL+'/caNanoLab/rest/characterization/getInstrumentTypesByTechniqueType?techniqueType='+value);
         url.subscribe(data=> {
+            this.errors={};
             this.setupData['instrumentTypeLookup']=data;
         },
         error=> {
-            console.log('error')
+            this.errors=error;
         });
     };
 
@@ -420,10 +435,11 @@ export class EditcharacterizationComponent implements OnInit {
         this.currentFinding=JSON.parse(JSON.stringify(this.columnOrder));
         let url = this.httpClient.post(Properties.API_SERVER_URL+'/caNanoLab/rest/characterization/setColumnOrder',this.columnOrder);
         url.subscribe(data=> {
+            this.errors={};
             this.currentFinding=data;
         },
         error=>{
-            console.log('error')
+            this.errors=error;
         })
         this.columnOrder=null;
 
@@ -454,14 +470,15 @@ export class EditcharacterizationComponent implements OnInit {
             // this.currentFinding['theFile']=data;
             let saveUrl=this.httpClient.post(Properties.API_SERVER_URL+'/caNanoLab/rest/characterization/saveFile',this.currentFinding) ;
             saveUrl.subscribe(data=> {
+                this.errors={};
                 this.currentFinding=data;
             },
             error=> {
-                console.log('file save error')
+                this.errors=error;
             })
         },
         error=> {
-            console.log('error')
+            this.errors=error;
         })
         if (this.fileIndex==-1) {
             this.currentFinding.files
@@ -483,12 +500,14 @@ export class EditcharacterizationComponent implements OnInit {
         }
         let url = this.httpClient.post(Properties.API_SERVER_URL+'/caNanoLab/rest/characterization/saveFinding',this.data);
         url.subscribe(data=> {
+            this.errors={};
+
             this.data=data;
             this.setCharacterizationData();
 
         },
         error=> {
-            console.log('error')
+            this.errors=error;
         })
         this.columnHeaderIndex=null;
         this.findingIndex=null;
@@ -525,11 +544,13 @@ export class EditcharacterizationComponent implements OnInit {
             let url = this.httpClient.post(Properties.API_SERVER_URL+'/caNanoLab/rest/characterization/saveExperimentConfig',this.data);
             url.subscribe(
                 data=> {
+                    this.errors={};
+
                     this.data=data;
                     this.setCharacterizationData();
                 },
                 error=> {
-                    console.log('error');
+                    this.errors=error;
 
                 }
             )
@@ -544,11 +565,13 @@ export class EditcharacterizationComponent implements OnInit {
         this.setupData = [];
         let url = this.httpClient.get(Properties.API_SERVER_URL+'/caNanoLab/rest/characterization/getDatumNumberModifier?columnName=Number%20Modifier');
         url.subscribe(data=> {
+            this.errors={};
+
             this.setupData.datumNumberModifier=data;
             this.setupData.datumNumberModifier.splice(this.setupData.datumNumberModifier.indexOf('other'),1)
         },
         error=> {
-            console.log('error')
+            this.errors=error;
         })
         this.setupData.instrumentTypeLookup = [];
     };
@@ -580,10 +603,11 @@ export class EditcharacterizationComponent implements OnInit {
         let url = this.httpClient.post(Properties.API_SERVER_URL+'/caNanoLab/rest/characterization/saveCharacterization',this.data);
         url.subscribe(
             data=> {
+                this.errors={};
                 this.router.navigate( ['home/samples/characterization', Properties.CURRENT_SAMPLE_ID] );  // @FIXME  Don't hard code these
             },
             error=> {
-                console.log('error')
+                this.errors=error;
             }
         )
     };
@@ -591,10 +615,11 @@ export class EditcharacterizationComponent implements OnInit {
     updateRowsColumns() {
         let url = this.httpClient.post(Properties.API_SERVER_URL+'/caNanoLab/rest/characterization/updateDataConditionTable',this.currentFinding);
         url.subscribe(data=> {
+            this.errors={};
             this.currentFinding=data;
         },
         error=> {
-            console.log('error')
+            this.errors=error;
         })
     };
 

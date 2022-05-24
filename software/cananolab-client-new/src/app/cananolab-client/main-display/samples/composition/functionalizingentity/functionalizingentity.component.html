@@ -3,7 +3,12 @@
 
 </canano-main-display-heading>
 
-
+<div class="error" *ngIf="errors['error']">
+    {{errors['error']}}
+</div>
+<div class="error" *ngIf="message">
+    {{message}}
+</div>
 <div class="sample-edit-div">
     <div class="editSection">
         <form action="" method="get" name="functionalizingEntityForm">
@@ -326,9 +331,9 @@
                 <tr>
                     <td></td>
                     <td>
-                        <div class="editBorder">
                             <table class="inherentFunction" width="650px">
-                                <tr>
+                                <ng-container *ngIf="data.functionList.length">
+                                    <tr>
                                     <th>
                                         Function Type
                                     </th>
@@ -358,6 +363,10 @@
                                         <button (click)="editInherentFunction(iFunction,i)" class="btn-canano btn-canano-primary btn-canano-xs mr-1">Edit</button>
                                     </td>
                                 </tr>
+                                </ng-container>
+                            </table>
+                            <table class="inherentFunction" width="650px">
+
                                 <tr *ngIf="inherentFunctionIndex!=null">
                                     <td colspan="5">
                                         <div class="editBorder">
@@ -499,7 +508,6 @@
                                     </td>
                                 </tr>
                             </table>
-                        </div>
                     </td>
                 </tr>
             </table>

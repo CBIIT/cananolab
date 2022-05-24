@@ -3,10 +3,14 @@
     [toolHeadingName]="toolHeadingNameManage"
 >
 </canano-main-display-heading>
+<div class="error" *ngIf="errors['error']">
+    {{errors['error']}}
+</div>
+<div class="error" *ngIf="message">
+    {{message}}
+</div>
 <div class="sample-edit-div">
     <div class="editSection" *ngIf="data">
-        <!-- {{data|json}}<br /><br />
-        {{setupData|json}} -->
         <form action="" method="get" name="characterizationForm">
             <div class="editBorder">
                 <table class="dataMain">

@@ -2,6 +2,13 @@
 
 </canano-main-display-heading>
 
+<div class="error" *ngIf="errors['error']">
+    {{errors['error']}}
+</div>
+<div class="error" *ngIf="message">
+    {{message}}
+</div>
+
 <div class="sample-edit-div">
     <div class="editSection" *ngIf="setupData">
         <form action="" method="get">
