@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 @Component({
   selector: 'canano-submit-publication',
   templateUrl: './submit-publication.component.html',
-  styleUrls: ['./submit-publication.component.scss']
+  styleUrls: ['../../../../btn-bravo-canano.scss','./submit-publication.component.scss']
 })
 export class SubmitPublicationComponent implements OnInit {
 

@@ -88,6 +88,7 @@ export class EditpublicationComponent implements OnInit {
                         editUrl=this.httpClient.get(Properties.API_SERVER_URL+'/caNanoLab/rest/publication/edit?publicationId='+this.publicationId+'&sampleId='+this.sampleId);
                     }
                     else {
+                        console.log('here')
                         editUrl=this.httpClient.get(Properties.API_SERVER_URL+'/caNanoLab/rest/publication/edit?publicationId='+this.publicationId+'&sampleId=');
                     }
                     editUrl.subscribe(data=> {
@@ -251,7 +252,14 @@ export class EditpublicationComponent implements OnInit {
             let getPubmedUrl=this.httpClient.get(Properties.API_SERVER_URL+'/caNanoLab/rest/publication/getPubmedPublication?pubmedId='+event.target.value);
             getPubmedUrl.subscribe(data=> {
                 if (confirm("A database record with the same PubMed ID already exists.  Load saved information?")) {
-                    let editUrl=this.httpClient.get(Properties.API_SERVER_URL+'/caNanoLab/rest/publication/edit?publicationId='+data+'&sampleId='+this.sampleId);
+                    var editUrl;
+                    if (this.sampleId) {
+                        editUrl=this.httpClient.get(Properties.API_SERVER_URL+'/caNanoLab/rest/publication/edit?publicationId='+data+'&sampleId='+this.sampleId);
+                    }
+                    else {
+                        editUrl=this.httpClient.get(Properties.API_SERVER_URL+'/caNanoLab/rest/publication/edit?publicationId='+data+'&sampleId=');
+
+                    }
                     editUrl.subscribe(data=> {
                         this.data=data;
                         this.setupData['otherSampleNames']=this.data['otherSampleNames'];
