@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../../../../../common/services/api.service';
 import { StatusDisplayService } from '../../../../../status-display/status-display.service';
-
+import { Router } from '@angular/router';
 @Component( {
     selector: 'canano-login',
     templateUrl: './login.component.html',
@@ -11,15 +11,22 @@ export class LoginComponent implements OnInit{
 
     user = '';
     password = '';
-
-    constructor( private apiService: ApiService, private statusDisplayService: StatusDisplayService ){
+    homePage = true;
+    loaded=false;
+    constructor( private router:Router,private apiService: ApiService, private statusDisplayService: StatusDisplayService ){
     }
 
     ngOnInit(): void{
+        if (this.router.url.includes('login'))
+        {
+            this.homePage=false;
+            this.loaded=true;
+        }
     }
 
     onLoginClick(){
         this.apiService.authenticateUser( this.user, this.password )
         this.statusDisplayService.updateUser( this.user );
+        this.router.navigateByUrl('home')
     }
 }

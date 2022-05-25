@@ -39,11 +39,12 @@ import { SampleAdvancedSearchResultsComponent } from './cananolab-client/main-di
 import { ProtocolViewComponent } from './cananolab-client/main-display/protocols/protocol-view/protocol-view.component';
 import { EditpublicationComponent } from './cananolab-client/main-display/samples/publications/editpublication/editpublication.component';
 import { SearchpublicationresultsComponent } from './cananolab-client/main-display/publications/search-publication-results/searchpublicationresults/searchpublicationresults.component';
+import { LoginComponent } from './cananolab-client/main-display/home/right-side-bar/home-user-actions/login/login.component';
 
 const routes: Routes = [
     { path: '', component: HomeComponent },
     { path: 'home', component: HomeComponent },
-
+    { path: 'home/login', component: LoginComponent },
     { path: 'home/publications', component: PublicationsComponent },
     { path: 'home/publications/submitPublication', component: SubmitPublicationComponent },
     { path: 'home/publications/searchPublication', component: SearchPublicationComponent },

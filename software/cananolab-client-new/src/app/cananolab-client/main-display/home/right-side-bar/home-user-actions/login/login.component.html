@@ -1,40 +1,46 @@
-<div
-    style="background-color: #00ffde"
-    class="right-side-bar-content"
+    <canano-main-display-heading *ngIf="loaded&&!homePage"
+    [helpUrl]="'https://wiki.nci.nih.gov/display/caNanoLab/Getting+Started+in+caNanoLab#GettingStartedincaNanoLab-LoggingIn'"
+    [toolHeadingName]="'Log into caNanoLab'"
 >
+</canano-main-display-heading>
 
-    <span class="m-1"><strong>No account is required to browse publicly available data.</strong></span>
-  <table class="ml-2">
-      <tr>
-          <td style="text-align: right;">
-            <label for="loginId">LOGIN ID</label>              
-          </td>
-          <td>
-              <input
-                  [(ngModel)]="user"
-                  type="text" id="loginId">
-          </td>
-      </tr>
-      <tr>
-          <td style="text-align: right;">
-            <label for="password">PASSWORD</label>
-          </td>
-          <td>
-              <input
-                  [(ngModel)]="password"
-                  type="password" id="password"
-              >
-          </td>
-      </tr>
-      <tr>
-          <td> </td>
-          <td>
-              <button
-                  class="btn-canano-blue"
-                  (click)="onLoginClick()"
+<div class="mainSection">
+    <div [ngClass]="{'mainBorder':loaded&&!homePage}">
+        <table>
+            <tr>
+                <td colspan="2">
+                    <P><B>No account is required to browse publicly available data.</B></P>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="loginId">
+                        Login ID
+                    </label>
+                </td>
+                <td>
+                    <input type="text" name="loginId" id="loginId" [(ngMode)]="user">
+                </td>
+            </tr>
 
-              >Login</button>
-          </td>
-      </tr>
-  </table>
+            <tr>
+                <td>
+                    <label for="password">
+                        Password
+                    </label>
+                </td>
+                <td>
+                    <input type="text" name="loginId" id="loginId" [(ngMode)]="password">
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>
+                        <button class="btn btn-primary btn-sm" (click)="onLoginClick()">
+                            Login
+                        </button>
+                </td>
+            </tr>
+        </table>
+</div>
 </div>

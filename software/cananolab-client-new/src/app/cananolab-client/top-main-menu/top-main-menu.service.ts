@@ -103,12 +103,14 @@ export let TopMenuData = [
     {
         'name': 'HELP',
         'displayName': 'Help',
-        'route': 'home/help'
+        'route': 'home/help',
+        'externalUrl':'https://wiki.nci.nih.gov/display/caNanoLab/caNanoLab+User%27s+Guide'
     },
     {
         'name': 'GLOSSARY',
         'displayName': 'Glossary',
-        'route': 'home/glossary'
+        'route': 'home/glossary',
+        'externalUrl':'https://wiki.nci.nih.gov/display/caNanoLab/caNanoLab+Glossary'
     },
     {
         'name': 'LOGOUT',

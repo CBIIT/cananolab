@@ -62,7 +62,7 @@ export class TopMainMenuComponent implements OnInit, OnDestroy {
      * @param item The "Value" (not the key) of the Main Menu item selected.
      */
     onMenuSelect(item){
-        if( item.includes( 'home/' + Consts.QUERY_LOGOUT )){
+        if( item['route'].includes( 'home/' + Consts.QUERY_LOGOUT )){
             this.topMainMenuService.hideMenuItem( 'LOGOUT' );
             Properties.LOGGED_IN = false;
             // Init the top menu
@@ -77,7 +77,14 @@ export class TopMainMenuComponent implements OnInit, OnDestroy {
                     'LOGIN'
                 ]
             ); }
-        this.router.navigate([item]);
+            let keys=Object.keys(item);
+            if (keys.indexOf('externalUrl')>-1) {
+                window.open(item['externalUrl'])
+            }
+            else {
+                this.router.navigate([item.route]);
+            }
+
     }
 
     // Avoid memory leak
