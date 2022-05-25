@@ -31,7 +31,6 @@ export class CananolabClientComponent implements OnInit{
         let loginUrl=this.apiService.doGet('caNanoLab/rest/security/getUserGroups',{});
         loginUrl.subscribe(data=> {
             let keys=Object.keys(data);
-            console.log('hi')
             if (keys[0]!='anonymousUser') {
                 this.properties['LOGGED_IN']=true;
                 this.properties['logged_in']=true;

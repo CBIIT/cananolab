@@ -20,8 +20,8 @@ export class StatusDisplayService{
 
     updateUser( user ){
         this.user = user;
-        this.updateUserEmitter.emit( user );
         this.updateUserGroups();
+        this.updateUserEmitter.emit( user );
     }
 
     updateUserGroups(){
@@ -31,6 +31,7 @@ export class StatusDisplayService{
             data => {
                 // Set user as "Logged in"
                 Properties.logged_in = true;
+
                 console.log(data);
             },
             ( err ) => {
