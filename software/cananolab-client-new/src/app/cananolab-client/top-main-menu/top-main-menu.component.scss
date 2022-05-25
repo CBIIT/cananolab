@@ -26,6 +26,7 @@
 }
 
 .nav-menu-top-item{
+    outline: none !important;
     @extend .canano-blue;
     color: #fff;
     // border-top: solid #668ec0 1px;

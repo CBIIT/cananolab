@@ -9,7 +9,7 @@ import { UtilService } from '../common/services/util.service';
 import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { ConfigurationService } from '../common/services/configuration.service';
-import { Router } from '@angular/router';
+import { Router,Event, NavigationStart, NavigationEnd, NavigationError } from '@angular/router';
 import { Consts } from '../../constants';
 import { Properties } from '../../../assets/properties';
 
@@ -28,11 +28,17 @@ export class TopMainMenuComponent implements OnInit, OnDestroy {
     properties = Properties;
     // @CHECKME  Should this be in the Properties file?
     defaultComponent = TopMenuData[0].route; // Just use the first one, it will be "home"
-
+    currentRoute: string;
     private ngUnsubscribe: Subject<boolean> = new Subject<boolean>();
 
   constructor( private topMainMenuService: TopMainMenuService, private utilService: UtilService,
-               private router: Router) { }
+               private router: Router) {
+                this.router.events.subscribe((event: Event) => {
+                    if (event instanceof NavigationStart) {
+                        this.currentRoute=event.url;
+                    }
+                })
+               }
 
  async ngOnInit() {
      this.topMainMenuService.enableTopMenuArrayEmitter.pipe( takeUntil( this.ngUnsubscribe ) ).subscribe(
@@ -62,8 +68,13 @@ export class TopMainMenuComponent implements OnInit, OnDestroy {
             // Init the top menu
             this.topMainMenuService.showOnlyMenuItems(
                 [
+                    'HOME',
                     'HELP',
-                    'GLOSSARY'
+                    'GLOSSARY',
+                    'PROTOCOLS',
+                    'SAMPLES',
+                    'PUBLICATIONS',
+                    'LOGIN'
                 ]
             ); }
         this.router.navigate([item]);

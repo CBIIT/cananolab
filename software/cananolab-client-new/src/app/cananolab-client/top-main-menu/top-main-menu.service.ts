@@ -6,6 +6,7 @@
 
 import { EventEmitter, Injectable } from '@angular/core';
 import { MainDisplayService } from '../main-display/main-display.service';
+import { Router,Event, NavigationStart, NavigationEnd, NavigationError } from '@angular/router';
 
 /**
  * These will serve as constants used for Hiding, Showing, enabling,
@@ -29,6 +30,7 @@ export let TopMenuItems = {
     HELP: 'Help',
     GLOSSARY: 'Glossary',
     LOGOUT: 'Logout',
+    LOGIN:'Login',
     TEST: 'Test'
 };
 export let TopMenuData = [
@@ -114,6 +116,11 @@ export let TopMenuData = [
         'route': 'home/logout'
     },
     {
+        'name': 'LOGIN',
+        'displayName': 'Login',
+        'route': 'home/login'
+    },
+    {
         'name': 'TEST',
         'displayName': 'Test',
         'route': 'home/test'
@@ -134,7 +141,7 @@ export class TopMainMenuService{
     visibleMenuArray = [];
     visibleMenuArrayEmitter = new EventEmitter();
 
-    constructor( private mainDisplayService: MainDisplayService ){
+    constructor( private router:Router,private mainDisplayService: MainDisplayService ){
         this.init();
     }
 
@@ -152,7 +159,10 @@ export class TopMainMenuService{
         this.showOnlyMenuItems(
             [
                 'HELP',
-                'GLOSSARY'
+                'GLOSSARY',
+                'PROTOCOLS',
+                'SAMPLES',
+                'PUBLICATIONS'
             ]
         );
 

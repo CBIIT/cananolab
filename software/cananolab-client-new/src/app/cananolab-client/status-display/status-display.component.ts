@@ -3,7 +3,7 @@ import { StatusDisplayService } from './status-display.service';
 import { timeout } from 'rxjs/operators';
 import { Properties } from '../../../assets/properties';
 import { ChildActivationStart } from '@angular/router';
-
+import { TopMainMenuService } from '../top-main-menu/top-main-menu.service';
 @Component({
   selector: 'canano-status-display',
   templateUrl: './status-display.component.html',
@@ -11,10 +11,9 @@ import { ChildActivationStart } from '@angular/router';
 })
 export class StatusDisplayComponent implements OnInit {
   userName;  // @TODO
-  constructor(private statusDisplayService: StatusDisplayService) { }
+  constructor(private topMainMenuService:TopMainMenuService,private statusDisplayService: StatusDisplayService) { }
 
   ngOnInit(): void {
-      console.log('ss')
       this.statusDisplayService.updateUserEmitter.pipe( timeout( Properties.HTTP_TIMEOUT ) ).subscribe(
           data => {
               this.userName = data;

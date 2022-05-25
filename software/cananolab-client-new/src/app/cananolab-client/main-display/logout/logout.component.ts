@@ -23,7 +23,7 @@ export class LogoutComponent implements OnInit{
         this.properties['LOGGED_IN']=false;
         this.properties['logged_in']=false;
         this.topMainMenuService.showOnlyMenuItems([
-            'HELP','GLOSSARY'
+            'HOME','HELP','GLOSSARY','PROTOCOLS','SAMPLES','PUBLICATIONS','LOGIN'
         ])
         this.router.navigate( [this.utilService.getRouteByName( 'HOME' )] );
     }
