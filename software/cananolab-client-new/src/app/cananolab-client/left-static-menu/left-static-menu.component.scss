@@ -29,9 +29,26 @@
 }
 
 .left-menu-button-green{
-    @extend .left-menu-button;
-    @extend .btn-canano-sm-green;
+    border:0px;
+    margin:0px;
+    padding:0px;
+    width:100%;
+    background-color:#005518;
+    padding:6px;
+    font-size:12px;
+    color:#fff;
+    border-top:1px solid #81FFFE;
+    text-align:left;
+    font-weight:bold;
+    text-transform: uppercase;
+    outline:0 !important;
 }
+.left-menu-button-green:hover{
+    @extend .left-menu-button;
+    background-color:#fff;
+    color:#000;
+}
+
 
 .left-menu-heading{
     background-color: $menuHeadingBackgroundColor;

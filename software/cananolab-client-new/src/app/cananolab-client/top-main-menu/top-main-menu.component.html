@@ -8,20 +8,20 @@
             <li class="nav-item">
                 <button class="nav-link nav-menu-top-item disabled">Related Links</button>
             </li>
-            <li *ngFor="let item of topMenuItemNames; let i = index"
-                class="nav-item">
-                <!--  Here check for visible & enabled  -->
-                <button [hidden]="currentRoute=='/home'&&item['name']=='HOME'"
-                    [ngClass]="{
-                        'btn-canano-disabled':! enableMenuArray[i],
-                        'hide': ! visibleMenuArray[i]
-                        }"
-                    class="nav-link nav-menu-top-item"
-                    (click)="onMenuSelect(item)"
-                >
-                    {{item['displayName']}}
-                </button>
-            </li>
+            <ng-container *ngFor="let item of topMenuItemNames; let i = index">
+                <li class="nav-item">
+                    <!--  Here check for visible & enabled  -->
+                    <button [hidden]="currentRoute=='/home'&&item['name']=='HOME'"
+                            [ngClass]="{
+                                        'btn-canano-disabled':! enableMenuArray[i],
+                                        'hide': ! visibleMenuArray[i]
+                                        }"
+                            class="nav-link nav-menu-top-item"
+                            (click)="onMenuSelect(item)">
+                        {{item['displayName']}}
+                    </button>
+                </li>
+            </ng-container>
         </ul>
     </div>
 </nav>

@@ -7,7 +7,7 @@
 
 .nih-logo-00{
     margin: 2px;
-    width: 200px;
+    width: 240px;
 }
 
 .nih-logo-01{
@@ -16,8 +16,16 @@
 
 .header-table{
     width: 100%;
-    padding: 0;
-    margin: 0;
+    padding: 0px;
+    margin: 0px;
+    border-bottom:1px solid #81FFFE !important;
+
+}
+
+.header-table td {
+    margin:0px;
+    padding:0px;
+
 }
 
 .header-img-00{
@@ -26,10 +34,10 @@
 }
 
 .header-div{
-    display: inline-block;
+    display: block;
     width: 100%;
-    margin-bottom: -8px;
-    padding: 0;
+    padding: 0px !important;
+    margin:0px !important;
 }
 
 .nih-link{

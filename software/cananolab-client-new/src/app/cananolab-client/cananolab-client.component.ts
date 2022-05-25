@@ -33,10 +33,14 @@ export class CananolabClientComponent implements OnInit{
         this.currentRoute = "";
         this.router.events.subscribe((event: Event) => {
             if (event instanceof NavigationStart) {
+                if (!event.url.includes('home/samples')) { // prevents menu refresh pause //
+                    Properties.SAMPLE_TOOLS=false;
+                }
                 if (event.url!='/home') {
                     this.menuItems=['HOME'];
                 }
-            }
+            };
+
         })
         let loginUrl=this.apiService.doGet('caNanoLab/rest/security/getUserGroups',{});
         loginUrl.subscribe(data=> {
