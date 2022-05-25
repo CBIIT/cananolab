@@ -40,15 +40,7 @@ export class CananolabClientComponent implements OnInit{
                 this.topMainMenuService.showOnlyMenuItems(
                     [
                         'HOME',
-                        'WORKFLOW',
-                        'PROTOCOLS',
-                        'SAMPLES',
-                        'PUBLICATIONS',
-                        'GROUPS',
-                        'CURATION',
-                        'MY_WORKSPACE',
-                        'MY_FAVORITES',
-                        'LOGOUT'
+                        'WORKFLOW'
                     ]
                 )
             }
@@ -57,8 +49,7 @@ export class CananolabClientComponent implements OnInit{
                 this.properties['LOGGED_IN']=false;
                 this.properties['logged_in']=false;
                 this.topMainMenuService.showOnlyMenuItems([
-                    'HELP','GLOSSARY'
-                ])
+                    'HELP','GLOSSARY','PROTOCOLS','SAMPLES','PUBLICATIONS','LOGIN'])
             }
         })
 

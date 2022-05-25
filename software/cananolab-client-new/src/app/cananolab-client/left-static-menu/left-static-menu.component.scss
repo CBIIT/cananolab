@@ -12,6 +12,7 @@
 .left-menu-div{
     width: $leftMenuWidth;
     margin-right: $leftMenuMargin;
+    margin-top:0px;
 }
 
 
@@ -35,7 +36,7 @@
 .left-menu-heading{
     background-color: $menuHeadingBackgroundColor;
     color: #fff;
-    margin-top: 1px;
+    margin-top: 0px;
     cursor: default;
 }
 
