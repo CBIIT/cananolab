@@ -10,10 +10,11 @@ import { ChildActivationStart } from '@angular/router';
   styleUrls: ['./status-display.component.scss']
 })
 export class StatusDisplayComponent implements OnInit {
-  userName = 'TEST User';  // @TODO
+  userName;  // @TODO
   constructor(private statusDisplayService: StatusDisplayService) { }
 
   ngOnInit(): void {
+      console.log('ss')
       this.statusDisplayService.updateUserEmitter.pipe( timeout( Properties.HTTP_TIMEOUT ) ).subscribe(
           data => {
               this.userName = data;

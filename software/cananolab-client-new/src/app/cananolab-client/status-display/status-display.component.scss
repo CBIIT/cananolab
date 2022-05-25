@@ -4,8 +4,12 @@
 
 .status-display{
     @extend .d-block;
+    font-size:12px;
+    padding:10px;
     background-color: $canano-background-blue;
+    border:solid #81FFFE;
+    border-width:1px 0px 0px 0px;
     color: #fff;
-    width: 100%;
-    margin: 1px 0 0 0;
+    width: 99%;
+    margin: 0px 0 0 0;
 }

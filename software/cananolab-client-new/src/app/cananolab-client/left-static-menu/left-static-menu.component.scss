@@ -14,6 +14,8 @@
     margin-right: $leftMenuMargin;
 }
 
+
+
 .left-menu-button{
     @extend .d-block;
     width: 100%;
@@ -51,4 +53,23 @@ a{
         color: #aeeee9;
         cursor: pointer;
     }
+}
+
+.left-nav {
+    background-color:#02055A !important;
+    width:100%;
+    color:#fff;
+    padding:8px;
+    border: solid #81FFFE;
+    border-width:.1em 0px 0px 0px !important;
+    font-weight:bold;
+    font-size:12px;
+    margin:0px;
+    text-align:left;
+
+}
+
+.left-nav:hover {
+    background-color:#81FFFE !important;
+    color:#02055A;
 }
