@@ -66,7 +66,7 @@ DROP TABLE IF EXISTS `solubility`;
 DROP TABLE IF EXISTS `characterization`;
 DROP TABLE IF EXISTS `common_lookup`;
 DROP TABLE IF EXISTS `composition_file`;
-DROP TABLE IF EXISTS `DATA_AVAILABILITY`;
+DROP TABLE IF EXISTS `data_availability`;
 DROP TABLE IF EXISTS `DATA_AVAILABILITY`;
 DROP TABLE IF EXISTS `data_review_status`;
 DROP TABLE IF EXISTS `databasechangelog`;
@@ -3874,6 +3874,34 @@ LOCK TABLES `DATA_AVAILABILITY` WRITE;
 /*!40000 ALTER TABLE `DATA_AVAILABILITY`
     DISABLE KEYS */;
 /*!40000 ALTER TABLE `DATA_AVAILABILITY`
+    ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `data_availability`
+--
+
+CREATE TABLE `data_availability`
+(
+    `sample_id`             bigint(20)   NOT NULL,
+    `datasource_name`       varchar(20)  DEFAULT NULL,
+    `available_entity_name` varchar(200) DEFAULT NULL,
+    `created_date`          datetime     NOT NULL,
+    `created_by`            varchar(200) NOT NULL,
+    `updated_date`          datetime     DEFAULT NULL,
+    `updated_by`            varchar(200) DEFAULT NULL
+) ENGINE = InnoDB
+  DEFAULT CHARSET = latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `data_availability`
+--
+
+LOCK TABLES `data_availability` WRITE;
+/*!40000 ALTER TABLE `data_availability`
+    DISABLE KEYS */;
+/*!40000 ALTER TABLE `data_availability`
     ENABLE KEYS */;
 UNLOCK TABLES;
 
