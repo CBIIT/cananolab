@@ -4,196 +4,140 @@
 >
 </canano-main-display-heading>
 
-<div class="mainSection">
-    <div class="mainBorder">
-    <form (ngSubmit)="onSubmit()" #f="ngForm">
-
-        <table>
-            <tr class="tr-border border-right border-top border-left">
-                <td>
-                    Keywords
-                </td>
-                <td>
-                     <textarea
-                         class="form-control"
-                         name="text"
-                         cols="60"
-                         rows="3"
-                         ngModel
-                     >
-                    </textarea>
-                    <div>
-                        <i><small>characterization keywords, publication keywords and text in characterization
-                            descriptions enter one keyword per line</small></i>
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <td></td>
-            </tr>
-            <tr class="tr-border  border-right border-left" style="border-collapse: separate;">
-                <td>
-                    Sample Name
-                </td>
-                <td>
-                    <select
-                        class="form-control"
-                        name="nameOperand"
-                        [ngModel]="nameOperand"
-                    >
-                        <option
-                            value='contains'
-                        >
-                            contains
-                        </option>
-                        <option
-                            value='equals'
-                        >
-                            equals
-                        </option>
-                    </select>
-                </td>
-                <td>
-                    <input
-                        type="text"
-                        class="form-control"
-                        name="sampleName"
-                        ngModel
-                    >
-                </td>
-            </tr>
-            <tr class="tr-border" style="border-collapse: separate;">
-                <td>
-                    Sample Point of Contact
-                </td>
-                <td>
-                    <select
-                        class="form-control"
-                        name="pocOperand"
-                        [(ngModel)]="pocOperand"
-                    >
-                        <option
-                            value='contains'
-                        >
-                            contains
-                        </option>
-                        <option
-                            value='equals'
-                        >
-                            equals
-                        </option>
-                    </select>
-                </td>
-                <td>
-                    <input
-                        type="text"
-                        class="form-control"
-                        name="samplePointOfContact"
-                        ngModel
-                    >
-
-                    <div>
-                        <i><small>searching organization name or person name</small></i>
-                    </div>
-                </td>
-            </tr>
-
-            <tr>
-                <td>
-                    Nanomaterial Entity
-                </td>
-                <td>
-                    <select multiple
-                            class="form-control"
-                            name="nanomaterialEntityTypes"
-                            ngModel
-                    >
-                        <option *ngFor="let samp of sampleSetupData['nanomaterialEntityTypes']">
-                            {{samp}}
-                        </option>
-                    </select>
-                </td>
-                <!--
-                            </tr>
-                            <tr>
-                -->
-                <td>
-                    Functionalizing Entity
-                </td>
-                <td>
-                    <select multiple
-                            class="form-control"
-                            name="functionalizingEntityTypes"
-                            ngModel
-                    >
-                        <option *ngFor="let samp of sampleSetupData['functionalizingEntityTypes']">
-                            {{samp}}
-                        </option>
-                    </select>
-                </td>
-                <!--
-                            </tr>
-
-                            <tr>
-                -->
-                <td>
-                    Function Types
-                </td>
-                <td>
-                    <select multiple
-                            class="form-control"
-                            name="functionTypes"
-                            ngModel
-                    >
-                        <option *ngFor="let samp of sampleSetupData['functionTypes']">
-                            {{samp}}
-                        </option>
-                    </select>
-                </td>
-            </tr>
-
-            <tr>
-                <td>Characterization Type</td>
-                <td>
-                    <select
-                        class="form-control"
-                        name="characterizationType"
-                        ngModel
-                    >
-                        <option *ngFor="let charType of sampleSetupData['characterizationTypes']"
-                                (click)="onCharacterizationType(charType)"
-                        >
-                            {{charType}}
-
-                        </option>
-                    </select>
-                </td>
-                <td>Characterization</td>
-                <td>
-                    <select multiple
-                            class="form-control"
-                            name="characterizations"
-                            ngModel
-                    >
-                        <option *ngFor="let chr of characterizationsList">
-                            {{chr}}
-                        </option>
-                    </select>
-                </td>
-            </tr>
-
-        </table>
-
-        <!--
-                /rest/sample/setup
-        -->
-
-        <button
-            type="submit"
-            style="float: right"
-            class="btn btn-canano-blue"
-        >Submit
-        </button>
-    </form>
+<div class="error" *ngIf="errors['error']">
+    {{errors['error']}}
 </div>
+<div class="sample-edit-div" *ngIf="sampleSetupData">
+    <form name="sampleSearchForm">
+    <div class="mainSection">
+        <div class="mainBorder">
+            <table class="sampleSearchForm">
+                <tr>
+                    <td class="label">
+                        <label for="keywords">
+                            Keywords
+                        </label>
+                    </td>
+                    <td colspan="5">
+                        <textarea name="keywords" id="keywords" [(ngModel)]="data.text" rows="3" cols="60">
+
+                        </textarea><br />
+                        <i>
+                            characterization keywords, publication keywords and text in characterization descriptions enter one keyword per line
+                        </i>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label">
+                        <label for="sampleName">
+                            Sample Name
+                        </label>
+                    </td>
+                    <td colspan="5">
+                        <label for="nameOperand">
+                            <select name="nameOperand" [(ngModel)]="data.nameOperand">
+                                <option [selected]="true">contains</option>
+                                <option>equals</option>
+                            </select>
+                        </label>
+                        <input type="text" id="sampleName" name="data.sampleName" [(ngModel)]="data.sampleName">
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label">
+                        <label for="samplePointOfContact">
+                            Sample Point of Contact
+                        </label>
+                    </td>
+                    <td colspan="5">
+                        <label for="pocOperand">
+                            <select name="pocOperand" [(ngModel)]="data.pocOperand">
+                                <option [selected]="true">contains</option>
+                                <option>equals</option>
+                            </select>
+                        </label>
+                        <input type="text" name="data.samplePointOfContact" id="samplePointOfContact" [(ngModel)]="data.samplePointOfContact">
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label">
+                        <label for="nanomaterialEntityTypes">
+                            Nanomaterial Entity
+                        </label>
+                    </td>
+                    <td>
+                        <select [size]="sampleSetupData['nanomaterialEntityTypes'].length" class="multiple" multiple name="data.nanomaterialEntityTypes" id="nanomaterialEntityTypes" [(ngModel)]="data.nanomaterialEntityTypes">
+                            <option *ngFor="let samp of sampleSetupData['nanomaterialEntityTypes']">
+                                {{samp}}
+                            </option>
+                        </select>
+                    </td>
+                    <td class="label">
+                        <label for="functionalizingEntityTypes">
+                            Functionalizing Entity Types
+                        </label>
+                    </td>
+                    <td>
+                        <select [size]="sampleSetupData['nanomaterialEntityTypes'].length" class="multiple" multiple name="data.functionalizingEntityTypes" id="functionalizingEntityTypes" [(ngModel)]="data.functionalizingEntityTypes">
+                            <option *ngFor="let samp of sampleSetupData['functionalizingEntityTypes']">
+                                {{samp}}
+                            </option>
+                        </select>
+                    </td>
+                    <td class="label">
+                        <label for="functionTypes">
+                            Function Types
+                        </label>
+                    </td>
+                    <td>
+                        <select [size]="sampleSetupData['nanomaterialEntityTypes'].length" class="multiple" multiple name="data.functionTypes" id="functionTypes" [(ngModel)]="data.functionTypes">
+                            <option *ngFor="let samp of sampleSetupData['functionTypes']">
+                                {{samp}}
+                            </option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label">
+                        <label for="characterizationType">
+                            Characterization Type
+                        </label>
+                    </td>
+                    <td>
+                        <select (ngModelChange)="onCharacterizationType($event)" name="characterizationType" [(ngModel)]="data.characterizationType" id="characterizationType">
+                            <option [selected]="true" [ngValue]="''">--Select--</option>
+                            <option *ngFor="let charType of sampleSetupData['characterizationTypes']">
+                                {{charType}}
+                            </option>
+                        </select>
+                    </td>
+                    <td class="label">
+                        <ng-container *ngIf="data.characterizationType!=''">
+                            <label for="characterizations">
+                                Characterization
+                            </label>
+                        </ng-container>
+                    </td>
+                    <td colspan="3">
+                        <ng-container *ngIf="data.characterizationType!=''">
+                            <select [size]="sampleSetupData['nanomaterialEntityTypes'].length" class="multiple" multiple name="data.characterizations" id="characterizations" [(ngModel)]="data.characterizations">
+                                <option *ngFor="let samp of characterizationsList">
+                                    {{samp}}
+                                </option>
+                            </select>
+                        </ng-container>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div class="buttons">
+        <div>
+            Searching without any parameters returns all samples.
+        </div>
+        <button (click)="reset()" class="btn-canano btn-canano-danger btn-canano-lg mr-1">Reset</button>
+        <button (click)="onSubmit()" class="btn-canano btn-canano-primary btn-canano-lg mr-1">Search</button>
+
+    </div>
+    </form>
 </div>

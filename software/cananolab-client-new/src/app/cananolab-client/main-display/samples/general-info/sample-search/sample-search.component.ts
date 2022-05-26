@@ -16,7 +16,10 @@ export class SampleSearchComponent implements OnInit {
     helpUrl = Consts.HELP_URL_SAMPLE_SEARCH;
     toolHeadingNameSearchSample = 'Sample Search';
     keywords;
-    sampleSetupData = {};
+    data;
+    dataTrailer;
+    errors;
+    sampleSetupData;
     pocOperand = 'contains';
     nameOperand = 'contains';
     sampleName;
@@ -36,6 +39,20 @@ export class SampleSearchComponent implements OnInit {
     }
 
     ngOnInit(): void{
+        this.errors={};
+        this.data={
+            "text":"",
+            "sampleName":"",
+            "samplePointOfContact":"",
+            "pocOperand":"contains",
+            "nameOperand":"contains",
+            "nanomaterialEntityTypes":[],
+            "functionalizingEntityTypes":[],
+            "functionTypes":[],
+            "characterizationType":"",
+            "characterizations":[]
+        };
+        this.dataTrailer=JSON.parse(JSON.stringify(this.data));
         this.init();
     }
 
@@ -58,37 +75,22 @@ export class SampleSearchComponent implements OnInit {
     }
 
     onSubmit(){
-
         // QUERY_SEARCH_SAMPLE
-        this.apiService.doPost( Consts.QUERY_SEARCH_SAMPLE, this.buildParameterString() ).subscribe(
+        this.apiService.doPost( Consts.QUERY_SEARCH_SAMPLE, this.data ).subscribe(
             data => {
                 this.searchResults = <any>data;
 
                 // send search results to samplesSearchResults
                 this.sampleSearchResultsService.setSearchResults( this.searchResults );
                 this.router.navigate(['home/samples/samplesSearchResults']); // @FIXME TESTING  Don't hard code this!!!
+            },
+            error=> {
+                this.errors=error;
             } );
     }
 
-
-    buildParameterString(): string{
-        // Add the parts that are not from the UI form
-        let parameters = '';
-
-        // Put the data from the form into "parameters"
-        Object.keys( this.sampleSearchForm.value )
-            .forEach( key => {
-
-                    if( this.sampleSearchForm.value[key].length > 0 ){
-                        parameters += '&' + key + '=' + this.sampleSearchForm.value[key];
-                    }else if( typeof this.sampleSearchForm.value[key] === 'boolean' ){
-                        parameters += '&' + key + '=' + this.utilService.isTrue( this.sampleSearchForm.value[key] );
-                     }else if( typeof this.sampleSearchForm.value[key] === 'number' ){
-                        parameters += '&' + key + '=' + this.sampleSearchForm.value[key];
-                    }
-                }
-            );
-        return parameters.substr( 1 );
+    reset() {
+        this.data=JSON.parse(JSON.stringify(this.dataTrailer));
     }
 
 }

@@ -45,6 +45,7 @@ export class SampleSearchResultsComponent implements OnInit, OnDestroy{
 
     ngOnInit(): void{
         this.searchResults = this.sampleSearchResultsService.getSearchResults();
+        console.log(this.searchResults)
         this.searchResultsCount = this.searchResults.length;
 
         this.searchResultsPagerService.currentPageChangeEmitter.pipe( takeUntil( this.ngUnsubscribe ) )

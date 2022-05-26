@@ -1,6 +1,7 @@
 @import "src/app/btn-canano";
 @import "src/app/cananolab-client/cananolab-client.component";
-
+@import '../../../main-display.component.scss';
+@import '../../../../../btn-bravo-canano.scss';
 td{
     padding: 6px;
 }
@@ -26,3 +27,58 @@ table{
 .border{
     border: solid #aaaaab 1px;
 }
+
+.sampleSearchForm {
+    margin:5px;
+}
+
+.sampleSearchForm td{
+    vertical-align:top;
+    padding:5px 10px 5px 0px;
+}
+
+.sampleSearchForm td.label{
+    vertical-align:top;
+    padding-right:20px;
+    width:150px;
+}
+
+.label {
+    font-weight:bold;
+}
+
+select.multiple {
+    width:150px;
+}
+
+select {
+    margin-right:4px;
+}
+
+span.label {
+    padding-right:10px;
+}
+
+.buttons {
+    margin:10px;
+}
+
+.submit {
+    width:100%;
+}
+
+.buttons {
+    text-align:right;
+}
+
+.buttons div {
+    font-style: italic;
+    color:#4A49A8;
+    text-align:center;
+}
+
+.error {
+    color:red;
+    margin:5px;
+}
+
