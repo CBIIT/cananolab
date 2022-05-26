@@ -386,14 +386,14 @@ fieldset[disabled] .btn-canano-link:focus {
 
 .btn-canano-sm {
     padding: 5px 10px;
-    font-size: 12px;
+    font-size: $mainFontSize;
     line-height: 1.5;
     border-radius: 3px;
 }
 
 .btn-canano-xs {
     padding: 1px 5px;
-    font-size: 12px;
+    font-size: $mainFontSize;
     line-height: 1.5;
     border-radius: 5px;
 }

@@ -12,9 +12,12 @@ $mainDisplayHeadingHeight: 28px;
 $mainDisplayHeadingMargin: 8px;
 
 .main-display-heading{
-    padding: 0;
+    text-transform: uppercase;
+    font-weight:bold;
+    font-size:$mainFontSize;
+    padding: $mainDisplayHeadingMargin;
     margin: $mainDisplayHeadingMargin;
-    height: $mainDisplayHeadingHeight;
+    // height: $mainDisplayHeadingHeight;
     background-color: $menuHeadingBackgroundColor;
     color: #fff;
     width: calc(100% - #{$mainDisplayHeadingMargin * 2});

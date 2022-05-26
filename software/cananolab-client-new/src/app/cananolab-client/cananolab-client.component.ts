@@ -63,7 +63,10 @@ export class CananolabClientComponent implements OnInit{
                 this.topMainMenuService.showOnlyMenuItems(this.menuItems)
             }
         })
+    }
 
+    navigateToUrl(url) {
+        window.open(url);
     }
 
     async init(){

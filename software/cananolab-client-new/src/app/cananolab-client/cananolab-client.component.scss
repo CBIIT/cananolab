@@ -1,14 +1,17 @@
+
+
 $canano-green: #005518;
 $canano-blue: #0073b9;
 $canano-background-blue: #02055a;
 $menuHeadingBackgroundColor: #005d7e;
-$leftMenuBorderBackgroundColor:#81FFFE;
+$leftMenuBorderColor:#88BCE2;
 $leftMenuWidth: 160px;
 $leftMenuMargin: 0px;
-
-$borderColor: #3cddf0;
-
+$navButtonColor:#81FFFE;
+$borderColor: $leftMenuBorderColor;
+$mainFontSize:12px;
 $keywordSearchFontSize: 12px;
+
 .header {
 	margin:0px;
 	padding:0px;
@@ -35,7 +38,7 @@ td.mainContent {
 .footer {
     @extend .home;
     background-color:$canano-background-blue;
-    border:solid $leftMenuBorderBackgroundColor;
+    border:solid $leftMenuBorderColor;
     border-width:1px 1px 1px 0px;
 }
 
@@ -107,7 +110,7 @@ a:active{
 
 
 .search-results-table{
-    font-size: 12px;
+    font-size: $mainFontSize;
     width: 100%;
     border: solid #ccc 1px;
 }
@@ -145,5 +148,76 @@ img {
 	margin:0px;
 	padding:0px;
 
+}
+
+.spacer {
+    padding-left:$leftMenuWidth;
+    text-align:center;
+}
+
+
+.footer {
+	padding:0px 0px 0px 160px;
+	vertical-align:middle !important;
+	text-align:center;
+	background-color:$canano-background-blue;
+    border:solid $leftMenuBorderColor;
+    border-width:1px 1px 1px 0px;
+    font-size:$mainFontSize;
+};
+
+
+.footer.white{
+	background-color:#fff;
+	border:0px;
+	padding:10px 0px 0px 0px;
+	font-size:10px;
+};
+
+.footer.white a {
+	text-decoration:none !important;
+};
+
+.footer.white .divider {
+	padding:0px 10px 0px 10px;
+};
+
+.footer ul {
+    margin:0px;
+    padding:0px;
+    vertical-align:middle;
+    list-style:none;
+};
+
+.footer ul li.footer-item {
+    padding:0px;
+    margin:0px;
+    display:inline-block;
+}
+
+
+.footer ul li.footer-item .nav-link.nav-menu-top-item {
+    background-color:$canano-background-blue;
+    color:$navButtonColor;
+    border: solid $leftMenuBorderColor;
+    border-width:0px 1px 0px 0px;
+    padding:4px 15px 4px 15px;
+    margin:0px;
+    vertical-align:top;
+	text-transform:uppercase;
+	font-weight:bold;
+	outline:0;
+}
+
+.footer ul li.footer-item .nav-link.nav-menu-top-item.left{
+    border: solid $leftMenuBorderColor;
+    border-width:0px 1px 0px 1px;
+}
+
+.footer ul li.footer-item .nav-link.nav-menu-top-item:hover{
+    background-color:$navButtonColor;
+    color:$canano-background-blue;
+    margin:0px;
+    vertical-align:top;
 }
 

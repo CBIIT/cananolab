@@ -1,3 +1,5 @@
+@import '../cananolab-client.component.scss';
+
 .outer-input-frame{
     border: solid #d4d4d4 2px;
 }
@@ -10,7 +12,7 @@
 
 .mainSection {
     margin:10px 5px 5px 5px;
-    font-size:12px;
+    font-size:$mainFontSize;
 
 }
 .mainBorder {

@@ -1,13 +1,13 @@
 @import "../../app.component";
 @import "../../btn-canano";
 @import "../cananolab-client.component";
-
+@import '../cananolab-client.component.scss';
 .status-display{
     @extend .d-block;
-    font-size:12px;
-    padding:10px;
+    font-size:$mainFontSize;
+    padding:15px;
     background-color: $canano-background-blue;
-    border:solid #81FFFE;
+    border:solid $leftMenuBorderColor;
     border-width:1px 0px 0px 0px;
     color: #fff;
     width: 99%;

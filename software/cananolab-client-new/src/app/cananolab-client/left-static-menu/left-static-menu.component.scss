@@ -29,15 +29,16 @@
 }
 
 .left-menu-button-green{
+    display:block;
     border:0px;
     margin:0px;
     padding:0px;
     width:100%;
     background-color:#005518;
-    padding:6px;
-    font-size:12px;
+    padding:3px 3px 3px 15px;
+    font-size:$mainFontSize;
     color:#fff;
-    border-top:1px solid #81FFFE;
+    border-top:1px solid $leftMenuBorderColor;
     text-align:left;
     font-weight:bold;
     text-transform: uppercase;
@@ -60,13 +61,25 @@
 .left-menu-top-heading{
     @extend .left-menu-button;
     @extend .rounded-0;
+    font-size:$mainFontSize;
+    padding-left:15px !important;
+    text-transform: uppercase;
+    font-weight:bold;
     background-color: $canano-background-blue;
     color: #fff;
 }
 
+.p-2 {
+    @extend .left-menu-top-heading;
+    background-color:#005E7E;
+    text-transform: none;
+    border: solid $leftMenuBorderColor;
+    border-width:1px 0px 0px 0px;
+}
+
 a{
     color: #fff;
-    font-size: small;
+    font-size: $mainFontSize;
     &:hover{
         color: #aeeee9;
         cursor: pointer;
@@ -74,23 +87,25 @@ a{
 }
 
 .left-nav {
+    display:block;
     outline:0 !important;
     background-color:#02055A !important;
     width:100%;
     color:#fff;
-    padding:8px;
-    border: solid #81FFFE;
+    padding:3px 10px 3px 17px;
+    border: solid $leftMenuBorderColor;
     border-width:.1em 0px 0px 0px !important;
     font-weight:bold;
-    font-size:12px;
-    margin:0px;
+    font-size:$mainFontSize;
+    margin:0px !important;
     text-align:left;
 
 }
 
 .left-nav:hover {
-    background-color:#81FFFE !important;
+    background-color:$navButtonColor !important;
     color:#02055A;
+
 }
 
 

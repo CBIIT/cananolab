@@ -1,7 +1,9 @@
 @import "../../../../main-display/main-display.component.scss";
+@import '../../../../cananolab-client.component.scss';
 
     .mainSection td {
-        padding-bottom:13px !important;    font-size:12px ;
+        padding-bottom:13px !important;
+        font-size:$mainFontSize;
 
     }
     .mainSection .compositionTitle {

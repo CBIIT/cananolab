@@ -1,6 +1,8 @@
+@import '../../cananolab-client.component.scss';
 
+$leftColumnWidth:597px;
 .home-page-image{
-    margin: 0px 1px 0 0;
+    margin: 0px 0px 0 0;
 }
 
 .home-div{
@@ -19,18 +21,17 @@ class="d-block p-2 bg-primary text-white"
     padding: 8px;
     background-color: #ccc;
     border-top: 1px solid #ccc;
-
+    font-size:13px;
   //  font-weight: 700;
 
     /* for titles of sections inside the content area */
-    font-family: arial, helvetica, verdana, sans-serif;
 
     /* constant: medium gray */
 }
 
 .welcomeContent{
-    padding: 4px;
-    font-size: small;
+    padding: 0px;
+    font-size: $mainFontSize;
     color: black;
 }
 
@@ -47,10 +48,16 @@ class="d-block p-2 bg-primary text-white"
     margin:0px;
     }
     .contentDisplay td.left {
-        --width:605px;
-        width:--width;
+        width:$leftColumnWidth;
     }
 
     .contentDisplay td.right {
-        width:calc(100%-var(--width));
+        width:calc(100%-var($leftColumnWidth));
+        border-left:1px solid $leftMenuBorderColor;
+        border-right:1px solid $leftMenuBorderColor;
     }
+img {
+    border:0px;
+    margin:0px;
+    padding:0px;
+}

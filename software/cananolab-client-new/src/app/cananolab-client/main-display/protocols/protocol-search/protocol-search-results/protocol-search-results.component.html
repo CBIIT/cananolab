@@ -1,5 +1,4 @@
 <span
-    style="font-size: 12px;"
     class="ml-2"
 >
     {{searchResults.length}} Item{{(searchResults.length > 1 ? 's' : '')}} found, displaying
@@ -14,7 +13,7 @@
 -->
 
 
-<span style="font-size: 12px"
+<span
       class="search-results-pager"
 >
             <!-- Page length number setting  -->
@@ -139,7 +138,7 @@
 </table>
 <!-- Pager buttons -->
 <canano-search-results-pager
-    style="float: right; font-size: 12px;"
+    style="float: right; "
     [totalCount]=searchResultsCount
     [startingPageLength]=pageLength
 ></canano-search-results-pager>

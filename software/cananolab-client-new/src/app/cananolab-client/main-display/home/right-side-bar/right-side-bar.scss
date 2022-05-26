@@ -9,9 +9,10 @@
 .right-side-bar-heading{
     width: 100%;
     //  width: calc(100% - 30px);
-    padding: 3px 0 3px 6px;
+    padding: 6px 0 6px 8px;
     background-color: #005518;
     color: #fff;
+    font-weight:bold;
 }
 
 .right-side-bar-content{
@@ -22,7 +23,7 @@
 
 .right-side-bar{
     background-color: #fff;
-    font-size: small;
+    font-size: $mainFontSize;
     //  min-width: 999px;
     width: 100%;
 }
