@@ -66,7 +66,7 @@ DROP TABLE IF EXISTS `solubility`;
 DROP TABLE IF EXISTS `characterization`;
 DROP TABLE IF EXISTS `common_lookup`;
 DROP TABLE IF EXISTS `composition_file`;
-DROP TABLE IF EXISTS `data_availability`;
+DROP TABLE IF EXISTS `DATA_AVAILABILITY`;
 DROP TABLE IF EXISTS `DATA_AVAILABILITY`;
 DROP TABLE IF EXISTS `data_review_status`;
 DROP TABLE IF EXISTS `databasechangelog`;
@@ -3850,36 +3850,9 @@ LOCK TABLES `composition_file` WRITE;
 UNLOCK TABLES;
 
 --
--- Table structure for table `data_availability`
+-- Table structure for table `DATA_AVAILABILITY`
 --
 
-/*!40101 SET @saved_cs_client = @@character_set_client */;
-SET character_set_client = utf8;
-CREATE TABLE `data_availability`
-(
-    `sample_id`             bigint(20)   NOT NULL,
-    `datasource_name`       varchar(20)  DEFAULT NULL,
-    `available_entity_name` varchar(200) DEFAULT NULL,
-    `created_date`          datetime     NOT NULL,
-    `created_by`            varchar(200) NOT NULL,
-    `updated_date`          datetime     DEFAULT NULL,
-    `updated_by`            varchar(200) DEFAULT NULL
-) ENGINE = InnoDB
-  DEFAULT CHARSET = latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `data_availability`
---
-
-LOCK TABLES `data_availability` WRITE;
-/*!40000 ALTER TABLE `data_availability`
-    DISABLE KEYS */;
-/*!40000 ALTER TABLE `data_availability`
-    ENABLE KEYS */;
-UNLOCK TABLES;
-
-SET character_set_client = utf8;
 CREATE TABLE `DATA_AVAILABILITY`
 (
     `sample_id`             bigint(20)   NOT NULL,
@@ -3894,13 +3867,13 @@ CREATE TABLE `DATA_AVAILABILITY`
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `data_availability`
+-- Dumping data for table `DATA_AVAILABILITY`
 --
 
 LOCK TABLES `DATA_AVAILABILITY` WRITE;
-/*!40000 ALTER TABLE `data_availability`
+/*!40000 ALTER TABLE `DATA_AVAILABILITY`
     DISABLE KEYS */;
-/*!40000 ALTER TABLE `data_availability`
+/*!40000 ALTER TABLE `DATA_AVAILABILITY`
     ENABLE KEYS */;
 UNLOCK TABLES;
 
