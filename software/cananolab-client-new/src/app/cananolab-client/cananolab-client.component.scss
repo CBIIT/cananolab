@@ -2,13 +2,42 @@ $canano-green: #005518;
 $canano-blue: #0073b9;
 $canano-background-blue: #02055a;
 $menuHeadingBackgroundColor: #005d7e;
-
+$leftMenuBorderBackgroundColor:#81FFFE;
 $leftMenuWidth: 160px;
 $leftMenuMargin: 0px;
 
 $borderColor: #3cddf0;
 
 $keywordSearchFontSize: 12px;
+.header {
+	margin:0px;
+	padding:0px;
+}
+.home {
+}
+
+td.leftMenu {
+    @extend .home;
+    background-color:$canano-background-blue;
+    width:$leftMenuWidth;
+	margin:0px;
+	padding:0px;
+	vertical-align:top;
+}
+
+td.mainContent {
+    @extend .home;
+    vertical-align:top;
+    padding:0px;
+    margin:0px;
+}
+
+.footer {
+    @extend .home;
+    background-color:$canano-background-blue;
+    border:solid $leftMenuBorderBackgroundColor;
+    border-width:1px 1px 1px 0px;
+}
 
 .parent-div{
     /* keep the Query section and the Display section side by side.  */
@@ -109,5 +138,12 @@ a:active{
 
 .search-results--tr-odd{
     background-color: #fff;
+}
+
+img {
+	border-width:0px;
+	margin:0px;
+	padding:0px;
+
 }
 

@@ -4,6 +4,7 @@
 
 @import '../../../app.component';
 @import '../../../btn-canano';
+@import '../../../btn-bravo-canano.scss';
 
 .top-keyword-top-span{
     font-size: $keywordSearchFontSize;
@@ -16,4 +17,11 @@
     color: #fff;
     font-size: $keywordSearchFontSize;
     padding: 2px 4px 2px 4px;
+}
+
+.topSearch {
+    @extend .btn-canano, .btn-canano-primary, .btn-canano-xs, .mr-1;
+    margin-left:5px;
+    padding-left:10px;
+    padding-right:10px;
 }

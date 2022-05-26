@@ -40,3 +40,17 @@ class="d-block p-2 bg-primary text-white"
     max-width: 599px; // @FIXME - This should be a variable resulting from adding all the picture widths and subtracting 3
     background-color: #fff;
 }
+
+.contentDisplay td{
+    vertical-align:top;
+    padding:0px;
+    margin:0px;
+    }
+    .contentDisplay td.left {
+        --width:605px;
+        width:--width;
+    }
+
+    .contentDisplay td.right {
+        width:calc(100%-var(--width));
+    }

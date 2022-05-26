@@ -9,35 +9,47 @@
 <!----------------------------------------------------------------------------------------->
 <div  [ngStyle]="{ width: properties.MAX_WIDTH }" >
 <!-- -----  The top header with the "Keyword Search" box on the right ----- -->
-<canano-header></canano-header>
 
 <!-- Shows a "Testing" banner if we are in TEST_MODE -->
 <div *ngIf="properties.TEST_MODE">
     <div class="alert alert-danger p-1 m-0">TEST MODE</div>
 </div>
 <!-- -----  The Top Main Menu  ----- -->
-<canano-top-main-menu></canano-top-main-menu>
+
 
     <!-- -----  The left side Navigation menu & left static menu  ----- -->
 <div>
-    <div class="parent-div">
-        <div>
-            <canano-left-navigation-menu *ngIf="properties.SAMPLE_TOOLS">
-            </canano-left-navigation-menu>
+    <table class="home">
+        <tr>
+            <td colspan="2" class="header">
+                <canano-header></canano-header>
 
-            <canano-left-static-menu>
-            </canano-left-static-menu>
+                <canano-top-main-menu></canano-top-main-menu>
+            </td>
+        </tr>
 
-            <canano-status-display></canano-status-display>
-        </div>
+        <tr>
+            <td class="leftMenu">
+                <div>
+                    <canano-left-navigation-menu *ngIf="properties.SAMPLE_TOOLS">
+                    </canano-left-navigation-menu>
 
+                    <canano-left-static-menu>
+                    </canano-left-static-menu>
 
-        <!-- -----  The Main Display where all the dynamic stuff happens  ----- -->
-        <div style="width:100%;">
-            <router-outlet></router-outlet>
-        </div>
+                    <canano-status-display></canano-status-display>
+                </div>
+            </td>
+            <td class="mainContent">
+                    <router-outlet></router-outlet>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2" class="footer">
+                &nbsp;
+            </td>
+        </tr>
+    </table>
 
-
-    </div>
 </div>
 </div>
