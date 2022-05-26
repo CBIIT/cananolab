@@ -9,7 +9,7 @@ export class SearchPublicationService {
 
     // gets publication search results //
     getPublicationSearchResults() {
-        let results = JSON.parse(localStorage.getItem('publicationSearchResults'));
+        let results = JSON.parse(localStorage.getItem('cananolab_publication_search_results'));
         if (results) {
             return results
         }
@@ -19,7 +19,7 @@ export class SearchPublicationService {
     // sets publicastion search results //
     setPublicationSearchResults(data) {
         this.publicationSearchResults=data;
-        localStorage.setItem('publicationSearchResults',JSON.stringify(data));
+        localStorage.setItem('cananolab_publication_search_results',JSON.stringify(data));
     }
 
 
