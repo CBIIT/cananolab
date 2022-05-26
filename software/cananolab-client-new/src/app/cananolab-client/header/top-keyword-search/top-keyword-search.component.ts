@@ -28,7 +28,7 @@ export class TopKeywordSearchComponent implements OnInit{
             data => {
                 this.topKeywordSearchService.setKeywordResults(data);
                 this.router.navigateByUrl('home', {skipLocationChange: true}).then(()=>
-                this.router.navigate(['home/searchresults']));
+                this.router.navigate(['home/search-results']));
             },
             ( err ) => {
                 console.log( 'ERROR onTopKeyWordSearchClick: ', err );

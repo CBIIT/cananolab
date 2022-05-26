@@ -45,7 +45,7 @@ const routes: Routes = [
     { path: '', component: HomeComponent },
     { path: 'home', component: HomeComponent },
     { path: 'home/login', component: LoginComponent },
-    { path: 'home/searchresults', component: SearchResultsComponent },
+    { path: 'home/search-results', component: SearchResultsComponent },
     { path: 'home/publications', component: PublicationsComponent },
     { path: 'home/publications/submitPublication', component: SubmitPublicationComponent },
     { path: 'home/publications/searchPublication', component: SearchPublicationComponent },
