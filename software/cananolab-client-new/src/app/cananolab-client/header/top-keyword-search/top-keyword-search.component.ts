@@ -5,7 +5,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../../common/services/api.service';
 import { Consts } from '../../../constants';
-
+import { TopKeywordSearchService } from './top-keyword-search.service';
+import { Router } from '@angular/router';
 @Component( {
     selector: 'canano-top-keyword-search',
     templateUrl: './top-keyword-search.component.html',
@@ -14,7 +15,7 @@ import { Consts } from '../../../constants';
 export class TopKeywordSearchComponent implements OnInit{
     topKeyWordSearchText = '';
 
-    constructor( private apiService: ApiService ){
+    constructor( private router:Router,private topKeywordSearchService:TopKeywordSearchService,private apiService: ApiService ){
     }
 
     ngOnInit(): void{
@@ -25,8 +26,9 @@ export class TopKeywordSearchComponent implements OnInit{
         //  @TODO
         this.apiService.doGet( Consts.QUERY_SEARCH, 'keyword=' + this.topKeyWordSearchText ).subscribe(
             data => {
-                console.log( 'onTopKeyWordSearchClick: ', data );
-
+                this.topKeywordSearchService.setKeywordResults(data);
+                this.router.navigateByUrl('home', {skipLocationChange: true}).then(()=>
+                this.router.navigate(['home/searchresults']));
             },
             ( err ) => {
                 console.log( 'ERROR onTopKeyWordSearchClick: ', err );

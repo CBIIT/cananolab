@@ -8,6 +8,19 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class TopKeywordSearchService {
+    keywordResults;
+    constructor() { }
 
-  constructor() { }
+    getKeywordResults() {
+        let results = JSON.parse(localStorage.getItem('cananolab_search_results'));
+        if (results) {
+            return results
+        }
+        return results;
+    }
+
+    setKeywordResults(data) {
+        this.keywordResults=data;
+        localStorage.setItem('cananolab_search_results',JSON.stringify(data));
+    }
 }

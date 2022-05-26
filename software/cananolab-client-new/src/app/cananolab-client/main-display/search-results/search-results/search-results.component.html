@@ -1,0 +1,138 @@
+<canano-main-display-heading
+[helpUrl]="'https://wiki.nci.nih.gov/display/caNanoLab/Managing+Publications+in+caNanoLab#ManagingPublicationsincaNanoLab-SearchPublications'"
+[toolHeadingName]="'Search Results'"
+>
+</canano-main-display-heading>
+<div class="sample-edit-div">
+        <div class="mainSection">
+                <span
+                style="font-size: 12px;"
+                class="ml-2"
+            >
+                {{searchResults.length}} Item{{(searchResults.length > 1 ? 's' : '')}} found, displaying
+                {{(currentPage * pageLength) + 1}}
+                -{{    (((currentPage * pageLength) + pageLength) > searchResults.length) ? searchResults.length : (currentPage * pageLength) + pageLength   }}
+            </span>
+            <canano-search-results-pager
+            style="float: right;"
+            [totalCount]=searchResultsCount
+            [startingPageLength]=pageLength
+        ></canano-search-results-pager>
+            <span style="font-size: 12px"
+            class="search-results-pager"
+      >
+                  <!-- Page length number setting  -->
+                  <span class="ml-5">
+                      Show
+                      <input
+                          class="number-spinner rows-per-page-spinner"
+                          min="1"
+                          max="{{maxPageLength}}"
+                          type="number"
+                          [(ngModel)]="pageLength"
+                          (change)="onPageLengthChange()"
+                      >
+                      entries
+                  </span>
+
+          <!-- Pager buttons -->
+
+              </span><br /><br />
+              <table class="search-results-table">
+
+
+                <!-- -----  Header row  ----- -->
+                <tr class="search-results-tr">
+                    <th
+                        *ngFor="let col of columnHeadings; let i = index;"
+
+                        class="search-results-th unselectable">
+                        <label for="sortClick" (click)="onSortClick(i)">{{col}}</label>
+
+                        <!-- No sorting for "Actions" column -->
+                        <span *ngIf="i > 0"
+                              id=sortClick
+                              (click)="onSortClick(i)"
+                        >
+
+                            <span *ngIf="i > 0">
+                                <!-- Add sorting icons -->
+                                <img
+                                    *ngIf="sortingStates[i] === sortState.SORT_UP"
+                                    src="assets/images/upTriangle2White.png"
+                                />
+                                <img
+                                    *ngIf="sortingStates[i] === sortState.SORT_DOWN"
+                                    src="assets/images/downTriangle2White.png"
+                                />
+                                <!-- space/place holder -->
+                                <img
+                                    *ngIf="sortingStates[i] === sortState.NO_SORT"
+                                    src="assets/images/place_holder.png"
+                                />
+                            </span>
+                        </span>
+                        <!-- END Add sorting icons -->
+                    </th>
+                </tr>
+                <!-- -----  END Header row  ----- -->
+
+
+                <tr *ngFor="let result of searchResultsPageToDisplay; let even=even; let odd=odd; let i=index"
+                    class="search-results-tr"
+                    [ngClass]="{
+                            'search-results-tr-even': even,
+                            'search-results--tr-odd': odd
+                        }"
+                >
+
+
+
+                    <td class="search-results-td" >
+                        <span
+                            *ngIf="properties.LOGGED_IN"
+                            style="color: #00f; text-decoration: underline;"
+                            class="clicker"
+                            (click)="navigateToResult(result['id'],result['type'])"
+                        >Edit</span>
+
+
+                        <span
+                            *ngIf="! properties.LOGGED_IN"
+                            style="color: #00f; text-decoration: underline;"
+                            class="clicker"
+                            (click)="navigateToResult(result['id'],result['type'])"
+                        >View</span>
+                        <br>
+
+                        <span  style="color: #00f; text-decoration: underline;"
+                            (click)="addToFavorites(result)"
+                            class="clicker"
+                        >Add to Favorites</span>
+
+                    </td>
+
+                    <td class="search-results-td">{{result.type}}</td>
+
+                    <td class="search-results-td" >
+                        {{result.name}}
+                    </td>
+
+                    <td class="search-results-td" >
+                        {{result['createdDate']  | date : "shortDate"}}
+                    </td>
+                    <td class="search-results-td">
+                        {{result.description}}
+                    </td>
+
+                </tr>
+
+            </table>
+        <canano-search-results-pager
+        style="float: right;"
+        [totalCount]=searchResultsCount
+        [startingPageLength]=pageLength
+    ></canano-search-results-pager>
+
+    </div>
+</div>

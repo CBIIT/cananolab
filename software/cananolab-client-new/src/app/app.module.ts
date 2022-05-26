@@ -78,6 +78,7 @@ import { EditcharacterizationComponent } from './cananolab-client/main-display/s
 import { FileComponent } from './cananolab-client/common/components/file/file.component';
 import { EditpublicationComponent } from './cananolab-client/main-display/samples/publications/editpublication/editpublication.component';
 import { SearchpublicationresultsComponent } from './cananolab-client/main-display/publications/search-publication-results/searchpublicationresults/searchpublicationresults.component';
+import { SearchResultsComponent } from './cananolab-client/main-display/search-results/search-results/search-results.component';
 
 @NgModule({
   declarations: [
@@ -152,7 +153,8 @@ import { SearchpublicationresultsComponent } from './cananolab-client/main-displ
     EditcharacterizationComponent,
     FileComponent,
     EditpublicationComponent,
-    SearchpublicationresultsComponent
+    SearchpublicationresultsComponent,
+    SearchResultsComponent
   ],
     imports: [
         BrowserModule,
