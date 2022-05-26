@@ -21,9 +21,13 @@
     // border: solid #88bce2 1px;
 }
 
+.right-side-bar-content ul {
+	padding:0px !important;
+	margin:0px 0px 3px 40px !important;
+}
+
 .right-side-bar{
     background-color: #fff;
     font-size: $mainFontSize;
-    //  min-width: 999px;
     width: 100%;
 }

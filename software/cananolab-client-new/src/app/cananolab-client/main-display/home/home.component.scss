@@ -35,6 +35,12 @@ class="d-block p-2 bg-primary text-white"
     color: black;
 }
 
+.welcomeContent.p-3 {
+	padding:0px 0px 0px 51px !important;
+	margin:0px 0px 0px 15px !important;
+}
+
+
 // This is a fixed width. It is the total width of the three images.
 .welcome{
    // max-width: 596px; // @FIXME - This should be a variable resulting from adding all the picture widths
