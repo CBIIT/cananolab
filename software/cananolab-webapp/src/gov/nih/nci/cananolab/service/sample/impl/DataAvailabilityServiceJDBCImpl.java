@@ -90,12 +90,12 @@ public class DataAvailabilityServiceJDBCImpl extends JdbcDaoSupport implements D
 
 	private static String SELECT_DATA_AVAILABILITY = "select " + TABLE_COLS + " from data_availability where sample_id=";
 
-	private static String INSERT_SQL = "INSERT INTO DATA_AVAILABILITY ";
+	private static String INSERT_SQL = "INSERT INTO data_availability ";
 	private static String INSERT_COLS = "(SAMPLE_ID, DATASOURCE_NAME, AVAILABLE_ENTITY_NAME, CREATED_DATE, CREATED_BY) VALUES (?, ?, ?, ?, ?)";
-	private static String UPDATE_SQL = "UPDATE DATA_AVAILABILITY SET AVAILABLE_ENTITY_NAME=?, UPDATED_DATE=?, UPDATED_BY=? WHERE SAMPLE_ID=? and AVAILABLE_ENTITY_NAME=?";
+	private static String UPDATE_SQL = "UPDATE data_availability SET AVAILABLE_ENTITY_NAME=?, UPDATED_DATE=?, UPDATED_BY=? WHERE SAMPLE_ID=? and AVAILABLE_ENTITY_NAME=?";
 	private static String INSERT_ON_UPDATE = INSERT_SQL
 			+ "(SAMPLE_ID, DATASOURCE_NAME, AVAILABLE_ENTITY_NAME, CREATED_DATE, CREATED_BY, UPDATED_DATE, UPDATED_BY ) VALUES (?, ?, ?, ?, ?, ?, ?)";
-	private static String DELETE_SQL = "DELETE FROM DATA_AVAILABILITY ";
+	private static String DELETE_SQL = "DELETE FROM data_availability ";
 	private static String DELETE_ON_UPDATE = DELETE_SQL + " WHERE SAMPLE_ID=? AND AVAILABLE_ENTITY_NAME=?";
 
 	private static String noAccessException = "You do not have permission to access the specified sample data: ";
