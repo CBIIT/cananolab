@@ -1,5 +1,5 @@
 import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { NgForm } from '@angular/forms';
+import { FormGroup, NgForm } from '@angular/forms';
 import { Consts, ProtocolScreen } from '../../../../constants';
 import { TopMainMenuService } from '../../../top-main-menu/top-main-menu.service';
 import { ApiService } from '../../../common/services/api.service';
@@ -8,14 +8,14 @@ import { UtilService } from '../../../common/services/util.service';
 import { ProtocolsService } from '../protocols.service';
 import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
-
+import { FormControl } from '@angular/forms';
 @Component( {
     selector: 'canano-protocol-search',
     templateUrl: './protocol-search.component.html',
     styleUrls: ['./protocol-search.component.scss']
 } )
 export class ProtocolSearchComponent implements OnInit, OnDestroy{
-    @ViewChild('protocolSearchForm') protocolSearchForm: NgForm;
+    protocolSearchForm;
     /**
      * For canano-main-display-heading @Input()
      */
@@ -44,7 +44,7 @@ export class ProtocolSearchComponent implements OnInit, OnDestroy{
     protocolType = '';
 
     resetting = false;
-
+    initData;
     protocolScreen = ProtocolScreen;
     protocolName = '';
 
@@ -55,9 +55,18 @@ export class ProtocolSearchComponent implements OnInit, OnDestroy{
     }
 
     ngOnInit(): void{
-        this.nameOperand = this.defaultOperand;
-        this.titleOperand = this.defaultOperand;
-        this.abbreviationOperand = this.defaultOperand;
+        console.log('test')
+        this.protocolSearchForm={
+            "nameOperand":this.defaultOperand,
+            "titleOperand":this.defaultOperand,
+            "abbreviationOperand":this.defaultOperand,
+            "fileTitle":"",
+            "protocolType":"",
+            "protocolName":""
+        };
+        this.initData=JSON.parse(JSON.stringify(this.protocolSearchForm))
+
+
 
         this.topMainMenuService.showOnlyMenuItems(
             [
@@ -90,23 +99,10 @@ export class ProtocolSearchComponent implements OnInit, OnDestroy{
     }
 
 
-    onSubmit( f: NgForm ){
-        // Search Button
-        f = f.value;
-        let parameters = '';
-        Object.keys( f )
-            .forEach( key => {
-                let temp = f[key];
-                if( temp !== undefined && temp !== null){
-                    if( temp.length > 0 ){
-                        parameters += '&' + key + '=' + f[key];
-                    }
-                }
-            } );
-
+    onSubmit(  ){
         // QUERY_SEARCH_PROTOCOL
         // Do the search
-        this.apiService.doPost( Consts.QUERY_SEARCH_PROTOCOL, parameters.substr( 1 ) ).subscribe(
+        this.apiService.doPost( Consts.QUERY_SEARCH_PROTOCOL, this.protocolSearchForm ).subscribe(
             data => {
                 this.protocolScreenToShow = ProtocolScreen.PROTOCOL_SEARCH_RESULTS_SCREEN;
                 this.searchResults = data;
@@ -140,12 +136,7 @@ export class ProtocolSearchComponent implements OnInit, OnDestroy{
 
     onResetClick(){
         this.resetting = true;
-        this.protocolSearchForm.reset();
-
-        this.nameOperand = this.defaultOperand;
-        this.titleOperand = this.defaultOperand;
-        this.abbreviationOperand = this.defaultOperand;
-        this.protocolType = '';
+        this.protocolSearchForm=JSON.parse(JSON.stringify(this.initData));
     }
 
 

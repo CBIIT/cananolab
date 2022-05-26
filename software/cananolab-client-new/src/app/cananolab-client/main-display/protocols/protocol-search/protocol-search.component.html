@@ -44,167 +44,89 @@
     >
     </canano-main-display-heading>
 </div>
-    <form (ngSubmit)="onSubmit(protocolSearchForm)"  #protocolSearchForm="ngForm">
-        <div class="outer-input-frame protocols-links-panel m-2">
 
-        <table>
-
-            <!-- Protocol Type -->
-            <tr>
-                <td>
-                    <label class="mt-0"
-                           for="protocolType"
-                    >
-                        Protocol Type
-                    </label>
-                </td>
-                <td colspan="2">
-                    <select class="form-control"
-                            name="protocolType"
-                            id="protocolType"
-                         [ngModel]="protocolType"
-                    >
-                        <option *ngFor=" let option of protocolTypes"
-                                value={{option}}
-                        >
-                            {{option}}
-                        </option>
-                    </select>
-                </td>
-            </tr>
-            <!-- END Protocol Type -->
-
-            <!-- Protocol Name -->
-            <tr>
-                <td>
-                    <label class=" mt-0"
-                           for="nameOperand"
-                    >
-                        Protocol Name
-                    </label>
-                </td>
-
-                <td >
-                    <select
-                        [(ngModel)]="nameOperand"
-                        class="form-control"
-                        name="nameOperand"
-                        id="nameOperand"
-                        ngModel
-                    >
-                        <option  value="contains">contains</option>
-                        <option value="equals">equals</option>
-                    </select>
-                </td>
-                <td>
-                    <input
-                        type="text"
-                        [(ngModel)]="protocolName"
-                        class="form-control"
-                        name="protocolName"
-                        id="protocolName"
-                        ngModel
-                    >
-                </td>
-            </tr>
-            <!-- END Protocol Name -->
-
-            <!-- Protocol Abbreviation -->
-            <tr>
-                <td>
-                    <label class=" mt-0"
-                           for="protocolAbbreviation"
-                    >
-                        <div>Protocol</div> <div>Abbreviation</div>
-                    </label>
-                </td>
-                <td>
-                    <label for="abbreviationOperand">
-                        <select
-                            [(ngModel)]="abbreviationOperand"
-                            class="form-control"
-                            name="abbreviationOperand"
-                            id="abbreviationOperand"
-                            ngModel
-                        >
-                            <option value="contains">contains</option>
-                            <option value="equals">equals</option>
+<div class="sample-edit-div" *ngIf="protocolSearchForm">
+    <form name="protocolSearchForm">
+    <div class="mainSection">
+        <div class="mainBorder">
+            <table>
+                <tr>
+                    <td class="label">
+                        <label for="protocolType">
+                            Protocol Type
+                        </label>
+                    </td>
+                    <td>
+                        <select  name="protocolType" id="protocolType" [(ngModel)]="protocolSearchForm.protocolType">
+                            <option [selected]="protocolSearchForm.protocolType==''" [ngValue]="''">--Select--</option>
+                            <option *ngFor=" let option of protocolTypes" value={{option}}>
+                                {{option}}
+                            </option>
                         </select>
-                    </label>
-                </td>
-                <td>
-                    <input
-                        class="form-control"
-                        id="protocolAbbreviation"
-                        name="protocolAbbreviation"
-                        type="text"
-                        ngModel
-                    >
-                </td>
-            </tr>
-            <!-- END Protocol Abbreviation -->
-
-            <!-- Protocol File Title -->
-            <tr>
-                <td>
-                    <label class=" mt-0"
-                           for="fileTitle"
-                    >
-                        Protocol File Title
-                    </label>
-                </td>
-                <td>
-                    <label for="titleOperand">
-                        <select
-                            [(ngModel)]="titleOperand"
-                            class="form-control"
-                            name="titleOperand"
-                            id="titleOperand"
-                            ngModel
-                        >
-                            <option value="contains">contains</option>
-                            <option value="equals">equals</option>
-                        </select>
-                    </label>
-                </td>
-                <td>
-                    <input
-                        class="form-control"
-                        name="fileTitle"
-                        id="fileTitle"
-                        type="text"
-                        ngModel
-                    >
-                </td>
-            </tr>
-            <!-- END Protocol File Title -->
-
-        </table>
-        </div>
-
-        <div class="protocol-create-search-button-group p-2">
-
-            <!-- @TODO Reset/Clear button -->
-            <button
-                class="btn btn-danger m-1"
-                (click)="onResetClick()"
-                type="reset"
-            >
-                Reset
-            </button>
-
-            <button
-                class="btn-canano m-1"
-                type=submit
-            >
-                Search
-            </button>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label">
+                        <label for="protocolName">
+                            Protocol Name
+                        </label>
+                    </td>
+                    <td>
+                        <label for="nameOperand">
+                            <select [(ngModel)]="protocolSearchForm.nameOperand" name="nameOperand" id="nameOperand">
+                                <option  value="contains">contains</option>
+                                <option value="equals">equals</option>
+                            </select>
+                        </label>
+                        <input type="text" [(ngModel)]="protocolSearchForm.protocolName" name="protocolName" id="protocolName">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label for="protocolAbbreviation">
+                            Protocol Abbreviation
+                        </label>
+                    </td>
+                    <td>
+                        <label for="abbreviationOperand">
+                            <select [(ngModel)]="protocolSearchForm.abbreviationOperand" name="abbreviationOperand" id="abbreviationOperand">
+                                <option value="contains">contains</option>
+                                <option value="equals">equals</option>
+                            </select>
+                        </label>
+                        <input id="protocolAbbreviation" name="protocolAbbreviation" type="text" [(ngModel)]="protocolSearchForm.protocolAbbreviation">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label for="fileTitle">
+                            Protcol File Title
+                        </label>
+                    </td>
+                    <td>
+                        <label for="titleOperand">
+                            <select [(ngModel)]="protocolSearchForm.titleOperand" name="titleOperand" id="titleOperand">
+                                <option value="contains">contains</option>
+                                <option value="equals">equals</option>
+                            </select>
+                        </label>
+                        <input name="fileTitle" id="fileTitle" type="text" [(ngModel)]="protocolSearchForm.fileTitle">
+                    </td>
+                </tr>
+            </table>
 
         </div>
+        <div class="buttons">
+            <div>
+                Searching without any parameters returns all protocols.
+            </div>
+            <button (click)="onResetClick()" class="btn-canano btn-canano-danger btn-canano-lg mr-1">Reset</button>
+            <button (click)="onSubmit()" class="btn-canano btn-canano-primary btn-canano-lg mr-1">Search</button>
 
+        </div>
+    </div>
     </form>
-<i>Searching without any parameters returns all protocols.</i>
-</span>
+</div>
 <!-- -----  END Enter search criteria  ----- -->
 
 
