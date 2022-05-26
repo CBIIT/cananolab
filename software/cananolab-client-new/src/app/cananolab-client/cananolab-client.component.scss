@@ -11,7 +11,9 @@ $navButtonColor:#81FFFE;
 $borderColor: $leftMenuBorderColor;
 $mainFontSize:12px;
 $keywordSearchFontSize: 12px;
-
+body {
+    font-family:arial,helvetica,verdana,sans-serif !important;
+}
 .header {
 	margin:0px;
 	padding:0px;
@@ -102,6 +104,7 @@ a:active{
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
+    text-transform: uppercase;
 }
 
 .clicker{

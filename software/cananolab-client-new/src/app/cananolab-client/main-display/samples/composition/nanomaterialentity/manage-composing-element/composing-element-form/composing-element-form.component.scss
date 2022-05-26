@@ -6,7 +6,6 @@
 @import "../../../../../../../btn-bravo-canano.scss";
 
 .subSubmissionView {
-    font-family: $composing-element-font;
     border: 1px solid #ccc;
     border-collapse: collapse;
     color: $composing-element-input-text-color;
@@ -19,7 +18,6 @@ input.promptButton {
 	border: 1px solid $composing-element-input-border-color;
 	background-color: #fff;
 	width: 60px;
-    font-family: $composing-element-font;
 	font-size: $composing-element-font-size;
 	color: black;
 }
@@ -27,7 +25,6 @@ input.promptButton {
 table.promptBox {
 	background-color: $composing-element-input-background-color;
 	color: $composing-element-input-text-color;
-    font-family: $composing-element-font;
     width: 100%;
 }
 
@@ -36,7 +33,6 @@ input.promptBox, div.promptBox {
     background-color: $composing-element-input-background-color;
     width: 100%;
     height: 100%;
-    font-family: $composing-element-font;
 	font-size: $composing-element-font-size;
 	color: $composing-element-input-text-color;
 }

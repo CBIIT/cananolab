@@ -3,3 +3,11 @@
 @import "../../../../../../btn-canano";
 @import "../../../../../cananolab-client.component";
 @import "../../../../main-display.component.scss";
+
+.login {
+    width:365px;
+}
+
+.login tr:nth-child(2) td:first-child,tr:nth-child(3) td:first-child {
+    text-align:right;
+}
