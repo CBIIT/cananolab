@@ -53,6 +53,7 @@ const routes: Routes = [
 
     { path: 'home/protocols/protocolCreateComponent', component: ProtocolCreateCharlieComponent },
     { path: 'home/protocols/protocolSearchComponent', component: ProtocolSearchComponent },
+    { path: 'home/protocols/protocol-search-results', component: ProtocolSearchResultsComponent },
     { path: 'home/protocols/protocolEditComponent', component: ProtocolEditBravoComponent },
     { path: 'home/protocols/protocolViewComponent', component: ProtocolViewComponent },
 

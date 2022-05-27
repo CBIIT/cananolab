@@ -9,6 +9,7 @@ import { ProtocolsService } from '../protocols.service';
 import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { FormControl } from '@angular/forms';
+import { Router } from '@angular/router';
 @Component( {
     selector: 'canano-protocol-search',
     templateUrl: './protocol-search.component.html',
@@ -23,7 +24,7 @@ export class ProtocolSearchComponent implements OnInit, OnDestroy{
     helpUrlSearchResults = Consts.HELP_URL_PROTOCOL_SEARCH_RESULTS;
     toolHeadingName = 'Protocol Search';
     toolHeadingNameSearchResults = 'Protocol Search Results';
-
+    errors;
     // List for the dropdown
     protocolTypes = [];
 
@@ -50,11 +51,12 @@ export class ProtocolSearchComponent implements OnInit, OnDestroy{
 
     private ngUnsubscribe: Subject<boolean> = new Subject<boolean>();
 
-    constructor( private topMainMenuService: TopMainMenuService, private apiService: ApiService,
+    constructor( private router:Router,private topMainMenuService: TopMainMenuService, private apiService: ApiService,
                  private utilService: UtilService, private protocolsService: ProtocolsService ){
     }
 
     ngOnInit(): void{
+        this.errors={};
         console.log('test')
         this.protocolSearchForm={
             "nameOperand":this.defaultOperand,
@@ -88,8 +90,12 @@ export class ProtocolSearchComponent implements OnInit, OnDestroy{
         // Listen for changing Protocol screens
         this.protocolsService.currentProtocolScreenEmitter.pipe( takeUntil( this.ngUnsubscribe ) ).subscribe(
             ( data ) => {
+                this.errors={};
                 this.protocolScreenToShow = data.ps;
                 this.protocolScreenInfo = data.info;
+            },
+            error=> {
+                this.errors=error;
             } );
 
 
@@ -104,12 +110,15 @@ export class ProtocolSearchComponent implements OnInit, OnDestroy{
         // Do the search
         this.apiService.doPost( Consts.QUERY_SEARCH_PROTOCOL, this.protocolSearchForm ).subscribe(
             data => {
-                this.protocolScreenToShow = ProtocolScreen.PROTOCOL_SEARCH_RESULTS_SCREEN;
-                this.searchResults = data;
+                this.protocolsService.setProtocolSearchResults(data);
+                this.router.navigate(['home/protocols/protocol-search-results']);
+                this.errors={};
+                // this.protocolScreenToShow = ProtocolScreen.PROTOCOL_SEARCH_RESULTS_SCREEN;
+                // this.searchResults = data;
             },
             err => {
                 if( err.status === 404 ){ // @checkme
-                    alert( 'No search results.' );
+                    this.errors=err;
                 }
             }
         );
@@ -122,12 +131,16 @@ export class ProtocolSearchComponent implements OnInit, OnDestroy{
         if( Properties.PROTOCOL_TYPES.length < 1){
             this.apiService.doGet( Consts.QUERY_PROTOCOL_SETUP, '' ).subscribe(
                 data => {
+                    this.errors={};
                     this.protocolTypes = <any>data['protocolTypes'];
 
                     // Put an empty entry at the top of the Types dropdown.
                     this.protocolTypes.unshift('');
 
                     Properties.PROTOCOL_TYPES = this.protocolTypes; // Cache it
+                },
+                error=> {
+                    this.errors=error;
                 } );
         }else{
             this.protocolTypes = Properties.PROTOCOL_TYPES;

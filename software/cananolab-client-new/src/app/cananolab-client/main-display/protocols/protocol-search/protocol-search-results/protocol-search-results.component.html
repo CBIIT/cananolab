@@ -1,3 +1,10 @@
+<canano-main-display-heading
+    [helpUrl]="'https://wiki.nci.nih.gov/display/caNanoLab/Managing+Protocols+in+caNanoLab#ManagingProtocolsincaNanoLab-ProtocolResults'"
+    [toolHeadingName]="'Protocol Search Results'"
+>
+</canano-main-display-heading>
+<div class="sample-edit-div">
+    <div class="mainSection">
 <span
     class="ml-2"
 >
@@ -124,7 +131,8 @@
         </td>
         <td class="search-results-td">
             <span *ngIf="res['fileInfo'].length > 0 ">
-                <div><b><i>Title:</i></b>&nbsp;&nbsp;{{res['fileInfo']| protocolSearchResultsDisplayTitle }}</div>
+                <div><b><i>Title:</i></b>&nbsp;&nbsp;
+                    <span [innerHtml]="res['fileInfo']| protocolSearchResultsDisplayTitle"></span></div>
                 <div><b><i>Description:</i></b>&nbsp;&nbsp;{{res['fileInfo']| protocolSearchResultsDisplayDescription}}</div>
                 <div><a
                     href="{{properties.API_SERVER_URL}}/caNanoLab/{{res['fileInfo']| protocolSearchResultsDisplayHref}}"
@@ -142,3 +150,5 @@
     [totalCount]=searchResultsCount
     [startingPageLength]=pageLength
 ></canano-search-results-pager>
+</div>
+</div>

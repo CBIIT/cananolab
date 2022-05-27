@@ -10,14 +10,13 @@ import { Properties } from '../../../../../../assets/properties';
 import { ProtocolsService } from '../../protocols.service';
 import { ApiService } from '../../../../common/services/api.service';
 import { StatusDisplayService } from '../../../../status-display/status-display.service';
-
 @Component( {
     selector: 'canano-protocol-search-results',
     templateUrl: './protocol-search-results.component.html',
     styleUrls: ['./protocol-search-results.component.scss']
 } )
 export class ProtocolSearchResultsComponent implements OnInit, OnDestroy{
-    @Input() searchResults = [];
+    searchResults;
     columnHeadings = ['Actions', 'Type', 'Name', 'Abbreviation', 'Version', 'File', 'Created'];
     maxPageLength = Properties.MAX_PAGE_LENGTH;
     pageLength = Properties.DEFAULT_PAGE_LENGTH;
@@ -43,7 +42,7 @@ export class ProtocolSearchResultsComponent implements OnInit, OnDestroy{
     }
 
     ngOnInit(){
-
+        this.searchResults=this.protocolsService.getProtocolSearchResults();
         this.searchResultsPagerService.currentPageChangeEmitter.pipe( takeUntil( this.ngUnsubscribe ) )
             .subscribe( ( data ) => {
                 this.currentPage = data;

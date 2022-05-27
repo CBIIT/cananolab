@@ -7,11 +7,26 @@ import { EventEmitter, Injectable } from '@angular/core';
 export class ProtocolsService{
     currentProtocolInfo;
     currentProtocolScreen = ProtocolScreen.PROTOCOL_SEARCH_INPUT_SCREEN;
+    protocolSearchResults;
     currentProtocolScreenEmitter = new EventEmitter();
 
     constructor(){
     }
 
+    // gets publication search results //
+    getProtocolSearchResults() {
+        let results = JSON.parse(localStorage.getItem('cananolab_protocol_search_results'));
+        if (results) {
+            return results
+        }
+        return this.protocolSearchResults;
+    }
+
+    // sets publicastion search results //
+    setProtocolSearchResults(data) {
+        this.protocolSearchResults=data;
+        localStorage.setItem('cananolab_protocol_search_results',JSON.stringify(data));
+    }
     setCurrentProtocolScreen( ps, info? ){
         console.log('MHL 00  setCurrentProtocolScreen ps: ', ps);
         console.log('MHL 01  setCurrentProtocolScreen info: ', info);
