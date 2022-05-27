@@ -17,7 +17,7 @@ export class ProtocolCreateCharlieComponent implements OnInit, AfterViewInit{
     // List for the dropdown
     protocolTypes = [];
     defaultProtocolType = 'radio labeling'; // Find a way to set this in time to protocolTypes[0]
-
+    data;
     name = ''; // protocolName = '';
     uriExternal: boolean = false;
     externalUrl;
@@ -212,7 +212,14 @@ export class ProtocolCreateCharlieComponent implements OnInit, AfterViewInit{
     }
 
     init(){
-
+        this.data={
+            "protocolType":"",
+            "protocolName":"",
+            "abbreviation":"",
+            "version":"",
+            "fileTitle":"",
+            "fileDescription":""
+        }
         // Get list of Protocol types for dropdown
         this.apiService.doGet( Consts.QUERY_PROTOCOL_SETUP, '' ).subscribe(
             data => {

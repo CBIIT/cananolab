@@ -1,57 +1,5 @@
 @import "../../../main-display/main-display.component.scss";
 
 
-.publicationSearchForm {
-    margin:5px;
-}
 
-.publicationSearchForm td{
-    vertical-align:top;
-    padding:5px 10px 5px 0px;
-}
-
-.publicationSearchForm td.label{
-    vertical-align:top;
-    padding-right:20px;
-    width:150px;
-}
-
-.label {
-    font-weight:bold;
-}
-
-select.multiple {
-    width:150px;
-}
-
-select {
-    margin-right:4px;
-}
-
-span.label {
-    padding-right:10px;
-}
-
-.buttons {
-    margin:10px;
-}
-
-.submit {
-    width:100%;
-}
-
-.buttons {
-    text-align:right;
-}
-
-.buttons div {
-    font-style: italic;
-    color:#4A49A8;
-    text-align:center;
-}
-
-.error {
-    color:red;
-    margin:5px;
-}
 

@@ -56,3 +56,50 @@ label {
     font-weight:bold;
     padding-right:5px;
 }
+
+.searchForm {
+    margin:5px;
+}
+
+.searchForm td{
+    vertical-align:top;
+    padding:5px 10px 5px 0px;
+}
+
+.searchForm td.label{
+    vertical-align:top;
+    padding-right:20px;
+    width:150px;
+}
+
+.searchForm select.multiple {
+    width:150px;
+}
+
+.searchForm select {
+    margin-right:4px;
+}
+
+.searchForm span.label {
+    padding-right:10px;
+}
+
+.submit {
+    width:100%;
+}
+
+.buttons {
+    margin:10px;
+    text-align:right;
+}
+
+.buttons div {
+    font-style: italic;
+    color:#4A49A8;
+    text-align:center;
+}
+
+.error {
+    color:red;
+    margin:5px;
+}
