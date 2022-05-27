@@ -62,7 +62,7 @@ export class SearchPublicationComponent implements OnInit {
         this.apiService.doPost('caNanoLab/rest/publication/searchPublication',this.data).subscribe(data=> {
             this.errors={};
             this.searchPublicationService.setPublicationSearchResults(data);
-            this.router.navigate( ['home/publications/publicationSearchResults'] );
+            this.router.navigate( ['home/publications/publication-search-results'] );
 
         },
         error=> {

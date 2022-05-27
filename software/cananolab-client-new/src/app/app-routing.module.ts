@@ -48,25 +48,22 @@ const routes: Routes = [
     { path: 'home/search-results', component: SearchResultsComponent },
     { path: 'home/publications', component: PublicationsComponent },
     { path: 'home/publications/submitPublication', component: SubmitPublicationComponent },
-    { path: 'home/publications/searchPublication', component: SearchPublicationComponent },
-    { path: 'home/publications/publicationSearchResults', component: SearchpublicationresultsComponent },
+    { path: 'home/publications/publication-search', component: SearchPublicationComponent },
+    { path: 'home/publications/publication-search-results', component: SearchpublicationresultsComponent },
 
     { path: 'home/protocols/protocolCreateComponent', component: ProtocolCreateCharlieComponent },
-    { path: 'home/protocols/protocolSearchComponent', component: ProtocolSearchComponent },
+    { path: 'home/protocols/protocol-search', component: ProtocolSearchComponent },
     { path: 'home/protocols/protocol-search-results', component: ProtocolSearchResultsComponent },
     { path: 'home/protocols/protocolEditComponent', component: ProtocolEditBravoComponent },
     { path: 'home/protocols/protocolViewComponent', component: ProtocolViewComponent },
-
-    { path: 'home/protocols/protocolSearchComponent', component: ProtocolSearchComponent },
-    { path: 'home/protocols/protocolSearchResults', component: ProtocolSearchResultsComponent },
 
     { path: 'home/protocols', component: ProtocolsComponent },
     { path: 'home/samples', component: SamplesComponent },
 
     { path: 'home/samples/samplesEdit/:sampleId', component: SampleEditComponent },
     { path: 'home/samples/samplesView/:sampleId', component: SampleViewComponent }, // @TODO Add Composition view here
-    { path: 'home/samples/samplesSearch', component: SampleSearchComponent },
-    { path: 'home/samples/samplesSearchResults', component: SampleSearchResultsComponent },
+    { path: 'home/samples/sample-search', component: SampleSearchComponent },
+    { path: 'home/samples/sample-search-results', component: SampleSearchResultsComponent },
     { path: 'home/samples/sampleAdvancedSearchResults', component: SampleAdvancedSearchResultsComponent },
 
     { path: 'home/samples/SampleAdvancedSearchResults/:searchResults', component: SampleAdvancedSearchResultsComponent },

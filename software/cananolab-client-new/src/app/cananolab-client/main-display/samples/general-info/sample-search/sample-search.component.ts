@@ -82,7 +82,7 @@ export class SampleSearchComponent implements OnInit {
 
                 // send search results to samplesSearchResults
                 this.sampleSearchResultsService.setSearchResults( this.searchResults );
-                this.router.navigate(['home/samples/samplesSearchResults']); // @FIXME TESTING  Don't hard code this!!!
+                this.router.navigate(['home/samples/sample-search-results']); // @FIXME TESTING  Don't hard code this!!!
             },
             error=> {
                 this.errors=error;
