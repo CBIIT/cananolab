@@ -4,7 +4,7 @@
 >
 </canano-main-display-heading>
 
-<div class="sample-edit-div" *ngIf="data">
+<div *ngIf="data">
     <div class="mainSection" *ngFor="let publicationCategory of publicationData | keyvalue">
         <div class="header">
             {{publicationCategory.key}} <button *ngIf="editUrl" (click)="addPublication(publicationCategory.key)" class="btn btn-primary btn-sm">Add</button>

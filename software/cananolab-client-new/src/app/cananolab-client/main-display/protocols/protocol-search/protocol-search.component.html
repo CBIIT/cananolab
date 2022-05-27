@@ -9,11 +9,9 @@
         </canano-main-display-heading>
     </div>
 
-    <div class="sample-edit-div">
-        <div class="mainSection">
-            <canano-protocol-search-results [searchResults] = "searchResults">
-            </canano-protocol-search-results>
-        </div>
+    <div class="mainSection">
+        <canano-protocol-search-results [searchResults] = "searchResults">
+        </canano-protocol-search-results>
     </div>
 </span>
 <!-- -----  END Search Results  ----- -->
@@ -47,9 +45,8 @@
     </canano-main-display-heading>
 </div>
 
-<div class="sample-edit-div" *ngIf="protocolSearchForm">
+<div class="mainSection" *ngIf="protocolSearchForm">
     <form name="protocolSearchForm">
-    <div class="mainSection">
         <div class="mainBorder">
             <table>
                 <tr>
@@ -126,7 +123,6 @@
             <button (click)="onSubmit()" class="btn-canano btn-canano-primary btn-canano-lg mr-1">Search</button>
 
         </div>
-    </div>
     </form>
 </div>
 <!-- -----  END Enter search criteria  ----- -->

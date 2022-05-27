@@ -3,38 +3,37 @@
 
 </canano-main-display-heading>
 
-<div class="sample-edit-div">
-    <div class="mainSection">
-        <div class="mainBorder">
-            <table class="dataMain">
-                <tr>
-                    <td>
-                        <B>Data Pending Review</B><br /><br />
-                        <ng-container *ngFor="let record of data">
-                            <table class="display">
-                                <tr>
-                                    <th>Data Type</th>
-                                    <th>Data Name</th>
-                                    <th></th>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        {{record.dataType}}
-                                    </td>
-                                    <td>
-                                        {{record.dataName}}
-                                    </td>
-                                    <td>
-                                        <a href="" [href]="'/caNanoLab/#/editPublication?publicationId='+record.dataId">
-                                            Edit
-                                        </a>
-                                    </td>
-                                </tr>
-                            </table>
-                        </ng-container>
-                    </td>
-                </tr>
-            </table>
-        </div>
+<div class="mainSection">
+    <div class="mainBorder">
+        <table class="dataMain">
+            <tr>
+                <td>
+                    <B>Data Pending Review</B><br /><br />
+                    <ng-container *ngFor="let record of data">
+                        <table class="display">
+                            <tr>
+                                <th>Data Type</th>
+                                <th>Data Name</th>
+                                <th></th>
+                            </tr>
+                            <tr>
+                                <td>
+                                    {{record.dataType}}
+                                </td>
+                                <td>
+                                    {{record.dataName}}
+                                </td>
+                                <td>
+                                    <a href="" [href]="'/caNanoLab/#/editPublication?publicationId='+record.dataId">
+                                        Edit
+                                    </a>
+                                </td>
+                            </tr>
+                        </table>
+                    </ng-container>
+                </td>
+            </tr>
+        </table>
     </div>
 </div>
+

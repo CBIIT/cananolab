@@ -4,130 +4,128 @@
 >
 </canano-main-display-heading>
 
-<div class="sample-edit-div">
-    <div class="mainSection" *ngFor="let a of types">
-        <div class="header">
-            {{a}} <button *ngIf="editUrl" class="btn btn-primary btn-sm" (click)="addCharacterization(a)">Add</button>
-        </div>
-        <ng-container *ngFor="let b of characterizationData[a]">
-            <ng-container *ngFor="let c of b.charsByAssayType | keyvalue">
-                <div class="compositionTitle">{{c.key}}</div>
+<div class="mainSection" *ngFor="let a of types">
+    <div class="header">
+        {{a}} <button *ngIf="editUrl" class="btn btn-primary btn-sm" (click)="addCharacterization(a)">Add</button>
+    </div>
+    <ng-container *ngFor="let b of characterizationData[a]">
+        <ng-container *ngFor="let c of b.charsByAssayType | keyvalue">
+            <div class="compositionTitle">{{c.key}}</div>
 
-                <div class="compositionBody">
-                    <ng-container *ngFor="let d of c.value | keyvalue">
-                        <div class="editButton" *ngIf="editUrl"><button class="btn btn-primary btn-sm" (click)="editCharacterization(d.value.charId,a, d.value.charClassName)">Edit</button></div>
-                        <table class="dataMain">
-                            <ng-container *ngFor="let e of d.value['displayableItems'] | keyvalue">
-                                <tr *ngIf="e.value.value.length">
-                                    <td class="label">
-                                        {{e.value.name}}
-                                    </td>
-                                    <td *ngIf="e.value.name=='Experiment Configurations'">
-                                        <table class="experimentConfigurations">
-                                            <tr>
-                                                <ng-container *ngFor="let f of e.value.value">
-                                                    <th *ngFor="let g of f | keyvalue">
-                                                        {{g.key}}
+            <div class="compositionBody">
+                <ng-container *ngFor="let d of c.value | keyvalue">
+                    <div class="editButton" *ngIf="editUrl"><button class="btn btn-primary btn-sm" (click)="editCharacterization(d.value.charId,a, d.value.charClassName)">Edit</button></div>
+                    <table class="dataMain">
+                        <ng-container *ngFor="let e of d.value['displayableItems'] | keyvalue">
+                            <tr *ngIf="e.value.value.length">
+                                <td class="label">
+                                    {{e.value.name}}
+                                </td>
+                                <td *ngIf="e.value.name=='Experiment Configurations'">
+                                    <table class="experimentConfigurations">
+                                        <tr>
+                                            <ng-container *ngFor="let f of e.value.value">
+                                                <th *ngFor="let g of f | keyvalue">
+                                                    {{g.key}}
+                                                </th>
+                                            </ng-container>
+                                        </tr>
+                                        <tr>
+                                            <ng-container *ngFor="let f of e.value.value">
+                                                <td *ngFor="let g of f | keyvalue">
+                                                    <ul>
+                                                        <ng-container *ngFor="let h of g.value">
+                                                            <li *ngIf="h">
+                                                                {{h}}
+                                                            </li>
+                                                        </ng-container>
+                                                    </ul>
+                                                </td>
+                                            </ng-container>
+                                        </tr>
+                                    </table>
+                                </td>
+                                <td *ngIf="e.value.name=='Characterization Results'">
+                                    <ng-container *ngFor="let f of e.value.value">
+                                        <label for="dataConditions">
+                                            Data and Conditions
+                                        </label>
+                                        <div *ngIf="f['Data and Conditions']">
+                                            <table class="dataAndConditions" id="dataConditions">
+                                                <tr *ngFor="let entry of f['Data and Conditions']">
+                                                    <ng-container *ngIf="entry.name=='colTitles'">
+                                                        <th *ngFor="let title of entry.value">
+                                                            <span [innerHTML]="title">{{title}}</span>
+                                                        </th>
+                                                    </ng-container>
+                                                    <ng-container *ngIf="entry.name=='colValues'">
+                                                        <td *ngFor="let title of entry.value">
+                                                            {{title}}
+                                                        </td>
+                                                    </ng-container>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                        <div *ngIf="f['Files']"><br />
+                                            <table class="files">
+                                                <tr>
+                                                    <th>
+                                                        Files
                                                     </th>
-                                                </ng-container>
-                                            </tr>
-                                            <tr>
-                                                <ng-container *ngFor="let f of e.value.value">
-                                                    <td *ngFor="let g of f | keyvalue">
+                                                    <th>
+                                                        Keywords
+                                                    </th>
+                                                    <th>
+                                                        Description
+                                                    </th>
+                                                </tr>
+                                                <tr *ngFor="let file of f['Files']">
+                                                    <td>
+                                                        <a href="" [href]="serverUrl+'/caNanoLab/rest/sample/download?fileId='+file.fileId">
+                                                            {{file['title']}}
+                                                        </a>
+                                                    </td>
+                                                    <td>
                                                         <ul>
-                                                            <ng-container *ngFor="let h of g.value">
-                                                                <li *ngIf="h">
-                                                                    {{h}}
-                                                                </li>
-                                                            </ng-container>
+                                                            <li *ngFor="let keyword of splitKeywords(file['keywordsString'])">
+                                                                {{keyword}}
+                                                            </li>
                                                         </ul>
                                                     </td>
-                                                </ng-container>
-                                            </tr>
-                                        </table>
-                                    </td>
-                                    <td *ngIf="e.value.name=='Characterization Results'">
-                                        <ng-container *ngFor="let f of e.value.value">
-                                            <label for="dataConditions">
-                                                Data and Conditions
-                                            </label>
-                                            <div *ngIf="f['Data and Conditions']">
-                                                <table class="dataAndConditions" id="dataConditions">
-                                                    <tr *ngFor="let entry of f['Data and Conditions']">
-                                                        <ng-container *ngIf="entry.name=='colTitles'">
-                                                            <th *ngFor="let title of entry.value">
-                                                                <span [innerHTML]="title">{{title}}</span>
-                                                            </th>
-                                                        </ng-container>
-                                                        <ng-container *ngIf="entry.name=='colValues'">
-                                                            <td *ngFor="let title of entry.value">
-                                                                {{title}}
-                                                            </td>
-                                                        </ng-container>
-                                                    </tr>
-                                                </table>
-                                            </div>
-                                            <div *ngIf="f['Files']"><br />
-                                                <table class="files">
-                                                    <tr>
-                                                        <th>
-                                                            Files
-                                                        </th>
-                                                        <th>
-                                                            Keywords
-                                                        </th>
-                                                        <th>
-                                                            Description
-                                                        </th>
-                                                    </tr>
-                                                    <tr *ngFor="let file of f['Files']">
-                                                        <td>
-                                                            <a href="" [href]="serverUrl+'/caNanoLab/rest/sample/download?fileId='+file.fileId">
-                                                                {{file['title']}}
-                                                            </a>
-                                                        </td>
-                                                        <td>
-                                                            <ul>
-                                                                <li *ngFor="let keyword of splitKeywords(file['keywordsString'])">
-                                                                    {{keyword}}
-                                                                </li>
-                                                            </ul>
-                                                        </td>
-                                                        <td>{{file['description']}}</td>
-                                                    </tr>
-                                                </table>
-                                            </div><br />
-                                        </ng-container>
-                                    </td>
-                                    <td *ngIf="e.value.name=='Properties'">
-                                        <table class="properties">
-                                            <tr *ngFor="let entry of e.value.value">
-                                                <ng-container *ngIf="entry.name=='colTitles'">
-                                                    <th *ngFor="let title of entry.value">
-                                                        <span [innerHTML]="title">{{title}}</span>
-                                                    </th>
-                                                </ng-container>
-                                                <ng-container *ngIf="entry.name=='colValues'">
-                                                    <td *ngFor="let title of entry.value">
-                                                        {{title}}
-                                                    </td>
-                                                </ng-container>
-                                            </tr>
-                                        </table>
-                                    </td>
-                                    <td *ngIf="e.value.name!='Characterization Results'&&e.value.name!='Experiment Configurations'&&e.value.name!='Properties'">
-                                        {{e.value.value}}
-                                    </td>
-                                </tr>
-                            </ng-container>
-                        </table>
-                    </ng-container>
+                                                    <td>{{file['description']}}</td>
+                                                </tr>
+                                            </table>
+                                        </div><br />
+                                    </ng-container>
+                                </td>
+                                <td *ngIf="e.value.name=='Properties'">
+                                    <table class="properties">
+                                        <tr *ngFor="let entry of e.value.value">
+                                            <ng-container *ngIf="entry.name=='colTitles'">
+                                                <th *ngFor="let title of entry.value">
+                                                    <span [innerHTML]="title">{{title}}</span>
+                                                </th>
+                                            </ng-container>
+                                            <ng-container *ngIf="entry.name=='colValues'">
+                                                <td *ngFor="let title of entry.value">
+                                                    {{title}}
+                                                </td>
+                                            </ng-container>
+                                        </tr>
+                                    </table>
+                                </td>
+                                <td *ngIf="e.value.name!='Characterization Results'&&e.value.name!='Experiment Configurations'&&e.value.name!='Properties'">
+                                    {{e.value.value}}
+                                </td>
+                            </tr>
+                        </ng-container>
+                    </table>
+                </ng-container>
 
-                </div>
-            </ng-container>
+            </div>
         </ng-container>
-    </div>
-
-
-
+    </ng-container>
 </div>
+
+
+

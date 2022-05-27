@@ -9,109 +9,107 @@
 <div class="error" *ngIf="message">
     {{message}}
 </div>
-<div class="sample-edit-div">
-    <div class="mainSection">
-        <form action="" method="get" name="functionalizingEntityForm">
-            <div class="mainBorder">
-                <table class="dataMain" *ngIf="data">
-                    <tr>
-                        <td class="label">
-                            <label for="fileUpload">
-                                Upload&nbsp;
-                            </label>
-                            <input type="radio" name="data.uriExternal" id="fileUpload" [value]="false" [(ngModel)]="data.uriExternal">
-                        </td>
-                        <td class="label">
-                            <label for="fileURL">
-                                Enter File URL&nbsp;
-                            </label>
-                            <input type="radio" name="data.uriExternal" id="fileURL" [value]="true" [(ngModel)]="data.uriExternal">
-                        </td>
-                    </tr>
-                    <tr *ngIf="data.uriExternal==1">
-                        <td class="label">
-                            <label for="uriExternal">
-                                File URL*
-                            </label>
-                        </td>
-                        <td>
-                            <input id="uriExternal" *ngIf="data.uriExternal==1" type="text" name="data.externalUrl" [(ngModel)]="data.externalUrl">
-                        </td>
-                    </tr>
-                    <tr *ngIf="data.uriExternal==0">
-                        <td class="label">
-                            <label for="file">
-                                File*
-                            </label>
-                        </td>
-                        <td>
-                            <input id="file" (change)="uploadFile($event)" type="file" name="data.uploadFile">
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="label">
-                            <label for="data.fileType">
-                                File Type*
-                            </label>
-                        </td>
-                        <td>
-                            <select name="data.type" [(ngModel)]="data.type" id="data.fileType">
-                                <option [select]="data.type===''" [ngValue]="''">--Select</option>
-                                <option>document</option>
-                                <option>graph</option>
-                                <option>image</option>
-                                <option>movie</option>
-                                <option>spread sheet</option>
-                            </select>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="label">
-                            <label for="data.title">
-                                File Title*
-                            </label>
-                        </td>
-                        <td>
-                            <input id="data.title" type="text" name="data.title" [(ngModel)]="data.title">
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="label">
-                            <label for="data.keywordsStr">
-                                Keywords
-                            </label>
-                        </td>
-                        <td>
-                            <textarea id="data.keywordsStr" name="data.keywordsStr" rows="3" cols="60" [(ngModel)]="data.keywordsStr">
-                               {{data.keywordsStr}}
-                            </textarea>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="label">
-                            <label for="data.description">
-                                Description
-                            </label>
-                        </td>
-                        <td>
-                            <textarea id="data.description" name="data.description" rows="3" cols="60" [(ngModel)]="data.description">
-                                {{data.description}}
-                            </textarea>
-                        </td>
-                    </tr>
-                </table>
-            </div><br />
-            <table class="buttons" *ngIf="this.data">
+<div class="mainSection">
+    <form action="" method="get" name="functionalizingEntityForm">
+        <div class="mainBorder">
+            <table class="dataMain" *ngIf="data">
                 <tr>
-                    <td *ngIf="dataId">
-                        <button (click)="delete()" class="btn-canano btn-canano-danger btn-canano-lg mr-1">Delete</button>
+                    <td class="label">
+                        <label for="fileUpload">
+                            Upload&nbsp;
+                        </label>
+                        <input type="radio" name="data.uriExternal" id="fileUpload" [value]="false" [(ngModel)]="data.uriExternal">
                     </td>
-                    <td class="buttons">
-                        <button (click)="reset()" class="btn-canano btn-canano-danger btn-canano-lg mr-1">Reset</button>
-                        <button [disabled]="isFileUploadValid()" (click)="saveFile()" class="btn-canano btn-canano-primary btn-canano-lg mr-1">Submit</button>
+                    <td class="label">
+                        <label for="fileURL">
+                            Enter File URL&nbsp;
+                        </label>
+                        <input type="radio" name="data.uriExternal" id="fileURL" [value]="true" [(ngModel)]="data.uriExternal">
+                    </td>
+                </tr>
+                <tr *ngIf="data.uriExternal==1">
+                    <td class="label">
+                        <label for="uriExternal">
+                            File URL*
+                        </label>
+                    </td>
+                    <td>
+                        <input id="uriExternal" *ngIf="data.uriExternal==1" type="text" name="data.externalUrl" [(ngModel)]="data.externalUrl">
+                    </td>
+                </tr>
+                <tr *ngIf="data.uriExternal==0">
+                    <td class="label">
+                        <label for="file">
+                            File*
+                        </label>
+                    </td>
+                    <td>
+                        <input id="file" (change)="uploadFile($event)" type="file" name="data.uploadFile">
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label">
+                        <label for="data.fileType">
+                            File Type*
+                        </label>
+                    </td>
+                    <td>
+                        <select name="data.type" [(ngModel)]="data.type" id="data.fileType">
+                            <option [select]="data.type===''" [ngValue]="''">--Select</option>
+                            <option>document</option>
+                            <option>graph</option>
+                            <option>image</option>
+                            <option>movie</option>
+                            <option>spread sheet</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label">
+                        <label for="data.title">
+                            File Title*
+                        </label>
+                    </td>
+                    <td>
+                        <input id="data.title" type="text" name="data.title" [(ngModel)]="data.title">
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label">
+                        <label for="data.keywordsStr">
+                            Keywords
+                        </label>
+                    </td>
+                    <td>
+                        <textarea id="data.keywordsStr" name="data.keywordsStr" rows="3" cols="60" [(ngModel)]="data.keywordsStr">
+                            {{data.keywordsStr}}
+                        </textarea>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label">
+                        <label for="data.description">
+                            Description
+                        </label>
+                    </td>
+                    <td>
+                        <textarea id="data.description" name="data.description" rows="3" cols="60" [(ngModel)]="data.description">
+                            {{data.description}}
+                        </textarea>
                     </td>
                 </tr>
             </table>
-        </form>
-    </div>
+        </div><br />
+        <table class="buttons" *ngIf="this.data">
+            <tr>
+                <td *ngIf="dataId">
+                    <button (click)="delete()" class="btn-canano btn-canano-danger btn-canano-lg mr-1">Delete</button>
+                </td>
+                <td class="buttons">
+                    <button (click)="reset()" class="btn-canano btn-canano-danger btn-canano-lg mr-1">Reset</button>
+                    <button [disabled]="isFileUploadValid()" (click)="saveFile()" class="btn-canano btn-canano-primary btn-canano-lg mr-1">Submit</button>
+                </td>
+            </tr>
+        </table>
+    </form>
 </div>

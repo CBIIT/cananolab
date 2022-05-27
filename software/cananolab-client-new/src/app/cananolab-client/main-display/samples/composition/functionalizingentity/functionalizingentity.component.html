@@ -9,554 +9,552 @@
 <div class="error" *ngIf="message">
     {{message}}
 </div>
-<div class="sample-edit-div">
-    <div class="mainSection">
-        <form action="" method="get" name="functionalizingEntityForm">
-        <div class="mainBorder">
-            <table class="dataMain">
-                <!--Only Used for Add-->
-                <tr *ngIf="!dataId">
-                    <td class="label">
-                        <label for="entityType">
-                            Functionalizing Entity Type*
-                        </label>
-                    </td>
-                    <td colspan="3">
-                        <select (ngModelChange)="addOtherValue('type',data.type)" id="entityType" [(ngModel)]="data.type" name="entityType">
-                            <option value="" [selected]="data.type===''">--Select--</option>
-                            <option *ngFor="let type of setupData['functionalizingEntityTypes']" [selected]="data.type===type" value="{{type}}">
-                                {{type}}
-                            </option>
-                            <option value="other">other</option>
+<div class="mainSection">
+    <form action="" method="get" name="functionalizingEntityForm">
+    <div class="mainBorder">
+        <table class="dataMain">
+            <!--Only Used for Add-->
+            <tr *ngIf="!dataId">
+                <td class="label">
+                    <label for="entityType">
+                        Functionalizing Entity Type*
+                    </label>
+                </td>
+                <td colspan="3">
+                    <select (ngModelChange)="addOtherValue('type',data.type)" id="entityType" [(ngModel)]="data.type" name="entityType">
+                        <option value="" [selected]="data.type===''">--Select--</option>
+                        <option *ngFor="let type of setupData['functionalizingEntityTypes']" [selected]="data.type===type" value="{{type}}">
+                            {{type}}
+                        </option>
+                        <option value="other">other</option>
 
-                        </select>
-                        <div *ngIf="data.type ==='other'">
-                            <canano-other-dropdown (saveOther)="saveOther($event)" [label]="'Functionalizing Entity Type'" [value]="currentDropdownValues['type']" [field]="'data.type'" [array]="'setupData.functionalizingEntityTypes'">
+                    </select>
+                    <div *ngIf="data.type ==='other'">
+                        <canano-other-dropdown (saveOther)="saveOther($event)" [label]="'Functionalizing Entity Type'" [value]="currentDropdownValues['type']" [field]="'data.type'" [array]="'setupData.functionalizingEntityTypes'">
 
-                            </canano-other-dropdown>
-                        </div>
-                    </td>
-                </tr>
-                <!--End Only Used for Add-->
-                <tr>
-                    <td class="label">
-                        <label for="chemicalName">
-                            Chemical Name*
-                        </label>
-                    </td>
-                    <td colspan="3">
-                        <input [(ngModel)]="data.name" id="chemicalName" type="text" name="name" size="70">
-                    </td>
-                </tr>
-                <tr>
-                    <td class="label">
-                        <label for="pubchemDatasource">
-                            PubChem DataSource
-                        </label>
-                    </td>
-                    <td>
-                        <select id="pubchemDatasource" [(ngModel)]="data.pubChemDataSourceName" name="pubchemDatasource">
-                            <option value="" [selected]="data.pubChemDataSourceName===''">--Select--</option>
-                            <option *ngFor="let type of setupData['pubChemDataSources']" [selected]="data.pubChemDataSourceName===type" value="{{type}}">
-                                {{type}}
-                            </option>
-                        </select>
-                    </td>
-                    <td class="label">
-                        <label for="pubchemId">
-                            PubChem Id
-                        </label>
-                    </td>
-                    <td>
-                        <input [(ngModel)]="data.pubChemId" id="pubchemId" type="number" name="pubchemId" size="30">
-                    </td>
-                </tr>
-                <tr>
-                    <td class="label">
-                        <label for="amount">
-                            Amount
-                        </label>
-                    </td>
-                    <td>
-                        <input [(ngModel)]="data.value" id="amount" type="text" name="value">
-                    </td>
-                    <td class="label">
-                        <label for="amountUnit">
-                            Amount Unit
-                        </label>
-                    </td>
-                    <td>
-                        <select (ngModelChange)="addOtherValue('valueUnit',data.valueUnit)" id="amountUnit" [(ngModel)]="data.valueUnit" name="valueUnit">
-                            <option value="" [selected]="data.functionalizingEntityUnits===''">--Select--</option>
-                            <option *ngFor="let type of setupData['functionalizingEntityUnits']" [selected]="data.valueUnit===type" value="{{type}}">
-                                {{type}}
-                            </option>
-                            <option value="[other]">
-                                [other]
-                            </option>
-                        </select>
-                        <div *ngIf="data.valueUnit ==='[other]'">
-                            <canano-other-dropdown (saveOther)="saveOther($event)" [label]="'Amount Unit'" [value]="currentDropdownValues['valueUnit']" [field]="'data.valueUnit'" [array]="'setupData.functionalizingEntityUnits'">
+                        </canano-other-dropdown>
+                    </div>
+                </td>
+            </tr>
+            <!--End Only Used for Add-->
+            <tr>
+                <td class="label">
+                    <label for="chemicalName">
+                        Chemical Name*
+                    </label>
+                </td>
+                <td colspan="3">
+                    <input [(ngModel)]="data.name" id="chemicalName" type="text" name="name" size="70">
+                </td>
+            </tr>
+            <tr>
+                <td class="label">
+                    <label for="pubchemDatasource">
+                        PubChem DataSource
+                    </label>
+                </td>
+                <td>
+                    <select id="pubchemDatasource" [(ngModel)]="data.pubChemDataSourceName" name="pubchemDatasource">
+                        <option value="" [selected]="data.pubChemDataSourceName===''">--Select--</option>
+                        <option *ngFor="let type of setupData['pubChemDataSources']" [selected]="data.pubChemDataSourceName===type" value="{{type}}">
+                            {{type}}
+                        </option>
+                    </select>
+                </td>
+                <td class="label">
+                    <label for="pubchemId">
+                        PubChem Id
+                    </label>
+                </td>
+                <td>
+                    <input [(ngModel)]="data.pubChemId" id="pubchemId" type="number" name="pubchemId" size="30">
+                </td>
+            </tr>
+            <tr>
+                <td class="label">
+                    <label for="amount">
+                        Amount
+                    </label>
+                </td>
+                <td>
+                    <input [(ngModel)]="data.value" id="amount" type="text" name="value">
+                </td>
+                <td class="label">
+                    <label for="amountUnit">
+                        Amount Unit
+                    </label>
+                </td>
+                <td>
+                    <select (ngModelChange)="addOtherValue('valueUnit',data.valueUnit)" id="amountUnit" [(ngModel)]="data.valueUnit" name="valueUnit">
+                        <option value="" [selected]="data.functionalizingEntityUnits===''">--Select--</option>
+                        <option *ngFor="let type of setupData['functionalizingEntityUnits']" [selected]="data.valueUnit===type" value="{{type}}">
+                            {{type}}
+                        </option>
+                        <option value="[other]">
+                            [other]
+                        </option>
+                    </select>
+                    <div *ngIf="data.valueUnit ==='[other]'">
+                        <canano-other-dropdown (saveOther)="saveOther($event)" [label]="'Amount Unit'" [value]="currentDropdownValues['valueUnit']" [field]="'data.valueUnit'" [array]="'setupData.functionalizingEntityUnits'">
 
-                            </canano-other-dropdown>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="label">
-                        <label for="molecularFormulaType">
-                            Molecular Formula Type
-                        </label>
-                    </td>
-                    <td>
-                        <select (ngModelChange)="addOtherValue('molecularFormulaType',data.molecularFormulaType)" id="molecularFormulaType" [(ngModel)]="data.molecularFormulaType" name="molecularFormulaType">
-                            <option value="" [selected]="data.molecularFormulaType===''">--Select--</option>
-                            <option *ngFor="let type of setupData['molecularFormulaTypes']" [selected]="data.molecularFormulaType==type" value="{{type}}">
-                                {{type}}
-                            </option>
-                            <option value="[other]">
-                                [other]
-                            </option>
-                        </select>
-                        <div *ngIf="data.molecularFormulaType ==='[other]'">
-                            <canano-other-dropdown (saveOther)="saveOther($event)" [label]="'Molecular Formula Type'" [value]="currentDropdownValues['molecularFormulaType']" [field]="'data.molecularFormulaType'" [array]="'setupData.molecularFormulaTypes'">
+                        </canano-other-dropdown>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td class="label">
+                    <label for="molecularFormulaType">
+                        Molecular Formula Type
+                    </label>
+                </td>
+                <td>
+                    <select (ngModelChange)="addOtherValue('molecularFormulaType',data.molecularFormulaType)" id="molecularFormulaType" [(ngModel)]="data.molecularFormulaType" name="molecularFormulaType">
+                        <option value="" [selected]="data.molecularFormulaType===''">--Select--</option>
+                        <option *ngFor="let type of setupData['molecularFormulaTypes']" [selected]="data.molecularFormulaType==type" value="{{type}}">
+                            {{type}}
+                        </option>
+                        <option value="[other]">
+                            [other]
+                        </option>
+                    </select>
+                    <div *ngIf="data.molecularFormulaType ==='[other]'">
+                        <canano-other-dropdown (saveOther)="saveOther($event)" [label]="'Molecular Formula Type'" [value]="currentDropdownValues['molecularFormulaType']" [field]="'data.molecularFormulaType'" [array]="'setupData.molecularFormulaTypes'">
 
-                            </canano-other-dropdown>
-                        </div>
-                    </td>
-                    <td class="label">
-                        <label for="molecularFormula">
-                            Molecular Formula
-                        </label>
+                        </canano-other-dropdown>
+                    </div>
+                </td>
+                <td class="label">
+                    <label for="molecularFormula">
+                        Molecular Formula
+                    </label>
 
-                    </td>
-                    <td>
-                        <textarea [(ngModel)]="data.molecularFormula" rows="2" cols="80" id="molecularFormula" name="molecularFormula">{{data.molecularFormula}}</textarea>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="label">
-                        <label for="activationMethodType">
-                            Activation Method
-                        </label>
-                    </td>
-                    <td>
-                        <select (ngModelChange)="addOtherValue('activationMethodType',data.activationMethodType)" id="activationMethodType" [(ngModel)]="data.activationMethodType" name="activationMethodType">
-                            <option value="" [selected]="data.activationMethodType===''">--Select--</option>
-                            <option *ngFor="let type of setupData['activationMethods']" [selected]="data.activationMethodType==type" value="{{type}}">
-                                {{type}}
-                            </option>
-                            <option value="[other]">
-                                [other]
-                            </option>
-                        </select>
-                        <div *ngIf="data.activationMethodType ==='[other]'">
-                            <canano-other-dropdown (saveOther)="saveOther($event)" [label]="'Activation Method'" [value]="currentDropdownValues['activationMethodType']" [field]="'data.activationMethodType'" [array]="'setupData.activationMethods'">
+                </td>
+                <td>
+                    <textarea [(ngModel)]="data.molecularFormula" rows="2" cols="80" id="molecularFormula" name="molecularFormula">{{data.molecularFormula}}</textarea>
+                </td>
+            </tr>
+            <tr>
+                <td class="label">
+                    <label for="activationMethodType">
+                        Activation Method
+                    </label>
+                </td>
+                <td>
+                    <select (ngModelChange)="addOtherValue('activationMethodType',data.activationMethodType)" id="activationMethodType" [(ngModel)]="data.activationMethodType" name="activationMethodType">
+                        <option value="" [selected]="data.activationMethodType===''">--Select--</option>
+                        <option *ngFor="let type of setupData['activationMethods']" [selected]="data.activationMethodType==type" value="{{type}}">
+                            {{type}}
+                        </option>
+                        <option value="[other]">
+                            [other]
+                        </option>
+                    </select>
+                    <div *ngIf="data.activationMethodType ==='[other]'">
+                        <canano-other-dropdown (saveOther)="saveOther($event)" [label]="'Activation Method'" [value]="currentDropdownValues['activationMethodType']" [field]="'data.activationMethodType'" [array]="'setupData.activationMethods'">
 
-                            </canano-other-dropdown>
-                        </div>
-                    </td>
-                    <td class="label">
-                        <label for="activationEffect">
-                            Activation Effect
-                        </label>
-                    </td>
-                    <td>
-                        <input [(ngModel)]="data.activationEffect" id="activationEffect" type="text" name="activationEffect" size="70">
-                    </td>
-                </tr>
-                <tr>
-                    <td class="label">
-                        <label for="description">
-                            Description
-                        </label>
-                    </td>
-                    <td colspan="3">
-                        <textarea [(ngModel)]="data.description" rows="2" cols="80" id="description" name="description">{{data.description}}</textarea>
-                    </td>
-                </tr>
-            </table>
-        </div><br />
-        <div class="mainBorder" *ngIf="data.type=='antibody'">
-            <table class="dataMain">
-                <tr>
-                    <td class="label">
-                        Antibody Properties
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <table class="antibodyProperties">
-                            <tr>
-                                <td class="label">
-                                    <label for="type">
-                                        Type
-                                    </label>
-                                </td>
+                        </canano-other-dropdown>
+                    </div>
+                </td>
+                <td class="label">
+                    <label for="activationEffect">
+                        Activation Effect
+                    </label>
+                </td>
+                <td>
+                    <input [(ngModel)]="data.activationEffect" id="activationEffect" type="text" name="activationEffect" size="70">
+                </td>
+            </tr>
+            <tr>
+                <td class="label">
+                    <label for="description">
+                        Description
+                    </label>
+                </td>
+                <td colspan="3">
+                    <textarea [(ngModel)]="data.description" rows="2" cols="80" id="description" name="description">{{data.description}}</textarea>
+                </td>
+            </tr>
+        </table>
+    </div><br />
+    <div class="mainBorder" *ngIf="data.type=='antibody'">
+        <table class="dataMain">
+            <tr>
+                <td class="label">
+                    Antibody Properties
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <table class="antibodyProperties">
+                        <tr>
+                            <td class="label">
+                                <label for="type">
+                                    Type
+                                </label>
+                            </td>
+                            <td>
+                                <select (ngModelChange)="addOtherValue('domainEntity.type',data.domainEntity.type)" id="type" [(ngModel)]="data['domainEntity']['type']" name="type">
+                                    <option value="" [selected]="data.domainEntity['type']===''">--Select--</option>
+                                    <option *ngFor="let type of setupData['antibodyTypes']" [selected]="data.domainEntity['type']==type" value="{{type}}">
+                                        {{type}}
+                                    </option>
+                                    <option value="[other]">
+                                        [other]
+                                    </option>
+                                </select>
+                                <div *ngIf="data.domainEntity.type ==='[other]'">
+                                    <canano-other-dropdown (saveOther)="saveOther($event)" [label]="'Type'" [value]="currentDropdownValues['domainEntity.type']" [field]="'data.domainEntity.type'" [array]="'setupData.antibodyTypes'">
+
+                                    </canano-other-dropdown>
+                                </div>
+                            </td>
+                            <td class="label">
+                                <label for="isoType">
+                                    Isotype
+                                </label>
+                            </td>
+                            <td>
+                                <select (ngModelChange)="addOtherValue('domainEntity.isoType',data.domainEntity.isoType)" id="isoType" [(ngModel)]="data['domainEntity']['isoType']" name="isoType">
+                                    <option value="" [selected]="data.domainEntity['isoType']===''">--Select--</option>
+                                    <option *ngFor="let type of setupData['antibodyIsotypes']" [selected]="data.domainEntity['isoType']==type" value="{{type}}">
+                                        {{type}}
+                                    </option>
+                                    <option value="[other]">
+                                        [other]
+                                    </option>
+                                </select>
+                                <div *ngIf="data.domainEntity.isoType ==='[other]'">
+                                    <canano-other-dropdown (saveOther)="saveOther($event)" [label]="'Isotype'" [value]="currentDropdownValues['domainEntity.isoType']" [field]="'data.domainEntity.isoType'" [array]="'setupData.antibodyIsotypes'">
+
+                                    </canano-other-dropdown>
+                                </div>
+                            </td>
+                            <td class="label">
+                                <label for="antibodySpecies">
+                                    Species
+                                </label>
+                            </td>
+                            <td>
+                                <select (ngModelChange)="addOtherValue('domainEntity.species',data.domainEntity.species)" id="species" [(ngModel)]="data['domainEntity']['species']" name="species">
+                                    <option value="" [selected]="data.domainEntity['species']===''">--Select--</option>
+                                    <option *ngFor="let type of setupData['speciesTypes']" [selected]="data.domainEntity['species']==type" value="{{type}}">
+                                        {{type}}
+                                    </option>
+                                    <option value="[other]">
+                                        [other]
+                                    </option>
+                                </select>
+                                <div *ngIf="data.domainEntity.species ==='[other]'">
+                                    <canano-other-dropdown (saveOther)="saveOther($event)" [label]="'Species'" [value]="currentDropdownValues['domainEntity.species']" [field]="'data.domainEntity.species'" [array]="'setupData.speciesTypes'">
+
+                                    </canano-other-dropdown>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="mainBorder" *ngIf="data.type=='biopolymer'">
+        <table class="dataMain">
+            <tr>
+                <td class="label" colspan="2">
+                    Biopolymer Properties
+                </td>
+            </tr>
+            <tr>
+                <td class="label">
+                    <label for="biopolymerType">Type*</label>
+                </td>
+                <td>
+                    <select (ngModelChange)="addOtherValue('domainEntity.type',data.domainEntity.type)" id="biopolymerType" [(ngModel)]="data['domainEntity']['type']" name="biopolymerType">
+                        <option value="" [selected]="data.domainEntity['type']===''">--Select--</option>
+                        <option *ngFor="let type of setupData['biopolymerTypes']" [selected]="data.domainEntity['type']==type" value="{{type}}">
+                            {{type}}
+                        </option>
+                        <option value="[other]">
+                            [other]
+                        </option>
+                    </select>
+                    <div *ngIf="data.domainEntity.type ==='[other]'">
+                        <canano-other-dropdown (saveOther)="saveOther($event)" [label]="'Type'" [value]="currentDropdownValues['domainEntity.type']" [field]="'data.domainEntity.type'" [array]="'setupData.biopolymerTypes'">
+
+                        </canano-other-dropdown>
+                    </div>
+
+                </td>
+            </tr>
+            <tr>
+                <td class="label">
+                    <label for="biopolymerSequence">Sequence</label>
+                </td>
+                <td>
+                    <textarea name="biopolymerSequence" [(ngModel)]="data.domainEntity.sequence" rows="3" cols="80">
+                        {{data.sequence}}
+                    </textarea>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="mainBorder" *ngIf="data.type=='small molecule'">
+        <table class="dataMain">
+            <tr>
+                <td class="label" colspan="2">
+                    Small Molecule Properties
+                </td>
+            </tr>
+            <tr>
+                <td class="label">
+                    <label for="smallMoleculeAlternateName">Alternate Name</label>
+                </td>
+                <td>
+                    <input type="text" id="smallMoleculeAlternateName" name="smallMoleculeAlternateName" value="" [(ngModel)]="data.domainEntity.alternateName" size="90">
+                </td>
+            </tr>
+        </table>
+    </div>
+    <br *ngIf="data.type=='antibody' || data.type=='biopolymer' || data.type=='small molecule'" />
+    <div class="mainBorder">
+        <table class="dataMain">
+            <tr>
+                <td class="label">
+                    Inherent Function
+                </td>
+                <td style="text-align:left;">
+                    <button (click)="addInherentFunction()" class="btn-canano btn-canano-primary btn-canano-xs mr-1">Add</button>
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>
+                        <table class="inherentFunction" width="650px">
+                            <ng-container *ngIf="data.functionList.length">
+                                <tr>
+                                <th>
+                                    Function Type
+                                </th>
+                                <th>
+                                    Imaging Modality
+                                </th>
+                                <th>
+                                    Targets
+                                </th>
+                                <th>
+                                    Description
+                                </th>
+                                <th>
+
+                                </th>
+                            </tr>
+                            <tr *ngFor="let iFunction of data.functionList; let i= index ">
+                                <td>{{iFunction.type}}</td>
+                                <td>{{iFunction.modality}}</td>
                                 <td>
-                                    <select (ngModelChange)="addOtherValue('domainEntity.type',data.domainEntity.type)" id="type" [(ngModel)]="data['domainEntity']['type']" name="type">
-                                        <option value="" [selected]="data.domainEntity['type']===''">--Select--</option>
-                                        <option *ngFor="let type of setupData['antibodyTypes']" [selected]="data.domainEntity['type']==type" value="{{type}}">
-                                            {{type}}
-                                        </option>
-                                        <option value="[other]">
-                                            [other]
-                                        </option>
-                                    </select>
-                                    <div *ngIf="data.domainEntity.type ==='[other]'">
-                                        <canano-other-dropdown (saveOther)="saveOther($event)" [label]="'Type'" [value]="currentDropdownValues['domainEntity.type']" [field]="'data.domainEntity.type'" [array]="'setupData.antibodyTypes'">
-
-                                        </canano-other-dropdown>
+                                    <div *ngFor="let target of iFunction.targets">
+                                        {{target.type}} : {{target.name}}
                                     </div>
                                 </td>
-                                <td class="label">
-                                    <label for="isoType">
-                                        Isotype
-                                    </label>
-                                </td>
+                                <td>{{iFunction.description}}</td>
                                 <td>
-                                    <select (ngModelChange)="addOtherValue('domainEntity.isoType',data.domainEntity.isoType)" id="isoType" [(ngModel)]="data['domainEntity']['isoType']" name="isoType">
-                                        <option value="" [selected]="data.domainEntity['isoType']===''">--Select--</option>
-                                        <option *ngFor="let type of setupData['antibodyIsotypes']" [selected]="data.domainEntity['isoType']==type" value="{{type}}">
-                                            {{type}}
-                                        </option>
-                                        <option value="[other]">
-                                            [other]
-                                        </option>
-                                    </select>
-                                    <div *ngIf="data.domainEntity.isoType ==='[other]'">
-                                        <canano-other-dropdown (saveOther)="saveOther($event)" [label]="'Isotype'" [value]="currentDropdownValues['domainEntity.isoType']" [field]="'data.domainEntity.isoType'" [array]="'setupData.antibodyIsotypes'">
-
-                                        </canano-other-dropdown>
-                                    </div>
+                                    <button (click)="editInherentFunction(iFunction,i)" class="btn-canano btn-canano-primary btn-canano-xs mr-1">Edit</button>
                                 </td>
-                                <td class="label">
-                                    <label for="antibodySpecies">
-                                        Species
-                                    </label>
-                                </td>
-                                <td>
-                                    <select (ngModelChange)="addOtherValue('domainEntity.species',data.domainEntity.species)" id="species" [(ngModel)]="data['domainEntity']['species']" name="species">
-                                        <option value="" [selected]="data.domainEntity['species']===''">--Select--</option>
-                                        <option *ngFor="let type of setupData['speciesTypes']" [selected]="data.domainEntity['species']==type" value="{{type}}">
-                                            {{type}}
-                                        </option>
-                                        <option value="[other]">
-                                            [other]
-                                        </option>
-                                    </select>
-                                    <div *ngIf="data.domainEntity.species ==='[other]'">
-                                        <canano-other-dropdown (saveOther)="saveOther($event)" [label]="'Species'" [value]="currentDropdownValues['domainEntity.species']" [field]="'data.domainEntity.species'" [array]="'setupData.speciesTypes'">
+                            </tr>
+                            </ng-container>
+                        </table>
+                        <table class="inherentFunction" width="650px">
 
-                                        </canano-other-dropdown>
+                            <tr *ngIf="inherentFunctionIndex!=null">
+                                <td colspan="5">
+                                    <div class="mainBorder">
+                                        <table class="dataMain gray" width="100%">
+                                            <tr>
+                                                <td class="label">
+                                                    <label for="functionType">Function Type</label>
+                                                </td>
+                                                <td>
+
+                                                    <select id="functionType" [(ngModel)]="inherentFunction.type" name="functionType">
+                                                        <option value="" [selected]="inherentFunction.type===''">--Select--</option>
+                                                        <option *ngFor="let type of setupData['functionTypes']" [selected]="inherentFunction.type===type" value="{{type}}">
+                                                            {{type}}
+                                                        </option>
+                                                    </select>
+                                                </td>
+                                                <td class="label">
+                                                    <label for="functionModalityType" [hidden]="inherentFunction.type!='imaging function'">Imaging Modality Type</label>
+                                                </td>
+                                                <td>
+                                                    <select [hidden]="inherentFunction.type!='imaging function'" id="functionModalityType" [(ngModel)]="inherentFunction.modality" name="functionModalityType">
+                                                        <option value="" [selected]="inherentFunction.modality===''">--Select--</option>
+                                                        <option *ngFor="let type of setupData['modalityTypes']" [selected]="inherentFunction.modality===type" value="{{type}}">
+                                                            {{type}}
+                                                        </option>
+                                                    </select>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="label">
+                                                    <label for="functionDescription">
+                                                        Description
+                                                    </label>
+                                                </td>
+                                                <td colspan="3">
+                                                    <textarea [(ngModel)]="inherentFunction.description" rows="3" cols="50" id="functionDescription" name="functionDescription">{{inherentFunction.description}}</textarea>
+                                                </td>
+                                            </tr>
+                                            <tr [hidden]="inherentFunction.type!='targeting function'">
+                                                <td class="label">
+                                                    <label for="">
+                                                        Target
+                                                    </label>
+                                                </td>
+                                                <td colspan="3">
+                                                    <button (click)="addTarget()" class="btn-canano btn-canano-primary btn-canano-xs mr-1">
+                                                        Add
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                            <tr [hidden]="inherentFunction.type!='targeting function' || !inherentFunction.targets.length">
+                                                <td>&nbsp;</td>
+                                                <td colspan="3">
+                                                    <div class="mainBorder" style="width:450px">
+                                                        <table class="dataMain" width="100%">
+                                                            <tr>
+                                                                <th>Type</th>
+                                                                <th>Name</th>
+                                                                <th colspan="2">Description</th>
+                                                            </tr>
+                                                            <tr *ngFor="let target of inherentFunction.targets; let i= index">
+                                                                <td>{{target.type}}</td>
+                                                                <td>{{target.name}}</td>
+                                                                <td>{{target.description}}</td>
+                                                                <td>
+                                                                    <button (click)="editTarget(target, i)" class="btn-canano btn-canano-primary btn-canano-xs mr-1">Edit</button>
+                                                                </td>
+                                                            </tr>
+                                                        </table>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr *ngIf="targetIndex!=null">
+                                                <td>&nbsp;</td>
+                                                <td colspan="3">
+                                                    <div class="mainBorder" style="width:450px">
+                                                        <table class="dataMain" width="100%">
+                                                            <tr>
+                                                                <td class="label">
+                                                                    <label for="targetingType" style="width:150px">
+                                                                        Type
+                                                                    </label>
+                                                                </td>
+                                                                <td>
+                                                                    <select id="targetingType" [(ngModel)]="target.type" name="targetingType">
+                                                                        <option value="" [selected]="target.type===''">--Select--</option>
+                                                                        <option *ngFor="let type of setupData['targetTypes']" [selected]="target.type===type" value="{{type}}">
+                                                                            {{type}}
+                                                                        </option>
+                                                                    </select>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td class="label" style="width:150px">
+                                                                    <label for="targetingName">
+                                                                        Name
+                                                                    </label>
+                                                                </td>
+                                                                <td>
+                                                                    <input type="text" name="targetingName" id="targetingName" [(ngModel)]="target.name">
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td class="label" style="width:150px">
+                                                                    <label for="targetingDescription">
+                                                                        Description
+                                                                    </label>
+                                                                </td>
+                                                                <td>
+                                                                    <textarea cols="30" rows="3" name="targetingDescription" id="targetingDescription" [(ngModel)]="target.description">{{target.description}}</textarea>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>
+                                                                    <button (click)="deleteTarget()" class="btn-canano btn-canano-danger btn-canano-xs mr-1">Delete</button>
+                                                                </td>
+                                                                <td style="text-align:right">
+                                                                    <button (click)="saveTarget()" class="btn-canano btn-canano-primary btn-canano-xs mr-1">Save</button>
+                                                                    <button (click)="cancelTarget(target)" class="btn-canano btn-canano-default btn-canano-xs mr-1">Cancel</button>
+                                                                </td>
+                                                            </tr>
+                                                        </table>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <button *ngIf="inherentFunctionIndex!=-1" (click)="deleteInherentFunction()" class="btn-canano btn-canano-danger btn-canano-xs mr-1">Delete</button>
+                                                </td>
+                                                <td style="text-align:right" colspan="3">
+                                                    <button (click)="saveInherentFunction(iFunction)" class="btn-canano btn-canano-primary btn-canano-xs mr-1">Save</button>
+                                                    <button (click)="cancelInherentFunction()" class="btn-canano btn-canano-default btn-canano-xs mr-1">Cancel</button>
+
+                                                </td>
+                                            </tr>
+                                        </table>
                                     </div>
                                 </td>
                             </tr>
                         </table>
-                    </td>
-                </tr>
-            </table>
-        </div>
+                </td>
+            </tr>
+        </table>
+    </div><br />
+    <div class="mainBorder">
+        <table class="dataMain">
+            <tr>
+                <td class="label">
+                    File
+                </td>
+                <td>
+                    <canano-file (changeFile)="changeFile($event)" [saveUrl]="'/caNanoLab/rest/functionalizingEntity/saveFile'" [deleteUrl]="'/caNanoLab/rest/functionalizingEntity/removeFile'" [sampleId]="sampleId" [data]="data" [fileVariable]="'fileBean'" [fileArray]="'fileList'">
 
-        <div class="mainBorder" *ngIf="data.type=='biopolymer'">
-            <table class="dataMain">
-                <tr>
-                    <td class="label" colspan="2">
-                        Biopolymer Properties
-                    </td>
-                </tr>
-                <tr>
-                    <td class="label">
-                        <label for="biopolymerType">Type*</label>
-                    </td>
-                    <td>
-                        <select (ngModelChange)="addOtherValue('domainEntity.type',data.domainEntity.type)" id="biopolymerType" [(ngModel)]="data['domainEntity']['type']" name="biopolymerType">
-                            <option value="" [selected]="data.domainEntity['type']===''">--Select--</option>
-                            <option *ngFor="let type of setupData['biopolymerTypes']" [selected]="data.domainEntity['type']==type" value="{{type}}">
-                                {{type}}
-                            </option>
-                            <option value="[other]">
-                                [other]
-                            </option>
-                        </select>
-                        <div *ngIf="data.domainEntity.type ==='[other]'">
-                            <canano-other-dropdown (saveOther)="saveOther($event)" [label]="'Type'" [value]="currentDropdownValues['domainEntity.type']" [field]="'data.domainEntity.type'" [array]="'setupData.biopolymerTypes'">
-
-                            </canano-other-dropdown>
-                        </div>
-
-                    </td>
-                </tr>
-                <tr>
-                    <td class="label">
-                        <label for="biopolymerSequence">Sequence</label>
-                    </td>
-                    <td>
-                        <textarea name="biopolymerSequence" [(ngModel)]="data.domainEntity.sequence" rows="3" cols="80">
-                            {{data.sequence}}
-                        </textarea>
-                    </td>
-                </tr>
-            </table>
-        </div>
-
-        <div class="mainBorder" *ngIf="data.type=='small molecule'">
-            <table class="dataMain">
-                <tr>
-                    <td class="label" colspan="2">
-                        Small Molecule Properties
-                    </td>
-                </tr>
-                <tr>
-                    <td class="label">
-                        <label for="smallMoleculeAlternateName">Alternate Name</label>
-                    </td>
-                    <td>
-                        <input type="text" id="smallMoleculeAlternateName" name="smallMoleculeAlternateName" value="" [(ngModel)]="data.domainEntity.alternateName" size="90">
-                    </td>
-                </tr>
-            </table>
-        </div>
-        <br *ngIf="data.type=='antibody' || data.type=='biopolymer' || data.type=='small molecule'" />
-        <div class="mainBorder">
-            <table class="dataMain">
-                <tr>
-                    <td class="label">
-                        Inherent Function
-                    </td>
-                    <td style="text-align:left;">
-                        <button (click)="addInherentFunction()" class="btn-canano btn-canano-primary btn-canano-xs mr-1">Add</button>
-                    </td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td>
-                            <table class="inherentFunction" width="650px">
-                                <ng-container *ngIf="data.functionList.length">
-                                    <tr>
-                                    <th>
-                                        Function Type
-                                    </th>
-                                    <th>
-                                        Imaging Modality
-                                    </th>
-                                    <th>
-                                        Targets
-                                    </th>
-                                    <th>
-                                        Description
-                                    </th>
-                                    <th>
-
-                                    </th>
-                                </tr>
-                                <tr *ngFor="let iFunction of data.functionList; let i= index ">
-                                    <td>{{iFunction.type}}</td>
-                                    <td>{{iFunction.modality}}</td>
-                                    <td>
-                                        <div *ngFor="let target of iFunction.targets">
-                                            {{target.type}} : {{target.name}}
-                                        </div>
-                                    </td>
-                                    <td>{{iFunction.description}}</td>
-                                    <td>
-                                        <button (click)="editInherentFunction(iFunction,i)" class="btn-canano btn-canano-primary btn-canano-xs mr-1">Edit</button>
-                                    </td>
-                                </tr>
-                                </ng-container>
-                            </table>
-                            <table class="inherentFunction" width="650px">
-
-                                <tr *ngIf="inherentFunctionIndex!=null">
-                                    <td colspan="5">
-                                        <div class="mainBorder">
-                                            <table class="dataMain gray" width="100%">
-                                                <tr>
-                                                    <td class="label">
-                                                        <label for="functionType">Function Type</label>
-                                                    </td>
-                                                    <td>
-
-                                                        <select id="functionType" [(ngModel)]="inherentFunction.type" name="functionType">
-                                                            <option value="" [selected]="inherentFunction.type===''">--Select--</option>
-                                                            <option *ngFor="let type of setupData['functionTypes']" [selected]="inherentFunction.type===type" value="{{type}}">
-                                                                {{type}}
-                                                            </option>
-                                                        </select>
-                                                    </td>
-                                                    <td class="label">
-                                                        <label for="functionModalityType" [hidden]="inherentFunction.type!='imaging function'">Imaging Modality Type</label>
-                                                    </td>
-                                                    <td>
-                                                        <select [hidden]="inherentFunction.type!='imaging function'" id="functionModalityType" [(ngModel)]="inherentFunction.modality" name="functionModalityType">
-                                                            <option value="" [selected]="inherentFunction.modality===''">--Select--</option>
-                                                            <option *ngFor="let type of setupData['modalityTypes']" [selected]="inherentFunction.modality===type" value="{{type}}">
-                                                                {{type}}
-                                                            </option>
-                                                        </select>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="label">
-                                                        <label for="functionDescription">
-                                                            Description
-                                                        </label>
-                                                    </td>
-                                                    <td colspan="3">
-                                                        <textarea [(ngModel)]="inherentFunction.description" rows="3" cols="50" id="functionDescription" name="functionDescription">{{inherentFunction.description}}</textarea>
-                                                    </td>
-                                                </tr>
-                                                <tr [hidden]="inherentFunction.type!='targeting function'">
-                                                    <td class="label">
-                                                        <label for="">
-                                                            Target
-                                                        </label>
-                                                    </td>
-                                                    <td colspan="3">
-                                                        <button (click)="addTarget()" class="btn-canano btn-canano-primary btn-canano-xs mr-1">
-                                                            Add
-                                                        </button>
-                                                    </td>
-                                                </tr>
-                                                <tr [hidden]="inherentFunction.type!='targeting function' || !inherentFunction.targets.length">
-                                                    <td>&nbsp;</td>
-                                                    <td colspan="3">
-                                                        <div class="mainBorder" style="width:450px">
-                                                            <table class="dataMain" width="100%">
-                                                                <tr>
-                                                                    <th>Type</th>
-                                                                    <th>Name</th>
-                                                                    <th colspan="2">Description</th>
-                                                                </tr>
-                                                                <tr *ngFor="let target of inherentFunction.targets; let i= index">
-                                                                    <td>{{target.type}}</td>
-                                                                    <td>{{target.name}}</td>
-                                                                    <td>{{target.description}}</td>
-                                                                    <td>
-                                                                        <button (click)="editTarget(target, i)" class="btn-canano btn-canano-primary btn-canano-xs mr-1">Edit</button>
-                                                                    </td>
-                                                                </tr>
-                                                            </table>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                                <tr *ngIf="targetIndex!=null">
-                                                    <td>&nbsp;</td>
-                                                    <td colspan="3">
-                                                        <div class="mainBorder" style="width:450px">
-                                                            <table class="dataMain" width="100%">
-                                                                <tr>
-                                                                    <td class="label">
-                                                                        <label for="targetingType" style="width:150px">
-                                                                            Type
-                                                                        </label>
-                                                                    </td>
-                                                                    <td>
-                                                                        <select id="targetingType" [(ngModel)]="target.type" name="targetingType">
-                                                                            <option value="" [selected]="target.type===''">--Select--</option>
-                                                                            <option *ngFor="let type of setupData['targetTypes']" [selected]="target.type===type" value="{{type}}">
-                                                                                {{type}}
-                                                                            </option>
-                                                                        </select>
-                                                                    </td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td class="label" style="width:150px">
-                                                                        <label for="targetingName">
-                                                                            Name
-                                                                        </label>
-                                                                    </td>
-                                                                    <td>
-                                                                        <input type="text" name="targetingName" id="targetingName" [(ngModel)]="target.name">
-                                                                    </td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td class="label" style="width:150px">
-                                                                        <label for="targetingDescription">
-                                                                            Description
-                                                                        </label>
-                                                                    </td>
-                                                                    <td>
-                                                                        <textarea cols="30" rows="3" name="targetingDescription" id="targetingDescription" [(ngModel)]="target.description">{{target.description}}</textarea>
-                                                                    </td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td>
-                                                                        <button (click)="deleteTarget()" class="btn-canano btn-canano-danger btn-canano-xs mr-1">Delete</button>
-                                                                    </td>
-                                                                    <td style="text-align:right">
-                                                                        <button (click)="saveTarget()" class="btn-canano btn-canano-primary btn-canano-xs mr-1">Save</button>
-                                                                        <button (click)="cancelTarget(target)" class="btn-canano btn-canano-default btn-canano-xs mr-1">Cancel</button>
-                                                                    </td>
-                                                                </tr>
-                                                            </table>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <button *ngIf="inherentFunctionIndex!=-1" (click)="deleteInherentFunction()" class="btn-canano btn-canano-danger btn-canano-xs mr-1">Delete</button>
-                                                    </td>
-                                                    <td style="text-align:right" colspan="3">
-                                                        <button (click)="saveInherentFunction(iFunction)" class="btn-canano btn-canano-primary btn-canano-xs mr-1">Save</button>
-                                                        <button (click)="cancelInherentFunction()" class="btn-canano btn-canano-default btn-canano-xs mr-1">Cancel</button>
-
-                                                    </td>
-                                                </tr>
-                                            </table>
-                                        </div>
-                                    </td>
-                                </tr>
-                            </table>
-                    </td>
-                </tr>
-            </table>
-        </div><br />
-        <div class="mainBorder">
-            <table class="dataMain">
-                <tr>
-                    <td class="label">
-                        File
-                    </td>
-                    <td>
-                        <canano-file (changeFile)="changeFile($event)" [saveUrl]="'/caNanoLab/rest/functionalizingEntity/saveFile'" [deleteUrl]="'/caNanoLab/rest/functionalizingEntity/removeFile'" [sampleId]="sampleId" [data]="data" [fileVariable]="'fileBean'" [fileArray]="'fileList'">
-
-                        </canano-file>
-                    </td>
-                </tr>
-            </table>
-        </div><br />
-        <div class="mainBorder">
-            <table class="dataMain">
-                <tr>
-                    <td class="label">
-                        <label for="otherSampleNames">
-                            Copy to other samples with the same primary organization?
-                        </label>
-                    </td>
-                    <td>
-                        <select id="otherSampleNames" name="otherSampleNames" multiple="true" size="10" [(ngModel)]="data.otherSampleNames">
-                            <option *ngFor="let sn of setupData['otherSampleNames']" value="{{sn}}" >
-                                {{sn}}
-                            </option>
-                        </select>
-                    </td>
-                </tr>
-            </table>
-        </div><br />
-        <div>
-            <table class="dataMain submit">
-                <tr>
-                    <td *ngIf="dataId" style="text-align:left;">
-                        <button (click)="deleteFunctionalizingEntity()" class="btn-canano btn-canano-danger btn-canano-lg mr-1">Delete</button>
-                    </td>
-                    <td>
-                        <button (click)="resetFunctionalizingEntity()" class="btn-canano btn-canano-danger btn-canano-lg mr-1">Reset</button>
-                        <button [disabled]="data.type==='' || data.name===''" (click)="submitFunctionalizingEntity()" class="btn-canano btn-canano-primary btn-canano-lg mr-1">Submit</button>
-                    </td>
-                </tr>
-            </table>
-        </div>
-        </form>
+                    </canano-file>
+                </td>
+            </tr>
+        </table>
+    </div><br />
+    <div class="mainBorder">
+        <table class="dataMain">
+            <tr>
+                <td class="label">
+                    <label for="otherSampleNames">
+                        Copy to other samples with the same primary organization?
+                    </label>
+                </td>
+                <td>
+                    <select id="otherSampleNames" name="otherSampleNames" multiple="true" size="10" [(ngModel)]="data.otherSampleNames">
+                        <option *ngFor="let sn of setupData['otherSampleNames']" value="{{sn}}" >
+                            {{sn}}
+                        </option>
+                    </select>
+                </td>
+            </tr>
+        </table>
+    </div><br />
+    <div>
+        <table class="dataMain submit">
+            <tr>
+                <td *ngIf="dataId" style="text-align:left;">
+                    <button (click)="deleteFunctionalizingEntity()" class="btn-canano btn-canano-danger btn-canano-lg mr-1">Delete</button>
+                </td>
+                <td>
+                    <button (click)="resetFunctionalizingEntity()" class="btn-canano btn-canano-danger btn-canano-lg mr-1">Reset</button>
+                    <button [disabled]="data.type==='' || data.name===''" (click)="submitFunctionalizingEntity()" class="btn-canano btn-canano-primary btn-canano-lg mr-1">Submit</button>
+                </td>
+            </tr>
+        </table>
     </div>
+    </form>
 </div>
