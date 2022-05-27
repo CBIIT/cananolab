@@ -51,7 +51,7 @@ const routes: Routes = [
     { path: 'home/publications/publication-search', component: SearchPublicationComponent },
     { path: 'home/publications/publication-search-results', component: SearchpublicationresultsComponent },
 
-    { path: 'home/protocols/protocolCreateComponent', component: ProtocolCreateCharlieComponent },
+    { path: 'home/protocols/protocol-create', component: ProtocolCreateCharlieComponent },
     { path: 'home/protocols/protocol-search', component: ProtocolSearchComponent },
     { path: 'home/protocols/protocol-search-results', component: ProtocolSearchResultsComponent },
     { path: 'home/protocols/protocolEditComponent', component: ProtocolEditBravoComponent },
@@ -64,13 +64,13 @@ const routes: Routes = [
     { path: 'home/samples/view-sample/:sampleId', component: SampleViewComponent }, // @TODO Add Composition view here
     { path: 'home/samples/sample-search', component: SampleSearchComponent },
     { path: 'home/samples/sample-search-results', component: SampleSearchResultsComponent },
-    { path: 'home/samples/sampleAdvancedSearchResults', component: SampleAdvancedSearchResultsComponent },
+    { path: 'home/samples/sample-advanced-search-results', component: SampleAdvancedSearchResultsComponent },
 
-    { path: 'home/samples/SampleAdvancedSearchResults/:searchResults', component: SampleAdvancedSearchResultsComponent },
+    { path: 'home/samples/sample-advanced-search-results/:searchResults', component: SampleAdvancedSearchResultsComponent },
 
-    { path: 'home/samples/samplesAdvancedSearch', component: SampleAdvancedSearchComponent },
-    { path: 'home/samples/sampleCreate', component: SampleCreateComponent },
-    { path: 'home/samples/samplesCopy', component: SampleCopyComponent },
+    { path: 'home/samples/sample-advanced-search', component: SampleAdvancedSearchComponent },
+    { path: 'home/samples/sample-create', component: SampleCreateComponent },
+    { path: 'home/samples/sample-copy', component: SampleCopyComponent },
     { path: 'home/samples/characterization/:sampleId', component: CharacterizationComponent },
     { path: 'home/samples/view-characterization/:sampleId', component: CharacterizationComponent },
     { path: 'home/samples/characterization/edit-characterization/:sampleId/:type', component: EditcharacterizationComponent },

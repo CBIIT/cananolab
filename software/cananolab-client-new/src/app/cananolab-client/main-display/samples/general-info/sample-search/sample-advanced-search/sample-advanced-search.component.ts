@@ -469,7 +469,7 @@ export class SampleAdvancedSearchComponent implements OnInit{
                 console.log( 'MHL QUERY_SAMPLE_ADVANCED_SEARCH data: ', data );
                 // Passing queryObject as a route perimeter changed (broke) it
                 // this.router.navigate(['home/samples/sampleAdvancedSearchResults', queryObject]);
-                this.router.navigate( ['home/samples/sampleAdvancedSearchResults'] ); // @FIXME TESTING  Don't hard code this!!!
+                this.router.navigate( ['home/samples/sample-advanced-search-results'] ); // @FIXME TESTING  Don't hard code this!!!
 
             },
             ( err ) => {

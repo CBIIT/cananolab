@@ -42,7 +42,7 @@ export class SampleCopyComponent implements OnInit{
     }
 
     navigateToSampleEdit( sampleId ){
-        this.router.navigate(['home/samples/sample', '?sampleId=' + sampleId ]);  // @FIXME  Don't hard code these
+        this.router.navigate(['home/samples/sample', sampleId ]);  // @FIXME  Don't hard code these
     }
 
     selectSampleName( nm ){
