@@ -12,6 +12,7 @@ import { NavigationService } from '../../../../common/services/navigation.servic
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { ApiService } from '../../../../common/services/api.service';
+import { StatusDisplayService } from 'src/app/cananolab-client/status-display/status-display.service';
 @Component( {
     selector: 'canano-sample-publications',
     templateUrl: './sample-publications.component.html',
@@ -25,7 +26,7 @@ export class SamplePublicationsComponent implements OnInit{
     publicationData;
     toolHeadingNameManage;
 
-    constructor( private apiService:ApiService,private router:Router,private httpClient:HttpClient,private navigationService:NavigationService,private route: ActivatedRoute ){
+    constructor( private statusDisplayService:StatusDisplayService,private apiService:ApiService,private router:Router,private httpClient:HttpClient,private navigationService:NavigationService,private route: ActivatedRoute ){
     }
 
     ngOnInit(): void{

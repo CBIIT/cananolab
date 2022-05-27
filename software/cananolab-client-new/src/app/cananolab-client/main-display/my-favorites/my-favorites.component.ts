@@ -88,11 +88,11 @@ export class MyFavoritesComponent implements OnInit{
     }
 
     navigateToSampleEdit( sampleId ){
-        this.router.navigate( ['home/samples/samplesEdit', '?sampleId=' + sampleId] );  // @FIXME  Don't hard code these
+        this.router.navigate( ['home/samples/sample',sampleId] );  // @FIXME  Don't hard code these
     }
 
     navigateToSampleView( sampleId ){
-        this.router.navigate( ['home/samples/samplesView', '?sampleId=' + sampleId] );  // @FIXME  Don't hard code these
+        this.router.navigate( ['home/samples/view-sample',sampleId] );  // @FIXME  Don't hard code these
     }
 
     navigateToProtocolEdit( protocolId ){

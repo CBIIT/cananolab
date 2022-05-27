@@ -7,6 +7,7 @@ import { timeout } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { NavigationService } from '../../../../common/services/navigation.service';
 import { ApiService } from '../../../../common/services/api.service';
+import { StatusDisplayService } from 'src/app/cananolab-client/status-display/status-display.service';
 @Component( {
     selector: 'canano-composition',
     templateUrl: './composition.component.html',
@@ -19,7 +20,7 @@ export class CompositionComponent implements OnInit{
     toolHeadingNameManage;
     data;
 
-    constructor( private apiService:ApiService,private navigationService:NavigationService,private router: Router, private route: ActivatedRoute,private httpClient: HttpClient ){
+    constructor( private statusDisplayService:StatusDisplayService,private apiService:ApiService,private navigationService:NavigationService,private router: Router, private route: ActivatedRoute,private httpClient: HttpClient ){
     }
 
     ngOnInit(): void{

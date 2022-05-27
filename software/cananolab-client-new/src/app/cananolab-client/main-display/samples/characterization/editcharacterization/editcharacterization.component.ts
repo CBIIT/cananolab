@@ -5,6 +5,7 @@ import { Consts } from '../../../../../constants';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { NavigationService } from '../../../../common/services/navigation.service';
 import { ApiService } from '../../../../common/services/api.service';
+
 @Component({
   selector: 'canano-editcharacterization',
   templateUrl: './editcharacterization.component.html',

@@ -39,7 +39,7 @@ export class SampleCreateComponent implements OnInit{
             (data) => {
                 this.sampleId = data.sampleId;
                 this.pointOfContacts.push(data);
-                this.router.navigate(['home/samples/samplesEdit', '?sampleId=' + this.sampleId ]);  // @FIXME  Don't hard code these
+                this.router.navigate(['home/samples/sample', '?sampleId=' + this.sampleId ]);  // @FIXME  Don't hard code these
             });
     }
 

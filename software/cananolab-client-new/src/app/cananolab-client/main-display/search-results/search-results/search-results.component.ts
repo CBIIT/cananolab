@@ -68,7 +68,7 @@ export class SearchResultsComponent implements OnInit {
     navigateToResult( resultId,type ){
         console.log(type)
         if (type=='sample') {
-            this.router.navigate(['/home/samples/samplesEdit',resultId]);
+            this.router.navigate(['/home/samples/sample',resultId]);
 
         }
         if (type=='publication'){

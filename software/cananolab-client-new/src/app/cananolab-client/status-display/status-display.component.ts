@@ -16,6 +16,7 @@ export class StatusDisplayComponent implements OnInit {
   ngOnInit(): void {
       this.statusDisplayService.updateUserEmitter.pipe( timeout( Properties.HTTP_TIMEOUT ) ).subscribe(
           data => {
+              console.log('test')
               this.userName = data;
           });
 

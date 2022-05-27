@@ -2,7 +2,7 @@ import { EventEmitter, Injectable } from '@angular/core';
 import { Consts } from '../../constants';
 import { ApiService } from '../common/services/api.service';
 import { Properties } from '../../../assets/properties';
-
+import { Router } from '@angular/router';
 @Injectable( {
     providedIn: 'root'
 } )
@@ -11,12 +11,19 @@ export class StatusDisplayService{
     updateUserEmitter = new EventEmitter();
     user = '';
 
-    constructor( private apiService: ApiService ){
+    constructor( private router:Router, private apiService: ApiService ){
     }
 
     getUser(){
         return this.user;
     }
+
+    isEditUrl() {
+        console.log(this.router.url)
+        return !this.router.url.includes('view');
+    }
+
+
 
     updateUser( user ){
         this.user = user;

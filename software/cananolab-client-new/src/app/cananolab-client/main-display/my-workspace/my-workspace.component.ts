@@ -58,12 +58,12 @@ export class MyWorkspaceComponent implements OnInit {
 
 
     navigateToSampleView(sampleId, sampleName){
-        this.router.navigate(['home/samples/samplesView', '?sampleId=' + sampleId + '&sampleName=' + sampleName ]);
+        this.router.navigate(['home/samples/view-sample', '?sampleId=' + sampleId + '&sampleName=' + sampleName ]);
     }
 
 
     navigateToSampleEdit(sampleId, sampleName){
-        this.router.navigate(['home/samples/samplesEdit', '?sampleId=' + sampleId + '&sampleName=' + sampleName ]);
+        this.router.navigate(['home/samples/sample', '?sampleId=' + sampleId + '&sampleName=' + sampleName ]);
     }
 
     /**

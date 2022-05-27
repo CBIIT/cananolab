@@ -60,8 +60,8 @@ const routes: Routes = [
     { path: 'home/protocols', component: ProtocolsComponent },
     { path: 'home/samples', component: SamplesComponent },
 
-    { path: 'home/samples/samplesEdit/:sampleId', component: SampleEditComponent },
-    { path: 'home/samples/samplesView/:sampleId', component: SampleViewComponent }, // @TODO Add Composition view here
+    { path: 'home/samples/sample/:sampleId', component: SampleEditComponent },
+    { path: 'home/samples/view-sample/:sampleId', component: SampleViewComponent }, // @TODO Add Composition view here
     { path: 'home/samples/sample-search', component: SampleSearchComponent },
     { path: 'home/samples/sample-search-results', component: SampleSearchResultsComponent },
     { path: 'home/samples/sampleAdvancedSearchResults', component: SampleAdvancedSearchResultsComponent },
@@ -72,9 +72,11 @@ const routes: Routes = [
     { path: 'home/samples/sampleCreate', component: SampleCreateComponent },
     { path: 'home/samples/samplesCopy', component: SampleCopyComponent },
     { path: 'home/samples/characterization/:sampleId', component: CharacterizationComponent },
+    { path: 'home/samples/view-characterization/:sampleId', component: CharacterizationComponent },
     { path: 'home/samples/characterization/editcharacterization/:sampleId/:type', component: EditcharacterizationComponent },
     { path: 'home/samples/characterization/editcharacterization/:sampleId/:charId/:charClassName/:type', component: EditcharacterizationComponent },
     { path: 'home/samples/composition/:sampleId', component: CompositionComponent },
+    { path: 'home/samples/view-composition/:sampleId', component: CompositionComponent },
     { path: 'home/samples/composition/functionalizingentity/:sampleId/:dataId', component: FunctionalizingentityComponent },
     { path: 'home/samples/composition/functionalizingentity/:sampleId', component: FunctionalizingentityComponent },
     { path: 'home/samples/composition/nanomaterialentity/:sampleId/:dataId/:sampleName', component: NanomaterialentityComponent },
@@ -83,6 +85,7 @@ const routes: Routes = [
     { path: 'home/samples/composition/chemicalassociation/:sampleId/:dataId', component: ChemicalassociationComponent },
     { path: 'home/samples/composition/chemicalassociation/:sampleId', component: ChemicalassociationComponent },
     { path: 'home/samples/publications/:sampleId', component: SamplePublicationsComponent },
+    { path: 'home/samples/view-publications/:sampleId', component: SamplePublicationsComponent },
     { path: 'home/samples/publications/publication/:sampleId/:type', component: EditpublicationComponent },
     { path: 'home/samples/publications/publication/:sampleId/:publicationId/:type', component: EditpublicationComponent },
     { path: 'home/samples/publications/publication/:publicationId', component: EditpublicationComponent },

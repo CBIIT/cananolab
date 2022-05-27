@@ -4,7 +4,7 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Properties } from '../../../../../assets/properties';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { timeout } from 'rxjs/operators';
-
+import { NavigationService } from 'src/app/cananolab-client/common/services/navigation.service';
 @Component( {
     selector: 'canano-sample-view',
     templateUrl: './sample-view.component.html',
@@ -21,12 +21,12 @@ export class SampleViewComponent implements OnInit{
     pointOfContacts = [];
     keyWords = [];
 
-    constructor( private route: ActivatedRoute, private httpClient: HttpClient,
+    constructor( private navigationService:NavigationService,private route: ActivatedRoute, private httpClient: HttpClient,
                  private router: Router){
     }
 
     ngOnInit(): void{
-
+        this.navigationService.setCurrentSelectedItem(0);
         this.route.params.subscribe(
             ( params: Params ) => {
                 console.log( 'MHL 70 params: ', params );
@@ -63,7 +63,7 @@ export class SampleViewComponent implements OnInit{
     }
 
     topButtonGeneralInfo(){
-        this.router.navigate( ['home/samples/samplesView', '?sampleId=' + Properties.CURRENT_SAMPLE_ID] );  // @FIXME  Don't hard code these
+        this.router.navigate( ['home/samples/view-sample', '?sampleId=' + Properties.CURRENT_SAMPLE_ID] );  // @FIXME  Don't hard code these
     }
     topButtonComposition(){
     }
