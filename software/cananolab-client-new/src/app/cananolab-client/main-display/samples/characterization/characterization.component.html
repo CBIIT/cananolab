@@ -7,7 +7,7 @@
 <div class="sample-edit-div">
     <div class="mainSection" *ngFor="let a of types">
         <div class="header">
-            {{a}} <button *ngIf="statusDisplayService.isEditUrl()" class="btn btn-primary btn-sm" (click)="addCharacterization(a)">Add</button>
+            {{a}} <button *ngIf="editUrl" class="btn btn-primary btn-sm" (click)="addCharacterization(a)">Add</button>
         </div>
         <ng-container *ngFor="let b of characterizationData[a]">
             <ng-container *ngFor="let c of b.charsByAssayType | keyvalue">
@@ -15,7 +15,7 @@
 
                 <div class="compositionBody">
                     <ng-container *ngFor="let d of c.value | keyvalue">
-                        <div class="editButton" *ngIf="statusDisplayService.isEditUrl()"><button class="btn btn-primary btn-sm" (click)="editCharacterization(d.value.charId,a, d.value.charClassName)">Edit</button></div>
+                        <div class="editButton" *ngIf="editUrl"><button class="btn btn-primary btn-sm" (click)="editCharacterization(d.value.charId,a, d.value.charClassName)">Edit</button></div>
                         <table class="dataMain">
                             <ng-container *ngFor="let e of d.value['displayableItems'] | keyvalue">
                                 <tr *ngIf="e.value.value.length">

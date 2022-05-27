@@ -26,12 +26,12 @@ export class CharacterizationComponent implements OnInit{
         }
     types = ['physico-chemical characterization', 'in vitro characterization','in vivo characterization','other']
     serverUrl = Properties.API_SERVER_URL;
-
+    editUrl=false;
     constructor( private statusDisplayService:StatusDisplayService,private apiService:ApiService,private navigationService:NavigationService, private router: Router, private route: ActivatedRoute,private httpClient: HttpClient ){
     }
 
     ngOnInit(): void{
-
+        this.editUrl=this.statusDisplayService.isEditUrl();
         this.navigationService.setCurrentSelectedItem(2);
         this.route.params.subscribe(
             ( params: Params ) => {

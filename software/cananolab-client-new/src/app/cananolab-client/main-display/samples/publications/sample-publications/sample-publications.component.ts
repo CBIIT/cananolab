@@ -25,11 +25,12 @@ export class SamplePublicationsComponent implements OnInit{
     data;
     publicationData;
     toolHeadingNameManage;
-
+    editUrl=false;
     constructor( private statusDisplayService:StatusDisplayService,private apiService:ApiService,private router:Router,private httpClient:HttpClient,private navigationService:NavigationService,private route: ActivatedRoute ){
     }
 
     ngOnInit(): void{
+        this.editUrl=this.statusDisplayService.isEditUrl();
         this.publicationData={};
         this.navigationService.setCurrentSelectedItem(3);
         this.route.params.subscribe(

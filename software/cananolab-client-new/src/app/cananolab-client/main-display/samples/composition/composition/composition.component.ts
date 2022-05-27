@@ -19,11 +19,12 @@ export class CompositionComponent implements OnInit{
     helpUrl =  Consts.HELP_URL_SAMPLE_COMPOSITION;
     toolHeadingNameManage;
     data;
-
+    editUrl=false;
     constructor( private statusDisplayService:StatusDisplayService,private apiService:ApiService,private navigationService:NavigationService,private router: Router, private route: ActivatedRoute,private httpClient: HttpClient ){
     }
 
     ngOnInit(): void{
+        this.editUrl=this.statusDisplayService.isEditUrl();
         this.navigationService.setCurrentSelectedItem(1);
         this.route.params.subscribe(
             ( params: Params ) => {

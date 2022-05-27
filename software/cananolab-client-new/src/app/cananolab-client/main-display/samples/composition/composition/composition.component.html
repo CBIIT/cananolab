@@ -5,13 +5,13 @@
 
     <div class="mainSection" *ngIf="data">
         <div id="nanomaterialEntity" class="header">
-            Nanomaterial Entity <button *ngIf="statusDisplayService.isEditUrl()" class="btn btn-primary btn-sm">Add</button>
+            Nanomaterial Entity <button *ngIf="editUrl" class="btn btn-primary btn-sm">Add</button>
         </div>
         <span *ngFor="let nanomaterial of data['nanomaterialentity'] | keyvalue; let index = index">
         <div class="compositionTitle">{{nanomaterial.key}}</div>
         <div class="compositionBody" *ngFor="let entry of nanomaterial.value">
 entry['dataId']: {{entry['dataId']}}
-            <div class="editButton" *ngIf="statusDisplayService.isEditUrl()">
+            <div class="editButton" *ngIf="editUrl">
                 <button class="btn btn-primary btn-sm"
                         (click)="onNanomaterialEntityClick(entry['dataId'] )"
                 >
@@ -134,13 +134,13 @@ entry['dataId']: {{entry['dataId']}}
 
     <div class="mainSection">
         <div id="nanomaterialEntity" class="header">
-            Functionalizing Entity <button *ngIf="statusDisplayService.isEditUrl()" class="btn btn-primary btn-sm" (click)="onFunctionalizingEntityClick(-1)">Add</button>
+            Functionalizing Entity <button *ngIf="editUrl" class="btn btn-primary btn-sm" (click)="onFunctionalizingEntityClick(-1)">Add</button>
         </div>
         <span *ngFor="let functionalizingentity of data['functionalizingentity'] | keyvalue; let index = index">
 
         <div class="compositionTitle">{{functionalizingentity.key}}</div>
         <div class="compositionBody" *ngFor="let entry of functionalizingentity.value">
-            <div class="editButton" *ngIf="statusDisplayService.isEditUrl()"><button class="btn btn-primary btn-sm" (click)="onFunctionalizingEntityClick(entry.dataId)">Edit</button></div>
+            <div class="editButton" *ngIf="editUrl"><button class="btn btn-primary btn-sm" (click)="onFunctionalizingEntityClick(entry.dataId)">Edit</button></div>
             <div>
                 <table class="dataMain">
                     <tr>
@@ -247,12 +247,12 @@ entry['dataId']: {{entry['dataId']}}
 
     <div class="mainSection">
         <div id="nanomaterialEntity" class="header">
-            Chemical Association<button *ngIf="statusDisplayService.isEditUrl()" (click)="onChemicalAssociationClick(-1)" class="btn btn-primary btn-sm">Add</button>
+            Chemical Association<button *ngIf="editUrl" (click)="onChemicalAssociationClick(-1)" class="btn btn-primary btn-sm">Add</button>
         </div>
         <span *ngFor="let chemicalassociation of data['chemicalassociation'] | keyvalue; let index = index">
         <div class="compositionTitle">{{chemicalassociation.key}}</div>
         <div class="compositionBody" *ngFor="let entry of chemicalassociation.value">
-            <div class="editButton" *ngIf="statusDisplayService.isEditUrl()"><button class="btn btn-primary btn-sm" (click)="onChemicalAssociationClick(entry.dataId)">Edit</button></div>
+            <div class="editButton" *ngIf="editUrl"><button class="btn btn-primary btn-sm" (click)="onChemicalAssociationClick(entry.dataId)">Edit</button></div>
             <div>
                 <table class="dataMain">
                     <tr>
@@ -289,12 +289,12 @@ entry['dataId']: {{entry['dataId']}}
 
     <div class="mainSection">
         <div id="nanomaterialEntity" class="header">
-            Composition File <button *ngIf="statusDisplayService.isEditUrl()" (click)="onCompositionFileClick(-1)" class="btn btn-primary btn-sm">Add</button>
+            Composition File <button *ngIf="editUrl" (click)="onCompositionFileClick(-1)" class="btn btn-primary btn-sm">Add</button>
         </div>
         <ng-container *ngFor="let compositionfile of data['compositionfile'] | keyvalue; let index = index">
         <div class="compositionTitle">{{compositionfile.key}}</div>
         <div class="compositionBody" *ngFor="let file of compositionfile.value">
-                <div class="editButton" *ngIf="statusDisplayService.isEditUrl()"><button class="btn btn-primary btn-sm" (click)="onCompositionFileClick(file.dataId)">Edit</button></div>
+                <div class="editButton" *ngIf="editUrl"><button class="btn btn-primary btn-sm" (click)="onCompositionFileClick(file.dataId)">Edit</button></div>
             <div class="files">
                 <table class="dataMain files">
                     <tr>

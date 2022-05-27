@@ -7,12 +7,12 @@
 <div class="sample-edit-div" *ngIf="data">
     <div class="mainSection" *ngFor="let publicationCategory of publicationData | keyvalue">
         <div class="header">
-            {{publicationCategory.key}} <button *ngIf="statusDisplayService.isEditUrl()" (click)="addPublication(publicationCategory.key)" class="btn btn-primary btn-sm">Add</button>
+            {{publicationCategory.key}} <button *ngIf="editUrl" (click)="addPublication(publicationCategory.key)" class="btn btn-primary btn-sm">Add</button>
         </div>
         <ng-container *ngFor="let publication of publicationData[publicationCategory.key]; let publicationIndex=index">
             <div class="publication">
                 <table class="publication">
-                    <tr *ngIf="statusDisplayService.isEditUrl()">
+                    <tr *ngIf="editUrl">
                         <td colspan="2" class="edit">
                             <button (click)="editpublication(publicationCategory.key,publication.publicationId)" class="btn btn-primary btn-sm">Edit</button>
                         </td>
