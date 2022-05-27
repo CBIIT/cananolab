@@ -49,6 +49,7 @@ const routes: Routes = [
     { path: 'home/publications', component: PublicationsComponent },
     { path: 'home/publications/submitPublication', component: SubmitPublicationComponent },
     { path: 'home/publications/publication-search', component: SearchPublicationComponent },
+    { path: 'home/publications/sample-search-by-publication', component: SearchSamplesByPublicationComponent },
     { path: 'home/publications/publication-search-results', component: SearchpublicationresultsComponent },
 
     { path: 'home/protocols/protocol-create', component: ProtocolCreateCharlieComponent },

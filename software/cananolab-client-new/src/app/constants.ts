@@ -75,7 +75,7 @@ export const Consts = {
     HELP_URL_PUBLICATIONS: 'https://wiki.nci.nih.gov/x/e4QfEQ',
     // Publications within sample
     HELP_URL_SAMPLE_PUBLICATIONS: 'https://wiki.nci.nih.gov/display/caNanoLab/Managing+Sample+Composition+Annotations#ManagingSampleCompositionAnnotations-Composition',
-    HELP_URL_SAMPLE_SEARCH_BY_PUBLICATIONS: 'http://localhost:8090/caNanoLab/rest/publication/searchById',
+    HELP_URL_SAMPLE_SEARCH_BY_PUBLICATIONS: 'caNanoLab/rest/publication/searchById',
     HELP_URL_SAMPLE_CHARACTERIZATION: 'https://wiki.nci.nih.gov/display/caNanoLab/Managing+Sample+Characterizations#ManagingSampleCharacterizations-Characterization',
     HELP_URL_SAMPLE_COMPOSITION: 'https://wiki.nci.nih.gov/display/caNanoLab/Managing+Sample+Characterizations#ManagingSampleCharacterizations-Composition',
     HELP_URL_SAMPLE_COMPOSITION_NANOMATERIAL: 'https://wiki.nci.nih.gov/display/caNanoLab/Managing+Sample+Composition+Annotations#ManagingSampleCompositionAnnotations-NanomaterialAddingNanomaterialEntityCompositionAnnotations',

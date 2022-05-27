@@ -3,41 +3,33 @@
     [toolHeadingName]="toolHeadingName"
 >
 </canano-main-display-heading>
-<div class="outer-input-frame m-2">
-
-    <table>
+<div class="error" *ngIf="errors['error']">
+    {{errors['error']}}
+</div>
+<div class="mainSection">
+<div class="mainBorder">
+    <table class="searchForm">
         <tr>
-            <td>
-                <label class="ml-3 mt-2"
-                    for="id_input"
-                >
+            <td class="label">
+                <label for="id_input">
                     ID
                 </label>
             </td>
-            <td colspan="2">
-                <input class="ml-3"
-                    id="id_input"
-                    type="text"
-                       [(ngModel)]="inputId"
-                >
+            <td>
+                <input id="id_input" type="text" [(ngModel)]="inputId">
             </td>
         </tr>
         <tr>
             <td>
-                <label for="type_input" class="ml-3 mt-2">
+                <label for="type_input">
                     Type
                 </label>
             </td>
-            <td colspan="2">
-                <select class="ml-3"
-                        name="type"
-                        id="type_input"
-                    [(ngModel)]="type"
-                >
+            <td>
+                <select name="type" id="type_input" [(ngModel)]="type">
                     <option value="PubMed">
                         PubMed
                     </option>
-
                     <option value="DOI">
                         DOI
                     </option>
@@ -48,14 +40,8 @@
 
 </div>
 
-<div style="float: right" class="mr-2">
-<button class="btn btn-danger ml-1 mb-1">
-    Reset
-</button>
-<button
-    class="btn-canano ml-1 mb-1"
-    (click)="onSearchSampByPubClick()"
->
-    Search
-</button>
+<div class="buttons">
+    <button (click)="reset()" class="btn-canano btn-canano-danger btn-canano-lg mr-1">Reset</button>
+    <button (click)="onSearchSampByPubClick()" class="btn-canano btn-canano-primary btn-canano-lg mr-1">Search</button>
+</div>
 </div>

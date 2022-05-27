@@ -78,7 +78,7 @@ export let TopMenuData = [
     {
         'name': 'SEARCH_SAMPLES_BY_PUBLICATION',
         'displayName': 'Search for Samples by Publication',
-        'route': 'home/publications/searchSamplesByPublication'
+        'route': 'home/publications/sample-search-by-publication'
     },
     {
         'name': 'GROUPS',

@@ -13,20 +13,28 @@ export class SearchSamplesByPublicationComponent implements OnInit{
 
     type = 'PubMed';
     inputId = '';
+    errors;
     constructor(private apiService: ApiService){
     }
 
     ngOnInit(): void{
+        this.errors={};
     }
 
     onSearchSampByPubClick(){
-        this.apiService.doGet( Consts.HELP_URL_SAMPLE_SEARCH_BY_PUBLICATIONS, 'id=' + this.inputId + 'type=' + this.type).subscribe(
+        this.apiService.doGet( Consts.HELP_URL_SAMPLE_SEARCH_BY_PUBLICATIONS, 'id=' + this.inputId + '&type=' + this.type).subscribe(
             data => {
                 console.log('onSearchSampByPubClick results: ', data);
             },
             err => {
+                this.errors=err;
                 console.error('ERROR onSearchSampByPubClick: ', err);
             }
             );
+    }
+
+    reset() {
+        this.type='PubMed';
+        this.inputId='';
     }
 }
