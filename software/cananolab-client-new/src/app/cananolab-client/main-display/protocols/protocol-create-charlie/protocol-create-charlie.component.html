@@ -1,7 +1,14 @@
+<canano-main-display-heading
+    [helpUrl]="'https://wiki.nci.nih.gov/display/caNanoLab/Managing+Protocols+in+caNanoLab#ManagingProtocolsincaNanoLab-SubmitProtocol'"
+    [toolHeadingName]="'Create Protocol'"
+>
+</canano-main-display-heading>
+
+<div class="error" *ngIf="errors['error']">
+    {{errors['error']}}
+</div>
 <div class="mainSection">
     <div class="mainBorder">
-
-
     <form (ngSubmit)="onSubmit()" #f="ngForm" name="searchForm">
 
         <table class="searchForm">
@@ -14,6 +21,7 @@
                 </td>
                 <td>
                     <select id="protocolType" [(ngModel)]="type" name="type">
+                        <option [ngValue]="''" [selected]="true">--Select--</option>
                         <option *ngFor="let type of protocolTypes" value="{{type}}">{{type}}</option>
                     </select>
                 </td>
@@ -106,7 +114,7 @@
                     </label>
                 </td>
                 <td>
-                    <textarea name="fileDescription" id="description" cols="60" rows="3" ngModel>
+                    <textarea name="fileDescription" id="description" cols="60" rows="3" [(ngModel)]="fileDescription">
                     </textarea>
                 </td>
             </tr>

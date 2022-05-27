@@ -21,6 +21,7 @@ export class ProtocolCreateCharlieComponent implements OnInit, AfterViewInit{
     name = ''; // protocolName = '';
     uriExternal: boolean = false;
     externalUrl;
+    errors;
     fileName = '';
     type = '';
     fileToUpload;
@@ -38,6 +39,7 @@ export class ProtocolCreateCharlieComponent implements OnInit, AfterViewInit{
     }
 
     ngOnInit(): void{
+        this.errors={};
         this.init();
     }
 
@@ -52,6 +54,7 @@ export class ProtocolCreateCharlieComponent implements OnInit, AfterViewInit{
         this.apiService.doGet( Consts.QUERY_GET_PROTOCOL, dupQuery ).subscribe(
             // It already exists
             data => {
+                this.errors={};
                 this.isDup = true;
                 this.haveDupStatus = true;
                 return true;
@@ -61,6 +64,7 @@ export class ProtocolCreateCharlieComponent implements OnInit, AfterViewInit{
             ( err ) => {
                 this.isDup = false;
                 this.haveDupStatus = true;
+                this.errors=err;
                 return false;
             } );
 
@@ -118,9 +122,11 @@ export class ProtocolCreateCharlieComponent implements OnInit, AfterViewInit{
 
             let upload$ = this.httpClient.post( '/caNanoLab/rest/core/uploadFile', formData );
             upload$.subscribe( data => {
+                    this.errors={};
                     console.log( 'File upload reports: ', data );
                 },
                 err => {
+                    this.errors=err;
                     console.error( 'BAD Post file upload: ', err );
                 } );
         } // END  Send the file
@@ -146,9 +152,11 @@ export class ProtocolCreateCharlieComponent implements OnInit, AfterViewInit{
         // Do the submit
         this.apiService.doPost( Consts.QUERY_CREATE_PROTOCOL, parameters.substr( 1 ) ).subscribe(
             data => {
+                this.errors={};
                 this.externalUrl = decodeURIComponent( this.externalUrl ); // Make it look right in the UI
             },
             err => {
+                this.errors=err;
                 this.externalUrl = decodeURIComponent( this.externalUrl ); // Make it look right in the UI
             }
         );
@@ -209,6 +217,7 @@ export class ProtocolCreateCharlieComponent implements OnInit, AfterViewInit{
         this.protocolCreateForm.reset();
         this.protocolCreateForm.form.patchValue( { type: 'safety' } ); // @TODO - this doesn't work
         this.type = 'safety';
+        this.type='';
     }
 
     init(){
@@ -223,8 +232,12 @@ export class ProtocolCreateCharlieComponent implements OnInit, AfterViewInit{
         // Get list of Protocol types for dropdown
         this.apiService.doGet( Consts.QUERY_PROTOCOL_SETUP, '' ).subscribe(
             data => {
+                this.errors={};
                 this.protocolTypes = <any>data['protocolTypes'];
                 // this.defaultProtocolType = this.protocolTypes[0]; // SET default - This doesn't work @CHECKME  I had to hard code the default
+            },
+            errors=> {
+                this.errors=errors;
             } );
 
     }
