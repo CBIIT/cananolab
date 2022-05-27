@@ -79,8 +79,8 @@
                 <tr *ngFor="let result of searchResultsPageToDisplay; let even=even; let odd=odd; let i=index"
                     class="search-results-tr"
                     [ngClass]="{
-                            'search-results-tr-even': even,
-                            'search-results--tr-odd': odd
+                            '': even,
+                            'rowOdd': odd
                         }"
                 >
 

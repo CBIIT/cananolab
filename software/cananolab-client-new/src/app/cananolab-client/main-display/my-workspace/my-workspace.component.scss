@@ -1,19 +1,3 @@
 @import "../../cananolab-client.component.scss";
 @import '../main-display.component.scss';
-table{
-    width: 100%;
-    border-bottom: solid #ccc 1px;
-}
 
-th{
-    padding: 4px;
-    background-color: #0073b9;
-    color: #fff;
-    font-weight: bold;
-}
-
-td{
-    padding: 4px;
-    border-left: solid #ccc 1px;
-    border-right: solid #ccc 1px;
-}

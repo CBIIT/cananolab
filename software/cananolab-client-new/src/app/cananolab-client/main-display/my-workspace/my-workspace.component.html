@@ -9,203 +9,183 @@
 </div>
 <div class="mainSection">
     <div class="mainBorder">
-<!-- ----  Checkboxes to show and/or hide Samples, Protocols, or Publications ----- -->
-<div>
-    <input
-
-        id="showSampleWorkspacesCheckbox"
-        type="checkbox"
-        [(ngModel)]="showSampleWorkspaces"
-    >
-    <label for="showSampleWorkspacesCheckbox">
-        Samples
-    </label>
-
-    <input
-
-        id="showProtocolsWorkspacesCheckbox"
-        type="checkbox"
-        [(ngModel)]="showProtocolsWorkspaces"
-    >
-    <label for="showProtocolsWorkspacesCheckbox">
-        Protocols
-    </label>
-
-    <input
-
-        id="showPublicationsWorkspacesCheckbox"
-        type="checkbox"
-        [(ngModel)]="showPublicationsWorkspaces"
-    >
-    <label for="showPublicationsWorkspacesCheckbox">
-        Publications
-    </label>
-</div>
-<!-- ----  END Checkboxes to show and/or hide Samples, Protocols, or Publications ----- -->
+        <!-- ----  Checkboxes to show and/or hide Samples, Protocols, or Publications ----- -->
+        <div class="myFilters">
+            <input id="showSampleWorkspacesCheckbox" type="checkbox" [(ngModel)]="showSampleWorkspaces">
+            <label for="showSampleWorkspacesCheckbox">
+                Samples
+            </label>
+            <input id="showProtocolsWorkspacesCheckbox" type="checkbox" [(ngModel)]="showProtocolsWorkspaces">
+            <label for="showProtocolsWorkspacesCheckbox">
+                Protocols
+            </label>
+            <input id="showPublicationsWorkspacesCheckbox" type="checkbox" [(ngModel)]="showPublicationsWorkspaces">
+            <label for="showPublicationsWorkspacesCheckbox">
+                Publications
+            </label>
+        </div>
+        <!-- ----  END Checkboxes to show and/or hide Samples, Protocols, or Publications ----- -->
 
 
-<hr>
-<!-- Samples -->
-<div
-    *ngIf="showSampleWorkspaces"
->
-    <h5>My Samples</h5>
-    <table>
-        <tr>
-            <th>
-                Action
-            </th>
-            <th>
-                Sample Name
-            </th>
-            <th>
-                Sample Submission Status
-            </th>
-           <th>
-               Created Date
-            </th>
-           <th>
-               Sample Access
-            </th>
-        </tr>
+        <hr>
+        <!-- Samples -->
+        <div *ngIf="showSampleWorkspaces">
+            <h5>My Samples</h5>
+            <table class="dataTable">
+                <tr>
+                    <th>
+                        Action
+                    </th>
+                    <th>
+                        Sample Name
+                    </th>
+                    <th>
+                        Sample Submission Status
+                    </th>
+                <th>
+                    Created Date
+                    </th>
+                <th>
+                    Sample Access
+                    </th>
+                </tr>
+                <tr *ngFor="let workSamp of samples; let odd = odd" [ngClass]="{ 'rowOdd': odd} ">
+                    <td class="actions">
+                        <div>
+                            <a (click)="navigateToSampleView(workSamp['id'], workSamp['name'])">
+                                View
+                            </a>
+                        </div>
+                        <div *ngIf="workSamp.editable">
+                            <a (click)="navigateToSampleEdit(workSamp['id'], workSamp['name'])">
+                                Edit
+                            </a>
+                        </div>
+                        <div *ngIf="workSamp.editable">
+                            <a (click)="navigateToSampleDelete(workSamp['id'])">
+                                Delete
+                            </a>
+                        </div>
+                    </td>
+                    <td>
+                        {{workSamp['name']}}
+                    </td>
+                    <td>
+                        {{workSamp['submisstionStatus']}}
+                    </td>
+                    <td>
+                        {{workSamp['createdDate'] | date : "shortDate"}}
+                    </td>
+                    <td>
+                        {{workSamp['access']}}
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <!-- END Samples -->
 
-        <tr *ngFor="let workSamp of samples">
-            <td>
+        <!-- Protocols -->
+        <div *ngIf="showProtocolsWorkspaces"><br />
+            <h5>My Protocols</h5>
+            <table class="dataTable">
+                <tr>
+                    <th>
+                        Action
+                    </th>
+                    <th>
+                        Protocol Name
+                    </th>
+                    <th>
+                        Protocol Submission Status
+                    </th>
+                <th>
+                    Created Date
+                    </th>
+                <th>
+                    Protocol Access
+                    </th>
+                </tr>
 
-            <a
-                (click)="navigateToSampleView(workSamp['id'], workSamp['name'])"
-            >View</a>
-                <br />
-            <a
-                (click)="navigateToSampleEdit(workSamp['id'], workSamp['name'])"
-            >Edit</a>
-                <br />
-            <a
-                (click)="navigateToSampleDelete(workSamp['id'])"
-            >Delete</a>
+                <tr *ngFor="let workProtocol of protocols; let odd=odd" [ngClass]="{ 'rowOdd': odd }">
+                    <td class="actions">
+                        <div *ngIf="workProtocol.editable">
+                            <a (click)="navigateToProtocolEdit(workProtocol['id'], workProtocol['name'])">
+                                Edit
+                            </a>
+                        </div>
+                        <div *ngIf="workProtocol.editable">
+                            <a (click)="navigateToProtocolDelete(workProtocol['id'])">
+                                Delete
+                            </a>
+                        </div>
+                    </td>
+                    <td>
+                        {{workProtocol['name']}}
+                    </td>
+                    <td>
+                        {{workProtocol['submisstionStatus']}}
+                    </td>
+                    <td>
+                        {{workProtocol['createdDate'] | date : "shortDate"}}
+                    </td>
+                    <td>
+                        {{workProtocol['access']}}
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <!-- END Protocols -->
 
-            </td>
-            <td>
-                {{workSamp['name']}}
-           </td>
-           <td>
-                {{workSamp['submisstionStatus']}}
-           </td>
-           <td>
-                {{workSamp['createdDate']}}
-            </td>
-           <td>
-                {{workSamp['access']}}
-            </td>
-        </tr>
-    </table>
-</div>
-<!-- END Samples -->
+        <!--  Publications -->
+        <div *ngIf="showPublicationsWorkspaces"><br />
+            <h5>My Publications</h5>
+            <table class="dataTable">
+                <tr>
+                    <th>
+                        Action
+                    </th>
+                    <th>
+                        Publication ID
+                    </th>
+                    <th>
+                        Publication Submission Status
+                    </th>
+                <th>
+                    Created Date
+                    </th>
+                <th>
+                    Protocol Access
+                    </th>
+                </tr>
 
-<!-- Protocols -->
-<div
-    *ngIf="showProtocolsWorkspaces"
->
-    <h5>My Protocols</h5>
-    <table>
-        <tr>
-            <th>
-                Action
-            </th>
-            <th>
-                Protocol Name
-            </th>
-            <th>
-                Protocol Submission Status
-            </th>
-           <th>
-               Created Date
-            </th>
-           <th>
-               Protocol Access
-            </th>
-        </tr>
-
-        <tr *ngFor="let workProtocol of protocols">
-            <td>
-
-            <a *ngIf="workProtocol['editable']"
-                (click)="navigateToProtocolEdit(workProtocol['id'], workProtocol['name'])"
-            >Edit</a>
-                <br />
-            <a *ngIf="workProtocol['editable']"
-                (click)="navigateToProtocolDelete(workProtocol['id'])"
-            >Delete</a>
-
-            </td>
-            <td>
-                {{workProtocol['name']}}
-            </td>
-           <td>
-                {{workProtocol['submisstionStatus']}}
-            </td>
-           <td>
-                {{workProtocol['createdDate']}}
-            </td>
-           <td>
-                {{workProtocol['access']}}
-            </td>
-        </tr>
-    </table>
-</div>
-<!-- END Protocols -->
-
-<!--  Publications -->
-<div
-    *ngIf="showPublicationsWorkspaces"
->
-    <h5>My Publications</h5>
-    <table>
-        <tr>
-            <th>
-                Action
-            </th>
-            <th>
-                Publication ID
-            </th>
-            <th>
-                Publication Submission Status
-            </th>
-           <th>
-               Created Date
-            </th>
-           <th>
-               Protocol Access
-            </th>
-        </tr>
-
-        <tr *ngFor="let workPub of publications">
-            <td>
-                <a *ngIf="workPub['editable']"
-                (click)="navigateToPublicationEdit(workPub['id'])"
-            >Edit</a>
-                <br />
-            <a *ngIf="workPub['editable']"
-                (click)="navigateToPublicationDelete(workPub['id'])"
-            >Delete</a>
-            </td>
-            <td>
-                {{workPub['name']}}
-            </td>
-           <td>
-                {{workPub['submisstionStatus']}}
-            </td>
-           <td>
-                {{workPub['createdDate']}}
-            </td>
-           <td>
-                {{workPub['access']}}
-            </td>
-        </tr>
-    </table>
-    <!-- END Publications -->
-
-</div>
-
+                <tr *ngFor="let workPub of publications; let odd=odd" [ngClass]="{ 'rowOdd': odd}">
+                    <td class="actions">
+                        <div *ngIf="workPub.editable">
+                            <a (click)="navigateToPublicationEdit(workPub['id'])">
+                                Edit
+                            </a>
+                        </div>
+                        <div *ngIf="workPub.editable">
+                            <a (click)="navigateToPublicationDelete(workPub['id'])">
+                                Delete
+                            </a>
+                        </div>
+                    </td>
+                    <td>
+                        {{workPub['name']}}
+                    </td>
+                    <td>
+                        {{workPub['submisstionStatus']}}
+                    </td>
+                    <td>
+                        {{workPub['createdDate'] | date : "shortDate"}}
+                    </td>
+                    <td>
+                        {{workPub['access']}}
+                    </td>
+                </tr>
+            </table>
+            <!-- END Publications -->
+        </div>
     </div>
 </div>

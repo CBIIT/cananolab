@@ -11,6 +11,7 @@ $navButtonColor:#81FFFE;
 $borderColor: $leftMenuBorderColor;
 $mainFontSize:12px;
 $keywordSearchFontSize: 12px;
+$oddRowColor:#efeded;
 body {
     font-family:arial,helvetica,verdana,sans-serif !important;
 }
@@ -138,8 +139,8 @@ a:active{
     border-right: solid #ccc 1px;
 }
 
-.search-results-tr-even{
-    background-color: #f3f3f3;
+.rowOdd{
+    background-color: $oddRowColor;
 }
 
 .search-results--tr-odd{
@@ -224,3 +225,59 @@ img {
     vertical-align:top;
 }
 
+.rowOdd {
+	background-color:$oddRowColor;
+}
+
+table.dataTable{
+    width:100%;
+    border: solid #ccc 1px;
+
+}
+
+table.dataTable th{
+    background-color: #0073b9;
+    color: #fff;
+    font-weight: bold;
+    padding:3px;
+    border:1px solid #ccc;
+
+}
+
+table.dataTable td{
+	padding:5px;
+    vertical-align:top;
+    border-right:1px solid #ccc;
+	width:250px;
+}
+
+table.dataTable td:last-child{
+    display:inline-block;
+    border:0px ;
+	white-space: nowrap;
+}
+
+table.dataTable td.actions  {
+	width:110px !important;
+}
+
+table.dataTable td.actions div {
+	display:inline-block;
+	margin:0px 4px 0px 0px;
+}
+.actions  {
+	width:150px;
+}
+
+.actions div {
+	display:inline-block;
+	margin:0px 4px 0px 0px;
+}
+
+table.dataTable .actions.favorites {
+	min-width:210px !important;
+}
+
+.myFilters label {
+    margin-left:5px;
+}

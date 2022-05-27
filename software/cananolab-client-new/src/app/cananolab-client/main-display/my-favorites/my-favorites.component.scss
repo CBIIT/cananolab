@@ -1,24 +1,5 @@
 @import "../../cananolab-client.component.scss";
 @import '../main-display.component.scss';
-
-table{
-    width: 90%;
-    border-bottom: solid #ccc 1px;
-}
-
-th{
-    padding: 4px;
-    background-color: #0073b9;
-    color: #fff;
-    font-weight: bold;
-    border:1px solid #ccc;
-}
-
-td{
-    padding: 4px;
-    border:1px solid #ccc;
-}
-
-label {
+.myFilters label {
     margin-left:5px;
 }
