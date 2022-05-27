@@ -101,11 +101,11 @@ export class CharacterizationComponent implements OnInit{
 
     // brings up new characterization form //
     addCharacterization(type) {
-        this.router.navigate( ['home/samples/characterization/editcharacterization', Properties.CURRENT_SAMPLE_ID,type] );  // @FIXME  Don't hard code these
+        this.router.navigate( ['home/samples/characterization/edit-characterization', Properties.CURRENT_SAMPLE_ID,type] );  // @FIXME  Don't hard code these
     }
 
     // brings up existing characterization form //
     editCharacterization(charId,type, charClassName) {
-        this.router.navigate( ['home/samples/characterization/editcharacterization', Properties.CURRENT_SAMPLE_ID,charId, charClassName, type] );  // @FIXME  Don't hard code these
+        this.router.navigate( ['home/samples/characterization/edit-characterization', Properties.CURRENT_SAMPLE_ID,charId, charClassName, type] );  // @FIXME  Don't hard code these
     }
 }
