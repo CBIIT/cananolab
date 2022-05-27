@@ -4,39 +4,22 @@
 >
 </canano-main-display-heading>
 
-<!-- ----  Checkboxes to show and/or hide Samples, Protocols, or Publications ----- -->
-<div class="mt-1">
-    <input
-        class="ml-2"
-        id="showSampleFavsCheckbox"
-        type="checkbox"
-        [(ngModel)]="showSampleFavs"
-    >
-    <label for="showSampleFavsCheckbox">
-        <b>Samples</b>
-    </label>
-
-    <input
-        class="ml-2"
-        id="showProtocolsFavsCheckbox"
-        type="checkbox"
-        [(ngModel)]="showProtocolsFavs"
-    >
-    <label for="showProtocolsFavsCheckbox">
-        <b>Protocols</b>
-    </label>
-
-    <input
-        class="ml-2"
-        id="showPublicationsFavsCheckbox"
-        type="checkbox"
-        [(ngModel)]="showPublicationsFavs"
-    >
-    <label for="showPublicationsFavsCheckbox">
-        <b>Publications</b>
-    </label>
-</div>
-<!-- ----  END Checkboxes to show and/or hide Samples, Protocols, or Publications ----- -->
+<div class="mainSection">
+    <div class="mainBorder">
+    <!-- ----  Checkboxes to show and/or hide Samples, Protocols, or Publications ----- -->
+        <input id="showSampleFavsCheckbox" type="checkbox" [(ngModel)]="showSampleFavs">
+        <label for="showSampleFavsCheckbox">
+            Samples
+        </label>
+        <input id="showProtocolsFavsCheckbox" type="checkbox" [(ngModel)]="showProtocolsFavs">
+        <label for="showProtocolsFavsCheckbox">
+            Protocols
+        </label>
+        <input id="showPublicationsFavsCheckbox" type="checkbox" [(ngModel)]="showPublicationsFavs">
+        <label for="showPublicationsFavsCheckbox">
+            Publications
+        </label>
+    <!-- ----  END Checkboxes to show and/or hide Samples, Protocols, or Publications ----- -->
 
 
 <hr>
@@ -44,9 +27,9 @@
 <div
     *ngIf="showSampleFavs"
 >
-    <h4
+    <h5
         class="mt-1"
-    >My Samples</h4>
+    >My Samples</h5>
     <table>
         <tr>
             <th>
@@ -63,29 +46,25 @@
         <tr *ngFor="let fav of favSamples">
             <td>
 
-                <span
-                    style="color: #00f; text-decoration: underline;"
-                    class="clicker mr-1"
+                <a
                     (click)="navigateToSampleView(fav['dataId'])"
                 >
-                View</span>
+                View</a>
+                <br />
+                <a
 
-                <span
-                    style="color: #00f; text-decoration: underline;"
-                    class="clicker"
                     (click)="navigateToSampleEdit(fav['dataId'])"
                 >
-                Edit</span>
+                Edit</a>
                 <br>
 
-                <span
-                    style="color: #00f; text-decoration: underline;"
-                    class="clicker"
+                <a
+
                     (click)="deleteSampleFromFavorites(fav)"
                 >
                     <img style="width: 10px;" src="assets/images/trash_caNanoLab.png" alt="trash_icon">
                     Delete from Favorites
-                </span>
+            </a>
 
             </td>
             <td>
@@ -101,12 +80,9 @@
 
 
 <!-- Protocols -->
-<div
-    *ngIf="showProtocolsFavs"
->
-    <h4
-        class="mt-4"
-    >My Protocols</h4>
+<div *ngIf="showProtocolsFavs">
+    <br />
+    <h5>My Protocols</h5>
 
     <table>
         <tr>
@@ -122,32 +98,19 @@
         </tr>
         <tr *ngFor="let fav of favProtocols">
             <td>
-                <a class="m-1" href="XX">View</a>
-                <!--
-                                <a class="m-1" href="XX">Edit</a><br>
-                -->
-                <span
-                    style="color: #00f; text-decoration: underline;"
-                    class="clicker"
-                    (click)="navigateToProtocolView(fav['dataId'])"
-                >View</span>
-                <br>
+                <a
 
-                <span
-                    style="color: #00f; text-decoration: underline;"
-                    class="clicker"
                     (click)="navigateToProtocolEdit(fav['dataId'])"
-                >Edit</span>
+                >Edit</a>
                 <br>
 
-                <span
-                    style="color: #00f; text-decoration: underline;"
-                    class="clicker"
+                <a
+
                     (click)="deleteProtocolFromFavorites(fav)"
                 >
                     <img style="width: 10px;" src="assets/images/trash_caNanoLab.png" alt="trash_icon">
                     Delete from Favorites
-                </span>
+                </a>
 
             </td>
             <td>
@@ -162,12 +125,9 @@
 </div>
 <!-- END Protocols -->
 
-<div
-    *ngIf="showPublicationsFavs"
->
-    <h4
-        class="mt-4"
-    >My Publications</h4>
+<div *ngIf="showPublicationsFavs">
+    <br />
+    <h5>My Publications</h5>
     <table>
         <tr>
             <th>
@@ -179,17 +139,19 @@
         </tr>
         <tr *ngFor="let fav of favPublications">
             <td>
-                <a class="m-1" href="XX">View</a>
-                <a class="m-1" href="XX">Edit</a><br>
+                <a
 
-                <span
-                    style="color: #00f; text-decoration: underline;"
-                    class="clicker"
+                    (click)="navigateToPublicationEdit(fav['dataId'])"
+                >Edit</a>
+                <br>
+
+                <a
+
                     (click)="deletePublicationFromFavorites(fav)"
                 >
                     <img style="width: 10px;" src="assets/images/trash_caNanoLab.png" alt="trash_icon">
                     Delete from Favorites
-                </span>
+                </a>
 
             </td>
             <td>
@@ -206,3 +168,6 @@
     ></canano-protocol-edit-bravo>
 </span>
 <!-- -----  END Edit Protocol  ----- -->
+
+    </div>
+</div>

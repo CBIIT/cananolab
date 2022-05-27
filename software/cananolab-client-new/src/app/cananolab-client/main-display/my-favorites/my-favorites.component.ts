@@ -98,14 +98,12 @@ export class MyFavoritesComponent implements OnInit{
     navigateToProtocolEdit( protocolId ){
         console.log( 'MHL navigateToProtocolEdit protocolId: ', protocolId );
         this.protocolsService.setCurrentProtocolScreen( ProtocolScreen.PROTOCOL_EDIT_SCREEN, protocolId );
-        this.router.navigate( ['home/protocols/protocolEditComponent'] );  // @FIXME  Don't hard code these
+        this.router.navigate( ['home/protocols/edit-protocol',protocolId] );  // @FIXME  Don't hard code these
     }
 
 
-    navigateToProtocolView( protocolId ){
-        console.log( 'MHL navigateToProtocolView protocolId: ', protocolId );
-        this.protocolsService.setCurrentProtocolScreen( ProtocolScreen.PROTOCOL_EDIT_SCREEN, protocolId );
-        this.router.navigate( ['home/protocols/protocolViewComponent'] );  // @FIXME  Don't hard code these
+    navigateToPublicationEdit( publicationId ){
+        this.router.navigate( ['home/samples/publications/publication',publicationId] );  // @FIXME  Don't hard code these
     }
 
 }

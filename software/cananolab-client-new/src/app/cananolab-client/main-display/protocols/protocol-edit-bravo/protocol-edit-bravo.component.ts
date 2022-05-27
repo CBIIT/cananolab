@@ -11,7 +11,7 @@ import { UtilService } from '../../../common/services/util.service';
 import { timeout } from 'rxjs/operators';
 import { Properties } from '../../../../../assets/properties';
 import { Subject } from 'rxjs';
-
+import { ActivatedRoute } from '@angular/router';
 @Component( {
     selector: 'canano-protocol-edit-bravo',
     templateUrl: './protocol-edit-bravo.component.html',
@@ -41,21 +41,24 @@ export class ProtocolEditBravoComponent implements OnInit, OnDestroy{
     consts = Consts;
     private ngUnsubscribe: Subject<boolean> = new Subject<boolean>();
 
-    constructor( private protocolsService: ProtocolsService, private apiService: ApiService,
+    constructor( private route:ActivatedRoute,private protocolsService: ProtocolsService, private apiService: ApiService,
                  private statusDisplayService: StatusDisplayService, private httpClient: HttpClient,
                  private utilService: UtilService ){
     }
 
     ngOnInit(): void{
-        this.protocolId = this.protocolsService.getCurrentProtocolInfo();
-        this.getProtocolData();
-        this.userName = this.statusDisplayService.getUser(); // @FIXME getUser should not be part of StatusDisplayService
-        this.init();
+        this.route.params.subscribe(data=> {
+            this.protocolId=data['protocolId'];
+            this.getProtocolData();
+            this.userName = this.statusDisplayService.getUser(); // @FIXME getUser should not be part of StatusDisplayService
+            this.init();
 
-        this.statusDisplayService.updateUserEmitter.pipe( timeout( Properties.HTTP_TIMEOUT ) ).subscribe(
-            data => {
-                this.userName = data;
-            } );
+            this.statusDisplayService.updateUserEmitter.pipe( timeout( Properties.HTTP_TIMEOUT ) ).subscribe(
+                data => {
+                    this.userName = data;
+                } );
+        })
+
 
     }
 

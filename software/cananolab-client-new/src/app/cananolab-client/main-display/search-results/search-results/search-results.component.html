@@ -87,26 +87,21 @@
 
 
                     <td class="search-results-td" >
-                        <span
+                        <a
                             *ngIf="properties.LOGGED_IN"
-                            style="color: #00f; text-decoration: underline;"
-                            class="clicker"
                             (click)="navigateToResult(result['id'],result['type'])"
-                        >Edit</span>
+                        >Edit</a>
 
 
-                        <span
+                        <a
                             *ngIf="! properties.LOGGED_IN"
-                            style="color: #00f; text-decoration: underline;"
-                            class="clicker"
                             (click)="navigateToResult(result['id'],result['type'])"
-                        >View</span>
+                        >View</a>
                         <br>
 
-                        <span  style="color: #00f; text-decoration: underline;"
+                        <a
                             (click)="addToFavorites(result)"
-                            class="clicker"
-                        >Add to Favorites</span>
+                        >Add to Favorites</a>
 
                     </td>
 

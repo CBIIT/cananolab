@@ -55,7 +55,7 @@ const routes: Routes = [
     { path: 'home/protocols/protocol-create', component: ProtocolCreateCharlieComponent },
     { path: 'home/protocols/protocol-search', component: ProtocolSearchComponent },
     { path: 'home/protocols/protocol-search-results', component: ProtocolSearchResultsComponent },
-    { path: 'home/protocols/protocolEditComponent', component: ProtocolEditBravoComponent },
+    { path: 'home/protocols/edit-protocol/:protocolId', component: ProtocolEditBravoComponent },
     { path: 'home/protocols/protocolViewComponent', component: ProtocolViewComponent },
 
     { path: 'home/protocols', component: ProtocolsComponent },

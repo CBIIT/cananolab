@@ -94,12 +94,10 @@
             }"
     >
         <td class="search-results-td" *ngIf="properties.logged_in">
-            <span
+            <a
                 *ngIf="properties.LOGGED_IN"
-                style="color: #00f; text-decoration: underline;"
-                class="clicker"
                 (click)="onEditClick(res)"
-            >Edit</span>
+            >Edit</a>
 
 
             <!--  I thought we showed the "View" if they are not logged in (I was wrong)
@@ -109,10 +107,9 @@
             >View</div>
             -->
             <br />
-            <span  style="color: #00f; text-decoration: underline;"
+            <a
                 (click)="addToFavorites( res.id, res.viewName, res.fileId, res.editable, res.fileTitle )"
-                class="clicker"
-            >Add to Favorites</span>
+            >Add to Favorites</a>
 
         </td>
 

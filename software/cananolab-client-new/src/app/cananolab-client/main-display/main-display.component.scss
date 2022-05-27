@@ -49,7 +49,7 @@
 
 label {
     font-weight:bold;
-    padding-right:5px;
+    margin-right:5px !important;
 }
 
 .searchForm {
@@ -97,4 +97,9 @@ label {
 .error {
     color:red;
     margin:5px;
+}
+
+.mainSection a {
+    color:#00f !important;
+    text-decoration: underline !important;
 }

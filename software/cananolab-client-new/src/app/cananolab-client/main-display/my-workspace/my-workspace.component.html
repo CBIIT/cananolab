@@ -4,36 +4,41 @@
 >
 </canano-main-display-heading>
 
+<div class="error" *ngIf="errors['error']">
+    {{errors['error']}}
+</div>
+<div class="mainSection">
+    <div class="mainBorder">
 <!-- ----  Checkboxes to show and/or hide Samples, Protocols, or Publications ----- -->
-<div class="mt-1">
+<div>
     <input
-        class="ml-2"
+
         id="showSampleWorkspacesCheckbox"
         type="checkbox"
         [(ngModel)]="showSampleWorkspaces"
     >
     <label for="showSampleWorkspacesCheckbox">
-        <b>Samples</b>
+        Samples
     </label>
 
     <input
-        class="ml-2"
+
         id="showProtocolsWorkspacesCheckbox"
         type="checkbox"
         [(ngModel)]="showProtocolsWorkspaces"
     >
     <label for="showProtocolsWorkspacesCheckbox">
-        <b>Protocols</b>
+        Protocols
     </label>
 
     <input
-        class="ml-2"
+
         id="showPublicationsWorkspacesCheckbox"
         type="checkbox"
         [(ngModel)]="showPublicationsWorkspaces"
     >
     <label for="showPublicationsWorkspacesCheckbox">
-        <b>Publications</b>
+        Publications
     </label>
 </div>
 <!-- ----  END Checkboxes to show and/or hide Samples, Protocols, or Publications ----- -->
@@ -44,9 +49,7 @@
 <div
     *ngIf="showSampleWorkspaces"
 >
-    <h4
-        class="mt-1"
-    >My Samples</h4>
+    <h5>My Samples</h5>
     <table>
         <tr>
             <th>
@@ -69,23 +72,17 @@
         <tr *ngFor="let workSamp of samples">
             <td>
 
-            <span
-                style="color: #00f; text-decoration: underline;"
-                class="clicker mr-1"
+            <a
                 (click)="navigateToSampleView(workSamp['id'], workSamp['name'])"
-            >View</span>
-
-            <span
-                style="color: #00f; text-decoration: underline;"
-                class="clicker mr-1"
+            >View</a>
+                <br />
+            <a
                 (click)="navigateToSampleEdit(workSamp['id'], workSamp['name'])"
-            >Edit</span>
-
-            <span
-                style="color: #00f; text-decoration: underline;"
-                class="clicker"
+            >Edit</a>
+                <br />
+            <a
                 (click)="navigateToSampleDelete(workSamp['id'])"
-            >Delete</span>
+            >Delete</a>
 
             </td>
             <td>
@@ -109,9 +106,7 @@
 <div
     *ngIf="showProtocolsWorkspaces"
 >
-    <h4
-        class="mt-1"
-    >My Protocols</h4>
+    <h5>My Protocols</h5>
     <table>
         <tr>
             <th>
@@ -133,23 +128,14 @@
 
         <tr *ngFor="let workProtocol of protocols">
             <td>
-            <span *ngIf="workProtocol['fileId'] !== null && workProtocol['fileId'] !== '' && workProtocol['fileId'] !== 0"
-                style="color: #00f; text-decoration: underline;"
-                class="clicker mr-1"
-                (click)="navigateToProtocolView(workProtocol['id'], workProtocol['name'])"
-            >View</span>
 
-            <span *ngIf="workProtocol['editable']"
-                style="color: #00f; text-decoration: underline;"
-                class="clicker mr-1"
+            <a *ngIf="workProtocol['editable']"
                 (click)="navigateToProtocolEdit(workProtocol['id'], workProtocol['name'])"
-            >Edit</span>
-
-            <span *ngIf="workProtocol['editable']"
-                style="color: #00f; text-decoration: underline;"
-                class="clicker"
+            >Edit</a>
+                <br />
+            <a *ngIf="workProtocol['editable']"
                 (click)="navigateToProtocolDelete(workProtocol['id'])"
-            >Delete</span>
+            >Delete</a>
 
             </td>
             <td>
@@ -173,9 +159,7 @@
 <div
     *ngIf="showPublicationsWorkspaces"
 >
-    <h4
-        class="mt-1"
-    >My Publications</h4>
+    <h5>My Publications</h5>
     <table>
         <tr>
             <th>
@@ -197,9 +181,13 @@
 
         <tr *ngFor="let workPub of publications">
             <td>
-                <a class="m-1" href="XX">View</a>
-                <a class="m-1" href="XX">Edit</a>
-                <a class="m-1" href="XX">Delete</a>
+                <a *ngIf="workPub['editable']"
+                (click)="navigateToPublicationEdit(workPub['id'])"
+            >Edit</a>
+                <br />
+            <a *ngIf="workPub['editable']"
+                (click)="navigateToPublicationDelete(workPub['id'])"
+            >Delete</a>
             </td>
             <td>
                 {{workPub['name']}}
@@ -217,4 +205,7 @@
     </table>
     <!-- END Publications -->
 
+</div>
+
+    </div>
 </div>
