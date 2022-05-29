@@ -2,7 +2,9 @@
 [toolHeadingName]="toolHeadingNameManage">
 
 </canano-main-display-heading>
-
+<div class="error" *ngIf="errors['error']">
+    {{errors['error']}}
+</div>
 <div class="mainSection">
     <div class="mainBorder" *ngIf="data">
         <h4>Data Pending Review</h4>
@@ -23,7 +25,7 @@
                     {{record.dataName}}
                 </td>
                 <td>
-                    <a href="" [href]="'/caNanoLab/#/editPublication?publicationId='+record.dataId">
+                    <a (click)="editPublication(record)">
                         Edit
                     </a>
                 </td>
