@@ -15,7 +15,7 @@
                 <th>Data Name</th>
                 <th></th>
             </tr>
-            <tr *ngFor="let record of data" >
+            <tr *ngFor="let record of data;let odd=odd" [ngClass]="{'rowOdd':odd}">
                 <td class="actions">
                     {{record.dataType}}
                 </td>
