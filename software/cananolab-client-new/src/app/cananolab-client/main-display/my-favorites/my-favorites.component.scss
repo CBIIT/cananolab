@@ -1,5 +1,6 @@
-@import "../../cananolab-client.component.scss";
 @import '../main-display.component.scss';
-.myFilters label {
-    margin-left:5px;
+
+table.dataTable td.actions {
+	width:210px !important;
+    max-width:210px !important;
 }

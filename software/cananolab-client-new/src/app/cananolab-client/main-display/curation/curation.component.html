@@ -4,33 +4,28 @@
 </canano-main-display-heading>
 
 <div class="mainSection">
-    <div class="mainBorder">
-        <table class="dataMain">
+    <div class="mainBorder" *ngIf="data">
+        <h4>Data Pending Review</h4>
+        <div *ngIf="!data.length">
+            There is no data pending review.
+        </div>
+        <table class="dataTable" *ngIf="data.length">
             <tr>
+                <th>Data Type</th>
+                <th>Data Name</th>
+                <th></th>
+            </tr>
+            <tr *ngFor="let record of data" >
+                <td class="actions">
+                    {{record.dataType}}
+                </td>
                 <td>
-                    <B>Data Pending Review</B><br /><br />
-                    <ng-container *ngFor="let record of data">
-                        <table class="display">
-                            <tr>
-                                <th>Data Type</th>
-                                <th>Data Name</th>
-                                <th></th>
-                            </tr>
-                            <tr>
-                                <td>
-                                    {{record.dataType}}
-                                </td>
-                                <td>
-                                    {{record.dataName}}
-                                </td>
-                                <td>
-                                    <a href="" [href]="'/caNanoLab/#/editPublication?publicationId='+record.dataId">
-                                        Edit
-                                    </a>
-                                </td>
-                            </tr>
-                        </table>
-                    </ng-container>
+                    {{record.dataName}}
+                </td>
+                <td>
+                    <a href="" [href]="'/caNanoLab/#/editPublication?publicationId='+record.dataId">
+                        Edit
+                    </a>
                 </td>
             </tr>
         </table>

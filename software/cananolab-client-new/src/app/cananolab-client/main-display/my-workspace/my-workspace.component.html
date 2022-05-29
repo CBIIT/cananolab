@@ -31,7 +31,10 @@
         <!-- Samples -->
         <div *ngIf="showSampleWorkspaces">
             <h5>My Samples</h5>
-            <table class="dataTable">
+            <div *ngIf="!samples.length">
+                There are no samples in your workspace.
+            </div>
+            <table class="dataTable" *ngIf="samples.length">
                 <tr>
                     <th>
                         Action
@@ -87,7 +90,10 @@
         <!-- Protocols -->
         <div *ngIf="showProtocolsWorkspaces"><br />
             <h5>My Protocols</h5>
-            <table class="dataTable">
+            <div *ngIf="!protocols.length">
+                There are no protocols in your workspace.
+            </div>
+            <table class="dataTable" *ngIf="protocols.length">
                 <tr>
                     <th>
                         Action
@@ -139,7 +145,10 @@
         <!--  Publications -->
         <div *ngIf="showPublicationsWorkspaces"><br />
             <h5>My Publications</h5>
-            <table class="dataTable">
+            <div *ngIf="!publications.length">
+                There are no publication in your workspace.
+            </div>
+            <table class="dataTable" *ngIf="publications.length">
                 <tr>
                     <th>
                         Action

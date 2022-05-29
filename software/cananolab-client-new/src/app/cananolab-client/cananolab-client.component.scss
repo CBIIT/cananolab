@@ -239,7 +239,7 @@ table.dataTable th{
     background-color: #0073b9;
     color: #fff;
     font-weight: bold;
-    padding:3px;
+    padding:3px 3px 3px 5px;
     border:1px solid #ccc;
 
 }
@@ -255,6 +255,7 @@ table.dataTable td:last-child{
     display:inline-block;
     border:0px ;
 	white-space: nowrap;
+    width:100%;
 }
 
 table.dataTable td.actions  {
@@ -265,17 +266,10 @@ table.dataTable td.actions div {
 	display:inline-block;
 	margin:0px 4px 0px 0px;
 }
-.actions  {
-	width:150px;
-}
 
 .actions div {
 	display:inline-block;
 	margin:0px 4px 0px 0px;
-}
-
-table.dataTable .actions.favorites {
-	min-width:210px !important;
 }
 
 .myFilters label {

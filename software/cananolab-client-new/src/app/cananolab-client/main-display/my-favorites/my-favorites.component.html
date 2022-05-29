@@ -27,7 +27,10 @@
 <!-- Samples -->
 <div *ngIf="showSampleFavs">
     <h4>My Samples</h4>
-    <table class="dataTable">
+    <div *ngIf="!favSamples">
+        There are no samples in your favorites.
+    </div>
+    <table class="dataTable" *ngIf="favSamples">
         <tr>
             <th>
                 Action
@@ -41,7 +44,7 @@
         </tr>
 
         <tr *ngFor="let fav of favSamples;let odd=odd" [ngClass]="{'rowOdd':odd}">
-            <td class="actions favorites">
+            <td class="actions">
                 <div>
                     <a (click)="navigateToSampleView(fav['dataId'])">
                         View
@@ -75,8 +78,10 @@
 <div *ngIf="showProtocolsFavs">
     <br />
     <h4>My Protocols</h4>
-
-    <table class="dataTable">
+    <div *ngIf="!favProtocols">
+        There are no protocols in your favorites.
+    </div>
+    <table class="dataTable" *ngIf="favProtocols">
         <tr>
             <th>
                 Action
@@ -117,7 +122,10 @@
 <div *ngIf="showPublicationsFavs">
     <br />
     <h4>My Publications</h4>
-    <table class="dataTable">
+    <div *ngIf="!favPublications">
+        There are no publications in your favorites.
+    </div>
+    <table class="dataTable" *ngIf="favPublications">
         <tr>
             <th>
                 Action

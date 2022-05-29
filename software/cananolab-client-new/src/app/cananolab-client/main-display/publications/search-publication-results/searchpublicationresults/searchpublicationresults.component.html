@@ -3,7 +3,9 @@
     [toolHeadingName]="'Publication Search Results'"
 >
 </canano-main-display-heading>
-
+<div class="error" *ngIf="errors['error']">
+    {{errors['error']}}
+</div>
 <div class="mainSection">
             <span
             class="ml-2"

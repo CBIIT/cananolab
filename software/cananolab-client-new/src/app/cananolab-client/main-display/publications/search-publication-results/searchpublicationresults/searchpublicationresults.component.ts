@@ -8,6 +8,7 @@ import { StatusDisplayService } from '../../../../status-display/status-display.
 import { Subject } from 'rxjs';
 import { Router } from '@angular/router';
 import { ApiService } from '../../../../common/services/api.service';
+import { i18nMetaToJSDoc } from '@angular/compiler/src/render3/view/i18n/meta';
 @Component({
   selector: 'canano-searchpublicationresults',
   templateUrl: './searchpublicationresults.component.html',
@@ -17,7 +18,7 @@ export class SearchpublicationresultsComponent implements OnInit {
     maxPageLength = Properties.MAX_PAGE_LENGTH;
     pageLength = Properties.DEFAULT_PAGE_LENGTH;
     columnHeadings = ['Actions', 'Bibliography Info', 'Publication Type', 'Research Category', 'Associated Sample Names', 'Description', 'Publication Status', 'Created'];
-
+    errors={};
     searchResults;
     helpUrl = Consts.HELP_URL_SAMPLE_SEARCH;
     toolHeadingNameSearchSample = 'Sample Search Results';
@@ -44,16 +45,20 @@ export class SearchpublicationresultsComponent implements OnInit {
             .subscribe( ( data ) => {
                 this.currentPage = data;
                 this.setupPage();
+                this.errors={};
+            },
+            error=> {
+                this.errors=error;
             } );
 
             console.log(this.properties)
         this.statusDisplayService.updateUserEmitter.pipe( timeout( Properties.HTTP_TIMEOUT ) ).subscribe(
             data => {
-                console.log('is nothing happening?')
+                this.errors={};
                 this.userName = data;
             },
             error=>{
-                console.log('error')
+                this.errors=error;
             } );
 
 
@@ -63,7 +68,6 @@ export class SearchpublicationresultsComponent implements OnInit {
     }
 
     navigateToPublication( publicationId ){
-        console.log(publicationId)
         this.router.navigate(['/home/samples/publications/publication',publicationId]);
     }
 
@@ -76,8 +80,13 @@ export class SearchpublicationresultsComponent implements OnInit {
             "loginName":this.userName,
             "pubMedId":publication.pubMedId
         }
-        console.log(data)
-        // this.apiService.doPost('caNanoLab/rest/core/addFavorite',)
+        this.errors={};
+        this.apiService.doPost('caNanoLab/rest/core/addFavorite',data).subscribe(data=> {
+            console.log('added to favorites')
+        },
+        error=> {
+            this.errors=error;
+        })
     }
 
     onPageLengthChange(){
