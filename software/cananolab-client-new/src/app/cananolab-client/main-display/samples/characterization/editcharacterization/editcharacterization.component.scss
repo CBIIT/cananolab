@@ -1,195 +1,204 @@
 @import "../../../../main-display/main-display.component.scss";
 
+// .dataTable.dataConditions td:last-child{
+//     width:150px !important;
+//     max-width:150px !important;
+// }
 
-label {
-    font-weight:bold;
-    padding:0px 3px 0px 10px;
-}
+// .dataTable.dataConditions th:last-child{
+//     width:150px !important;
+//     max-width:150px !important;
+// }
 
-
-.editButton{
-        padding-top:5px;
-        text-align:right;
-    }
-.files{
-        width:100%;
-    }
-
-.files th{
-        width:200px;
-    }
+// label {
+//     font-weight:bold;
+//     padding:0px 3px 0px 10px;
+// }
 
 
+// .editButton{
+//         padding-top:5px;
+//         text-align:right;
+//     }
+// .files{
+//         width:100%;
+//     }
 
-
-.dataMain td.label{
-        font-weight:bold;
-        width:200px !important;
-        vertical-align:top;
-    }
-
-.antibodyProperties td.label{
-        font-weight:bold;
-        width:100px !important;
-        vertical-align:top;
-    }
-
-.antibodyProperties{
-        font-weight:bold;
-        width:600px !important;
-        vertical-align:top;
-    }
-
-.files td.label{
-        font-weight:bold;
-        width:200px;
-        vertical-align:top;
-    }
-
-    th {
-        text-align:left;
-        padding:10px;
-    }
-
-    .techniqueInstrument {
-        width:800px;
-    }
-.dataMain .techniqueInstrument td{
-        vertical-align:top;
-        border:1px solid #ccc !important;
-        padding:10px 10px 10px 10px !important;
-        margin:0px;
-    }
-
-    .techniqueInstrument th {
-        background-color:#0073b9;
-        border:1px solid #ccc;
-        color:#fff;
-    }
-
-    ul {
-        padding:0px 10px 0px 10px;
-    }
-
-    .dataMain.gray {
-        background-color:#F4F4F5;
-        padding:10px;
-        width:100%;
-    }
-.techniqueInstrument td .dataMain.gray {
-        border:1px solid #ccc;
-    }
-.techniqueInstrument td .dataMain.gray td {
-        padding:10px !important;
-        border:none !important;
-
-    }
-.dataMain.gray td.label {
-        max-width:200px !important;
-        }
-.dataMain.gray th {
-        // background-color:#0073b9;
-        color:#fff;
-        border:none !important;
-    }
-
-.techniqueInstrument td .dataMain.gray td.submit {
-        text-align:right;
-    }
-    .dataMain.submit {
-        width:100%;
-    }
-    .dataMain.submit td {
-        text-align:right;
-    }
-
-
-    .instruments {
-        width:90%;
-        border:1px solid #ccc !important;
-    }
+// .files th{
+//         width:200px;
+//     }
 
 
 
-    .instruments.form{
-        border:1px solid #ccc !important;
-        background-color:#fff;
-    }
+
+// .dataMain td.label{
+//         font-weight:bold;
+//         width:200px !important;
+//         vertical-align:top;
+//     }
+
+// .antibodyProperties td.label{
+//         font-weight:bold;
+//         width:100px !important;
+//         vertical-align:top;
+//     }
+
+// .antibodyProperties{
+//         font-weight:bold;
+//         width:600px !important;
+//         vertical-align:top;
+//     }
+
+// .files td.label{
+//         font-weight:bold;
+//         width:200px;
+//         vertical-align:top;
+//     }
+
+//     th {
+//         text-align:left;
+//         padding:10px;
+//     }
+
+//     .techniqueInstrument {
+//         width:800px;
+//     }
+// .dataMain .techniqueInstrument td{
+//         vertical-align:top;
+//         border:1px solid #ccc !important;
+//         padding:10px 10px 10px 10px !important;
+//         margin:0px;
+//     }
+
+//     .techniqueInstrument th {
+//         background-color:#0073b9;
+//         border:1px solid #ccc;
+//         color:#fff;
+//     }
+
+//     ul {
+//         padding:0px 10px 0px 10px;
+//     }
+
+//     .dataMain.gray {
+//         background-color:#F4F4F5;
+//         padding:10px;
+//         width:100%;
+//     }
+// .techniqueInstrument td .dataMain.gray {
+//         border:1px solid #ccc;
+//     }
+// .techniqueInstrument td .dataMain.gray td {
+//         padding:10px !important;
+//         border:none !important;
+
+//     }
+// .dataMain.gray td.label {
+//         max-width:200px !important;
+//         }
+// .dataMain.gray th {
+//         // background-color:#0073b9;
+//         color:#fff;
+//         border:none !important;
+//     }
+
+// .techniqueInstrument td .dataMain.gray td.submit {
+//         text-align:right;
+//     }
+//     .dataMain.submit {
+//         width:100%;
+//     }
+//     .dataMain.submit td {
+//         text-align:right;
+//     }
 
 
-    .findings th {
-        background-color:#0073b9;
-        border:1px solid #ccc;
-        color:#fff;
-    }
-    .findings {
-        width:800px;
-        margin:10px;
-        border:1px solid #ccc !important;
-    }
+//     .instruments {
+//         width:90%;
+//         border:1px solid #ccc !important;
+//     }
 
 
-    .mainBorder b {
-        margin-left:10px;
-    }
 
-.dataMain .findings td{
-        vertical-align:top;
-        border:1px solid #ccc !important;
-        padding:10px 10px 10px 10px !important;
-        margin:0px;
-    }
-.dataMain .findings.edit td{
-        vertical-align:top;
-        border: none !important;
-        padding:10px 10px 10px 10px !important;
-        margin:0px;
-    }
-
-    .findings.edit td.submit {
-        text-align:right;
-    }
-
-    .dataAndConditions {
-        border:1px solid #fff;
-        background-color:#fff;
-        width:100%;
-        }
-        .dataAndConditions.columnOrder th {
-            color:#000 !important;
-            }
-    .dataAndConditions th {
-        background-color:transparent !important;
-    }
-    .dataAndConditions.files {
-        border:1px solid #ccc;
-    }
-    .dataAndConditions.files th{
-        border:1px solid #ccc !important;
-        background-color:#0073b9 !important;
-        padding:10px 10px 10px 10px !important;
-        vertical-align:top;
-        width:200px;
-    }
-    .findings.edit .dataAndConditions.files td {
-        border:1px solid #ccc !important;
-    }
+//     .instruments.form{
+//         border:1px solid #ccc !important;
+//         background-color:#fff;
+//     }
 
 
-    input[type='number']{
-        width:75px;
-    }
+//     .findings th {
+//         background-color:#0073b9;
+//         border:1px solid #ccc;
+//         color:#fff;
+//     }
+//     .findings {
+//         width:800px;
+//         margin:10px;
+//         border:1px solid #ccc !important;
+//     }
 
-    .columnHeaderDefinitions {
-        border:1px solid #ccc;
-        background-color:#fff;
-        width:100%;
-    }
-    .columnHeaderDefinitions td{
-        border:31px solid #ccc !important;
-    }
 
-    .error {
-        color:red;
-        margin:5px;
-    }
+//     .mainBorder b {
+//         margin-left:10px;
+//     }
+
+// .dataMain .findings td{
+//         vertical-align:top;
+//         border:1px solid #ccc !important;
+//         padding:10px 10px 10px 10px !important;
+//         margin:0px;
+//     }
+// .dataMain .findings.edit td{
+//         vertical-align:top;
+//         border: none !important;
+//         padding:10px 10px 10px 10px !important;
+//         margin:0px;
+//     }
+
+//     .findings.edit td.submit {
+//         text-align:right;
+//     }
+
+//     .dataAndConditions {
+//         border:1px solid #fff;
+//         background-color:#fff;
+//         width:100%;
+//         }
+//         .dataAndConditions.columnOrder th {
+//             color:#000 !important;
+//             }
+//     .dataAndConditions th {
+//         background-color:transparent !important;
+//     }
+//     .dataAndConditions.files {
+//         border:1px solid #ccc;
+//     }
+//     .dataAndConditions.files th{
+//         border:1px solid #ccc !important;
+//         background-color:#0073b9 !important;
+//         padding:10px 10px 10px 10px !important;
+//         vertical-align:top;
+//         width:200px;
+//     }
+//     .findings.edit .dataAndConditions.files td {
+//         border:1px solid #ccc !important;
+//     }
+
+
+//     input[type='number']{
+//         width:75px;
+//     }
+
+//     .columnHeaderDefinitions {
+//         border:1px solid #ccc;
+//         background-color:#fff;
+//         width:100%;
+//     }
+//     .columnHeaderDefinitions td{
+//         border:31px solid #ccc !important;
+//     }
+
+//     .error {
+//         color:red;
+//         margin:5px;
+//     }
