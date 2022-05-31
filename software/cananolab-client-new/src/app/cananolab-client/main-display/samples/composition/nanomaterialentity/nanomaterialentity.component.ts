@@ -64,7 +64,11 @@ export class NanomaterialentityComponent implements OnInit, OnDestroy{
     }
 
     ngOnInit(): void{
+        // Getting error in FileComponent - Looks like it finds data['fileArray'] undefined
         this.data['fileArray'] = this.files;
+
+
+
         this.route.params.subscribe(
             ( params: Params ) => {
                 this.nanomaterialSampleId = params['sampleId'];
