@@ -1,24 +1,11 @@
 @import "../../main-display/main-display.component.scss";
+$leftColumnWidth:250px;
 
+table.dataTable.user td:first-child {
+    width:$leftColumnWidth !important;
+}
 
-
-
-.display {
-    min-width:600px;
-    }
-
-    .display td {
-        border:1px solid #ccc;
-        padding:10px;
-        vertical-align:top;
-    }
-
-    .display th {
-        background-color:#0073b9;
-        color:#fff;
-        border:1px solid #ccc;
-        padding:10px;
-        width:200px;
-    }
-
+table.dataTable.user td:last-child{
+    width:calc(100% - #{$leftColumnWidth});
+}
 

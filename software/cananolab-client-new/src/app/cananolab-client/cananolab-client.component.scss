@@ -251,12 +251,12 @@ table.dataTable td{
 	width:250px;
 }
 
-table.dataTable td:last-child{
-    display:inline-block;
-    border:0px ;
-	white-space: nowrap;
-    width:100%;
-}
+// table.dataTable td:last-child{
+//     display:inline-block;
+//     border:1px solid red ;
+// 	white-space: nowrap;
+//     width:100%;
+// }
 
 table.dataTable td.actions  {
 	width:110px !important;
