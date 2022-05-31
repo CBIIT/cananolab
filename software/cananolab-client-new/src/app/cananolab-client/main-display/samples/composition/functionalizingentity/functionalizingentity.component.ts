@@ -44,6 +44,7 @@ export class FunctionalizingentityComponent implements OnInit {
   }
 
   ngOnInit(): void{
+      console.log(this.data)
       this.navigationService.setCurrentSelectedItem(1);
       this.errors={};
     this.route.params.subscribe(

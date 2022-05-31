@@ -1,85 +1,13 @@
 @import "../../../../main-display/main-display.component.scss";
-@import '../../../../cananolab-client.component.scss';
 
-    .mainSection td {
-        padding-bottom:13px !important;
-        font-size:$mainFontSize;
+.mainSection table.antibodyProperties td.label{
+    font-weight:bold;
+    width:100px !important;
+    vertical-align:top;
+}
 
-    }
-
-    .mainSection .editButton{
-        padding-top:5px;
-        text-align:right;
-    }
-    .mainSection table.files{
-        width:100%;
-    }
-
-    .mainSection table.files th{
-        width:200px;
-    }
-    .mainSection table.dataMain td{
-        vertical-align:top;
-        width:250px;
-        padding:10px !important;
-    }
-
-
-    .mainSection table.dataMain td.label{
-        font-weight:bold;
-        width:200px !important;
-        vertical-align:top;
-    }
-
-    .mainSection table.antibodyProperties td.label{
-        font-weight:bold;
-        width:100px !important;
-        vertical-align:top;
-    }
-
-    .mainSection table.antibodyProperties{
-        font-weight:bold;
-        width:600px !important;
-        vertical-align:top;
-    }
-
-    .mainSection table.files td.label{
-        font-weight:bold;
-        width:200px;
-        vertical-align:top;
-    }
-
-    th {
-        text-align:left;
-        padding:10px;
-    }
-
-    .dataMain.submit {
-        width:100%;
-    }
-    .dataMain.submit td {
-        text-align:right;
-    }
-
-    .dataMain.gray {
-        background-color:#F4F4F5;
-    }
-
-    .dataMain.gray td{
-        border:none;
-    }
-
-
-    .inherentFunction th{
-        background-color:#0073b9;
-        color:#fff;
-        border:1px solid #ccc;
-    }
-
-    .inherentFunction td{
-        border:1px solid #ccc;
-    }
-    .error {
-        color:red;
-        margin:5px;
-    }
+.mainSection table.antibodyProperties{
+    font-weight:bold;
+    width:600px !important;
+    vertical-align:top;
+}

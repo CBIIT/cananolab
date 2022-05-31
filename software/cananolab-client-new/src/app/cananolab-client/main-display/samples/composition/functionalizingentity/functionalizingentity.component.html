@@ -9,7 +9,7 @@
 <div class="error" *ngIf="message">
     {{message}}
 </div>
-<div class="mainSection">
+<div class="mainSection" *ngIf="data">
     <form action="" method="get" name="functionalizingEntityForm">
     <div class="mainBorder">
         <table class="dataMain">
@@ -327,27 +327,27 @@
                     <button (click)="addInherentFunction()" class="btn-canano btn-canano-primary btn-canano-xs mr-1">Add</button>
                 </td>
             </tr>
-            <tr>
+            <tr *ngIf="data['functionList']">
                 <td></td>
                 <td>
-                        <table class="inherentFunction" width="650px">
-                            <ng-container *ngIf="data.functionList.length">
+                        <table class="dataTable">
+                            <ng-container *ngIf="data['functionList'].length">
                                 <tr>
-                                <th>
-                                    Function Type
-                                </th>
-                                <th>
-                                    Imaging Modality
-                                </th>
-                                <th>
-                                    Targets
-                                </th>
-                                <th>
-                                    Description
-                                </th>
-                                <th>
+                                    <th>
+                                        Function Type
+                                    </th>
+                                    <th>
+                                        Imaging Modality
+                                    </th>
+                                    <th>
+                                        Targets
+                                    </th>
+                                    <th>
+                                        Description
+                                    </th>
+                                    <th>
 
-                                </th>
+                                    </th>
                             </tr>
                             <tr *ngFor="let iFunction of data.functionList; let i= index ">
                                 <td>{{iFunction.type}}</td>
@@ -511,7 +511,7 @@
             </tr>
         </table>
     </div><br />
-    <div class="mainBorder">
+    <div class="mainBorder" *ngIf="data['fileList']">
         <table class="dataMain">
             <tr>
                 <td class="label">
@@ -544,7 +544,7 @@
         </table>
     </div><br />
     <div>
-        <table class="dataMain submit">
+        <table class="submit">
             <tr>
                 <td *ngIf="dataId" style="text-align:left;">
                     <button (click)="deleteFunctionalizingEntity()" class="btn-canano btn-canano-danger btn-canano-lg mr-1">Delete</button>
