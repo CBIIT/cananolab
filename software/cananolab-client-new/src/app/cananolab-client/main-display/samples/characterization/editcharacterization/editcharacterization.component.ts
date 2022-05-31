@@ -28,7 +28,7 @@ export class EditcharacterizationComponent implements OnInit {
     currentFile;
     data;
     dataTrailer;
-    errors;
+    errors={};
     findingIndex;
     fileIndex;
     instrument;
