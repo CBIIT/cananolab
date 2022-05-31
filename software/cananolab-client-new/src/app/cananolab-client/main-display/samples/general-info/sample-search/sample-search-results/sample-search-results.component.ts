@@ -88,10 +88,10 @@ export class SampleSearchResultsComponent implements OnInit, OnDestroy{
 
         this.apiService.doPost( Consts.QUERY_ADD_FAVORITE, favObj ).subscribe(
             data => {
-                console.log('MHL set Fave results: ', data);
+                // console.log('set Fave results: ', data);
             },
             err => {
-                console.log('MHL ERROR QUERY_ADD_FAVORITE: ', err);
+                console.log('ERROR QUERY_ADD_FAVORITE: ', err);
             }
         );
     }

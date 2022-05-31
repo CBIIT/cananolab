@@ -90,11 +90,9 @@ export class PointOfContactCreateComponent implements OnInit, AfterViewInit{
                 this.showPocCreate = false;
             },
             (err) => {
-                console.log('MHL ERROR Form server POC save: ', err);
+                console.error('server POC save: ', err);
                 this.showPocCreate = false;
-            }
-            );
-
+            });
     }
 
     roleSelectClicked( rol ){

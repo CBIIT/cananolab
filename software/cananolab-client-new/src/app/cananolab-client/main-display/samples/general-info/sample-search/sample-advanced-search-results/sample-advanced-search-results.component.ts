@@ -18,13 +18,6 @@ export class SampleAdvancedSearchResultsComponent implements OnInit{
     }
 
     ngOnInit(): void{
-/* Tryed to get the results by passing it in the router url, didn't work right @TODO It is worth revisiting.
-        this.route.params.subscribe( ( params: Params ) => {
-            console.log('MHL 000 params: ', params);
-            this.myParam = params['queryObject'];
-            console.log( 'MHL 001 myParam: ', this.myParam );
-        } );*/
-
         this.searchResults0 = this.sampleAdvancedSearchService.getSearchResults();
         this.dataRows = this.searchResults0;
     }

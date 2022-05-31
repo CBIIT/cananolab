@@ -52,11 +52,11 @@ export class SampleCopyComponent implements OnInit{
     onSubmitCopyClicked(){
         this.apiService.doPost( Consts.QUERY_SAMPLE_COPY, { 'newSampleName': this.newSampleName, 'sampleName': this.sampleName } ).subscribe(
             data => {
-                console.log( 'MHL Copy sample: ', data );
+                // console.log( 'Copy sample: ', data );
             },
             ( err ) => {
-                console.log( 'MHL ERROR Copy sample: ', err );
-                alert('Error Copy sample: ' + err['error'][0] ); // @TODO need nice error display
+                console.log( 'ERROR Copy sample: ', err );
+                // alert('Error Copy sample: ' + err['error'][0] ); // @TODO need nice error display
             }
         );
     }

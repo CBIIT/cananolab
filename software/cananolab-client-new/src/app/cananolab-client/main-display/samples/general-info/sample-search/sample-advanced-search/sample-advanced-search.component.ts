@@ -14,7 +14,7 @@ export class SampleAdvancedSearchComponent implements OnInit{
     helpUrl = Consts.HELP_URL_SAMPLE_ADVANCED_SEARCH;
     AND = 0;
     OR = 1;
-    PLEASE_SELECT = '-- Please Select --';
+    PLEASE_SELECT = '--Select--';
     masterLogicalOperator = 'and';
 
     sampleQueries = [];
@@ -104,8 +104,8 @@ export class SampleAdvancedSearchComponent implements OnInit{
 
     // Composition edit 2nd dropdown
     onCompositionEditCriteriaDropdownTwo(){
-        // console.log( 'MHL onCompositionEditCriteriaDropdownTwo: ', this.compositionCriteriaDropdownTwo );
-        // console.log( 'MHL compositionEditCriteriaDropdownTwoValue: ', this.compositionEditCriteriaDropdownTwoValue );
+        // console.log( 'onCompositionEditCriteriaDropdownTwo: ', this.compositionCriteriaDropdownTwo );
+        // console.log( 'compositionEditCriteriaDropdownTwoValue: ', this.compositionEditCriteriaDropdownTwoValue );
     }
 
     onResetCompositionCriteria(){
@@ -159,7 +159,7 @@ export class SampleAdvancedSearchComponent implements OnInit{
                 break;
 
             default:
-                console.log( 'MHL ERROR Unknown onCompositionEditCriteriaDropdownOne Type sampleData: ', this.sampleData );
+                console.log( 'ERROR Unknown onCompositionEditCriteriaDropdownOne Type sampleData: ', this.sampleData );
                 break;
         }
         this.compositionEditCriteriaDropdownTwoValue = this.PLEASE_SELECT;
@@ -359,18 +359,12 @@ export class SampleAdvancedSearchComponent implements OnInit{
     getCharacterizationDatumUnitOptions( datumName ){
         this.apiService.doGet( Consts.QUERY_SAMPLE_GET_DATUM_UNIT_OPTIONS, 'datumName=' + datumName ).subscribe(
             data => {
-                console.log( 'MHL 00 UNIT data: ' + data );
-                console.log( 'MHL 01 UNIT typeof data: ' + typeof data );
-                console.log( 'MHL 02 UNIT data: ', String( data ).split( ',' ) );
-
                 if( data.length < 1 ){
                     this.characterizationCriteriaDropdownFour = [];
                 }else{
                     this.characterizationCriteriaDropdownFour = String( data ).split( ',' );
                 }
-                console.log( 'MHL 03 UNIT data  characterizationCriteriaDropdownFour: ', this.characterizationCriteriaDropdownFour );
                 this.characterizationCriteriaDropdownFourValue = this.PLEASE_SELECT;
-                console.log( 'MHL 04 UNIT characterizationCriteriaDropdownFour: ' + this.characterizationCriteriaDropdownFour );
             },
             ( err ) => {
                 console.log( 'ERROR QUERY_SAMPLE_GET_DATUM_UNIT_OPTIONS: ', err );
@@ -410,7 +404,6 @@ export class SampleAdvancedSearchComponent implements OnInit{
         }
 
         this.characterizationQueries.push( tempObj );
-        console.log( 'MHL onAddCharacterizationCriteria characterizationQueries: ', this.characterizationQueries );
 
         // Return Characterization part of UI to initial values
         this.clearInputUpdateCharacterizationCriteria();
@@ -418,21 +411,18 @@ export class SampleAdvancedSearchComponent implements OnInit{
 
 
     onEditCharacterizationCriteria( i ){
-        console.log( 'MHL onEditCharacterizationCriteria: ', i );
+        console.log( 'onEditCharacterizationCriteria: ', i );
     }
 
     masterCriteriaAndRadioClick(){
         this.masterLogicalOperator = 'and';
-        console.log( 'MHL masterCriteriaAndRadioClick masterLogicalOperator: ', this.masterLogicalOperator );
     }
 
     masterCriteriaOrRadioClick(){
         this.masterLogicalOperator = 'or';
-        console.log( 'MHL masterCriteriaOrRadioClick masterLogicalOperator: ', this.masterLogicalOperator );
     }
 
     onResetCharacterizationCriteria(){
-        console.log( 'MHL onResetCharacterizationCriteria' );
         this.characterizationQueries = [];
         this.clearInputUpdateCharacterizationCriteria();
     }
@@ -462,18 +452,14 @@ export class SampleAdvancedSearchComponent implements OnInit{
         queryObject['characterizationLogicalOperator'] = this.characterizationLogicalOperator;
         queryObject['logicalOperator'] = this.masterLogicalOperator;
 
-        console.log( 'MHL queryObject: ', queryObject );
         this.apiService.doPost( Consts.QUERY_SAMPLE_ADVANCED_SEARCH, queryObject ).subscribe(
             data => {
                 this.sampleAdvancedSearchService.setSearchResults( data['resultTable']['dataRows'] );
-                console.log( 'MHL QUERY_SAMPLE_ADVANCED_SEARCH data: ', data );
-                // Passing queryObject as a route perimeter changed (broke) it
-                // this.router.navigate(['home/samples/sampleAdvancedSearchResults', queryObject]);
-                this.router.navigate( ['home/samples/sample-advanced-search-results'] ); // @FIXME TESTING  Don't hard code this!!!
+                this.router.navigate( ['home/samples/sample-advanced-search-results'] );
 
             },
             ( err ) => {
-                console.log( 'MHL ERROR QUERY_SAMPLE_ADVANCED_SEARCH err: ', err );
+                console.log( 'ERROR QUERY_SAMPLE_ADVANCED_SEARCH err: ', err );
             } );
 
     }

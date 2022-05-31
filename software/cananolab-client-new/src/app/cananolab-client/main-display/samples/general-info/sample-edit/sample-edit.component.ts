@@ -7,6 +7,7 @@ import { timeout } from 'rxjs/operators';
 import { PointOfContactService } from '../../../../point-of-contact/point-of-contact.service';
 import { ApiService } from '../../../../common/services/api.service';
 import { NavigationService } from '../../../../common/services/navigation.service';
+import { SampleAvailabilityDisplayService } from '../sample-search/sample-search-results/sample-availability-display/sample-availability-display.service';
 @Component( {
     selector: 'canano-sample-edit',
     templateUrl: './sample-edit.component.html',
@@ -22,8 +23,9 @@ export class SampleEditComponent implements OnInit, OnDestroy{
     pointOfContacts;
     showPointOfContactCreate = false;
 
-    constructor( private navigationService:NavigationService,private route: ActivatedRoute, private httpClient: HttpClient,
-                 private pointOfContactService: PointOfContactService, private apiService: ApiService ){
+    constructor( private navigationService: NavigationService, private route: ActivatedRoute, private httpClient: HttpClient,
+                 private pointOfContactService: PointOfContactService, private apiService: ApiService,
+                 private sampleAvailabilityDisplayService: SampleAvailabilityDisplayService){
     }
 
     ngOnInit(): void{
@@ -119,6 +121,17 @@ export class SampleEditComponent implements OnInit, OnDestroy{
     onAddPocClick(){
         this.pointOfContactService.showPointOfContactCreateEmitter.emit( true );
         this.showPointOfContactCreate = true;
+    }
+
+
+    onAvailabilityClick( id ){
+        this.apiService.doGet( Consts.QUERY_SAMPLE_AVAILABILITY, 'sampleId=' + id).subscribe(
+            data => {
+                this.sampleAvailabilityDisplayService.displayStuff( data );
+            },
+            ( err ) => {
+                console.log( 'ERROR QUERY_SAMPLE_AVAILABILITY: ', err );
+            } );
     }
 
     ngOnDestroy(): void{

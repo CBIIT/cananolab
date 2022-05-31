@@ -32,24 +32,23 @@ export class MyWorkspaceComponent implements OnInit {
         data => {
             this.samples = data['samples'];
             this.errors={};
-            console.log( 'MHL QUERY_GET_WORKSPACE samples: ', data );
         },
 
         ( err ) => {
             this.errors=err;
-            console.error( 'MHL ERROR> QUERY_GET_WORKSPACE samples: ', err );
+            console.log( 'ERROR QUERY_GET_WORKSPACE samples: ', err );
         } );
 
     this.apiService.doGet( Consts.QUERY_GET_WORKSPACE, 'type=protocol' ).subscribe(
         data => {
             this.errors={};
             this.protocols = data['protocols'];
-            console.log( 'MHL QUERY_GET_WORKSPACE protocols: ', data );
+            console.log( 'QUERY_GET_WORKSPACE protocols: ', data );
         },
 
         ( err ) => {
             this.errors=err;
-            console.error( 'MHL ERROR> QUERY_GET_WORKSPACE protocols: ', err );
+            console.error( 'ERROR QUERY_GET_WORKSPACE protocols: ', err );
         } );
 
 
@@ -57,18 +56,18 @@ export class MyWorkspaceComponent implements OnInit {
         data => {
             this.errors={};
             this.publications = data['publications'];
-            console.log( 'MHL QUERY_GET_WORKSPACE publications: ', data );
+            console.log( 'QUERY_GET_WORKSPACE publications: ', data );
         },
 
         ( err ) => {
             this.errors=err;
-            console.error( 'MHL ERROR> QUERY_GET_WORKSPACE publications: ', err );
+            console.error( 'ERROR> QUERY_GET_WORKSPACE publications: ', err );
         } );
   }
+
     navigateToSampleView(sampleId, sampleName){
         this.router.navigate(['home/samples/view-sample', sampleId  ]);
     }
-
 
     navigateToSampleEdit(sampleId, sampleName){
         this.router.navigate(['home/samples/sample', sampleId ]);
@@ -84,22 +83,18 @@ export class MyWorkspaceComponent implements OnInit {
                 data => {
                     this.errors={};
                     this.loadData();
-                    console.log( 'MHL Answer from \'caNanoLab/rest/sample/deleteSampleFromWorkspace?sampleId=\'' + sampleId + ':', data );
                 },
 
                 ( err ) => {
                     this.loadData();
-                    console.error( 'MHL ERROR from \'caNanoLab/rest/sample/deleteSampleFromWorkspace?sampleId=\'' + sampleId + ':', err );
-
+                    console.error( '\'caNanoLab/rest/sample/deleteSampleFromWorkspace?sampleId=\'' + sampleId + ':', err );
                 } );
         }
-
     }
 
 
 
     navigateToProtocolEdit(protocolId, protocolName){
-        console.log('MHL navigateToProtocolEdit protocolId: ' + protocolId + '    name: ', protocolName);
         this.protocolsService.setCurrentProtocolScreen( ProtocolScreen.PROTOCOL_EDIT_SCREEN, protocolId );
         this.router.navigate(['home/protocols/edit-protocol',protocolId]);
     }
@@ -109,13 +104,12 @@ export class MyWorkspaceComponent implements OnInit {
                 this.apiService.doGet( 'caNanoLab/rest/protocol/deleteProtocolById', 'protocolId=' + protocolId ).subscribe(
                     data => {
                     this.errors={};
-                    console.log( 'MHL Answer from \'caNanoLab/rest/sample/deleteProtocolById?protocolId=\'' + protocolId + ':', data );
                     this.loadData();
                 },
 
                 ( err ) => {
                     this.errors=err;
-                    console.error( 'MHL ERROR from \'caNanoLab/rest/sample/deleteProtocolById?protocolId=\'' + protocolId + ':', err );
+                    console.error( '\'caNanoLab/rest/sample/deleteProtocolById?protocolId=\'' + protocolId + ':', err );
                 } );
         }
 

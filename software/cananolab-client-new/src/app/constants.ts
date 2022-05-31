@@ -12,6 +12,7 @@ export const Consts = {
     QUERY_GET_USER_GROUPS: 'caNanoLab/rest/security/getUserGroups',
     QUERY_GET_COLLABORATION_GROUPS: 'caNanoLab/rest/core/getCollaborationGroup',
     QUERY_GET_USERS: 'caNanoLab/rest/core/getUsers',
+    SAVE_COMPOSING_ELEMENT: 'caNanoLab/rest/nanomaterialEntity/saveComposingElement',
 
     QUERY_SAMPLE_SEARCH_BY_PUB: 'caNanoLab/rest/publication/searchById',
     QUERY_SAMPLE_GET_NAMES: 'caNanoLab/rest/sample/getSampleNames',
@@ -29,8 +30,10 @@ export const Consts = {
     QUERY_SAMPLE_GET_DATUM_OPTIONS:  'caNanoLab/rest/sample/getDecoratedDatumOptions',
     QUERY_SAMPLE_GET_DATUM_UNIT_OPTIONS:  'caNanoLab/rest/sample/getDatumUnitOptions',
 
+    QUERY_NANOMATERIAL_UPDATE: 'caNanoLab/rest/nanomaterialEntity/submit',
     QUERY_NANOMATERIAL_EDIT: 'caNanoLab/rest/nanomaterialEntity/edit',
     QUERY_NANOMATERIAL_SETUP: 'caNanoLab/rest/nanomaterialEntity/setup',
+    QUERY_NANOMATERIAL_DELETE: 'caNanoLab/rest/nanomaterialEntity/delete',
 
     QUERY_PROTOCOL_SETUP: 'caNanoLab/rest/protocol/setup',
     QUERY_SEARCH_PROTOCOL: 'caNanoLab/rest/protocol/searchProtocol',

@@ -1,6 +1,8 @@
 <div
      class="newComposingElement m-3"
-     *ngIf="showAddComposingElement"
+     [ngClass]="{
+            'hide' : (! showAddComposingElement) && (! showEditComposingElement)
+        }"
 >
 
     <table class="subSubmissionView p-1" >
@@ -21,11 +23,11 @@
                 <div *ngIf="setupData !== undefined"
                      id="elementTypePrompt">
                     <select id="elementType"
-                            [(ngModel)]="composingElementFormType"
+                            [(ngModel)]="currentEditComposingElement['type']"
                             (ngModelChange)="typeChange()"
                     >
                         <option value=""
-                            selected="{{composingElementFormType===''}}"
+                            selected="{{currentEditComposingElement['type']===''}}"
                         ></option>
                         <option *ngFor="let type of setupData['composingElementTypes']"
                                 value="{{type}}"
@@ -42,7 +44,7 @@
 
                 <!-- Add other (New) Type -->
                 <div
-                    *ngIf="composingElementFormType ==='[other]'"
+                    *ngIf="currentEditComposingElement['type'] ==='[other]'"
                     class="promptBox p-2 mt-1"
                 >
                     <table class="promptBox">
@@ -72,7 +74,7 @@
                                 </button>
                                 <button
                                     class="btn-canano btn-canano-default btn-canano-xs"
-                                    (click)="otherTypeText='';composingElementFormType=typeTrailer"
+                                    (click)="onCancelAdd()"
                                 >Cancel
                                 </button>
                             </td>
@@ -94,7 +96,7 @@
                     type="text"
                     size="30"
                     id="elementName"
-                    [ngModel]="composingElementFormName"
+                    [(ngModel)]="currentEditComposingElement['name']"
                 >
                 <!-- END Chemical Name text input -->
             </td>
@@ -112,7 +114,7 @@
                      id="pubChemDataSourcePrompt">
                     <select
                         id="pubChemDataSource"
-                        [ngModel]="pubChemDataSourceName"
+                        [(ngModel)]="currentEditComposingElement['pubChemSourceName']"
                     >
                         <option value="">
                         </option>
@@ -120,7 +122,7 @@
                         <option
                             *ngFor="let dataSource of setupData['pubChemDataSources']"
                             value="{{dataSource}}"
-                            selected="{{dataSource===pubChemDataSourceName}}"
+                            selected="{{dataSource===currentEditComposingElement['pubChemSourceName']}}"
                         >
                             {{dataSource}}
                         </option>
@@ -136,7 +138,7 @@
             </td>
             <td>
                 <input type="text"
-                       [ngModel]="pubChemId"
+                       [(ngModel)]="currentEditComposingElement['pubChemId']"
                        size="30"
                        onkeydown="return"
                        id="pubChemId"
@@ -153,7 +155,7 @@
             <td>
                 <input
                     type="number"
-                    [ngModel]="composingElementFormValue"
+                    [(ngModel)]="currentEditComposingElement['value']"
                     size="30"
                     id="elementValue"
                 >
@@ -173,7 +175,7 @@
 
                     <!-- Amount Unit dropdown -->
                     <select
-                        [(ngModel)]="composingElementFormValueUnit"
+                        [(ngModel)]="currentEditComposingElement['valueUnit']"
                         name="composingElementFormValueUnit"
                         id="elementValueUnit"
                         (ngModelChange)="amountUnitChange()"
@@ -184,13 +186,13 @@
                         <option
                             *ngFor="let unit of  setupData['composingElementUnits']"
                             value="{{unit}}"
-                            [selected]="unit === composingElementFormValueUnit"
+                            [selected]="unit === currentEditComposingElement['valueUnit']"
                         >
                             {{unit}}
                         </option>
 
                         <option
-                            [selected]="'[other]' === composingElementFormValueUnit"
+                            [selected]="'[other]' === currentEditComposingElement['valueUnit']"
                             value="[other]"
                         >
                             [other]
@@ -199,7 +201,7 @@
                     <!-- END Amount Unit dropdown -->
 
                     <!-- Amount Unit [other] -->
-                    <div *ngIf="composingElementFormValueUnit ==='[other]'" class="promptBox p-2 mt-1" >
+                    <div *ngIf="currentEditComposingElement['valueUnit'] ==='[other]'" class="promptBox p-2 mt-1" >
                         <table width="100%">
                             <tr>
                                 <td>
@@ -226,7 +228,7 @@
 
                                     <button
                                         class="btn-canano btn-canano-default btn-canano-xs"
-                                        (click)="localFormOtherAmountUnitText='';composingElementFormValueUnit=amountUnitTrailer">Cancel
+                                        (click)="localFormOtherAmountUnitText='';currentEditComposingElement['valueUnit']=amountUnitTrailer">Cancel
                                     </button>
                                 </td>
                             </tr>
@@ -248,7 +250,7 @@
                      id="molFormulaTypePrompt"
                 >
                     <select
-                        [(ngModel)]="composingElementFormMolecularFormulaType"
+                        [(ngModel)]="currentEditComposingElement['molecularFormulaType']"
                         (ngModelChange)="molecularFormulaTypeChange()"
                         id="molFormulaType"
                         name="composingElementFormMolecularFormulaType"
@@ -258,19 +260,19 @@
                             *ngFor="let type of  setupData['molecularFormulaTypes']"
                             value="{{type}}"
 
-                            [selected]="type===composingElementFormMolecularFormulaType"
+                            [selected]="type===currentEditComposingElement['molecularFormulaType']"
                         >
                             {{type}}
                         </option>
                         <option
                             value="[other]"
-                            [selected]="'[other]' === composingElementFormMolecularFormulaType"
+                            [selected]="'[other]' === currentEditComposingElement['molecularFormulaType']"
                         >
                             [other]
                         </option>
                     </select>
                     <div
-                        *ngIf="composingElementFormMolecularFormulaType === '[other]'"
+                        *ngIf="currentEditComposingElement['molecularFormulaType'] === '[other]'"
                         class="promptBox p-2 mt-1"
                     >
                         <table width="100%" class="promptBox">
@@ -298,7 +300,7 @@
                                         Add
                                     </button>
                                     <button type="button" class="btn-canano btn-canano-default btn-canano-xs"
-                                        (click)="composingElementFormMolecularFormulaType=molecularFormulaTypeTrailer"
+                                        (click)="currentEditComposingElement['molecularFormulaType']=molecularFormulaTypeTrailer"
                                     >
                                         Cancel
                                     </button>
@@ -316,7 +318,7 @@
                     type="text"
                     id="molecularFormula"
                     class="promptBox"
-                    [(ngModel)]="molecularFormula"
+                    [(ngModel)]="currentEditComposingElement['molecularFormula']"
                 >
             </td>
         </tr>
@@ -327,7 +329,7 @@
             <td colspan="3">
                 <input type="text"
                        size="30"
-                       [(ngModel)]="composingElementForDescription"
+                       [(ngModel)]="currentEditComposingElement['description']"
                        id="elementDescription"
                 >
             </td>
@@ -460,11 +462,12 @@
             <td></td>
             <td></td>
             <td>
-                <button class="btn-canano btn-canano-primary btn-canano-xs mr-1">Save</button>
+                <button class="btn-canano btn-canano-primary btn-canano-xs mr-1"
+                        (click)="onNewComposingElementSave()"
+                >Save</button>
                 <button
                     class="btn-canano btn-canano-default btn-canano-xs mr-1"
                     (click)="onNewComposingElementCancel()"
-
                 >Cancel</button>
             </td>
         </tr>

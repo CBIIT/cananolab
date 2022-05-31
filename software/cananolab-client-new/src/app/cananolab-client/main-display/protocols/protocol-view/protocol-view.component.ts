@@ -15,7 +15,6 @@ export class ProtocolViewComponent implements OnInit{
 
     ngOnInit(): void{
        this.currentProtocol = this.protocolsService.getCurrentProtocolInfo();
-       console.log('MHL currentProtocol: ', this.currentProtocol);
     }
 
 }

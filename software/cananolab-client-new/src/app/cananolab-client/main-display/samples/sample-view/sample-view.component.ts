@@ -29,7 +29,6 @@ export class SampleViewComponent implements OnInit{
         this.navigationService.setCurrentSelectedItem(0);
         this.route.params.subscribe(
             ( params: Params ) => {
-                console.log( 'MHL 70 params: ', params );
                 this.sampleId = params['sampleId'].replace( /^.*\?sampleId=/, '' ).replace( /&.*$/, '' );
                 this.sampleName = params['sampleId'].replace( /^.*sampleName=/, '' );
                 this.toolHeadingNameViewSample = 'Sample ' + this.sampleName;
@@ -50,11 +49,8 @@ export class SampleViewComponent implements OnInit{
                     data => {
                         Properties.SAMPLE_TOOLS = true;
                         this.sampleData = data;
-                        console.log( 'MHL data.pointOfContactMap: ', data['pointOfContactMap'] );
-                        console.log( 'MHL data.pointOfContactMap contactPerson: ', data['pointOfContactMap']['contactPerson'][0] );
                         Properties.CURRENT_SAMPLE_NAME = data['sampleName'];
                         this.pointOfContacts = this.sampleData['pointOfContactMap'];
-                        console.log( 'MHL pointOfContacts: ', this.pointOfContacts );
                         this.keyWords = this.sampleData.keywords.split( /<br>/ );
                         this.toolHeadingNameViewSample = 'Sample ' + Properties.CURRENT_SAMPLE_NAME;
                     } );
@@ -63,9 +59,18 @@ export class SampleViewComponent implements OnInit{
     }
 
     topButtonGeneralInfo(){
-        this.router.navigate( ['home/samples/view-sample', '?sampleId=' + Properties.CURRENT_SAMPLE_ID] );  // @FIXME  Don't hard code these
+        this.router.navigate( ['home/samples/view-sample', '?sampleId=' + Properties.CURRENT_SAMPLE_ID] );
     }
     topButtonComposition(){
+        this.router.navigate( ['home/samples/composition', Properties.CURRENT_SAMPLE_ID] );
+    }
+
+    topButtonCharacterization(){
+        this.router.navigate( ['home/samples/characterization', Properties.CURRENT_SAMPLE_ID] );
+    }
+
+    topButtonPublication(){
+        this.router.navigate( ['home/samples/publications', Properties.CURRENT_SAMPLE_ID] );
     }
 
     getSampleViewData(){

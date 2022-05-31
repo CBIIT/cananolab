@@ -32,11 +32,10 @@ export class MyFavoritesComponent implements OnInit{
                 this.favSamples = <any>data['samples'];
                 this.favProtocols = <any>data['protocols'];
                 this.favPublications = <any>data['publications'];
-                console.log( 'MHL QUERY_GET_FAVORITE: ', data );
             },
 
             ( err ) => {
-                console.error( 'MHL ERROR> QUERY_GET_FAVORITE: ', err );
+                console.error( 'ERROR QUERY_GET_FAVORITE: ', err );
             } );
 
     }
@@ -47,11 +46,9 @@ export class MyFavoritesComponent implements OnInit{
                 this.favSamples = <any>data['samples'];
                 this.favProtocols = <any>data['protocols'];
                 this.favPublications = <any>data['publications'];
-
             },
             err => {
-                console.log( 'MHL ERROR deleteSampleFromFavorites: ', err );
-
+                console.log( 'ERROR deleteSampleFromFavorites: ', err );
             }
         );
     }
@@ -62,17 +59,15 @@ export class MyFavoritesComponent implements OnInit{
                 this.favSamples = <any>data['samples'];
                 this.favProtocols = <any>data['protocols'];
                 this.favPublications = <any>data['publications'];
-
             },
             err => {
-                console.log( 'MHL ERROR deleteSampleFromFavorites: ', err );
+                console.error( 'ERROR deleteSampleFromFavorites: ', err );
 
             }
         );
     }
 
     deleteSampleFromFavorites( favToDelete ){
-        console.log( 'MHL favToDelete: ', favToDelete );
         this.apiService.doPost( Consts.QUERY_DELETE_FAVORITE, favToDelete ).subscribe(
             data => {
                 this.favSamples = <any>data['samples'];
@@ -81,8 +76,7 @@ export class MyFavoritesComponent implements OnInit{
 
             },
             err => {
-                console.log( 'MHL ERROR deleteSampleFromFavorites: ', err );
-
+                console.log( 'ERROR deleteSampleFromFavorites: ', err );
             }
         );
     }
@@ -96,7 +90,6 @@ export class MyFavoritesComponent implements OnInit{
     }
 
     navigateToProtocolEdit( protocolId ){
-        console.log( 'MHL navigateToProtocolEdit protocolId: ', protocolId );
         this.protocolsService.setCurrentProtocolScreen( ProtocolScreen.PROTOCOL_EDIT_SCREEN, protocolId );
         this.router.navigate( ['home/protocols/edit-protocol',protocolId] );  // @FIXME  Don't hard code these
     }

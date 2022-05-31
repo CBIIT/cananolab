@@ -1,67 +1,70 @@
 <div class="composing-element-div">
-
     <div>
-        <b>Composing Element</b> <button
-        class="btn-canano btn-canano-primary btn-canano-xs ml-1"
-        (click)="showAddNewComposingElementForm()"
-    >Add</button>
+        <b>Composing Element</b>
+        <button
+            class="btn-canano btn-canano-primary btn-canano-xs ml-1"
+            [disabled]="showAddNewComposingElement || showEditComposingElement"
+            (click)="showAddNewComposingElementForm()"
+        >Add</button>
     </div>
-<canano-composing-element-form
-    *ngIf="showAddNewComposingElement"
-></canano-composing-element-form>
+    <canano-composing-element-form
+        [composingElementsArray]="composingElementsArray"
+    ></canano-composing-element-form>
 
-<table *ngFor="let compElement of composingElementsArray"
-    class="m-2"
->
-    <tr>
-        <td>
-            {{compElement['type']}} (name: {{compElement['name']}})
-        </td>
-        <td>
-            <span class="test-btn-span">
-                <button
-                    class="btn-canano btn-canano-primary btn-canano-xs mr-1"
-                >
-                    Edit
-                </button>
-            </span>
-        </td>
-    </tr>
-    <tr>
-        <td>
-            PubChem ID
-        </td>
-        <td>
-            <a href="http://pubchem.ncbi.nlm.nih.gov/summary/summary.cgi?cid={{compElement['pubChemId']}}" target="caNanoLab - View PubChem">{{compElement['pubChemId']}}</a>
-            &nbsp;({{compElement['pubChemDataSourceName']}})
-        </td>
-    </tr>
-    <tr>
-        <td>
-            Molecular Formula
-        </td>
-        <td>
-             {{compElement['molecularFormula']}} ({{compElement['molecularFormulaType']}})
-        </td>
-    </tr>
-    <tr>
-        <td>
-            Description
-        </td>
-        <td>
-            {{compElement['description']}}
-        </td>
-    </tr>
-    <tr>
-        <td>
-            Function
-        </td>
-        <td>
-            <span *ngFor="let iFunction of compElement['inherentFunction']">
-                {{iFunction['type']}} : {{iFunction['description']}}
-                <span *ngIf="iFunction['type']==='imaging function'"> (image modality:  {{iFunction['modality']}})</span>
-            </span>
-        </td>
-    </tr>
-</table>
+    <table *ngFor="let compElement of composingElementsArray; let i = index"
+        class="m-2"
+    >
+        <tr>
+            <td>
+                {{compElement['type']}} (name: {{compElement['name']}})
+            </td>
+            <td>
+                <span class="test-btn-span">
+                    <button
+                        [disabled]="showAddNewComposingElement || showEditComposingElement"
+                        class="btn-canano btn-canano-primary btn-canano-xs mr-1"
+                        (click)="editClick(compElement, i )"
+                    >
+                        Edit
+                    </button>
+                </span>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                PubChem ID
+            </td>
+            <td>
+                <a href="http://pubchem.ncbi.nlm.nih.gov/summary/summary.cgi?cid={{compElement['pubChemId']}}" target="caNanoLab - View PubChem">{{compElement['pubChemId']}}</a>
+                &nbsp;({{compElement['pubChemDataSourceName']}})
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Molecular Formula
+            </td>
+            <td>
+                 {{compElement['molecularFormula']}} ({{compElement['molecularFormulaType']}})
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Description
+            </td>
+            <td>
+                {{compElement['description']}}
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Function
+            </td>
+            <td>
+                <span *ngFor="let iFunction of compElement['inherentFunction']">
+                    {{iFunction['type']}} : {{iFunction['description']}}
+                    <span *ngIf="iFunction['type']==='imaging function'"> (image modality:  {{iFunction['modality']}})</span>
+                </span>
+            </td>
+        </tr>
+    </table>
 </div>

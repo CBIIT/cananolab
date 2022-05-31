@@ -100,8 +100,6 @@ export class PointOfContactService {
         } // END of poc loop
 
         query += '}]}';
-
-        console.log('MHL onPocSaveClick: ', query);
         return query;
     }
 

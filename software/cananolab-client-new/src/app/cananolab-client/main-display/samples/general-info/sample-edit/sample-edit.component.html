@@ -3,6 +3,7 @@
     [toolHeadingName]="toolHeadingNameSearchSample"
 >
 </canano-main-display-heading>
+<canano-sample-availability-display></canano-sample-availability-display>
 
 <div class="mainSection">
     <div class="mainBorder">
@@ -63,6 +64,7 @@
                 Metrics
                 <button
                     class="btn btn-primary"
+                    (click)="onAvailabilityClick(sampleId)"
                 >
                     Generate
                 </button>

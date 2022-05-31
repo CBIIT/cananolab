@@ -23,3 +23,17 @@ $composing-element-input-text-color: #5C5C5C;
 .bottom-button-div{  // @TODO rename this
     width: 75%;
 }
+
+.other-nanomaterial-type{
+    width: 100%;
+    background-color: $composing-element-input-background-color;
+    border: solid #e0e0fa 2px;
+}
+
+td{
+    border: solid #ff00aa;
+}
+
+.other-nanomaterial-type-input{
+    width: 100%;
+}

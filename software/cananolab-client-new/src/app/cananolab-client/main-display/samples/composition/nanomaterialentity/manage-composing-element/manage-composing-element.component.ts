@@ -10,22 +10,37 @@ import { Subject } from 'rxjs';
     styleUrls: ['./manage-composing-element.component.scss']
 } )
 export class ManageComposingElementComponent implements OnInit{
-    @Input() composingElementsArray;
+    @Input() composingElementsArray = [];
     showAddNewComposingElement = false;
+    showEditComposingElement = false;
+    elementTrailer = {};
     private ngUnsubscribe: Subject<boolean> = new Subject<boolean>();
+
     constructor( private utilService: UtilService, private nanomaterialService: NanomaterialService ){
     }
 
     ngOnInit(): void{
-        console.log( 'MHL 007 composingElementsArray: ', this.composingElementsArray );
-
-        this.nanomaterialService.NewComposingElementShowEmitter.pipe( takeUntil( this.ngUnsubscribe ) )
+        this.nanomaterialService.newComposingElementShowEmitter.pipe( takeUntil( this.ngUnsubscribe ) )
             .subscribe( ( data ) => {
+                this.showAddNewComposingElement = data;
                 if( ! data ){
                     this.showAddNewComposingElement = false;
                 }
             } );
 
+        // Sends the index
+        this.nanomaterialService.editComposingElementShowEmitter.pipe( takeUntil( this.ngUnsubscribe ) )
+            .subscribe( ( data ) => {
+                this.showEditComposingElement = data;
+                if( ! data ){
+                    this.showEditComposingElement = false;
+                }
+
+            } );
+
+        this.nanomaterialService.editComposingElementCancelEmitter.pipe( takeUntil( this.ngUnsubscribe ) ).subscribe( (data) => {
+            this.composingElementsArray[data] = {...this.elementTrailer};
+        } );
         this.init();
     }
 
@@ -36,7 +51,6 @@ export class ManageComposingElementComponent implements OnInit{
             await this.utilService.sleep( 125 )
             runaway--;
         }
-        console.log( 'MHL 008 composingElementsArray: ', this.composingElementsArray );
     }
 
     showAddNewComposingElementForm(){
@@ -44,5 +58,10 @@ export class ManageComposingElementComponent implements OnInit{
         this.nanomaterialService.setNewComposingElementShow();
     }
 
+    editClick( compElement, i ){
+        this.nanomaterialService.setEditComposingElementShow();
+        this.nanomaterialService.editComposingElement( i );
+        this.elementTrailer = {...this.composingElementsArray[i]};
+    }
 
 }

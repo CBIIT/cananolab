@@ -77,32 +77,30 @@ export class CompositionComponent implements OnInit{
     }
     onChemicalAssociationClick(dataId){
         if (dataId==-1){
-            this.router.navigate( ['home/samples/composition/chemical-association', Properties.CURRENT_SAMPLE_ID] );  // @FIXME  Don't hard code these
+            this.router.navigate( ['home/samples/composition/chemical-association', Properties.CURRENT_SAMPLE_ID] );
         }
         else {
-            this.router.navigate( ['home/samples/composition/chemical-association', Properties.CURRENT_SAMPLE_ID, dataId] );  // @FIXME  Don't hard code these
+            this.router.navigate( ['home/samples/composition/chemical-association', Properties.CURRENT_SAMPLE_ID, dataId] );
         }
     }
     onFunctionalizingEntityClick(dataId){
         if (dataId==-1){
-            this.router.navigate( ['home/samples/composition/functionalizing-entity', Properties.CURRENT_SAMPLE_ID] );  // @FIXME  Don't hard code these
+            this.router.navigate( ['home/samples/composition/functionalizing-entity', Properties.CURRENT_SAMPLE_ID] );
         }
         else {
-            this.router.navigate( ['home/samples/composition/functionalizing-entity', Properties.CURRENT_SAMPLE_ID, dataId] );  // @FIXME  Don't hard code these
+            this.router.navigate( ['home/samples/composition/functionalizing-entity', Properties.CURRENT_SAMPLE_ID, dataId] );
         }
     }
 
     onNanomaterialEntityClick(dataId){
-        console.log('MHL onNanomaterialEntityClick: ', dataId);
-        console.log('MHL onNanomaterialEntityClick this.sampleName: ', this.sampleName);
-        this.router.navigate( ['home/samples/composition/nanomaterial-entity', Properties.CURRENT_SAMPLE_ID, dataId, this.sampleName] );  // @FIXME  Don't hard code these
+        this.router.navigate( ['home/samples/composition/nanomaterial-entity', Properties.CURRENT_SAMPLE_ID, dataId, this.sampleName] );
     }
     onCompositionFileClick(dataId){
         if (dataId==-1){
-            this.router.navigate( ['home/samples/composition/composition-file', Properties.CURRENT_SAMPLE_ID] );  // @FIXME  Don't hard code these
+            this.router.navigate( ['home/samples/composition/composition-file', Properties.CURRENT_SAMPLE_ID] );
         }
         else {
-            this.router.navigate( ['home/samples/composition/composition-file', Properties.CURRENT_SAMPLE_ID, dataId] );  // @FIXME  Don't hard code these
+            this.router.navigate( ['home/samples/composition/composition-file', Properties.CURRENT_SAMPLE_ID, dataId] );
         }
     }
 
