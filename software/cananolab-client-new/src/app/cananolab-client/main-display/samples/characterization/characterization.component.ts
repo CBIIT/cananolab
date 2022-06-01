@@ -15,6 +15,7 @@ import { StatusDisplayService } from 'src/app/cananolab-client/status-display/st
 export class CharacterizationComponent implements OnInit{
     sampleId = Properties.CURRENT_SAMPLE_ID;
     sampleName;
+    tempData;
     toolHeadingNameManage;
     helpUrl = Consts.HELP_URL_SAMPLE_CHARACTERIZATION;
     characterizationData =
@@ -27,6 +28,7 @@ export class CharacterizationComponent implements OnInit{
     types = ['physico-chemical characterization', 'in vitro characterization','in vivo characterization','other']
     serverUrl = Properties.API_SERVER_URL;
     editUrl=false;
+
     constructor( private statusDisplayService:StatusDisplayService,private apiService:ApiService,private navigationService:NavigationService, private router: Router, private route: ActivatedRoute,private httpClient: HttpClient ){
     }
 
@@ -46,6 +48,7 @@ export class CharacterizationComponent implements OnInit{
                     Properties.CURRENT_SAMPLE_ID = this.sampleId;
                 };
                 this.getCharacterizationData().subscribe( data => {
+                    this.tempData=data;
                     this.separateDataSets(data);
                     Properties.SAMPLE_TOOLS = true;
                 },
@@ -67,11 +70,35 @@ export class CharacterizationComponent implements OnInit{
         return results;
     }
 
+
+    getExperiments(data) {
+        let value=data.value;
+        let rows=[];
+        let rowLength=0;
+        let headers=[];
+        value.forEach((data,index)=> {
+            let key=Object.keys(data)[0];
+          headers.push(key);
+          rowLength=data[key].length;
+        })
+
+
+        for (var x=0;x<rowLength;x++) {
+            let currentRow=[];
+            value.forEach((data,index)=> {
+              let key=Object.keys(data)[0];
+              currentRow.push(data[key][x]);
+          })
+          rows.push(currentRow);
+        }
+        return [rows,headers]
+    }
+
     // separates out all data into subsets of physico, in vivo, in vitro and other characterization types //
     separateDataSets(data) {
         let types =['in vitro characterization','in vivo characterization','physico-chemical characterization']
         data.forEach(item=> {
-            item.charName=Object.keys(item.charsByAssayType)[0]
+            item.charName=Object.keys(item.charsByAssayType)[0];
             if (item.type=='in vitro characterization') {
                 this.characterizationData['in vitro characterization'].push(item);
             }
