@@ -4,6 +4,9 @@
 >
 </canano-main-display-heading>
         <div class="mainSection">
+            <div class="error" *ngIf="errors['error']">
+                {{errors['error']}}
+            </div>
                 <span
                 class="ml-2"
             >
@@ -99,7 +102,7 @@
                         >View</a>
                         <br>
 
-                        <a
+                        <a *ngIf="properties.LOGGED_IN"
                             (click)="addToFavorites(result)"
                         >Add to Favorites</a>
 

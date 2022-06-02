@@ -99,7 +99,7 @@
                     <a *ngIf="! properties.LOGGED_IN" (click)="navigateToPublication(publication['id'])">View</a>
                     <br>
 
-                    <a (click)="addToFavorites(publication)">Add to Favorites</a>
+                    <a *ngIf="properties.LOGGED_IN" (click)="addToFavorites(publication)">Add to Favorites</a>
 
                 </td>
 

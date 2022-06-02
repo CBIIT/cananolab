@@ -106,7 +106,7 @@
             >View</a>
             <br>
 
-            <a
+            <a *ngIf="properties.LOGGED_IN"
                 (click)="addToFavorites( samp )"
             >Add to Favorites</a>
 

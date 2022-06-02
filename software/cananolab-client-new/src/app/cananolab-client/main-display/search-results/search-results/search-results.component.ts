@@ -1,15 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { connectableObservableDescriptor } from 'rxjs/internal/observable/ConnectableObservable';
-import { TopKeywordSearchService } from 'src/app/cananolab-client/header/top-keyword-search/top-keyword-search.service';
-import { Properties } from 'src/assets/properties';
-import { Consts } from 'src/app/constants';
-import { SortState } from 'src/app/constants';
+import { TopKeywordSearchService } from '../../../header/top-keyword-search/top-keyword-search.service';
+import { Properties } from '../../../../../assets/properties';
+import { Consts } from '../../../../constants';
+import { SortState } from '../../../../constants';
 import { Subject } from 'rxjs';
 import { SearchResultsPagerService } from '../../../common/components/search-results-pager/search-results-pager.service';
 import { takeUntil,timeout } from 'rxjs/operators';
-import { StatusDisplayService } from 'src/app/cananolab-client/status-display/status-display.service';
+import { StatusDisplayService } from '../../../status-display/status-display.service';
 import { Router } from '@angular/router';
-
+import { ApiService } from '../../../common/services/api.service';
 @Component({
   selector: 'canano-search-results',
   templateUrl: './search-results.component.html',
@@ -20,7 +20,7 @@ export class SearchResultsComponent implements OnInit {
     maxPageLength = Properties.MAX_PAGE_LENGTH;
     pageLength = Properties.DEFAULT_PAGE_LENGTH;
     columnHeadings = ['Actions', 'Type', 'Name', 'Created Date', 'Description'];
-
+    errors={};
     helpUrl = Consts.HELP_URL_SAMPLE_SEARCH;
     toolHeadingNameSearchSample = 'Sample Search Results';
     pageCount = 10;
@@ -35,7 +35,7 @@ export class SearchResultsComponent implements OnInit {
     userName;
 
     private ngUnsubscribe: Subject<boolean> = new Subject<boolean>();
-    constructor(private router:Router,private statusDisplayService:StatusDisplayService,
+    constructor(private apiService:ApiService,private router:Router,private statusDisplayService:StatusDisplayService,
                 private searchResultsPagerService:SearchResultsPagerService,
                 private topKeywordSearchService:TopKeywordSearchService) { }
 
@@ -47,15 +47,20 @@ export class SearchResultsComponent implements OnInit {
             .subscribe( ( data ) => {
                 this.currentPage = data;
                 this.setupPage();
+                this.errors={};
+            },
+            errors=> {
+                this.errors=errors;
             } );
 
             console.log(this.properties)
         this.statusDisplayService.updateUserEmitter.pipe( timeout( Properties.HTTP_TIMEOUT ) ).subscribe(
             data => {
-                console.log('is nothing happening?')
                 this.userName = data;
+                this.errors={};
             },
             error=>{
+                this.errors=error;
                 console.log('error')
             } );
 
@@ -75,23 +80,31 @@ export class SearchResultsComponent implements OnInit {
             this.router.navigate(['/home/samples/publications/publication',resultId]);
         }
         if (type=='protocol') {
-            this.router.navigate(['/home/samples/protocols/protocol',resultId]);
+            this.router.navigate(['/home/protocols/edit-protocol',resultId]);
 
 
         }
     }
 
     addToFavorites(result) {
-        // let data = {
-        //     "dataId":publication.id,
-        //     "dataName":publication.displayName,
-        //     "dataType":"publication",
-        //     "editable":publication.editable,
-        //     "loginName":this.userName,
-        //     "pubMedId":publication.pubMedId
-        // }
-        // console.log(data)
-        // this.apiService.doPost('caNanoLab/rest/core/addFavorite',)
+        let data = {
+            "dataId":result.id,
+            "dataName":result.name,
+            "dataType":result.type,
+            "editable":result.editable,
+            "loginName":Properties.current_user
+        }
+
+        if (result.type=='protocol') {
+            data['protocolFileId']=result.fileId;
+            data['protocolFileTitle']=result.fileTitle;
+        }
+        this.apiService.doPost(Consts.QUERY_ADD_FAVORITE,data).subscribe(data=> {
+            this.errors={};
+        },
+        error=> {
+            this.errors=error;
+        })
     }
 
     onPageLengthChange(){
