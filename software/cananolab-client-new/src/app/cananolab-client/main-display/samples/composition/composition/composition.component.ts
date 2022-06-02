@@ -106,5 +106,9 @@ export class CompositionComponent implements OnInit{
         }
     }
 
+    splitKeywordString(keyword) {
+        return keyword.split('\n')
+    }
+
 
 }

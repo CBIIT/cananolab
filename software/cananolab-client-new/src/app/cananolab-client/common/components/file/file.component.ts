@@ -163,4 +163,8 @@ serverUrl = Properties.API_SERVER_URL;
         "uri":""
       };
   }
+
+  splitKeywordString(keyword) {
+      return keyword.split('\n')
+  }
 }

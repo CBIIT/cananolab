@@ -108,5 +108,125 @@ label {
     text-decoration: underline !important;
 }
 
+.mainSection td {
+    padding-bottom:13px !important;
+    font-size:$mainFontSize;
+
+}
+.mainSection .blueHeader {
+        padding:10px;
+        background-color:#0073b9;
+        color:#fff;
+        text-transform: capitalize;
+}
+
+.mainSection .header {
+    background-color:#005518;
+    color:#fff;
+    padding:10px;
+}
+
+    .mainSection .header .btn {
+        margin-left:10px;
+    }
+
+.mainSection .editButton{
+    padding-top:5px;
+    text-align:right;
+}
+.mainSection table.dataMain.files{
+    margin-bottom:10px;
+}
+.mainSection table.dataMain td{
+    vertical-align:top;
+}
+.mainSection table.dataMain .properties{
+    text-transform: capitalize;
+}
+.mainSection table.dataMain .properties th{
+    text-align:left;
+    width:150px;
+    vertical-align:top;
+    padding-right:20px;
+}
+.mainSection table.dataMain td.label{
+    font-weight:bold;
+    width:200px;
+    vertical-align:top;
+}
+
+.mainSection table.dataMain .properties td{
+    text-align:left;
+    width:150px;
+    vertical-align:top;
+    padding-right:20px;
+}
+
+.mainSection table.dataMain .properties.files{
+    border:1px solid #ccc;
+    width:100%;
+    margin-bottom:5px;
+}
+
+.experimentConfigurations td {
+    padding-right:10px;
+    width:300px;
+}
+ ul {
+   padding-left:13px;
+}
+
+
+.dataAndConditions td{
+    padding:5px;
+    border:1px solid #ccc;
+    width:200px;
+}
+
+.dataAndConditions th{
+    background-color:#0073b9;
+    color:#fff;
+    padding:5px;
+    vertical-align:top;
+    border:1px  solid #ccc;
+
+}
+
+.properties td{
+    padding:5px;
+    border:1px solid #ccc;
+    width:200px;
+}
+
+.properties th{
+    background-color:#0073b9;
+    color:#fff;
+    padding:5px;
+    vertical-align:top;
+    border:1px  solid #ccc;
+
+}
+
+.files {
+    min-width:650px;
+}
+
+.files td{
+    padding:5px;
+    border:1px solid #ccc;
+}
+
+.files th{
+    background-color:#0073b9;
+    color:#fff;
+    padding:5px;
+    vertical-align:top;
+    border:1px  solid #ccc;
+
+}
+
+label {
+    font-weight:bold;
+}
 
 

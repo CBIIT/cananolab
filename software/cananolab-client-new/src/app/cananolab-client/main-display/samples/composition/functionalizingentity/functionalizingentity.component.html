@@ -349,7 +349,7 @@
 
                                     </th>
                             </tr>
-                            <tr *ngFor="let iFunction of data.functionList; let i= index ">
+                            <tr *ngFor="let iFunction of data.functionList; let i= index; let odd=odd" [ngClass]="{'rowOdd':odd}">
                                 <td>{{iFunction.type}}</td>
                                 <td>{{iFunction.modality}}</td>
                                 <td>

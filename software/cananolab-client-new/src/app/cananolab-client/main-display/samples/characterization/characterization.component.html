@@ -10,10 +10,8 @@
     <ng-container *ngFor="let b of characterizationData[a]">
 
         <ng-container *ngFor="let c of b.charsByAssayType | keyvalue">
-            <div class="compositionTitle">{{c.key}}</div>
-
-            <div class="compositionBody">
-                <ng-container *ngFor="let d of c.value | keyvalue">
+            <div class="blueHeader">{{c.key}}</div><br />
+                <div *ngFor="let d of c.value | keyvalue;let last=last" class="mainBorder" [ngClass]="{'last':last}">
 
                     <div class="editButton" *ngIf="editUrl"><button class="btn btn-primary btn-sm" (click)="editCharacterization(d.value.charId,a, d.value.charClassName)">Edit</button></div>
                     <table class="dataMain">
@@ -111,9 +109,7 @@
                             </tr>
                         </ng-container>
                     </table>
-                </ng-container>
-
-            </div>
+                </div>
         </ng-container>
     </ng-container>
 </div>

@@ -74,7 +74,7 @@ export class SamplePublicationsComponent implements OnInit{
 
 
     separateDataSets(data) {
-        let defaultCategories = ['book chapter','editorial','peer review article','proceeding','report','review'];
+        let defaultCategories = ['Article','book chapter','editorial','peer review article','proceeding','report','review'];
         defaultCategories.forEach(item=> {
             this.publicationData[item]=[];
         });

@@ -15,7 +15,7 @@
         </th>
         <th></th>
     </tr>
-    <tr *ngFor="let file of data[fileArray]">
+    <tr *ngFor="let file of data[fileArray]; let odd=odd" [ngClass]="{'rowOdd':odd}">
         <td>{{file.type}}</td>
         <td>
             <a href="" [href]="serverUrl+'/caNanoLab/rest/sample/download?fileId='+file.id" *ngIf="!file.uriExternal">
@@ -25,109 +25,115 @@
                 {{file['title']}}
             </a>
         </td>
-        <td>{{file.keywordsStr}}</td>
+        <td>
+            <div *ngFor="let keyword of splitKeywordString(file.keywordsStr)">
+                {{keyword}}
+            </div>
         <td>{{file.description}}</td>
         <td>
             <button (click)="deleteFile(file)" class="btn-canano btn-canano-danger btn-canano-xs mr-1">Delete</button>
         </td>
     </tr>
 </table>
-<div class="mainBorder" *ngIf="fileIndex!=null">
-    <table class="dataMain">
-        <tr>
-            <td class="label">
-                <label for="fileUpload">
-                    Upload&nbsp;
-                </label>
-                <input type="radio" name="curentFile.uriExternal" id="fileUpload" [value]="false" [(ngModel)]="currentFile.uriExternal">
-            </td>
-            <td class="label">
-                <label for="fileURL">
-                    Enter File URL&nbsp;
-                </label>
-                <input type="radio" name="curentFile.uriExternal" id="fileURL" [value]="true" [(ngModel)]="currentFile.uriExternal">
-            </td>
-        </tr>
-        <tr *ngIf="currentFile.uriExternal==1">
-            <td class="label">
-                <label for="uriExternal">
-                    File URL*
-                </label>
-            </td>
-            <td>
-                <input id="uriExternal" *ngIf="currentFile.uriExternal==1" type="text" name="currentFile.externalUrl" [(ngModel)]="currentFile.externalUrl">
-            </td>
-        </tr>
-        <tr *ngIf="currentFile.uriExternal==0">
-            <td class="label">
-                <label for="file">
-                    File*
-                </label>
-            </td>
-            <td>
-                <input id="file" (change)="uploadFile($event)" type="file" name="currentFile.uploadFile">
-            </td>
-        </tr>
-        <tr>
-            <td class="label">
-                <label for="currentFile.fileType">
-                    File Type*
-                </label>
-            </td>
-            <td>
-                <select name="currentFile.type" [(ngModel)]="currentFile.type" id="currentFile.fileType">
-                    <option [select]="currentFile.type===''" [ngValue]="''">--Select</option>
-                    <option>document</option>
-                    <option>graph</option>
-                    <option>image</option>
-                    <option>movie</option>
-                    <option>spread sheet</option>
-                </select>
-            </td>
-        </tr>
-        <tr>
-            <td class="label">
-                <label for="currentFile.title">
-                    File Title*
-                </label>
-            </td>
-            <td>
-                <input id="currentFile.title" type="text" name="currentFile.title" [(ngModel)]="currentFile.title">
-            </td>
-        </tr>
-        <tr>
-            <td class="label">
-                <label for="currentFile.keywordsStr">
-                    Keywords
-                </label>
-            </td>
-            <td>
-                <textarea id="currentFile.keywordsStr" name="currentFile.keywordsStr" rows="3" cols="60" [(ngModel)]="currentFile.keywordsStr">
-                   {{currentFile.keywordsStr}}
-                </textarea>
-            </td>
-        </tr>
-        <tr>
-            <td class="label">
-                <label for="currentFile.description">
-                    Description
-                </label>
-            </td>
-            <td>
-                <textarea id="currentFile.description" name="currentFile.description" rows="3" cols="60" [(ngModel)]="currentFile.description">
-                    {{currentFile.description}}
-                </textarea>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <!-- <button class="btn-canano btn-canano-danger btn-canano-xs mr-1">Delete</button> -->
-            </td>
-            <td>
-                <button [disabled]="isFileUploadValid()" (click)="saveFile()" class="btn-canano btn-canano-primary btn-canano-xs mr-1">Save</button>
-                <button (click)="cancelFile()" class="btn-canano btn-canano-default btn-canano-xs mr-1">Cancel</button>
+<ng-container *ngIf="fileIndex!=null">
+    <br />
+    <div class="mainBorder">
+        <table class="dataMain">
+            <tr>
+                <td class="label">
+                    <label for="fileUpload">
+                        Upload&nbsp;
+                    </label>
+                    <input type="radio" name="curentFile.uriExternal" id="fileUpload" [value]="false" [(ngModel)]="currentFile.uriExternal">
+                </td>
+                <td class="label">
+                    <label for="fileURL">
+                        Enter File URL&nbsp;
+                    </label>
+                    <input type="radio" name="curentFile.uriExternal" id="fileURL" [value]="true" [(ngModel)]="currentFile.uriExternal">
+                </td>
+            </tr>
+            <tr *ngIf="currentFile.uriExternal==1">
+                <td class="label">
+                    <label for="uriExternal">
+                        File URL*
+                    </label>
+                </td>
+                <td>
+                    <input id="uriExternal" *ngIf="currentFile.uriExternal==1" type="text" name="currentFile.externalUrl" [(ngModel)]="currentFile.externalUrl">
+                </td>
+            </tr>
+            <tr *ngIf="currentFile.uriExternal==0">
+                <td class="label">
+                    <label for="file">
+                        File*
+                    </label>
+                </td>
+                <td>
+                    <input id="file" (change)="uploadFile($event)" type="file" name="currentFile.uploadFile">
+                </td>
+            </tr>
+            <tr>
+                <td class="label">
+                    <label for="currentFile.fileType">
+                        File Type*
+                    </label>
+                </td>
+                <td>
+                    <select name="currentFile.type" [(ngModel)]="currentFile.type" id="currentFile.fileType">
+                        <option [select]="currentFile.type===''" [ngValue]="''">--Select</option>
+                        <option>document</option>
+                        <option>graph</option>
+                        <option>image</option>
+                        <option>movie</option>
+                        <option>spread sheet</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td class="label">
+                    <label for="currentFile.title">
+                        File Title*
+                    </label>
+                </td>
+                <td>
+                    <input id="currentFile.title" type="text" name="currentFile.title" [(ngModel)]="currentFile.title">
+                </td>
+            </tr>
+            <tr>
+                <td class="label">
+                    <label for="currentFile.keywordsStr">
+                        Keywords
+                    </label>
+                </td>
+                <td>
+                    <textarea id="currentFile.keywordsStr" name="currentFile.keywordsStr" rows="3" cols="60" [(ngModel)]="currentFile.keywordsStr">
+                    {{currentFile.keywordsStr}}
+                    </textarea>
+                </td>
+            </tr>
+            <tr>
+                <td class="label">
+                    <label for="currentFile.description">
+                        Description
+                    </label>
+                </td>
+                <td>
+                    <textarea id="currentFile.description" name="currentFile.description" rows="3" cols="60" [(ngModel)]="currentFile.description">
+                        {{currentFile.description}}
+                    </textarea>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <!-- <button class="btn-canano btn-canano-danger btn-canano-xs mr-1">Delete</button> -->
+                </td>
+                <td>
+                    <button [disabled]="isFileUploadValid()" (click)="saveFile()" class="btn-canano btn-canano-primary btn-canano-xs mr-1">Save</button>
+                    <button (click)="cancelFile()" class="btn-canano btn-canano-default btn-canano-xs mr-1">Cancel</button>
 
-            </td>
-        </tr>
-    </table>
-</div>
+                </td>
+            </tr>
+        </table>
+    </div>
+</ng-container>

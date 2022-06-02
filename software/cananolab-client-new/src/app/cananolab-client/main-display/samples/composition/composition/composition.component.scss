@@ -1,67 +1,71 @@
 @import "../../../../main-display/main-display.component.scss";
-@import '../../../../cananolab-client.component.scss';
+@import '../../../../../btn-bravo-canano.scss';
 
-    .mainSection td {
-        padding-bottom:13px !important;
-        font-size:$mainFontSize;
+//     .mainSection td {
+//         padding-bottom:13px !important;
+//         font-size:$mainFontSize;
 
-    }
-    .mainSection .compositionTitle {
-            padding:10px;
-            background-color:#0073b9;
-            color:#fff;
-            text-transform: capitalize;
-    }
+//     }
+//     .mainSection .blueHeader {
+//             padding:10px;
+//             background-color:#0073b9;
+//             color:#fff;
+//             text-transform: capitalize;
+//     }
 
-    .mainSection .compositionBody {
-        background-color:#f5f5f5;
-    }
+//     .mainSection .header {
+//         background-color:#005518;
+//         color:#fff;
+//         padding:10px;
+//     }
 
-    .mainSection .header {
-        background-color:#005518;
-        color:#fff;
-        padding:10px;
-    }
+//         .mainSection .header .btn {
+//             margin-left:10px;
+//         }
 
-        .mainSection .header .btn {
-            margin-left:10px;
-        }
+//     .mainSection .editButton{
+//         padding-top:5px;
+//         text-align:right;
+//     }
+// .files {
+//     padding-bottom:40px;
+// }
 
-    .mainSection .editButton{
-        padding-top:5px;
-        text-align:right;
-    }
-.files {
-    padding-bottom:40px;
+//     .mainSection table.dataMain td{
+//         vertical-align:top;
+//     }
+//     .mainSection table.dataMain .properties{
+//         text-transform: capitalize;
+//     }
+//     .mainSection table.dataMain .properties th{
+//         text-align:left;
+//         width:150px;
+//         vertical-align:top;
+//         padding-right:20px;
+//     }
+//     .mainSection table.dataMain td.label{
+//         font-weight:bold;
+//         width:200px;
+//         vertical-align:top;
+//     }
+
+//     .mainSection table.dataMain .properties td{
+//         text-align:left;
+//         width:150px;
+//         vertical-align:top;
+//         padding-right:20px;
+//     }
+
+//     .mainSection table.dataMain .properties.files{
+//         border:1px solid #ccc;
+//         width:100%;
+//         margin-bottom:5px;
+//     }
+.mainBorder {
+    margin-bottom:15px;
 }
 
-    .mainSection table.dataMain td{
-        vertical-align:top;
-    }
-    .mainSection table.dataMain .properties{
-        text-transform: capitalize;
-    }
-    .mainSection table.dataMain .properties th{
-        text-align:left;
-        width:150px;
-        vertical-align:top;
-        padding-right:20px;
-    }
-    .mainSection table.dataMain td.label{
-        font-weight:bold;
-        width:200px;
-        vertical-align:top;
-    }
+.mainBorder.last {
+    margin-bottom:15px;
 
-    .mainSection table.dataMain .properties td{
-        text-align:left;
-        width:150px;
-        vertical-align:top;
-        padding-right:20px;
-    }
-
-    .mainSection table.dataMain .properties.files{
-        border:1px solid #ccc;
-        width:100%;
-        margin-bottom:5px;
-    }
+}

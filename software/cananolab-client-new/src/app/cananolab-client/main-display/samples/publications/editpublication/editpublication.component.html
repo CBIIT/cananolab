@@ -138,14 +138,14 @@
                     <tr *ngIf="data.authors.length">
                         <td></td>
                         <td colspan="5">
-                            <table class="authors">
+                            <table class="dataTable">
                                 <tr>
                                     <th>First Name</th>
                                     <th>Last Name</th>
                                     <th>Initials</th>
                                     <th></th>
                                 </tr>
-                                <tr *ngFor="let author of data['authors'];let authorIndex=index">
+                                <tr *ngFor="let author of data['authors'];let authorIndex=index; let odd=odd" [ngClass]="{'rowOdd':odd}">
                                     <td>
                                         {{author.lastName}}
                                     </td>
@@ -165,7 +165,8 @@
                     <tr *ngIf="authorIndex!=null">
                         <td></td>
                         <td colspan="5">
-                            <table class="authorForm">
+                            <div class="mainBorder">
+                            <table>
                                 <tr>
                                     <td class="label">
                                         <label for="lastName">
@@ -206,6 +207,7 @@
                                     </td>
                                 </tr>
                             </table>
+                        </div>
                         </td>
                     </tr>
                     <tr>
@@ -355,13 +357,13 @@
                     <tr *ngIf="data.groupAccesses.length">
                         <td></td>
                         <td>
-                            <table class="authors">
+                            <table class="dataTable">
                                 <tr>
                                     <th>Group Name</th>
                                     <th>Access</th>
                                     <th></th>
                                 </tr>
-                                <tr *ngFor="let group of data.groupAccesses; let groupIndex=index">
+                                <tr *ngFor="let group of data.groupAccesses; let groupIndex=index; let odd=odd" [ngClass]="{'rowOdd':odd}">
                                     <td>{{group.recipientDisplayName}}</td>
                                     <td>{{group.roleDisplayName}}</td>
                                     <td>
@@ -374,13 +376,13 @@
                     <tr *ngIf="data.userAccesses.length">
                         <td></td>
                         <td>
-                            <table class="authors">
+                            <table class="dataTable">
                                 <tr>
                                     <th>User Login Name	</th>
                                     <th>Access</th>
                                     <th></th>
                                 </tr>
-                                <tr *ngFor="let user of data.userAccesses; let userIndex=index">
+                                <tr *ngFor="let user of data.userAccesses; let userIndex=index; let odd=odd" [ngClass]="{'rowOdd':odd}">
                                     <td>{{user.recipientDisplayName}}</td>
                                     <td>{{user.roleDisplayName}}</td>
                                     <td>

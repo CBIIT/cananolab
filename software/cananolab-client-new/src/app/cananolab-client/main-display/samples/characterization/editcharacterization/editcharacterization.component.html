@@ -441,7 +441,7 @@
                                     &nbsp;
                                 </th>
                             </tr>
-                            <tr *ngFor="let technique of data.techniqueInstruments.experiments;let tIndex= index">
+                            <tr *ngFor="let technique of data.techniqueInstruments.experiments;let tIndex= index;let odd=odd" [ngClass]="{'rowOdd':odd}">
                                 <td>{{technique.techniqueType}}</td>
                                 <td>
                                     <ul>
@@ -524,7 +524,7 @@
 
                                                             </th>
                                                         </tr>
-                                                        <tr *ngFor="let instrument of techniqueInstrument.instruments; let iIndex=index">
+                                                        <tr *ngFor="let instrument of techniqueInstrument.instruments; let iIndex=index;let odd=odd" [ngClass]="{'rowOdd':odd}">
                                                             <td>
                                                                 {{instrument.manufacturer}}
                                                             </td>
