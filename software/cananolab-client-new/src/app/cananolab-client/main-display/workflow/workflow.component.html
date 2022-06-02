@@ -4,9 +4,10 @@
 >
 
 </canano-main-display-heading>
-<div>
+<div class="mainSection">
+    <div class="mainBorder">
 The diagram below illustrates the caNanoLab functionality and workflow. Active links are provided for directly navigating to the appropriate function based on the authorization level of the user. In particular, the Sample Submission workflow allows direct launching points to develop caNanoLab data files from a user's input.<br>To assist in the data submission process, a <a href="https://cbiit-download.nci.nih.gov/icr/cananolab/2.0/Gaheen_cananolab_demo.mp4" target="_blank">caNanoLab Data Submission Video</a> is available. Navigation is also available through the menus above.
-</div>
+
 <img src="assets/images/Home_Page_Workflow.png" border="0" width="750" height="520" usemap="#funcMap" alt="rectangle" />
 <map class="ng-scope" name="funcMap" id="funcMap">
     <area (click)="onAreaClick( '#/login' )" alt="login" shape="rect" coords="65,176,206,238" />
@@ -20,3 +21,5 @@ The diagram below illustrates the caNanoLab functionality and workflow. Active l
     <area href="#/searchSample" alt="search samples" shape="rect" coords="346,379,494,465" />
     <area href="#/searchPublication" alt="search publications" shape="rect" coords="512,380,660,466" />
 </map>
+</div>
+</div>
