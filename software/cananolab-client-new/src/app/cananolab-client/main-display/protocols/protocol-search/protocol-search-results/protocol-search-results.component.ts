@@ -10,6 +10,7 @@ import { Properties } from '../../../../../../assets/properties';
 import { ProtocolsService } from '../../protocols.service';
 import { ApiService } from '../../../../common/services/api.service';
 import { StatusDisplayService } from '../../../../status-display/status-display.service';
+import { Router } from '@angular/router';
 @Component( {
     selector: 'canano-protocol-search-results',
     templateUrl: './protocol-search-results.component.html',
@@ -37,7 +38,7 @@ export class ProtocolSearchResultsComponent implements OnInit, OnDestroy{
 
     private ngUnsubscribe: Subject<boolean> = new Subject<boolean>();
 
-    constructor( private searchResultsPagerService: SearchResultsPagerService, private utilService: UtilService,
+    constructor( private router:Router,private searchResultsPagerService: SearchResultsPagerService, private utilService: UtilService,
                  private protocolsService: ProtocolsService, private apiService: ApiService, private statusDisplayService: StatusDisplayService ){
     }
 
@@ -121,7 +122,8 @@ export class ProtocolSearchResultsComponent implements OnInit, OnDestroy{
     }
 
     onEditClick( protocolToEdit ){
-        this.protocolsService.setCurrentProtocolScreen( ProtocolScreen.PROTOCOL_EDIT_SCREEN, protocolToEdit.id );
+        this.router.navigate(['home/protocols/edit-protocol',protocolToEdit.id])
+        // this.protocolsService.setCurrentProtocolScreen( ProtocolScreen.PROTOCOL_EDIT_SCREEN, protocolToEdit.id );
     }
 
     onViewClick( protocolToView ){

@@ -4,13 +4,14 @@
 >
 </canano-main-display-heading>
 
-<div class="error" *ngIf="errors['error']">
-    {{errors['error']}}
-</div>
+
 
 <div>
     <form name="publicationSearchForm">
     <div class="mainSection">
+        <div class="error" *ngIf="errors['error']">
+            {{errors['error']}}
+        </div>
         <div class="mainBorder" *ngIf="setupData">
             <table class="searchForm">
                 <tr>

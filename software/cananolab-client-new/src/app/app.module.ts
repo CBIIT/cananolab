@@ -1,7 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { CananolabClientComponent } from './cananolab-client/cananolab-client.component';
@@ -29,7 +28,6 @@ import { HomeWhatsNewComponent } from './cananolab-client/main-display/home/righ
 import { HomeKeepingUpWithCananolabComponent } from './cananolab-client/main-display/home/right-side-bar/home-keeping-up-with-cananolab/home-keeping-up-with-cananolab.component';
 import { LoginComponent } from './cananolab-client/main-display/home/right-side-bar/home-user-actions/login/login.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { ApiService } from './cananolab-client/common/services/api.service';
 import { HttpClientModule } from '@angular/common/http';
 import { LeftNavigationMenuComponent } from './cananolab-client/left-navigation-menu/left-navigation-menu.component';
 import { TestComponent } from './cananolab-client/main-display/test/test.component';

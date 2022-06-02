@@ -2,14 +2,13 @@
 
 </canano-main-display-heading>
 
-<div class="error" *ngIf="errors['error']">
-    {{errors['error']}}
-</div>
-<div class="error" *ngIf="message">
-    {{message}}
-</div>
-
 <div class="mainSection" *ngIf="setupData">
+    <div class="error" *ngIf="errors['error']">
+        {{errors['error']}}
+    </div>
+    <div class="error" *ngIf="message">
+        {{message}}
+    </div>
     <form action="" method="get">
     <div class="mainBorder">
         <table class="dataMain">

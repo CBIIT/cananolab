@@ -36,12 +36,14 @@ export const Consts = {
     QUERY_NANOMATERIAL_DELETE: 'caNanoLab/rest/nanomaterialEntity/delete',
 
     QUERY_PROTOCOL_SETUP: 'caNanoLab/rest/protocol/setup',
+    QUERY_PROTOCOL_SAVE_ACCESS: 'caNanoLab/rest/protocol/saveAccess',
     QUERY_SEARCH_PROTOCOL: 'caNanoLab/rest/protocol/searchProtocol',
     QUERY_DELETE_PROTOCOL: 'caNanoLab/rest/protocol/deleteProtocol',
     QUERY_CREATE_PROTOCOL: 'caNanoLab/rest/protocol/submitProtocol',
     QUERY_UPDATE_PROTOCOL: 'caNanoLab/rest/protocol/submitProtocol', // SAME AS create
     QUERY_EDIT_PROTOCOL: 'caNanoLab/rest/protocol/edit',
     QUERY_GET_PROTOCOL: 'caNanoLab/rest/protocol/getProtocol',
+    QUERY_PROTOCOL_DELETE_ACCESS: 'caNanoLab/rest/protocol/deleteAccess',
     QUERY_DOWNLOAD_FILE: 'caNanoLab/rest/protocol/download',
 
     QUERY_UPLOAD_FILE: 'caNanoLab/rest/core/uploadFile',

@@ -1,59 +1,124 @@
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { Consts } from '../../../../constants';
 import { ApiService } from '../../../common/services/api.service';
-import { NgForm } from '@angular/forms';
 import { UtilService } from '../../../common/services/util.service';
 import { HttpClient } from '@angular/common/http';
 import { Properties } from '../../../../../assets/properties';
-
+import { Router, Params, ActivatedRoute } from '@angular/router';
 @Component( {
     selector: 'canano-protocol-create-charlie',
     templateUrl: './protocol-create-charlie.component.html',
     styleUrls: ['./protocol-create-charlie.component.scss']
 } )
 export class ProtocolCreateCharlieComponent implements OnInit, AfterViewInit{
-    @ViewChild( 'f', { static: false } ) protocolCreateForm: NgForm;
-
-    // List for the dropdown
-    protocolTypes = [];
-    defaultProtocolType = 'radio labeling'; // Find a way to set this in time to protocolTypes[0]
+    accessIndex;
+    currentRoute='protocol-create';
     data;
-    name = ''; // protocolName = '';
-    uriExternal: boolean = false;
-    externalUrl;
+    defaultProtocolType = 'radio labeling'; // Find a way to set this in time to protocolTypes[0]
+    downloadUrl=Consts.QUERY_DOWNLOAD_FILE;
     errors;
-    fileName = '';
-    type = '';
+    existingData;
+    externalUrl;
     fileToUpload;
-    createdBy = '';
-    version = '';
-    abbreviation = '';
-    fileTitle = '';
-    fileDescription = '';
-
-    isDup = false;
     haveDupStatus = false;
+    toolHeadingName='Create Protocol';
+    isDup = false;
+    message;
+    protocolId;
+    recipientList;
+    setupData={};
+    theAccess={};
 
-    constructor( private apiService: ApiService, private utilService: UtilService,
+    constructor( private route:ActivatedRoute,private router:Router,private apiService: ApiService, private utilService: UtilService,
                  private httpClient: HttpClient ){
     }
 
     ngOnInit(): void{
+        this.route.params.subscribe(
+            ( params: Params ) => {
+                this.protocolId=params['protocolId'];
+                if (params['message']) {
+                    this.message='Protocol Created Successfully'
+                }
+                this.init();
+            });
+
         this.errors={};
-        this.init();
+    }
+
+    addAccess() {
+        this.accessIndex=-1;
+        this.recipientList=null;
+        this.theAccess={
+                "accessType":"",
+                "recipient":"",
+                "roleName":"",
+                "recipientDisplayName":""
+            }
+    }
+
+
+    buildExternalUriForm(): FormData{
+        let formData = new FormData();
+        formData.append( 'uriExternal', 'true' );
+        formData.append( 'review', 'false' );
+        formData.append( 'isPublic', 'false' );
+        formData.append( 'type', this.data.type );
+        return formData;
+    };
+
+    buildFileUploadForm(): FormData{
+        let formData = new FormData();
+        formData.append( 'files', this.fileToUpload );
+        formData.append( 'uriExternal', 'false' );
+        formData.append( 'review', 'false' );
+        formData.append( 'isPublic', 'false' );
+        formData.append( 'type', this.data.type );
+        return formData;
+    };
+
+    cancelAccess() {
+        this.accessIndex=null;
+    }
+
+    changeAccessType(event) {
+        this.recipientList=null;
+        this.theAccess['recipient']='';
+        this.theAccess['roleName']='';
+        if (event=='role') {
+            this.theAccess['recipient']='ROLE_ANONYMOUS';
+            this.theAccess['roleName']="R";
+        };
+    };
+
+    deleteAccess() {
+        if (confirm("Are you sure you wish to delete this " + this.theAccess['accessType'] + "?")) {
+            this.data['theAccess']=this.theAccess;
+            let url = this.httpClient.post(Consts.QUERY_PROTOCOL_DELETE_ACCESS,this.data);
+            url.subscribe(data=>{
+                this.data=data;
+                this.accessIndex=null;
+                this.errors={};
+            },
+            error=> {
+                this.errors=error;
+            })
+        }
+
     }
 
     duplicateCheck(){
-        let formValues = this.protocolCreateForm.value;
+        let formValues = this.data;
         let dupQuery = '';
         if( formValues['version'] === undefined ){
-            dupQuery = 'protocolType=' + formValues['type'] + '&protocolName=' + formValues['protocolName'];
+            dupQuery = 'protocolType=' + formValues['type'] + '&protocolName=' + formValues['name'];
         }else{
-            dupQuery = 'protocolType=' + formValues['type'] + '&protocolName=' + formValues['protocolName'] + '&protocolVersion=' + formValues['version'];
+            dupQuery = 'protocolType=' + formValues['type'] + '&protocolName=' + formValues['name'] + '&protocolVersion=' + formValues['version'];
         }
         this.apiService.doGet( Consts.QUERY_GET_PROTOCOL, dupQuery ).subscribe(
             // It already exists
             data => {
+                this.existingData=data;
                 this.errors={};
                 this.isDup = true;
                 this.haveDupStatus = true;
@@ -64,77 +129,143 @@ export class ProtocolCreateCharlieComponent implements OnInit, AfterViewInit{
             ( err ) => {
                 this.isDup = false;
                 this.haveDupStatus = true;
-                this.errors=err;
                 return false;
+            } );
+
+    };
+
+    editAccess(index,access) {
+        console.log(index,access)
+        this.accessIndex=index;
+        this.recipientList=null;
+        this.theAccess=JSON.parse(JSON.stringify(access));
+    };
+
+    /**
+     * When User uses browser upload function
+     * @param e
+     */
+     getFiles( e ){
+        this.fileToUpload = e.target.files[0];
+    };
+
+    getRecipientList() {
+        var url;
+        if (this.theAccess['accessType']=='group') {
+            url=this.httpClient.get(Consts.QUERY_GET_COLLABORATION_GROUPS+'?searchStr=');
+        }
+        if (this.theAccess['accessType']=='user') {
+            url=this.httpClient.get(Consts.QUERY_GET_USERS+'?searchStr=');
+        }
+        url.subscribe(data=> {
+            this.recipientList=data;
+            this.errors={};
+        },
+        error=> {
+            this.errors=error;
+
+        })
+    };
+
+    init(){
+        if (this.protocolId) {
+            this.currentRoute='edit-protocol';
+            this.toolHeadingName='Edit Protocol';
+            this.apiService.doGet( Consts.QUERY_EDIT_PROTOCOL, 'protocolId='+this.protocolId ).subscribe(
+                data => {
+                    this.data = data;
+                },
+                errors=> {
+                    this.errors=errors;
+                } );
+        }
+        else {
+            this.toolHeadingName='Create Protocol';
+            this.data={
+                "uriExternal":false,
+                "type":"",
+                "name":"",
+                "abbreviation":"",
+                "version":"",
+                "fileTitle":"",
+                "fileDescription":""
+            }
+        }
+        // Get list of Protocol types for dropdown
+        this.apiService.doGet( Consts.QUERY_PROTOCOL_SETUP, '' ).subscribe(
+            data => {
+                this.errors={};
+                this.setupData = data;
+                // this.defaultProtocolType = this.protocolTypes[0]; // SET default - This doesn't work @CHECKME  I had to hard code the default
+            },
+            errors=> {
+                this.errors=errors;
             } );
 
     }
 
-
-    buildFileUploadForm(): FormData{
-        let formData = new FormData();
-        formData.append( 'files', this.fileToUpload );
-        formData.append( 'uriExternal', 'false' );
-        formData.append( 'review', 'false' );
-        formData.append( 'isPublic', 'false' );
-        formData.append( 'type', this.type );
-
-
-        return formData;
+    onReset(){
+        this.init();
     }
 
-
-    buildExternalUriForm(): FormData{
-        let formData = new FormData();
-        formData.append( 'uriExternal', 'true' );
-        formData.append( 'review', 'false' );
-        formData.append( 'isPublic', 'false' );
-        formData.append( 'type', this.type );
-        return formData;
-    }
 
     async onSubmit(){
-
         // ////////////////////////////////////////////////////////
         // Check for dups
-        this.haveDupStatus = false;
-        this.duplicateCheck();
-        // Wait until we know if it already exists
-        while( !this.haveDupStatus ){
-            await this.utilService.sleep( Consts.waitTime );
+        if (!this.protocolId) {
+            this.haveDupStatus = false;
+            console.log('duplicate check?')
+            this.duplicateCheck();
+            // Wait until we know if it already exists
+            while( !this.haveDupStatus ){
+                await this.utilService.sleep( Consts.waitTime );
+            }
+            if( this.isDup ){
+                if (confirm("A database record with the same protocol type and protocol name already exists. Load it and update?")) {
+                    this.router.navigate(['home/protocols/edit-protocol',this.existingData['id']]);
+                }
+                return;
+            }
+
         }
-        if( this.isDup ){
-            alert( 'A database record with the same protocol type and protocol name already exists.  Load it and update?' ); // @TODO
-            return;
-        }
+
 
         // ////////////////////////////////////////////////////////
         // Do we need to send a file?
         // Send the file
-        if( !this.uriExternal ){
-            alert( 'Sending file.' );
+        if( !this.data.uriExternal ){
             let formData = this.buildFileUploadForm();
-
+            if (this.fileToUpload) {
             // @CHECKME Should this be done here
             this.fileToUpload.fileName = encodeURI( this.fileToUpload.fileName );
             formData.delete( 'externalUrl' );
 
 
-            let upload$ = this.httpClient.post( '/caNanoLab/rest/core/uploadFile', formData );
+            let upload$ = this.httpClient.post( Consts.QUERY_UPLOAD_FILE, formData );
             upload$.subscribe( data => {
                     this.errors={};
-                    console.log( 'File upload reports: ', data );
+                    this.data.fileId="0";
+                    this.data.uri=data['fileName'];
+                    this.submitProtocol();
                 },
                 err => {
                     this.errors=err;
                     console.error( 'BAD Post file upload: ', err );
                 } );
+            }
+            else {
+                // we dont have a file //
+                this.submitProtocol();
+
+            }
+
         } // END  Send the file
 
           // Send an external URI
         else{
-            alert( 'NOT Sending file Ext.' );
             let formData = this.buildExternalUriForm();
+            this.data.uriExternal=true;
+            this.submitProtocol();
         }
 
 
@@ -144,114 +275,69 @@ export class ProtocolCreateCharlieComponent implements OnInit, AfterViewInit{
 
 
         // Add the parts that are not from the UI form
-        let parameters = this.buildPerimeterString();
+        // let parameters = this.buildPerimeterString();
 
         // ///////////////////////////////////////////////////////
-
-        // Send the new Protocol
         // Do the submit
-        this.apiService.doPost( Consts.QUERY_CREATE_PROTOCOL, parameters.substr( 1 ) ).subscribe(
+
+
+        // ///////////////////////////////////////////////////////
+    };
+
+
+
+    ngAfterViewInit(): void{
+        //  this.defaultProtocolType = this.protocolTypes[0]; // SET default - This doesn't work @CHECKME  I had to hard code the default
+    };
+
+    onEnterFileUrl(){
+        this.data.uriExternal = true;
+    };
+
+    onUpload(){
+        this.data.uriExternal = false;
+    };
+
+    saveAccess() {
+        this.data['theAccess']=this.theAccess;
+        let url=this.httpClient.post(Consts.QUERY_PROTOCOL_SAVE_ACCESS,this.data);
+        url.subscribe(data=> {
+            this.data=data;
+            this.errors={};
+            if (this.fileToUpload) {
+                this.onSubmit();
+            }
+            else {
+                if (this.currentRoute=='protocol-create') {
+                    this.router.navigate(['home/protocols/edit-protocol',data['id'],'success'])
+                }
+            };
+        },
+        error=> {
+            this.errors=error;
+        });
+        this.accessIndex=null;
+    }
+
+    submitProtocol() {
+        this.apiService.doPost( Consts.QUERY_CREATE_PROTOCOL, this.data ).subscribe(
             data => {
                 this.errors={};
+                this.data.theAccess=this.theAccess;
                 this.externalUrl = decodeURIComponent( this.externalUrl ); // Make it look right in the UI
+                let protocolId=data.replaceAll('"','').replace('[','').replace(']','').split(',')[1];
+                if (this.currentRoute=='protocol-create') {
+                    this.router.navigate(['home/protocols/edit-protocol',protocolId,'success'])
+                }
+                else {
+                    this.message='Protocol Successfully Updated';
+                }
             },
             err => {
                 this.errors=err;
                 this.externalUrl = decodeURIComponent( this.externalUrl ); // Make it look right in the UI
             }
         );
-        // ///////////////////////////////////////////////////////
     }
 
-    buildPerimeterString(): string{
-        // Add the parts that are not from the UI form
-        let parameters = '';
-        parameters += '&createdBy=' + Properties.current_user;
-        parameters += '&isPublic=' + false;
-        parameters += '&fileId=0';
-        parameters += '&uriExternal=' + this.uriExternal;
-        parameters += '&review=' + false;
-        if( ! this.uriExternal){
-            parameters += '&uri=' + this.fileToUpload.name;
-        }
-        // this.protocolCreateForm.value.theAccess = {}; // @CHECKME I don't think we need this (yet)
-
-        if( !this.uriExternal ){
-            // Remove from form if we are uploading a file
-            this.protocolCreateForm.form.removeControl( 'externalUrl' );
-        }
-
-        // Put the data from the form into "parameters"
-        Object.keys( this.protocolCreateForm.value )
-            .forEach( key => {
-                    if( key === 'fileDescription' ){
-                        this.protocolCreateForm.value[key] = encodeURIComponent( this.protocolCreateForm.value[key] ); // .replace(/\n/, '%A0' );
-                    }
-
-                    if( key === 'externalUrl' ){
-                        this.protocolCreateForm.value[key] = encodeURIComponent( this.externalUrl ); // @CHECKME  Make sure this works.  "=" was getting turned into ":".  %3D works
-                    }
-
-                    if( this.protocolCreateForm.value[key].length > 0 ){
-                        parameters += '&' + key + '=' + this.protocolCreateForm.value[key];
-                    }else if( typeof this.protocolCreateForm.value[key] === 'boolean' ){
-                        parameters += '&' + key + '=' + this.utilService.isTrue( this.protocolCreateForm.value[key] );
-                    }else if( typeof this.protocolCreateForm.value[key] === 'number' ){
-                        parameters += '&' + key + '=' + this.protocolCreateForm.value[key];
-                    }
-                }
-            );
-
-        return parameters;
-    }
-
-    /**
-     * When User uses browser upload function
-     * @param e
-     */
-    getFiles( e ){
-        this.fileToUpload = e.target.files[0];
-    }
-
-    onReset(){
-        this.protocolCreateForm.reset();
-        this.protocolCreateForm.form.patchValue( { type: 'safety' } ); // @TODO - this doesn't work
-        this.type = 'safety';
-        this.type='';
-    }
-
-    init(){
-        this.data={
-            "protocolType":"",
-            "protocolName":"",
-            "abbreviation":"",
-            "version":"",
-            "fileTitle":"",
-            "fileDescription":""
-        }
-        // Get list of Protocol types for dropdown
-        this.apiService.doGet( Consts.QUERY_PROTOCOL_SETUP, '' ).subscribe(
-            data => {
-                this.errors={};
-                this.protocolTypes = <any>data['protocolTypes'];
-                // this.defaultProtocolType = this.protocolTypes[0]; // SET default - This doesn't work @CHECKME  I had to hard code the default
-            },
-            errors=> {
-                this.errors=errors;
-            } );
-
-    }
-
-    ngAfterViewInit(): void{
-        //  this.defaultProtocolType = this.protocolTypes[0]; // SET default - This doesn't work @CHECKME  I had to hard code the default
-
-    }
-
-    onEnterFileUrl(){
-        this.uriExternal = true;
-    }
-
-    onUpload(){
-        this.uriExternal = false;
-    }
 }

@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { CananolabClientComponent } from './cananolab-client/cananolab-client.component';
 import { PublicationsComponent } from './cananolab-client/main-display/publications/publications.component';
 import { HomeComponent } from './cananolab-client/main-display/home/home.component';
 import { WorkflowComponent } from './cananolab-client/main-display/workflow/workflow.component';
@@ -52,9 +51,11 @@ const routes: Routes = [
     { path: 'home/publications/publication-search-results', component: SearchpublicationresultsComponent },
 
     { path: 'home/protocols/protocol-create', component: ProtocolCreateCharlieComponent },
+    { path: 'home/protocols/edit-protocol/:protocolId', component: ProtocolCreateCharlieComponent },
+    { path: 'home/protocols/edit-protocol/:protocolId/:message', component: ProtocolCreateCharlieComponent },
     { path: 'home/protocols/protocol-search', component: ProtocolSearchComponent },
     { path: 'home/protocols/protocol-search-results', component: ProtocolSearchResultsComponent },
-    { path: 'home/protocols/edit-protocol/:protocolId', component: ProtocolEditBravoComponent },
+    // { path: 'home/protocols/edit-protocol/:protocolId', component: ProtocolEditBravoComponent },
     { path: 'home/protocols/protocolViewComponent', component: ProtocolViewComponent },
 
     { path: 'home/protocols', component: ProtocolsComponent },
