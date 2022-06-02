@@ -107,7 +107,7 @@
             >View</div>
             -->
             <br />
-            <a
+            <a *ngIf="properties.LOGGED_IN"
                 (click)="addToFavorites( res.id, res.viewName, res.fileId, res.editable, res.fileTitle )"
             >Add to Favorites</a>
 
