@@ -19,6 +19,7 @@ export const Consts = {
     QUERY_SAMPLE_COPY: 'caNanoLab/rest/sample/copySample',
     QUERY_SAMPLE_SUBMIT: 'caNanoLab/rest/sample/submitSample',
     QUERY_SAMPLE_SETUP: 'caNanoLab/rest/sample/setup',
+    QUERY_SAMPLE_DELETE_FROM_WORKSPACE: 'caNanoLab/rest/sample/deleteSampleFromWorkspace',
     QUERY_SAMPLE_ADVANCED_SEARCH_SETUP: 'caNanoLab/rest/sample/setupAdvancedSearch',
     QUERY_SAMPLE_ADVANCED_SEARCH: 'caNanoLab/rest/sample/searchSampleAdvanced',
     QUERY_SEARCH_SAMPLE: 'caNanoLab/rest/sample/searchSample', // @TODO rename this SAMPLE_SEARCH
@@ -39,6 +40,9 @@ export const Consts = {
     QUERY_PROTOCOL_SAVE_ACCESS: 'caNanoLab/rest/protocol/saveAccess',
     QUERY_SEARCH_PROTOCOL: 'caNanoLab/rest/protocol/searchProtocol',
     QUERY_DELETE_PROTOCOL: 'caNanoLab/rest/protocol/deleteProtocol',
+    QUERY_DELETE_PROTOCOL_BY_ID: 'caNanoLab/rest/protocol/deleteProtocol',
+    QUERY_DELETE_PUBLICATION_BY_ID: 'caNanoLab/rest/publication/deletePublicationById',
+
     QUERY_CREATE_PROTOCOL: 'caNanoLab/rest/protocol/submitProtocol',
     QUERY_UPDATE_PROTOCOL: 'caNanoLab/rest/protocol/submitProtocol', // SAME AS create
     QUERY_EDIT_PROTOCOL: 'caNanoLab/rest/protocol/edit',
