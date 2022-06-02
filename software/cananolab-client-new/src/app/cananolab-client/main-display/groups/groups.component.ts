@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Properties } from '../../../../assets/properties';
-import { UrlResolver } from '@angular/compiler';
 
 @Component({
   selector: 'canano-groups',

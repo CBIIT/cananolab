@@ -1,6 +1,6 @@
 //
 
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { SearchResultsPagerService } from '../../../../common/components/search-results-pager/search-results-pager.service';
 import { takeUntil, timeout } from 'rxjs/operators';
 import { Subject } from 'rxjs';

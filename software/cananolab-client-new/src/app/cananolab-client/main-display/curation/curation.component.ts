@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Properties } from '../../../../assets/properties';
-import { Consts } from '../../../constants';
-// import { ConsoleReporter } from 'jasmine';
 import { Router } from '@angular/router';
 
 @Component({

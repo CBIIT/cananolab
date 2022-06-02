@@ -33,7 +33,6 @@ import { LeftNavigationMenuComponent } from './cananolab-client/left-navigation-
 import { TestComponent } from './cananolab-client/main-display/test/test.component';
 import { BrowseCananolabComponent } from './cananolab-client/main-display/home/browse-cananolab/browse-cananolab.component';
 import { StatusDisplayComponent } from './cananolab-client/status-display/status-display.component';
-import { SubmitPublicationComponent } from './cananolab-client/main-display/publications/submit-publication/submit-publication.component';
 import { SearchPublicationComponent } from './cananolab-client/main-display/publications/search-publication/search-publication.component';
 import { SearchSamplesByPublicationComponent } from './cananolab-client/main-display/publications/search-samples-by-publication/search-samples-by-publication.component';
 import { ProtocolSearchComponent } from './cananolab-client/main-display/protocols/protocol-search/protocol-search.component';
@@ -107,7 +106,6 @@ import { SearchResultsComponent } from './cananolab-client/main-display/search-r
     TestComponent,
     BrowseCananolabComponent,
     StatusDisplayComponent,
-    SubmitPublicationComponent,
     SearchPublicationComponent,
     SearchSamplesByPublicationComponent,
     ProtocolSearchComponent,

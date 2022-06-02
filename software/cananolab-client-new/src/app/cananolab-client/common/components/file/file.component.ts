@@ -1,7 +1,6 @@
 import { Component, OnInit, OnChanges,Output, EventEmitter, Input } from '@angular/core';
 import { Properties } from '../../../../../assets/properties';
-import { Consts } from '../../../../constants';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'canano-file',

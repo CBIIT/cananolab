@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { TopMainMenuService, TopMenuItems } from '../../top-main-menu/top-main-menu.service';
+import { TopMainMenuService } from '../../top-main-menu/top-main-menu.service';
 import { Consts } from '../../../constants';
 
 @Component( {

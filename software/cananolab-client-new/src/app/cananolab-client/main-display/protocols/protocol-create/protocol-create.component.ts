@@ -3,7 +3,6 @@ import { Consts } from '../../../../constants';
 import { ApiService } from '../../../common/services/api.service';
 import { UtilService } from '../../../common/services/util.service';
 import { HttpClient } from '@angular/common/http';
-import { Properties } from '../../../../../assets/properties';
 import { Router, Params, ActivatedRoute } from '@angular/router';
 @Component( {
     selector: 'canano-protocol-create',

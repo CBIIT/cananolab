@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../../../common/services/api.service';
 import { Consts } from '../../../../constants';
 import { MainDisplayService } from '../../main-display.service';
-import { TopMenuItems } from '../../../top-main-menu/top-main-menu.service';
 import { UtilService } from '../../../common/services/util.service';
 import { Router } from '@angular/router';
 import { HttpClient} from '@angular/common/http';

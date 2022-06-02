@@ -1,5 +1,4 @@
-import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { FormGroup, NgForm } from '@angular/forms';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Consts, ProtocolScreen } from '../../../../constants';
 import { TopMainMenuService } from '../../../top-main-menu/top-main-menu.service';
 import { ApiService } from '../../../common/services/api.service';
@@ -8,7 +7,6 @@ import { UtilService } from '../../../common/services/util.service';
 import { ProtocolsService } from '../protocols.service';
 import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
-import { FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 @Component( {
     selector: 'canano-protocol-search',

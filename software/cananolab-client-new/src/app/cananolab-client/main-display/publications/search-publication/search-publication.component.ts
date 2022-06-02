@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Properties } from '../../../../../assets/properties';
 import { SearchPublicationService } from './search-publication.service';
 import { ApiService } from '../../../common/services/api.service';
-import { ActivatedRoute,Router } from '@angular/router';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'canano-search-publication',

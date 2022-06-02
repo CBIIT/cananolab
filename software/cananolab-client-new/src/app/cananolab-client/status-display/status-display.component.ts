@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { StatusDisplayService } from './status-display.service';
 import { timeout } from 'rxjs/operators';
 import { Properties } from '../../../assets/properties';
-import { ChildActivationStart } from '@angular/router';
 import { TopMainMenuService } from '../top-main-menu/top-main-menu.service';
 @Component({
   selector: 'canano-status-display',

@@ -8,7 +8,6 @@ import { StatusDisplayService } from '../../../../status-display/status-display.
 import { Subject } from 'rxjs';
 import { Router } from '@angular/router';
 import { ApiService } from '../../../../common/services/api.service';
-import { i18nMetaToJSDoc } from '@angular/compiler/src/render3/view/i18n/meta';
 @Component({
   selector: 'canano-searchpublicationresults',
   templateUrl: './searchpublicationresults.component.html',

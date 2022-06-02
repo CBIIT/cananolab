@@ -11,7 +11,6 @@ import { TestComponent } from './cananolab-client/main-display/test/test.compone
 import { CurationComponent } from './cananolab-client/main-display/curation/curation.component';
 import { GroupsComponent } from './cananolab-client/main-display/groups/groups.component';
 import { MyFavoritesComponent } from './cananolab-client/main-display/my-favorites/my-favorites.component';
-import { SubmitPublicationComponent } from './cananolab-client/main-display/publications/submit-publication/submit-publication.component';
 import { SearchPublicationComponent } from './cananolab-client/main-display/publications/search-publication/search-publication.component';
 import { SearchSamplesByPublicationComponent } from './cananolab-client/main-display/publications/search-samples-by-publication/search-samples-by-publication.component';
 import { ProtocolSearchComponent } from './cananolab-client/main-display/protocols/protocol-search/protocol-search.component';
@@ -44,7 +43,6 @@ const routes: Routes = [
     { path: 'home/login', component: LoginComponent },
     { path: 'home/search-results', component: SearchResultsComponent },
     { path: 'home/publications', component: PublicationsComponent },
-    { path: 'home/publications/submitPublication', component: SubmitPublicationComponent },
     { path: 'home/publications/publication-search', component: SearchPublicationComponent },
     { path: 'home/publications/sample-search-by-publication', component: SearchSamplesByPublicationComponent },
     { path: 'home/publications/publication-search-results', component: SearchpublicationresultsComponent },
