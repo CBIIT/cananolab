@@ -29,10 +29,15 @@ export class CurationComponent implements OnInit {
         })
     }
 
-    editPublication(record) {
-        this.router.navigate(['/home/samples/publications/publication',record.dataId]);
-    }
-
-
-
+    edit(record) {
+        if (record.dataType=='sample') {
+            this.router.navigate(['/home/samples/sample',record.dataId]);
+        };
+        if (record.dataType=='protocol') {
+            this.router.navigate(['/home/protocols/edit-protocol',record.dataId]);
+        };
+        if (record.dataType=='publication') {
+            this.router.navigate(['/home/samples/publications/publication',record.dataId]);
+        };
+    };
 }
