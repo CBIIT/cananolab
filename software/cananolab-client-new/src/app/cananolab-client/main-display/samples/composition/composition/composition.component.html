@@ -180,7 +180,7 @@ entry['dataId']: {{entry['dataId']}}
                                 <th>Image Modality</th>
                                 <th>Description</th>
                             </tr>
-                            <tr *ngFor="let function of entry.Functions">
+                            <tr *ngFor="let function of entry.Functions; let odd=odd" [ngClass]="{'rowOdd':odd}">
                                 <td>{{function.Type}}</td>
                                 <td>{{function.Modality}}</td>
                                 <td>{{function.FunctionDescription}}</td>

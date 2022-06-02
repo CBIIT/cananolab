@@ -231,7 +231,7 @@ img {
 
 table.dataTable{
     width:100%;
-    border: solid #ccc 1px;
+    border: 1px solid #ccc;
 
 }
 
@@ -247,16 +247,9 @@ table.dataTable th{
 table.dataTable td{
 	padding:5px;
     vertical-align:top;
-    border-right:1px solid #ccc;
+    border:1px solid #ccc;
 	width:250px;
 }
-
-// table.dataTable td:last-child{
-//     display:inline-block;
-//     border:1px solid red ;
-// 	white-space: nowrap;
-//     width:100%;
-// }
 
 table.dataTable td.actions  {
 	width:110px !important;
