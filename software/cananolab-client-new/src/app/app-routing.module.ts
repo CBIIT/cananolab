@@ -16,8 +16,7 @@ import { SearchPublicationComponent } from './cananolab-client/main-display/publ
 import { SearchSamplesByPublicationComponent } from './cananolab-client/main-display/publications/search-samples-by-publication/search-samples-by-publication.component';
 import { ProtocolSearchComponent } from './cananolab-client/main-display/protocols/protocol-search/protocol-search.component';
 import { ProtocolSearchResultsComponent } from './cananolab-client/main-display/protocols/protocol-search/protocol-search-results/protocol-search-results.component';
-import { ProtocolCreateCharlieComponent } from './cananolab-client/main-display/protocols/protocol-create-charlie/protocol-create-charlie.component';
-import { ProtocolEditBravoComponent } from './cananolab-client/main-display/protocols/protocol-edit-bravo/protocol-edit-bravo.component';
+import { ProtocolCreateComponent } from './cananolab-client/main-display/protocols/protocol-create/protocol-create.component';
 import { SampleSearchComponent } from './cananolab-client/main-display/samples/general-info/sample-search/sample-search.component';
 import { SampleCreateComponent } from './cananolab-client/main-display/samples/general-info/sample-create/sample-create.component';
 import { SampleCopyComponent } from './cananolab-client/main-display/samples/general-info/sample-copy/sample-copy.component';
@@ -50,12 +49,11 @@ const routes: Routes = [
     { path: 'home/publications/sample-search-by-publication', component: SearchSamplesByPublicationComponent },
     { path: 'home/publications/publication-search-results', component: SearchpublicationresultsComponent },
 
-    { path: 'home/protocols/protocol-create', component: ProtocolCreateCharlieComponent },
-    { path: 'home/protocols/edit-protocol/:protocolId', component: ProtocolCreateCharlieComponent },
-    { path: 'home/protocols/edit-protocol/:protocolId/:message', component: ProtocolCreateCharlieComponent },
+    { path: 'home/protocols/protocol-create', component: ProtocolCreateComponent },
+    { path: 'home/protocols/edit-protocol/:protocolId', component: ProtocolCreateComponent },
+    { path: 'home/protocols/edit-protocol/:protocolId/:message', component: ProtocolCreateComponent },
     { path: 'home/protocols/protocol-search', component: ProtocolSearchComponent },
     { path: 'home/protocols/protocol-search-results', component: ProtocolSearchResultsComponent },
-    // { path: 'home/protocols/edit-protocol/:protocolId', component: ProtocolEditBravoComponent },
     { path: 'home/protocols/protocolViewComponent', component: ProtocolViewComponent },
 
     { path: 'home/protocols', component: ProtocolsComponent },

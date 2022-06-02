@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ProtocolEditBravoComponent } from './protocol-edit-bravo.component';
+import { ProtocolCreateComponent } from './protocol-create-charlie.component';
 
-describe('ProtocolEditBravoComponent', () => {
-  let component: ProtocolEditBravoComponent;
-  let fixture: ComponentFixture<ProtocolEditBravoComponent>;
+describe('ProtocolCreateComponent', () => {
+  let component: ProtocolCreateComponent;
+  let fixture: ComponentFixture<ProtocolCreateComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ProtocolEditBravoComponent ]
+      declarations: [ ProtocolCreateComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ProtocolEditBravoComponent);
+    fixture = TestBed.createComponent(ProtocolCreateComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

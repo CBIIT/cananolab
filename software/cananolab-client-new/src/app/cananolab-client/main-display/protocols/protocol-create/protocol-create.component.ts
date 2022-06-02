@@ -6,11 +6,11 @@ import { HttpClient } from '@angular/common/http';
 import { Properties } from '../../../../../assets/properties';
 import { Router, Params, ActivatedRoute } from '@angular/router';
 @Component( {
-    selector: 'canano-protocol-create-charlie',
-    templateUrl: './protocol-create-charlie.component.html',
-    styleUrls: ['./protocol-create-charlie.component.scss']
+    selector: 'canano-protocol-create',
+    templateUrl: './protocol-create.component.html',
+    styleUrls: ['./protocol-create.component.scss']
 } )
-export class ProtocolCreateCharlieComponent implements OnInit, AfterViewInit{
+export class ProtocolCreateComponent implements OnInit, AfterViewInit{
     accessIndex;
     currentRoute='protocol-create';
     data;

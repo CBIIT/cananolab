@@ -134,9 +134,6 @@ export class ProtocolSearchComponent implements OnInit, OnDestroy{
                     this.errors={};
                     this.protocolTypes = <any>data['protocolTypes'];
 
-                    // Put an empty entry at the top of the Types dropdown.
-                    this.protocolTypes.unshift('');
-
                     Properties.PROTOCOL_TYPES = this.protocolTypes; // Cache it
                 },
                 error=> {

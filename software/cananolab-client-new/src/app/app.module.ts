@@ -45,8 +45,7 @@ import { ProtocolSearchResultsDisplayTitlePipe } from './cananolab-client/main-d
 import { ProtocolSearchResultsDisplayDescriptionPipe } from './cananolab-client/main-display/protocols/protocol-search/protocol-search-results/protocol-search-results-display-description.pipe';
 import { ProtocolSearchResultsDisplayHrefPipe } from './cananolab-client/main-display/protocols/protocol-search/protocol-search-results/protocol-search-results-display-href.pipe';
 import { ProtocolViewComponent } from './cananolab-client/main-display/protocols/protocol-view/protocol-view.component';
-import { ProtocolCreateCharlieComponent } from './cananolab-client/main-display/protocols/protocol-create-charlie/protocol-create-charlie.component';
-import { ProtocolEditBravoComponent } from './cananolab-client/main-display/protocols/protocol-edit-bravo/protocol-edit-bravo.component';
+import { ProtocolCreateComponent } from './cananolab-client/main-display/protocols/protocol-create/protocol-create.component';
 import { SampleSearchComponent } from './cananolab-client/main-display/samples/general-info/sample-search/sample-search.component';
 import { SampleSearchResultsComponent } from './cananolab-client/main-display/samples/general-info/sample-search/sample-search-results/sample-search-results.component';
 import { SampleCreateComponent } from './cananolab-client/main-display/samples/general-info/sample-create/sample-create.component';
@@ -120,8 +119,7 @@ import { SearchResultsComponent } from './cananolab-client/main-display/search-r
     ProtocolSearchResultsDisplayDescriptionPipe,
     ProtocolSearchResultsDisplayHrefPipe,
     ProtocolViewComponent,
-    ProtocolCreateCharlieComponent,
-    ProtocolEditBravoComponent,
+    ProtocolCreateComponent,
     SampleSearchComponent,
     SampleSearchResultsComponent,
     SampleCreateComponent,
