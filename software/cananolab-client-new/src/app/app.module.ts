@@ -39,7 +39,6 @@ import { SubmitPublicationComponent } from './cananolab-client/main-display/publ
 import { SearchPublicationComponent } from './cananolab-client/main-display/publications/search-publication/search-publication.component';
 import { SearchSamplesByPublicationComponent } from './cananolab-client/main-display/publications/search-samples-by-publication/search-samples-by-publication.component';
 import { ProtocolSearchComponent } from './cananolab-client/main-display/protocols/protocol-search/protocol-search.component';
-import { ProtocolCreateComponent } from './cananolab-client/main-display/protocols/protocol-create/protocol-create.component';
 import { ProtocolSearchResultsComponent } from './cananolab-client/main-display/protocols/protocol-search/protocol-search-results/protocol-search-results.component';
 import { SearchResultsPagerComponent } from './cananolab-client/common/components/search-results-pager/search-results-pager.component';
 import { ManageAccessibilityComponent } from './cananolab-client/common/components/manage-accessibility/manage-accessibility.component';
@@ -115,7 +114,6 @@ import { SearchResultsComponent } from './cananolab-client/main-display/search-r
     SearchPublicationComponent,
     SearchSamplesByPublicationComponent,
     ProtocolSearchComponent,
-    ProtocolCreateComponent,
     ProtocolSearchResultsComponent,
     SearchResultsPagerComponent,
     ManageAccessibilityComponent,
