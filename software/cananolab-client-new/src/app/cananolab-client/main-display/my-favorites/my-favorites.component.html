@@ -5,6 +5,9 @@
 </canano-main-display-heading>
 
 <div class="mainSection">
+    <div class="error" *ngIf="errors['error']">
+        {{errors['error']}}
+    </div>
     <div class="mainBorder">
         <div class="myFilters">
         <!-- ----  Checkboxes to show and/or hide Samples, Protocols, or Publications ----- -->

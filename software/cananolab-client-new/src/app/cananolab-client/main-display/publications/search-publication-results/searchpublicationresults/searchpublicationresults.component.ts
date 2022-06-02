@@ -72,6 +72,7 @@ export class SearchpublicationresultsComponent implements OnInit {
     }
 
     addToFavorites(publication) {
+        console.log('ere?')
         let data = {
             "dataId":publication.id,
             "dataName":publication.displayName,

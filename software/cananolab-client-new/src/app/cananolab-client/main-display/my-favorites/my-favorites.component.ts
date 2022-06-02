@@ -10,6 +10,7 @@ import { ProtocolsService } from '../protocols/protocols.service';
     styleUrls: ['./my-favorites.component.scss']
 } )
 export class MyFavoritesComponent implements OnInit{
+    errors={};
     helpUrl = Consts.HELP_URL_FAVORITE;
     toolHeadingNameSearchSample = 'My Favorites';
     showSampleFavs = true;
@@ -29,12 +30,14 @@ export class MyFavoritesComponent implements OnInit{
     ngOnInit(): void{
         this.apiService.doGet( Consts.QUERY_GET_FAVORITE, '' ).subscribe(
             data => {
+                this.errors={};
                 this.favSamples = <any>data['samples'];
                 this.favProtocols = <any>data['protocols'];
                 this.favPublications = <any>data['publications'];
             },
 
             ( err ) => {
+                this.errors=err;
                 console.error( 'ERROR QUERY_GET_FAVORITE: ', err );
             } );
 
@@ -43,11 +46,13 @@ export class MyFavoritesComponent implements OnInit{
     deleteProtocolFromFavorites( favToDelete ){
         this.apiService.doPost( Consts.QUERY_DELETE_FAVORITE, favToDelete ).subscribe(
             data => {
+                this.errors={};
                 this.favSamples = <any>data['samples'];
                 this.favProtocols = <any>data['protocols'];
                 this.favPublications = <any>data['publications'];
             },
             err => {
+                this.errors=err;
                 console.log( 'ERROR deleteSampleFromFavorites: ', err );
             }
         );
@@ -56,11 +61,13 @@ export class MyFavoritesComponent implements OnInit{
     deletePublicationFromFavorites( favToDelete ){
         this.apiService.doPost( Consts.QUERY_DELETE_FAVORITE, favToDelete ).subscribe(
             data => {
+                this.errors={};
                 this.favSamples = <any>data['samples'];
                 this.favProtocols = <any>data['protocols'];
                 this.favPublications = <any>data['publications'];
             },
             err => {
+                this.errors=err;
                 console.error( 'ERROR deleteSampleFromFavorites: ', err );
 
             }
@@ -70,12 +77,14 @@ export class MyFavoritesComponent implements OnInit{
     deleteSampleFromFavorites( favToDelete ){
         this.apiService.doPost( Consts.QUERY_DELETE_FAVORITE, favToDelete ).subscribe(
             data => {
+                this.errors={};
                 this.favSamples = <any>data['samples'];
                 this.favProtocols = <any>data['protocols'];
                 this.favPublications = <any>data['publications'];
 
             },
             err => {
+                this.errors=err;
                 console.log( 'ERROR deleteSampleFromFavorites: ', err );
             }
         );
