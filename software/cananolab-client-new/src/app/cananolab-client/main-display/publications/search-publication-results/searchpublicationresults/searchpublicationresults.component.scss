@@ -1,13 +1,36 @@
 @import "../../../../main-display/main-display.component.scss";
 @import "src/app/btn-canano";
 table.dataTable th{
-	padding:5px 20px 5px 5px;
+	// padding:5px 20px 5px 5px;
     vertical-align:top;
     border:1px solid #ccc;
     white-space:nowrap;
 }
-table.dataTable td {
-    width:auto !important;
+table.dataTable td:nth-child(1) {
+    width:145px !important;
+}
+
+table.dataTable td:nth-child(2) {
+    width:175px !important;
+}
+
+table.dataTable td:nth-child(3) {
+    width:105px !important;
+}
+table.dataTable td:nth-child(4) {
+    width:175px !important;
+}
+table.dataTable td:nth-child(5) {
+    width:230px !important;
+}
+table.dataTable td:nth-child(6) {
+    width:200px !important;
+}
+table.dataTable td:nth-child(7) {
+    width:120px !important;
+}
+table.dataTable td:nth-child(8) {
+    width:120px !important;
 }
 $popup-z-index: 10;
 

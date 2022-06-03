@@ -193,7 +193,6 @@ http://cent16:8090/caNanoLab/rest/sample/viewDataAvailability?sampleId=25799936
     }
 
     onSortClick(i, key) {
-        console.log(i,key)
         if (i) {
             if (this.sortingStates[i]) {
                 // clicking on column that already is sorted on //
@@ -205,13 +204,21 @@ http://cent16:8090/caNanoLab/rest/sample/viewDataAvailability?sampleId=25799936
                 });
                 this.sortingStates[i] = 1;
             }
+            console.log(this.sortingStates)
             if (this.sortingStates[i] == 1) {
-                this.searchResults.sort((a, b) => (a[key] < b[key] ? 1 : -1));
+                this.searchResults.sort((a, b) => (this.getStringValue(a[key]) > this.getStringValue(b[key]) ? 1 : -1));
             } else {
-                this.searchResults.sort((a, b) => (a[key] > b[key] ? 1 : -1));
+                this.searchResults.sort((a, b) => (this.getStringValue(a[key]) < this.getStringValue(b[key]) ? 1 : -1));
             }
             this.setupPage();
         }
+    }
+
+    getStringValue(val) {
+        if (val) {
+            return val.toString().toUpperCase()
+        }
+        return ''
     }
 
     ngOnDestroy() {

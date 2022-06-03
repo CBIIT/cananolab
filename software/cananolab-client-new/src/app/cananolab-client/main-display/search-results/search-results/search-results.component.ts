@@ -158,13 +158,24 @@ export class SearchResultsComponent implements OnInit {
                 });
                 this.sortingStates[i] = 1;
             }
+            console.log(this.sortingStates)
             if (this.sortingStates[i] == 1) {
-                this.searchResults.sort((a, b) => (a[key] < b[key] ? 1 : -1));
+                this.searchResults.sort((a, b) => (this.getStringValue(a[key],key) > this.getStringValue(b[key],key) ? 1 : -1));
             } else {
-                this.searchResults.sort((a, b) => (a[key] > b[key] ? 1 : -1));
+                this.searchResults.sort((a, b) => (this.getStringValue(a[key],key) < this.getStringValue(b[key],key) ? 1 : -1));
             }
             this.setupPage();
         }
+    }
+
+    getStringValue(value,key) {
+        if (value) {
+            if (key=='createdDate') { // first convert the date string to integer //
+                value=new Date(value).getTime();
+            }
+            return value.toString().toUpperCase()
+        }
+        return ''
     }
 
     setupPage() {
