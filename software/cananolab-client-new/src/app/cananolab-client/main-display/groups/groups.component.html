@@ -136,7 +136,7 @@
                             <ng-container *ngIf="userFormIndex!=null">
                                 <br />
                                 <div class="mainBorder">
-                                    <table>
+                                    <table class="dataMain">
                                         <tr>
                                             <td class="label">
                                                 <label for="userInfoBean['recipient']">
@@ -157,11 +157,11 @@
                                             </td>
                                         </tr>
                                         <tr>
+                                            <td *ngIf="users"></td>
                                             <td colspan="2" class="buttons">
                                                 <button (click)="saveUser()" [disabled]="userInfoBean.recipient==''" class="btn-canano btn-canano-primary btn-canano-xs mr-1">Save</button>
                                                 <button (click)="cancelUser()" class="btn-canano btn-canano-default btn-canano-xs mr-1">Cancel</button>
                                             </td>
-                                            <td></td>
                                         </tr>
                                     </table>
                                 </div>
