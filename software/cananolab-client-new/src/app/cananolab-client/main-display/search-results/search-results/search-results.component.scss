@@ -1,7 +1,9 @@
 @import "../../../main-display/main-display.component.scss";
 @import "src/app/btn-canano";
-@import "src/app/cananolab-client/cananolab-client.component";
 
+.hand {
+    cursor:pointer !important;
+}
 $popup-z-index: 10;
 
 td,

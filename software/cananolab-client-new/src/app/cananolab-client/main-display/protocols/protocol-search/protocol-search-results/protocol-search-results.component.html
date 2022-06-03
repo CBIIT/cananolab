@@ -1,17 +1,16 @@
 <canano-main-display-heading
     [helpUrl]="'https://wiki.nci.nih.gov/display/caNanoLab/Managing+Protocols+in+caNanoLab#ManagingProtocolsincaNanoLab-ProtocolResults'"
-    [toolHeadingName]="'Protocol Search Results'"
->
+    [toolHeadingName]="'Protocol Search Results'">
 </canano-main-display-heading>
 <div class="mainSection">
-<span
-    class="ml-2"
->
-    {{searchResults.length}} Item{{(searchResults.length > 1 ? 's' : '')}} found, displaying
-    {{(currentPage * pageLength) + 1}}
-    -{{    (((currentPage * pageLength) + pageLength) > searchResults.length) ? searchResults.length : (currentPage * pageLength) + pageLength   }}
-</span>
-<!--
+
+    <span class="ml-2">
+        {{searchResults.length}} Item{{(searchResults.length > 1 ? 's' : '')}} found, displaying
+        {{(currentPage * pageLength) + 1}}
+        -{{ (((currentPage * pageLength) + pageLength) > searchResults.length) ? searchResults.length : (currentPage *
+        pageLength) + pageLength }}
+    </span>
+    <!--
 
 <canano-search-results-pager
 [totalCount]=searchResults.length
@@ -19,131 +18,102 @@
 -->
 
 
-<span
-      class="search-results-pager"
->
-            <!-- Page length number setting  -->
-            <span class="ml-5">
-                Show
-                <input
-                    class="number-spinner rows-per-page-spinner"
-                    min="1"
-                    max="{{maxPageLength}}"
-                    type="number"
-                    [(ngModel)]="pageLength"
-                    (change)="onPageLengthChange()"
-                >
-                entries
-            </span>
-
-    <!-- Pager buttons -->
-            <canano-search-results-pager
-                style="float: right;"
-                [totalCount]=searchResultsCount
-                [startingPageLength]=pageLength
-            ></canano-search-results-pager>
+    <span class="search-results-pager">
+        <!-- Page length number setting  -->
+        <span class="ml-5">
+            Show
+            <input class="number-spinner rows-per-page-spinner" min="1" max="{{maxPageLength}}" type="number"
+                [(ngModel)]="pageLength" (change)="onPageLengthChange()">
+            entries
         </span>
 
-
-<table class="search-results-table">
-
-    <tr class="search-results-tr">
-        <th
-            *ngFor="let col of columnHeadings; let i = index;"
-
-            [ngClass]="{
-                'hide': ! properties.logged_in && i < 1
-            }"
-
-            class="search-results-th unselectable">
-            <label for="sortClick"  (click)="onSortClick(i)">{{col}}</label>
-            <!-- No sorting for "Actions" column -->
-            <span *ngIf="i > 0"
-                  id=sortClick
-                (click)="onSortClick(i)"
-            >
-
-                <span *ngIf="i > 0" >
-                    <!-- Add sorting icons -->
-                    <img
-                        *ngIf="sortingStates[i] === sortState.SORT_UP"
-                        src="assets/images/upTriangle2White.png"
-                    />
-                    <img
-                        *ngIf="sortingStates[i] === sortState.SORT_DOWN"
-                        src="assets/images/downTriangle2White.png"
-                    />
-                    <!-- space/place holder -->
-                    <img
-                        *ngIf="sortingStates[i] === sortState.NO_SORT"
-                        src="assets/images/place_holder.png"
-                    />
-                </span>
-            </span>
-            <!-- END Add sorting icons -->
-        </th>
-    </tr>
+        <!-- Pager buttons -->
+        <canano-search-results-pager style="float: right;" [totalCount]=searchResultsCount
+            [startingPageLength]=pageLength></canano-search-results-pager>
+    </span>
 
 
-    <tr
-        *ngFor="let res of searchResultsPageToDisplay; let even=even; let odd=odd; let i=index"
-        class="search-results-tr"
-        [ngClass]="{
+    <table class="dataTable">
+
+        <tr>
+            <ng-container *ngFor="let col of columnHeadings; let i = index">
+                <th *ngFor="let colKeyValue of col | keyvalue" class="unselectable hand"
+                    (click)="onSortClick(i,colKeyValue.key)">
+                    <label for="sortClick" class="hand">
+                        {{colKeyValue.value}}
+                    </label>
+
+                    <!-- No sorting for "Actions" column -->
+                    <span *ngIf="i > 0" id="sortClick" (click)="onSortClick(i)">
+                        <span *ngIf="i > 0">
+                            <!-- Add sorting icons -->
+                            <img *ngIf="sortingStates[i] === sortState.SORT_UP"
+                                src="assets/images/upTriangle2White.png" />
+                            <img *ngIf="sortingStates[i] === sortState.SORT_DOWN"
+                                src="assets/images/downTriangle2White.png" />
+                            <img *ngIf="sortingStates[i] === sortState.NO_SORT"
+                                src="assets/images/upAnddownTriangle2White.png" />
+                            <!-- space/place holder -->
+
+                        </span>
+                    </span>
+                    <!-- END Add sorting icons -->
+                </th>
+            </ng-container>
+        </tr>
+
+
+        <tr *ngFor="let res of searchResultsPageToDisplay; let even=even; let odd=odd; let i=index"
+            class="search-results-tr" [ngClass]="{
                 '': even,
                 'rowOdd': odd
-            }"
-    >
-        <td class="search-results-td" *ngIf="properties.logged_in">
-            <a
-                *ngIf="properties.LOGGED_IN"
-                (click)="onEditClick(res)"
-            >Edit</a>
+            }">
+            <td class="search-results-td" *ngIf="properties.logged_in">
+                <a *ngIf="properties.LOGGED_IN" (click)="onEditClick(res)">Edit</a>
 
 
-            <!--  I thought we showed the "View" if they are not logged in (I was wrong)
+                <!--  I thought we showed the "View" if they are not logged in (I was wrong)
            <div *ngIf="! properties.logged_in"
                 class="protocol-search-results-edit-button mb-2"
                 (click)="onViewClick(res)"
             >View</div>
             -->
-            <br />
-            <a *ngIf="properties.LOGGED_IN"
-                (click)="addToFavorites( res.id, res.viewName, res.fileId, res.editable, res.fileTitle )"
-            >Add to Favorites</a>
+                <br />
+                <a *ngIf="properties.LOGGED_IN"
+                    (click)="addToFavorites( res.id, res.viewName, res.fileId, res.editable, res.fileTitle )">Add to
+                    Favorites</a>
 
-        </td>
+            </td>
 
-        <td class="search-results-td protocol-search-results-type-td">
-            {{res['type']}}
-        </td>
-        <td class="search-results-td">
-            {{res['viewName']}}
-        </td>
-        <td class="search-results-td protocol-search-results-abbreviation-td">
-            {{res['abbreviation']}}
-        </td>
-        <td class="search-results-td protocol-search-results-version-td">
-            {{res['version']}}
-        </td>
-        <td class="search-results-td">
-            <span *ngIf="res['fileInfo'].length > 0 ">
-                <div><b><i>Title:</i></b>&nbsp;&nbsp;
-                    <span [innerHtml]="res['fileInfo']| protocolSearchResultsDisplayTitle"></span></div>
-                <div><b><i>Description:</i></b>&nbsp;&nbsp;{{res['fileInfo']| protocolSearchResultsDisplayDescription}}</div>
-                <div><a
-                    href="{{properties.API_SERVER_URL}}/caNanoLab/{{res['fileInfo']| protocolSearchResultsDisplayHref}}"
-                    target="_blank" style="color: #00f;">view</a></div>
-           </span>
-        </td>
-        <td class="search-results-td protocol-search-results-created-td">
-            {{res['createdDate'] | date : "shortDate"}}
-        </td>
-    </tr>
-</table>
-<!-- Pager buttons --><br />
-<canano-search-results-pager
-    style="float: right; "
-    [totalCount]=searchResultsCount
-    [startingPageLength]=pageLength
-></canano-search-results-pager>
+            <td class="search-results-td protocol-search-results-type-td">
+                {{res['type']}}
+            </td>
+            <td class="search-results-td">
+                {{res['viewName']}}
+            </td>
+            <td class="search-results-td protocol-search-results-abbreviation-td">
+                {{res['abbreviation']}}
+            </td>
+            <td class="search-results-td protocol-search-results-version-td">
+                {{res['version']}}
+            </td>
+            <td class="search-results-td">
+                <span *ngIf="res['fileInfo'].length > 0 ">
+                    <div><b><i>Title:</i></b>&nbsp;&nbsp;
+                        <span [innerHtml]="res['fileInfo']| protocolSearchResultsDisplayTitle"></span>
+                    </div>
+                    <div><b><i>Description:</i></b>&nbsp;&nbsp;{{res['fileInfo']|
+                        protocolSearchResultsDisplayDescription}}</div>
+                    <div><a href="{{properties.API_SERVER_URL}}/caNanoLab/{{res['fileInfo']| protocolSearchResultsDisplayHref}}"
+                            target="_blank" style="color: #00f;">view</a></div>
+                </span>
+            </td>
+            <td class="search-results-td protocol-search-results-created-td">
+                {{res['createdDate'] | date : "shortDate"}}
+            </td>
+        </tr>
+    </table>
+    <!-- Pager buttons --><br />
+    <canano-search-results-pager style="float: right; " [totalCount]=searchResultsCount [startingPageLength]=pageLength>
+    </canano-search-results-pager>
 </div>
