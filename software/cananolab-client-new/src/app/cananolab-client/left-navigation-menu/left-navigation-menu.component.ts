@@ -10,9 +10,7 @@ import { UtilService } from '../common/services/util.service';
 import { Properties } from '../../../assets/properties';
 import { ActivatedRoute } from '@angular/router';
 import { NavigationService } from '../common/services/navigation.service';
-import { Params } from '@angular/router';
 import { StatusDisplayService } from '../status-display/status-display.service';
-import { ThrowStmt } from '@angular/compiler';
 
 @Component( {
     selector: 'canano-left-navigation-menu',

@@ -1,165 +1,122 @@
-<canano-main-display-heading
-    [helpUrl]="helpUrl"
-    [toolHeadingName]="toolHeadingNameSearchSample"
->
+<canano-main-display-heading [helpUrl]="helpUrl" [toolHeadingName]="toolHeadingNameSearchSample">
 </canano-main-display-heading>
 
 
 <canano-sample-availability-display></canano-sample-availability-display>
-    <div class="mainSection">
+
+{{searchResults|json}}
+<div class="mainSection">
 
 
-<span
-    class="ml-2"
->
-    {{searchResults.length}} Item{{(searchResults.length > 1 ? 's' : '')}} found, displaying
-    {{(currentPage * pageLength) + 1}}
-    -{{    (((currentPage * pageLength) + pageLength) > searchResults.length) ? searchResults.length : (currentPage * pageLength) + pageLength   }}
-</span>
+    <span class="ml-2">
+        {{searchResults.length}} Item{{(searchResults.length > 1 ? 's' : '')}} found, displaying
+        {{(currentPage * pageLength) + 1}}
+        -{{ (((currentPage * pageLength) + pageLength) > searchResults.length) ? searchResults.length : (currentPage *
+        pageLength) + pageLength }}
+    </span>
 
 
-<span
-      class="search-results-pager"
->
-            <!-- Page length number setting  -->
-            <span class="ml-5">
-                Show
-                <input
-                    class="number-spinner rows-per-page-spinner"
-                    min="1"
-                    max="{{maxPageLength}}"
-                    type="number"
-                    [(ngModel)]="pageLength"
-                    (change)="onPageLengthChange()"
-                >
-                entries
-            </span>
-
-    <!-- Pager buttons -->
-            <canano-search-results-pager
-                style="float: right;"
-                [totalCount]=searchResultsCount
-                [startingPageLength]=pageLength
-            ></canano-search-results-pager>
+    <span class="search-results-pager">
+        <!-- Page length number setting  -->
+        <span class="ml-5">
+            Show
+            <input class="number-spinner rows-per-page-spinner" min="1" max="{{maxPageLength}}" type="number"
+                [(ngModel)]="pageLength" (change)="onPageLengthChange()">
+            entries
         </span>
 
-<table class="search-results-table">
+        <!-- Pager buttons -->
+        <canano-search-results-pager style="float: right;" [totalCount]=searchResultsCount
+            [startingPageLength]=pageLength></canano-search-results-pager>
+    </span>
+
+    <table class="dataTable">
+        <!-- -----  Header row  ----- -->
+        <tr>
+            <ng-container *ngFor="let col of columnHeadings; let i = index">
+                <th *ngFor="let colKeyValue of col | keyvalue" class="unselectable hand" (click)="onSortClick(i)">
+                    <label for="sortClick" class="hand">
+                        {{colKeyValue.value}}
+                    </label>
+
+                    <!-- No sorting for "Actions" column -->
+                    <span *ngIf="i > 0" id="sortClick">
+                        <span *ngIf="i > 0">
+                            <!-- Add sorting icons -->
+                            <img *ngIf="sortingStates[i] === sortState.SORT_UP" src="assets/images/upTriangle2White.png" />
+                            <img *ngIf="sortingStates[i] === sortState.SORT_DOWN" src="assets/images/downTriangle2White.png" />
+                            <img *ngIf="sortingStates[i] === sortState.NO_SORT" src="assets/images/upAnddownTriangle2White.png" />
+                            <!-- space/place holder -->
+
+                        </span>
+                    </span>
+                    <!-- END Add sorting icons -->
+                </th>
+            </ng-container>
+        </tr>
+        <!-- -----  END Header row  ----- -->
 
 
-    <!-- -----  Header row  ----- -->
-    <tr class="search-results-tr">
-        <th
-            *ngFor="let col of columnHeadings; let i = index;"
-
-            class="search-results-th unselectable">
-            <label for="sortClick" (click)="onSortClick(i)">{{col}}</label>
-
-            <!-- No sorting for "Actions" column -->
-            <span *ngIf="i > 0"
-                  id=sortClick
-                  (click)="onSortClick(i)"
-            >
-
-                <span *ngIf="i > 0">
-                    <!-- Add sorting icons -->
-                    <img
-                        *ngIf="sortingStates[i] === sortState.SORT_UP"
-                        src="assets/images/upTriangle2White.png"
-                    />
-                    <img
-                        *ngIf="sortingStates[i] === sortState.SORT_DOWN"
-                        src="assets/images/downTriangle2White.png"
-                    />
-                    <!-- space/place holder -->
-                    <img
-                        *ngIf="sortingStates[i] === sortState.NO_SORT"
-                        src="assets/images/place_holder.png"
-                    />
-                </span>
-            </span>
-            <!-- END Add sorting icons -->
-        </th>
-    </tr>
-    <!-- -----  END Header row  ----- -->
-
-
-    <tr *ngFor="let samp of searchResultsPageToDisplay; let even=even; let odd=odd; let i=index"
-        class="search-results-tr"
-        [ngClass]="{
+        <tr *ngFor="let samp of searchResultsPageToDisplay; let even=even; let odd=odd; let i=index"
+            class="search-results-tr" [ngClass]="{
                 '': even,
                 'rowOdd': odd
-            }"
-    >
+            }">
 
 
 
-        <td class="search-results-td" >
-            <a
-                *ngIf="properties.LOGGED_IN"
-                (click)="navigateToSampleEdit(samp['sampleId'])"
-            >Edit</a>
+            <td class="search-results-td">
+                <a *ngIf="properties.LOGGED_IN" (click)="navigateToSampleEdit(samp['sampleId'])">Edit</a>
 
 
-            <a
-                *ngIf="! properties.LOGGED_IN"
-                (click)="navigateToSampleView(samp['sampleId'])"
-            >View</a>
-            <br>
+                <a *ngIf="! properties.LOGGED_IN" (click)="navigateToSampleView(samp['sampleId'])">View</a>
+                <br>
 
-            <a
-                (click)="addToFavorites( samp )"
-            >Add to Favorites</a>
+                <a *ngIf="properties.LOGGED_IN" (click)="addToFavorites( samp )">Add to Favorites</a>
 
-        </td>
+            </td>
 
-        <td class="search-results-td" >{{samp['sampleName']}}</td>
+            <td class="search-results-td">{{samp['sampleName']}}</td>
 
-        <td [innerHTML]="samp['pointOfContact']"></td>
-        <td class="search-results-td" >
-            <span *ngIf="
+            <td [innerHTML]="samp['pointOfContact']"></td>
+            <td class="search-results-td">
+                <span *ngIf="
                 samp['composition'] !== undefined &&
                 samp['composition'] !== null &&
                 samp['composition'][0] !== undefined &&
                 samp['composition'][0] !== null">{{samp['composition'][0]}}
-            </span>
-        </td>
+                </span>
+            </td>
 
-        <td class="search-results-td" >
-            <div *ngFor="let func of samp['functions'] ">
-                {{func}}
-            </div>
-        </td>
+            <td class="search-results-td">
+                <div *ngFor="let func of samp['functions'] ">
+                    {{func}}
+                </div>
+            </td>
 
-        <td class="search-results-td" >
-            <div *ngFor="let func of samp['functions']; let i0 = index ">
-                {{samp['characterizations'][i0]}}
-            </div>
-        </td>
+            <td class="search-results-td">
+                <div *ngFor="let func of samp['functions']; let i0 = index ">
+                    {{samp['characterizations'][i0]}}
+                </div>
+            </td>
 
-        <td class="search-results-td" >
-<!--
+            <td class="search-results-td">
+                <!--
             <a href="http://cent16:8090/caNanoLab/rest/sample/viewDataAvailability?sampleId=25799936"></a>
 -->
-            <span
-                class="link-clicker"
-                (click)="onAvailabilityClick(samp['sampleId'])"
-            >
-                {{samp['dataAvailability']}}
-            </span>
-        </td>
+                <span class="link-clicker" (click)="onAvailabilityClick(samp['sampleId'])">
+                    {{samp['dataAvailability']}}
+                </span>
+            </td>
 
-        <td class="search-results-td" >
-            {{samp['createdDate']  | date : "shortDate"}}
-        </td>
+            <td class="search-results-td">
+                {{samp['createdDate'] | date : "shortDate"}}
+            </td>
 
-    </tr>
+        </tr>
 
-</table><br />
-<!-- Pager buttons -->
-<canano-search-results-pager
-    style="float: right; "
-    [totalCount]=searchResultsCount
-    [startingPageLength]=pageLength
-></canano-search-results-pager>
+    </table><br />
+    <!-- Pager buttons -->
+    <canano-search-results-pager style="float: right; " [totalCount]=searchResultsCount [startingPageLength]=pageLength>
+    </canano-search-results-pager>
 </div>
-

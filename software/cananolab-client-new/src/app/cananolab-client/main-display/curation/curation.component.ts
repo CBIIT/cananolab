@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Properties } from '../../../../assets/properties';
-import { Consts } from '../../../constants';
-// import { ConsoleReporter } from 'jasmine';
 import { Router } from '@angular/router';
 
 @Component({
@@ -29,10 +27,15 @@ export class CurationComponent implements OnInit {
         })
     }
 
-    editPublication(record) {
-        this.router.navigate(['/home/samples/publications/publication',record.dataId]);
-    }
-
-
-
+    edit(record) {
+        if (record.dataType=='sample') {
+            this.router.navigate(['/home/samples/sample',record.dataId]);
+        };
+        if (record.dataType=='protocol') {
+            this.router.navigate(['/home/protocols/edit-protocol',record.dataId]);
+        };
+        if (record.dataType=='publication') {
+            this.router.navigate(['/home/samples/publications/publication',record.dataId]);
+        };
+    };
 }

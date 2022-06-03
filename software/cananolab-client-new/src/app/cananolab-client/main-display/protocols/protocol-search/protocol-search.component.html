@@ -1,49 +1,5 @@
 
 <!-- -----  Search Results  ----- -->
-<span *ngIf="protocolScreenToShow === protocolScreen.PROTOCOL_SEARCH_RESULTS_SCREEN">
-    <div>
-        <canano-main-display-heading
-            [helpUrl]="helpUrlSearchResults"
-            [toolHeadingName]="toolHeadingNameSearchResults"
-    >
-        </canano-main-display-heading>
-    </div>
-
-    <div class="mainSection">
-        <canano-protocol-search-results [searchResults] = "searchResults">
-        </canano-protocol-search-results>
-    </div>
-</span>
-<!-- -----  END Search Results  ----- -->
-
-
-<!-- -----  Edit Protocol  ----- -->
-<!-- @TODO Clean this up -->
-<span *ngIf="protocolScreenToShow === protocolScreen.PROTOCOL_EDIT_SCREEN">
-    <canano-protocol-edit-bravo
-    ></canano-protocol-edit-bravo>
-</span>
-<!-- -----  END Edit Protocol  ----- -->
-
-
-<!-- -----  View Protocol  ----- -->
-<!-- I thought there was a view option if not logged in -->
-<span *ngIf="protocolScreenToShow === protocolScreen.PROTOCOL_VIEW_SCREEN">
-    <canano-protocol-view
-    ></canano-protocol-view>
-</span>
-<!-- -----  END View Protocol  ----- -->
-
-
-<!-- -----  Enter search criteria  ----- -->
-<span *ngIf="protocolScreenToShow === protocolScreen.PROTOCOL_SEARCH_INPUT_SCREEN">
-<div>
-    <canano-main-display-heading
-        [helpUrl]="helpUrl"
-        [toolHeadingName]="toolHeadingName"
-    >
-    </canano-main-display-heading>
-</div>
 
 <div class="mainSection" *ngIf="protocolSearchForm">
     <form name="protocolSearchForm">

@@ -4,23 +4,23 @@
 >
 </canano-main-display-heading>
 
-<div class="error" *ngIf="errors['error']">
-    {{errors['error']}}
-</div>
 <div class="mainSection">
+    <div class="error" *ngIf="errors['error']">
+        {{errors['error']}}
+    </div>
     <div class="mainBorder">
         <!-- ----  Checkboxes to show and/or hide Samples, Protocols, or Publications ----- -->
-        <div class="myFilters">
+        <div>
             <input id="showSampleWorkspacesCheckbox" type="checkbox" [(ngModel)]="showSampleWorkspaces">
-            <label for="showSampleWorkspacesCheckbox">
+            <label for="showSampleWorkspacesCheckbox" class="right">
                 Samples
             </label>
             <input id="showProtocolsWorkspacesCheckbox" type="checkbox" [(ngModel)]="showProtocolsWorkspaces">
-            <label for="showProtocolsWorkspacesCheckbox">
+            <label for="showProtocolsWorkspacesCheckbox" class="right">
                 Protocols
             </label>
             <input id="showPublicationsWorkspacesCheckbox" type="checkbox" [(ngModel)]="showPublicationsWorkspaces">
-            <label for="showPublicationsWorkspacesCheckbox">
+            <label for="showPublicationsWorkspacesCheckbox" class="right">
                 Publications
             </label>
         </div>

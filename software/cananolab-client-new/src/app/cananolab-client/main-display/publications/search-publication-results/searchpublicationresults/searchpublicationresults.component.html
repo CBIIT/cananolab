@@ -39,42 +39,35 @@
       <!-- Pager buttons -->
 
           </span><br /><br />
-          <table class="search-results-table">
+          <table class="dataTable">
 
 
             <!-- -----  Header row  ----- -->
-            <tr class="search-results-tr">
-                <th
-                    *ngFor="let col of columnHeadings; let i = index;"
+            <tr>
+                <ng-container *ngFor="let col of columnHeadings; let i = index">
+                    <th *ngFor="let colKeyValue of col | keyvalue" class="unselectable hand"
+                        (click)="onSortClick(i,colKeyValue.key)">
+                        <label for="sortClick" class="hand">
+                            {{colKeyValue.value}}
+                        </label>
 
-                    class="search-results-th unselectable">
-                    <label for="sortClick" (click)="onSortClick(i)">{{col}}</label>
+                        <!-- No sorting for "Actions" column -->
+                        <span *ngIf="i > 0" id="sortClick" (click)="onSortClick(i)">
+                            <span *ngIf="i > 0">
+                                <!-- Add sorting icons -->
+                                <img *ngIf="sortingStates[i] === sortState.SORT_UP"
+                                    src="assets/images/upTriangle2White.png" />
+                                <img *ngIf="sortingStates[i] === sortState.SORT_DOWN"
+                                    src="assets/images/downTriangle2White.png" />
+                                <img *ngIf="sortingStates[i] === sortState.NO_SORT"
+                                    src="assets/images/upAnddownTriangle2White.png" />
+                                <!-- space/place holder -->
 
-                    <!-- No sorting for "Actions" column -->
-                    <span *ngIf="i > 0"
-                          id=sortClick
-                          (click)="onSortClick(i)"
-                    >
-
-                        <span *ngIf="i > 0">
-                            <!-- Add sorting icons -->
-                            <img
-                                *ngIf="sortingStates[i] === sortState.SORT_UP"
-                                src="assets/images/upTriangle2White.png"
-                            />
-                            <img
-                                *ngIf="sortingStates[i] === sortState.SORT_DOWN"
-                                src="assets/images/downTriangle2White.png"
-                            />
-                            <!-- space/place holder -->
-                            <img
-                                *ngIf="sortingStates[i] === sortState.NO_SORT"
-                                src="assets/images/place_holder.png"
-                            />
+                            </span>
                         </span>
-                    </span>
-                    <!-- END Add sorting icons -->
-                </th>
+                        <!-- END Add sorting icons -->
+                    </th>
+                </ng-container>
             </tr>
             <!-- -----  END Header row  ----- -->
 
@@ -99,7 +92,7 @@
                     <a *ngIf="! properties.LOGGED_IN" (click)="navigateToPublication(publication['id'])">View</a>
                     <br>
 
-                    <a (click)="addToFavorites(publication)">Add to Favorites</a>
+                    <a *ngIf="properties.LOGGED_IN" (click)="addToFavorites(publication)">Add to Favorites</a>
 
                 </td>
 

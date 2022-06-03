@@ -79,7 +79,7 @@ export class MyWorkspaceComponent implements OnInit {
      */
     navigateToSampleDelete(sampleId){
         if (confirm("Are you sure you wish to delete this sample?")) {
-            this.apiService.doGet( 'caNanoLab/rest/sample/deleteSampleFromWorkspace', 'sampleId=' + sampleId ).subscribe(
+            this.apiService.doGet( Consts.QUERY_SAMPLE_DELETE_FROM_WORKSPACE, 'sampleId=' + sampleId ).subscribe(
                 data => {
                     this.errors={};
                     this.loadData();
@@ -101,7 +101,7 @@ export class MyWorkspaceComponent implements OnInit {
 
     navigateToProtocolDelete(protocolId){
         if (confirm("Are you sure you wish to delete this protocol?")) {
-                this.apiService.doGet( 'caNanoLab/rest/protocol/deleteProtocolById', 'protocolId=' + protocolId ).subscribe(
+                this.apiService.doGet( Consts.QUERY_DELETE_PROTOCOL_BY_ID, 'protocolId=' + protocolId ).subscribe(
                     data => {
                     this.errors={};
                     this.loadData();
@@ -122,7 +122,7 @@ export class MyWorkspaceComponent implements OnInit {
 
     navigateToPublicationDelete(publicationId){
         if (confirm("Are you sure you wish to delete this publication?")) {
-            this.apiService.doGet( 'caNanoLab/rest/publication/deletePublicationById', 'publicationId=' + publicationId ).subscribe(
+            this.apiService.doGet( Consts.QUERY_DELETE_PUBLICATION_BY_ID, 'publicationId=' + publicationId ).subscribe(
                 data => {
                     this.errors={};
                     this.loadData();

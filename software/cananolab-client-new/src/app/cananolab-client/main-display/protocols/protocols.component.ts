@@ -1,9 +1,5 @@
-import { Component, ElementRef, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Consts } from '../../../constants';
-import { TopMainMenuService } from '../../top-main-menu/top-main-menu.service';
-import { Properties } from '../../../../assets/properties';
-import { ApiService } from '../../common/services/api.service';
-import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'canano-protocols',

@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { CananolabClientComponent } from './cananolab-client/cananolab-client.component';
 import { PublicationsComponent } from './cananolab-client/main-display/publications/publications.component';
 import { HomeComponent } from './cananolab-client/main-display/home/home.component';
 import { WorkflowComponent } from './cananolab-client/main-display/workflow/workflow.component';
@@ -12,13 +11,11 @@ import { TestComponent } from './cananolab-client/main-display/test/test.compone
 import { CurationComponent } from './cananolab-client/main-display/curation/curation.component';
 import { GroupsComponent } from './cananolab-client/main-display/groups/groups.component';
 import { MyFavoritesComponent } from './cananolab-client/main-display/my-favorites/my-favorites.component';
-import { SubmitPublicationComponent } from './cananolab-client/main-display/publications/submit-publication/submit-publication.component';
 import { SearchPublicationComponent } from './cananolab-client/main-display/publications/search-publication/search-publication.component';
 import { SearchSamplesByPublicationComponent } from './cananolab-client/main-display/publications/search-samples-by-publication/search-samples-by-publication.component';
 import { ProtocolSearchComponent } from './cananolab-client/main-display/protocols/protocol-search/protocol-search.component';
 import { ProtocolSearchResultsComponent } from './cananolab-client/main-display/protocols/protocol-search/protocol-search-results/protocol-search-results.component';
-import { ProtocolCreateCharlieComponent } from './cananolab-client/main-display/protocols/protocol-create-charlie/protocol-create-charlie.component';
-import { ProtocolEditBravoComponent } from './cananolab-client/main-display/protocols/protocol-edit-bravo/protocol-edit-bravo.component';
+import { ProtocolCreateComponent } from './cananolab-client/main-display/protocols/protocol-create/protocol-create.component';
 import { SampleSearchComponent } from './cananolab-client/main-display/samples/general-info/sample-search/sample-search.component';
 import { SampleCreateComponent } from './cananolab-client/main-display/samples/general-info/sample-create/sample-create.component';
 import { SampleCopyComponent } from './cananolab-client/main-display/samples/general-info/sample-copy/sample-copy.component';
@@ -46,15 +43,15 @@ const routes: Routes = [
     { path: 'home/login', component: LoginComponent },
     { path: 'home/search-results', component: SearchResultsComponent },
     { path: 'home/publications', component: PublicationsComponent },
-    { path: 'home/publications/submitPublication', component: SubmitPublicationComponent },
     { path: 'home/publications/publication-search', component: SearchPublicationComponent },
     { path: 'home/publications/sample-search-by-publication', component: SearchSamplesByPublicationComponent },
     { path: 'home/publications/publication-search-results', component: SearchpublicationresultsComponent },
 
-    { path: 'home/protocols/protocol-create', component: ProtocolCreateCharlieComponent },
+    { path: 'home/protocols/protocol-create', component: ProtocolCreateComponent },
+    { path: 'home/protocols/edit-protocol/:protocolId', component: ProtocolCreateComponent },
+    { path: 'home/protocols/edit-protocol/:protocolId/:message', component: ProtocolCreateComponent },
     { path: 'home/protocols/protocol-search', component: ProtocolSearchComponent },
     { path: 'home/protocols/protocol-search-results', component: ProtocolSearchResultsComponent },
-    { path: 'home/protocols/edit-protocol/:protocolId', component: ProtocolEditBravoComponent },
     { path: 'home/protocols/protocolViewComponent', component: ProtocolViewComponent },
 
     { path: 'home/protocols', component: ProtocolsComponent },

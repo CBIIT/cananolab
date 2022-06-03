@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Properties } from '../../../../assets/properties';
-import { UrlResolver } from '@angular/compiler';
 
 @Component({
   selector: 'canano-groups',
@@ -12,6 +11,7 @@ export class GroupsComponent implements OnInit {
     helpUrl='javascript:openHelpWindow('+'https://wiki.nci.nih.gov/display/caNanoLab/Managing+Collaboration+Groups' + ')';
     toolHeadingNameManage='Manage Collaboration Groups';
     data;
+    errors={};
     sampleData;
     collaborationGroup;
     collaborationGroupTrailer;
@@ -27,8 +27,10 @@ export class GroupsComponent implements OnInit {
         let url = this.httpClient.get(Properties.API_SERVER_URL+'/caNanoLab/rest/community/getCollaborationGroups');
         url.subscribe(data=> {
             this.data=data;
+            this.errors={};
         },
         error=> {
+            this.errors=error;
             console.log('erorr')
         })
     }
@@ -40,9 +42,10 @@ export class GroupsComponent implements OnInit {
         }
         let url = this.httpClient.get(Properties.API_SERVER_URL+'/caNanoLab/rest/community/setupNew');
         url.subscribe(data=> {
+            this.errors={};
         },
         error=> {
-
+            this.errors=error;
         })
         setTimeout(function() {
             document.getElementById('collaborationForm').scrollIntoView();
@@ -70,9 +73,10 @@ export class GroupsComponent implements OnInit {
             let url = this.httpClient.post(Properties.API_SERVER_URL+'/caNanoLab/rest/community/deleteCollaborationGroups',this.collaborationGroup);
             url.subscribe(data=>{
                 this.data=data;
+                this.errors={};
             },
             error=> {
-
+                this.errors=error;
             })
         }
     };
@@ -87,9 +91,13 @@ export class GroupsComponent implements OnInit {
             setTimeout(function() {
                 document.getElementById('collaborationForm').scrollIntoView();
             },100);
+            this.errors={};
             this.collaborationGroup=data;
             console.log(data)
             this.collaborationGroupTrailer=JSON.parse(JSON.stringify(data));
+        },
+        error=> {
+            this.errors=error;
         })
     }
 
@@ -99,9 +107,10 @@ export class GroupsComponent implements OnInit {
             let url = this.httpClient.post(Properties.API_SERVER_URL+'/caNanoLab/rest/community/deleteUserAccess',this.userInfoBean);
             url.subscribe(data=> {
                 this.collaborationGroup=data;
+                this.errors={};
             },
             error=> {
-
+                this.errors=error;
             })
         };
     };
@@ -111,9 +120,10 @@ export class GroupsComponent implements OnInit {
             let url = this.httpClient.get(Properties.API_SERVER_URL+'/caNanoLab/rest/community/getsamples?groupId='+group.id);
             url.subscribe(data=> {
                 this.sampleData[group.id]=data;
+                this.errors={};
             },
             error=> {
-
+                this.errors=error;
             })
             group['expand']=true;
         }
@@ -128,10 +138,11 @@ export class GroupsComponent implements OnInit {
         let url = this.httpClient.post(Properties.API_SERVER_URL+'/caNanoLab/rest/community/addCollaborationGroups',this.collaborationGroup);
         url.subscribe(data=> {
             this.data=data;
+            this.errors={};
             this.collaborationIndex=null;
         },
         error=> {
-
+            this.errors=error;
         })
     }
 
@@ -146,11 +157,11 @@ export class GroupsComponent implements OnInit {
         let url = this.httpClient.post(Properties.API_SERVER_URL+'/caNanoLab/rest/community/addUserAccess',userAccess);
         url.subscribe(data=>{
             this.collaborationGroup.userAccesses=data['userAccesses'];
-
+            this.errors={};
             this.userFormIndex=null;
         },
         error=>{
-
+            this.errors=error;
         })
     }
 
@@ -161,9 +172,10 @@ export class GroupsComponent implements OnInit {
         let url=this.httpClient.get(Properties.API_SERVER_URL+'/caNanoLab/rest/core/getUsers?searchStr='+this.userInfoBean['recipient']+'&dataOwner=');
         url.subscribe(data=>{
             this.users=data;
+            this.errors={};
         },
         error=> {
-
+            this.errors=error;
         })
     }
 

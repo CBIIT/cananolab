@@ -3,11 +3,12 @@
     [toolHeadingName]="toolHeadingName"
 >
 </canano-main-display-heading>
-<div class="error" *ngIf="errors['error']">
-    {{errors['error']}}
-</div>
+
 <div class="mainSection">
-<div class="mainBorder">
+    <div class="error" *ngIf="errors['error']">
+        {{errors['error']}}
+    </div>
+    <div class="mainBorder">
     <table class="searchForm">
         <tr>
             <td class="label">

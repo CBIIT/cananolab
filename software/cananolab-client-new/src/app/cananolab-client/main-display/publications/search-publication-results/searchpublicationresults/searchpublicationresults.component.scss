@@ -1,7 +1,14 @@
 @import "../../../../main-display/main-display.component.scss";
 @import "src/app/btn-canano";
-@import "src/app/cananolab-client/cananolab-client.component";
-
+table.dataTable th{
+	padding:5px 20px 5px 5px;
+    vertical-align:top;
+    border:1px solid #ccc;
+    white-space:nowrap;
+}
+table.dataTable td {
+    width:auto !important;
+}
 $popup-z-index: 10;
 
 td,

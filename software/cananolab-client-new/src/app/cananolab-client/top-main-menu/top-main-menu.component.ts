@@ -8,8 +8,7 @@ import { TopMainMenuService, TopMenuData, TopMenuItems } from './top-main-menu.s
 import { UtilService } from '../common/services/util.service';
 import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
-import { ConfigurationService } from '../common/services/configuration.service';
-import { Router,Event, NavigationStart, NavigationEnd, NavigationError } from '@angular/router';
+import { Router,Event, NavigationStart } from '@angular/router';
 import { Consts } from '../../constants';
 import { Properties } from '../../../assets/properties';
 

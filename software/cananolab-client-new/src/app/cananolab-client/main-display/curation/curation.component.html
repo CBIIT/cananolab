@@ -2,10 +2,11 @@
 [toolHeadingName]="toolHeadingNameManage">
 
 </canano-main-display-heading>
-<div class="error" *ngIf="errors['error']">
-    {{errors['error']}}
-</div>
+
 <div class="mainSection">
+    <div class="error" *ngIf="errors['error']">
+        {{errors['error']}}
+    </div>
     <div class="mainBorder" *ngIf="data">
         <h5>Data Pending Review</h5>
         <div *ngIf="!data.length">
@@ -25,7 +26,7 @@
                     {{record.dataName}}
                 </td>
                 <td>
-                    <a (click)="editPublication(record)">
+                    <a (click)="edit(record)">
                         Edit
                     </a>
                 </td>

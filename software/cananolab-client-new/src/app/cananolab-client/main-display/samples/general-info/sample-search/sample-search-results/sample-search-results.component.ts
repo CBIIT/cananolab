@@ -10,13 +10,22 @@ import { ApiService } from '../../../../../common/services/api.service';
 import { SampleAvailabilityDisplayService } from './sample-availability-display/sample-availability-display.service';
 import { Router } from '@angular/router';
 
-@Component( {
+@Component({
     selector: 'canano-sample-search-results',
     templateUrl: './sample-search-results.component.html',
-    styleUrls: ['./sample-search-results.component.scss']
-} )
-export class SampleSearchResultsComponent implements OnInit, OnDestroy{
-    columnHeadings = ['Actions', 'Sample Name', 'Primary Point of Contact', 'Composition', 'Functions', 'Characterizations', 'Data Availability', 'Created'];
+    styleUrls: ['./sample-search-results.component.scss'],
+})
+export class SampleSearchResultsComponent implements OnInit, OnDestroy {
+    columnHeadings = [
+        { actions: 'Actions' },
+        { sampleName: 'Sample Name' },
+        { pointOfContact: 'Primary POC' },
+        { composition: 'Composition' },
+        { functions: 'Functions' },
+        { characterizations: 'Characterizations' },
+        { dataAvailability: 'Data Availability' },
+        { createdDate: 'Created' }
+    ];
 
     maxPageLength = Properties.MAX_PAGE_LENGTH;
     pageLength = Properties.DEFAULT_PAGE_LENGTH;
@@ -29,81 +38,94 @@ export class SampleSearchResultsComponent implements OnInit, OnDestroy{
     currentPage = 0;
     searchResultsPageToDisplay;
 
-    sortingStates = [SortState.NO_SORT, SortState.SORT_UP, SortState.NO_SORT, SortState.NO_SORT, SortState.NO_SORT, SortState.NO_SORT, SortState.NO_SORT];
+    sortingStates = [
+        SortState.NO_SORT,
+        SortState.NO_SORT,
+        SortState.NO_SORT,
+        SortState.NO_SORT,
+        SortState.NO_SORT,
+        SortState.NO_SORT,
+        SortState.NO_SORT,
+        SortState.NO_SORT
+    ];
 
     sortState = SortState;
     properties = Properties;
     userName;
 
-
     private ngUnsubscribe: Subject<boolean> = new Subject<boolean>();
 
-    constructor( private sampleSearchResultsService: SampleSearchResultsService, private searchResultsPagerService: SearchResultsPagerService,
-                 private statusDisplayService: StatusDisplayService, private apiService: ApiService,
-                 private router: Router, private sampleAvailabilityDisplayService: SampleAvailabilityDisplayService ){
-    }
+    constructor(
+        private sampleSearchResultsService: SampleSearchResultsService,
+        private searchResultsPagerService: SearchResultsPagerService,
+        private statusDisplayService: StatusDisplayService,
+        private apiService: ApiService,
+        private router: Router,
+        private sampleAvailabilityDisplayService: SampleAvailabilityDisplayService
+    ) {}
 
-    ngOnInit(): void{
+    ngOnInit(): void {
         this.searchResults = this.sampleSearchResultsService.getSearchResults();
-        console.log(this.searchResults)
+        console.log(this.searchResults);
         this.searchResultsCount = this.searchResults.length;
 
-        this.searchResultsPagerService.currentPageChangeEmitter.pipe( takeUntil( this.ngUnsubscribe ) )
-            .subscribe( ( data ) => {
+        this.searchResultsPagerService.currentPageChangeEmitter
+            .pipe(takeUntil(this.ngUnsubscribe))
+            .subscribe((data) => {
                 this.currentPage = data;
                 this.setupPage();
-            } );
+            });
 
-
-        this.statusDisplayService.updateUserEmitter.pipe( timeout( Properties.HTTP_TIMEOUT ) ).subscribe(
-            data => {
+        this.statusDisplayService.updateUserEmitter
+            .pipe(timeout(Properties.HTTP_TIMEOUT))
+            .subscribe((data) => {
                 this.userName = data;
-            } );
-
+            });
 
         this.searchResultsCount = this.searchResults.length;
-        this.pageCount = Math.ceil( this.searchResultsCount / this.pageLength );
+        this.pageCount = Math.ceil(this.searchResultsCount / this.pageLength);
         this.onPageLengthChange();
     }
 
-
-    navigateToSampleEdit( sampleId ){
-        console.log('test')
-        this.router.navigate(['home/samples/sample',sampleId ]);  // @FIXME  Don't hard code these
+    navigateToSampleEdit(sampleId) {
+        console.log('test');
+        this.router.navigate(['home/samples/sample', sampleId]); // @FIXME  Don't hard code these
     }
 
-    navigateToSampleView(sampleId, sampleName){
-        this.router.navigate(['home/samples/view-sample', sampleId ]);  // @FIXME  Don't hard code these
+    navigateToSampleView(sampleId, sampleName) {
+        this.router.navigate(['home/samples/view-sample', sampleId]); // @FIXME  Don't hard code these
     }
 
-
-    addToFavorites(samp){
+    addToFavorites(samp) {
         console.log('addToFavorites samp: ', samp);
-        let favObj = {'dataType': 'sample', 'loginName': 'canano_curator'};  // @FIXME User real user name
+        let favObj = { dataType: 'sample', loginName: 'canano_curator' }; // @FIXME User real user name
         favObj['dataName'] = samp['sampleName'];
         favObj['dataId'] = samp['sampleId'];
         favObj['description'] = samp['nanoEntityDesc'];
         favObj['editable'] = samp['editable'];
         console.log('favObj:', favObj);
 
-        this.apiService.doPost( Consts.QUERY_ADD_FAVORITE, favObj ).subscribe(
-            data => {
+        this.apiService.doPost(Consts.QUERY_ADD_FAVORITE, favObj).subscribe(
+            (data) => {
                 // console.log('set Fave results: ', data);
             },
-            err => {
+            (err) => {
                 console.log('ERROR QUERY_ADD_FAVORITE: ', err);
             }
         );
     }
 
-    onAvailabilityClick( id ){
-        this.apiService.doGet( Consts.QUERY_SAMPLE_AVAILABILITY, 'sampleId=' + id).subscribe(
-            data => {
-                this.sampleAvailabilityDisplayService.displayStuff( data );
-            },
-            ( err ) => {
-                console.log( 'ERROR QUERY_SAMPLE_AVAILABILITY: ', err );
-            } );
+    onAvailabilityClick(id) {
+        this.apiService
+            .doGet(Consts.QUERY_SAMPLE_AVAILABILITY, 'sampleId=' + id)
+            .subscribe(
+                (data) => {
+                    this.sampleAvailabilityDisplayService.displayStuff(data);
+                },
+                (err) => {
+                    console.log('ERROR QUERY_SAMPLE_AVAILABILITY: ', err);
+                }
+            );
     }
 
     /*
@@ -150,32 +172,49 @@ http://cent16:8090/caNanoLab/rest/sample/viewDataAvailability?sampleId=25799936
 
      */
 
-
-    setupPage(){
-        this.searchResultsPageToDisplay = this.searchResults.slice( this.pageLength * this.currentPage, this.pageLength * (this.currentPage + 1) );
-
+    setupPage() {
+        this.searchResultsPageToDisplay = this.searchResults.slice(
+            this.pageLength * this.currentPage,
+            this.pageLength * (this.currentPage + 1)
+        );
     }
 
-
-    onPageLengthChange(){
-        if( this.pageLength < 1 ){
+    onPageLengthChange() {
+        if (this.pageLength < 1) {
             this.pageLength = 1;
         }
-        if( this.pageLength > this.maxPageLength ){
+        if (this.pageLength > this.maxPageLength) {
             this.pageLength = this.maxPageLength;
         }
 
-        this.pageCount = Math.ceil( this.searchResultsCount / this.pageLength );
-        this.searchResultsPagerService.setPageCount( this.pageCount );
+        this.pageCount = Math.ceil(this.searchResultsCount / this.pageLength);
+        this.searchResultsPagerService.setPageCount(this.pageCount);
         this.setupPage(); // Sets this page as the currently vied search results.
     }
 
-    onSortClick( i ){
-        console.log( 'onSortClick: ', i );
+    onSortClick(i, key) {
+        console.log(i,key)
+        if (i) {
+            if (this.sortingStates[i]) {
+                // clicking on column that already is sorted on //
+                this.sortingStates[i] = this.sortingStates[i] == 1 ? 2 : 1;
+            } else {
+                // reset sorting states //
+                this.sortingStates.forEach((item, index) => {
+                    this.sortingStates[index] = 0;
+                });
+                this.sortingStates[i] = 1;
+            }
+            if (this.sortingStates[i] == 1) {
+                this.searchResults.sort((a, b) => (a[key] < b[key] ? 1 : -1));
+            } else {
+                this.searchResults.sort((a, b) => (a[key] > b[key] ? 1 : -1));
+            }
+            this.setupPage();
+        }
     }
 
-
-    ngOnDestroy(){
+    ngOnDestroy() {
         this.ngUnsubscribe.next();
         this.ngUnsubscribe.complete();
     }

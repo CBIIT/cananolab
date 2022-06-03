@@ -1,7 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { CananolabClientComponent } from './cananolab-client/cananolab-client.component';
@@ -29,13 +28,11 @@ import { HomeWhatsNewComponent } from './cananolab-client/main-display/home/righ
 import { HomeKeepingUpWithCananolabComponent } from './cananolab-client/main-display/home/right-side-bar/home-keeping-up-with-cananolab/home-keeping-up-with-cananolab.component';
 import { LoginComponent } from './cananolab-client/main-display/home/right-side-bar/home-user-actions/login/login.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { ApiService } from './cananolab-client/common/services/api.service';
 import { HttpClientModule } from '@angular/common/http';
 import { LeftNavigationMenuComponent } from './cananolab-client/left-navigation-menu/left-navigation-menu.component';
 import { TestComponent } from './cananolab-client/main-display/test/test.component';
 import { BrowseCananolabComponent } from './cananolab-client/main-display/home/browse-cananolab/browse-cananolab.component';
 import { StatusDisplayComponent } from './cananolab-client/status-display/status-display.component';
-import { SubmitPublicationComponent } from './cananolab-client/main-display/publications/submit-publication/submit-publication.component';
 import { SearchPublicationComponent } from './cananolab-client/main-display/publications/search-publication/search-publication.component';
 import { SearchSamplesByPublicationComponent } from './cananolab-client/main-display/publications/search-samples-by-publication/search-samples-by-publication.component';
 import { ProtocolSearchComponent } from './cananolab-client/main-display/protocols/protocol-search/protocol-search.component';
@@ -47,8 +44,7 @@ import { ProtocolSearchResultsDisplayTitlePipe } from './cananolab-client/main-d
 import { ProtocolSearchResultsDisplayDescriptionPipe } from './cananolab-client/main-display/protocols/protocol-search/protocol-search-results/protocol-search-results-display-description.pipe';
 import { ProtocolSearchResultsDisplayHrefPipe } from './cananolab-client/main-display/protocols/protocol-search/protocol-search-results/protocol-search-results-display-href.pipe';
 import { ProtocolViewComponent } from './cananolab-client/main-display/protocols/protocol-view/protocol-view.component';
-import { ProtocolCreateCharlieComponent } from './cananolab-client/main-display/protocols/protocol-create-charlie/protocol-create-charlie.component';
-import { ProtocolEditBravoComponent } from './cananolab-client/main-display/protocols/protocol-edit-bravo/protocol-edit-bravo.component';
+import { ProtocolCreateComponent } from './cananolab-client/main-display/protocols/protocol-create/protocol-create.component';
 import { SampleSearchComponent } from './cananolab-client/main-display/samples/general-info/sample-search/sample-search.component';
 import { SampleSearchResultsComponent } from './cananolab-client/main-display/samples/general-info/sample-search/sample-search-results/sample-search-results.component';
 import { SampleCreateComponent } from './cananolab-client/main-display/samples/general-info/sample-create/sample-create.component';
@@ -110,7 +106,6 @@ import { SearchResultsComponent } from './cananolab-client/main-display/search-r
     TestComponent,
     BrowseCananolabComponent,
     StatusDisplayComponent,
-    SubmitPublicationComponent,
     SearchPublicationComponent,
     SearchSamplesByPublicationComponent,
     ProtocolSearchComponent,
@@ -122,8 +117,7 @@ import { SearchResultsComponent } from './cananolab-client/main-display/search-r
     ProtocolSearchResultsDisplayDescriptionPipe,
     ProtocolSearchResultsDisplayHrefPipe,
     ProtocolViewComponent,
-    ProtocolCreateCharlieComponent,
-    ProtocolEditBravoComponent,
+    ProtocolCreateComponent,
     SampleSearchComponent,
     SampleSearchResultsComponent,
     SampleCreateComponent,

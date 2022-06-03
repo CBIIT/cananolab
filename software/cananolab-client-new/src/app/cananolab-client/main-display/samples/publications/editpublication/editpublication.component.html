@@ -5,13 +5,13 @@
 >
 </canano-main-display-heading>
 <div *ngIf="data&&setupData">
-    <div class="error" *ngIf="errors['error']">
-        {{errors['error']}}
-    </div>
-    <div class="error" *ngIf="message">
-        {{message}}
-    </div>
     <div class="mainSection">
+        <div class="error" *ngIf="errors['error']">
+            {{errors['error']}}
+        </div>
+        <div class="error" *ngIf="message">
+            {{message}}
+        </div>
         <form action="" method="get" name="publicationForm">
             <div class="mainBorder">
                 <table class="dataMain">

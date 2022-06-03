@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SubmitPublicationComponent } from './submit-publication.component';
+import { ProtocolCreateComponent } from './protocol-create-charlie.component';
 
-describe('SubmitPublicationComponent', () => {
-  let component: SubmitPublicationComponent;
-  let fixture: ComponentFixture<SubmitPublicationComponent>;
+describe('ProtocolCreateComponent', () => {
+  let component: ProtocolCreateComponent;
+  let fixture: ComponentFixture<ProtocolCreateComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ SubmitPublicationComponent ]
+      declarations: [ ProtocolCreateComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(SubmitPublicationComponent);
+    fixture = TestBed.createComponent(ProtocolCreateComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -6,7 +6,7 @@
 
 import { EventEmitter, Injectable } from '@angular/core';
 import { MainDisplayService } from '../main-display/main-display.service';
-import { Router,Event, NavigationStart, NavigationEnd, NavigationError } from '@angular/router';
+import { Router } from '@angular/router';
 
 /**
  * These will serve as constants used for Hiding, Showing, enabling,

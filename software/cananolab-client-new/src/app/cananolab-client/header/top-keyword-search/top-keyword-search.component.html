@@ -1,17 +1,16 @@
 <!----------------------------------------------------------------------------------------->
-<!----------------------    The Search at top right (just stubs)   ------------------------>
+<!----------------------    The Search at top right   ------------------------>
 <!----------------------------------------------------------------------------------------->
 
 <span class="top-keyword-top-span">
-    <input
-        type="text"
-        placeholder="Enter keyword"
-        [(ngModel)]="topKeyWordSearchText"
-    >
-    <button
-        class="btn-canano btn-canano-primary btn-canano-xs mr-1 topSearch"
-        type="button"
-        (click)="onTopKeyWordSearchClick()"
-    >Search
-    </button>
+    <form (submit)="onTopKeyWordSearchClick()" action="#">
+        <input type="text"
+                placeholder="Enter keyword"
+                name="topKeyWordSearchText"
+                [(ngModel)]="topKeyWordSearchText">
+        <button type="submit" class="btn-canano btn-canano-primary btn-canano-xs mr-1 topSearch"
+                (click)="onTopKeyWordSearchClick()">
+                Search
+        </button>
+    </form>
 </span>

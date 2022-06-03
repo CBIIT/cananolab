@@ -1,0 +1,279 @@
+<canano-main-display-heading
+    [helpUrl]="'https://wiki.nci.nih.gov/display/caNanoLab/Managing+Protocols+in+caNanoLab#ManagingProtocolsincaNanoLab-SubmitProtocol'"
+    [toolHeadingName]="toolHeadingName"
+>
+</canano-main-display-heading>
+<div class="mainSection" *ngIf="data&&setupData">
+    <div class="error" *ngIf="errors['error']">
+        {{errors['error']}}
+    </div>
+
+    <div class="error" *ngIf="message">
+        {{message}}
+    </div>
+    <div class="mainBorder">
+    <form name="searchForm">
+        <table class="dataMain">
+            <!-- Protocol Type -->
+            <tr>
+                <td class="label">
+                    <label for="protocolType">
+                        Protocol Type*
+                    </label>
+                </td>
+                <td>
+                    <select id="protocolType" [(ngModel)]="data.type" name="type">
+                        <option [ngValue]="''" [selected]="true">--Select--</option>
+                        <option *ngFor="let type of setupData.protocolTypes" value="{{type}}">{{type}}</option>
+                    </select>
+                </td>
+            </tr>
+            <!-- -----  END Protocol Type  ----- -->
+            <!-- -----  Protocol Name  ----- -->
+            <tr>
+                <td class="label">
+                    <label for="protocolName">
+                        Protocol Name<sup><b>*</b></sup>
+                    </label>
+                </td>
+                <td>
+                    <input type="text" name="name" id="protocolName" [(ngModel)]="data.name">
+                </td>
+            </tr>
+            <!--  -----  END Protocol Name  ----- -->
+            <!--  -----  Protocol Abbreviation  ----- -->
+            <tr>
+                <td class="label">
+                    <label for="abbreviation">
+                        <div>Protocol</div>
+                        <div>Abbreviation</div>
+                    </label>
+                </td>
+                <td>
+                    <input id="abbreviation" name="abbreviation" type="text" [(ngModel)]="data.abbreviation">
+                </td>
+            </tr>
+            <!-- END Protocol Abbreviation -->
+            <!-- Protocol Version-->
+            <tr>
+                <td class="label">
+                    <label for="protocolVersion">
+                        Protocol Version
+                    </label>
+                </td>
+                <td>
+                    <input id="protocolVersion" name="version" type="text" [(ngModel)]="data.version">
+                </td>
+            </tr>
+            <!--            END Protocol Version-->
+            <!--            Protocol File-->
+            <tr>
+                <td class="label">
+                    <label for="protocolFile">
+                        Protocol File
+                    </label>
+                </td>
+                <!-- Radio buttons for "Upload"/"Enter File URL" -->
+                <td>
+                    <!-- Radio button for Upload -->
+                    <input name="create_protocol_file_radio" id="create_protocol_file_radio0" type="radio" [value]="false" [checked]="!data.uriExternal" (click)="onUpload()" [(ngModel)]="data.uriExternal">
+                    <label for="create_protocol_file_radio0" class="right">
+                        Upload
+                    </label>
+                    <!-- END Radio button for Upload -->
+                    <!-- Radio button for File URL -->
+                    <input name="create_protocol_file_radio" id="create_protocol_file_radio1" type="radio" [value]="true" [checked]="data.uriExternal" (click)="onEnterFileUrl()" [(ngModel)]="data.uriExternal">
+                    <label for="create_protocol_file_radio1" class="right">
+                        Enter File URL
+                    </label>
+                    <!-- END Radio button for File URL -->
+                    <!-- END Radio buttons for "Upload"/"Enter File URL" -->
+                    <!-- File browser button -->
+                    <br />
+                    <input [ngClass]="{'hide': uriExternal}" type="file" (change)="getFiles($event)">
+                    <div *ngIf="data.uri">
+                        <a [href]="downloadUrl+'?fileId='+data.fileId">
+                            {{data.uri}}
+                        </a>
+                    </div>
+                    <!-- END File browser button -->
+                    <!-- File URL text input -->
+                    <input [ngClass]="{'hide': ! uriExternal}" placeholder="File URL" type="text" id="externalUrl" name="externalUrl" [(ngModel)]="data.externalUrl">
+                    <!-- File URL text input -->
+                </td>
+            </tr>
+            <!-- Protocol File Title -->
+            <tr>
+                <td class="label">
+                    <label for="fileTitle">
+                        File Title
+                    </label>
+                </td>
+                <td>
+                    <input name="fileTitle" id="fileTitle" type="text" [(ngModel)]="data.fileTitle">
+                </td>
+            </tr>
+            <!-- END Protocol File Title -->
+            <!--  Description  -->
+            <tr>
+                <td class="label">
+                    <label for="description">
+                        Description
+                    </label>
+                </td>
+                <td>
+                    <textarea name="fileDescription" id="description" cols="60" rows="3" [(ngModel)]="data.fileDescription">
+                    </textarea>
+                </td>
+            </tr>
+            <!--  END Description  -->
+            <tr>
+                <td class="label">
+                    <label for="accessToProtocol">
+                        Access to the Protocol
+                    </label>
+                </td>
+                <td>
+                    <button (click)="addAccess()" [disabled]="data.type==''||data.name==''" class="btn-canano btn-canano-primary btn-canano-xs mr-1">
+                        Add
+                    </button>
+                </td>
+            </tr>
+            <ng-container *ngIf="data['groupAccesses']">
+                <tr *ngIf="data.groupAccesses.length">
+                    <td></td>
+                    <td>
+                        <table class="dataTable">
+                            <tr>
+                                <th>Group Name</th>
+                                <th>Access</th>
+                                <th></th>
+                            </tr>
+                            <tr *ngFor="let group of data.groupAccesses; let groupIndex=index; let odd=odd" [ngClass]="{'rowOdd':odd}">
+                                <td>{{group.recipientDisplayName}}</td>
+                                <td>{{group.roleDisplayName}}</td>
+                                <td>
+                                    <button (click)="editAccess(groupIndex,group)" class="btn-canano btn-canano-primary btn-canano-xs mr-1">Edit</button>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr *ngIf="data.userAccesses.length">
+                    <td></td>
+                    <td>
+                        <table class="dataTable">
+                            <tr>
+                                <th>User Login Name	</th>
+                                <th>Access</th>
+                                <th></th>
+                            </tr>
+                            <tr *ngFor="let user of data.userAccesses; let userIndex=index; let odd=odd" [ngClass]="{'rowOdd':odd}">
+                                <td>{{user.recipientDisplayName}}</td>
+                                <td>{{user.roleDisplayName}}</td>
+                                <td>
+                                    <button (click)="editAccess(userIndex,user)" class="btn-canano btn-canano-primary btn-canano-xs mr-1">Edit</button>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </ng-container>
+            <tr *ngIf="accessIndex!=null">
+                <td></td>
+                <td>
+                    <div class="mainBorder">
+                        <table class="authorForm">
+                            <tr>
+                                <td class="label">
+                                    <label for="accessType">
+                                        Access By*
+                                    </label>
+                                </td>
+                                <td class="field" colspan="2">
+                                    <input (ngModelChange)="changeAccessType($event)" type="radio" name="accessType.group" id="accessType.group" [value]="'group'" [(ngModel)]="theAccess['accessType']">
+                                    <label for="accessType.group" class="right">
+                                        Collaboration Group
+                                    </label>
+                                    &nbsp;
+                                    <input (ngModelChange)="changeAccessType($event)" type="radio" name="accessType.user" id="accessType.user" [value]="'user'" [(ngModel)]="theAccess['accessType']">
+                                    <label for="accessType.user" class="right">
+                                        User
+                                    </label>
+                                    &nbsp;
+                                    <input (ngModelChange)="changeAccessType($event)" type="radio" name="accessType.role" id="accessType.role" [value]="'role'" [(ngModel)]="theAccess['accessType']">
+                                    <label for="accessType.role" class="right">
+                                        Role
+                                    </label>
+                                </td>
+                            </tr>
+                            <tr *ngIf="theAccess.accessType&&theAccess.accessType!='role'">
+                                <td class="label">
+                                    <label for="access.recipient">
+                                        <span *ngIf="theAccess.accessType=='group'">
+                                            Collaboration Group Name*
+                                        </span>
+                                        <span *ngIf="theAccess.accessType=='user'">
+                                            User Login Name*
+                                        </span>
+                                    </label>
+                                </td>
+                                <td class="field">
+                                    <button (click)="getRecipientList()" class="btn-canano btn-canano-primary btn-canano-xs mr-1">Search</button>
+                                    <ng-container *ngIf="recipientList">
+                                        &nbsp;&nbsp;
+                                        <select name="access.recipient" [(ngModel)]="theAccess.recipient">
+                                            <option [selected]="theAccess.recipient===''" [ngValue]="''">--select</option>
+                                            <ng-container *ngIf="theAccess.accessType=='group'">
+                                                <option *ngFor="let group of recipientList">
+                                                    {{group}}
+                                                </option>
+                                            </ng-container>
+                                            <ng-container *ngIf="theAccess.accessType=='user'">
+                                                <option *ngFor="let user of recipientList|keyvalue" [ngValue]="user.key">
+                                                    {{user.value}}
+                                                </option>
+                                            </ng-container>
+
+                                        </select>
+                                    </ng-container>
+
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="label">
+                                    <label for="access.roleName">
+                                        Access to the Publication*
+                                    </label>
+                                </td>
+                                <td class="field">
+                                    <select [disabled]="theAccess.accessType=='role'" name="access.roleName" [(ngModel)]="theAccess.roleName">
+                                        <option [selected]="theAccess.roleName===''" [ngValue]="''">--Select--</option>
+                                        <option *ngFor="let role of setupData.csmRoleNames | keyvalue" [ngValue]="role.key" [selected]="role.key==theAccess.roleName">
+                                            {{role.value}}
+                                        </option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <button (click)="deleteAccess()" *ngIf="accessIndex!=-1" class="btn-canano btn-canano-danger btn-canano-xs mr-1">Delete</button>
+                                </td>
+                                <td>
+                                    <button (click)="saveAccess()" [disabled]="theAccess.accessType==''||theAccess.roleName==''||theAccess.recipient==''" class="btn-canano btn-canano-primary btn-canano-xs mr-1">Save</button>
+                                    <button (click)="cancelAccess()" class="btn-canano btn-canano-default btn-canano-xs mr-1">Cancel</button>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </td>
+            </tr>
+        </table>
+        <div class="buttons">
+            <button (click)="onReset()" class="btn-canano btn-canano-danger btn-canano-lg mr-1">Reset</button>
+            <button [disabled]="data.type==''||data.name==''" (click)="onSubmit()" class="btn-canano btn-canano-primary btn-canano-lg mr-1">Submit</button>
+        </div>
+    </form>
+</div>
+
+</div>
