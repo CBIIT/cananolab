@@ -1,6 +1,9 @@
 @import "../../../../../btn-canano";
 @import '../../../../cananolab-client.component.scss';
 @import '../../../main-display.component.scss';
+.hidden {
+    display:none;
+}
 td,
 th{
     vertical-align: top;

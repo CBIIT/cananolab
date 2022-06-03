@@ -4,9 +4,12 @@
 
 <canano-sample-availability-display></canano-sample-availability-display>
 
-{{searchResults|json}}
-<div class="mainSection">
+<div class="mainSection" *ngIf="searchResults">
+    <div *ngIf="!searchResults.length" class="mainBorder">
+        No search results found.
+    </div>
 
+    <div *ngIf="searchResults.length">
 
     <span class="ml-2">
         {{searchResults.length}} Item{{(searchResults.length > 1 ? 's' : '')}} found, displaying
@@ -119,4 +122,5 @@
     <!-- Pager buttons -->
     <canano-search-results-pager style="float: right; " [totalCount]=searchResultsCount [startingPageLength]=pageLength>
     </canano-search-results-pager>
+</div>
 </div>

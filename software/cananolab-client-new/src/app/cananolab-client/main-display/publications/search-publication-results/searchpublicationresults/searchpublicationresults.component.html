@@ -1,58 +1,32 @@
-<canano-main-display-heading
-    [helpUrl]="'https://wiki.nci.nih.gov/display/caNanoLab/Managing+Publications+in+caNanoLab#ManagingPublicationsincaNanoLab-SearchPublications'"
-    [toolHeadingName]="'Publication Search Results'"
->
-</canano-main-display-heading>
-<div class="error" *ngIf="errors['error']">
-    {{errors['error']}}
-</div>
-<div class="mainSection">
-            <span
-            class="ml-2"
-        >
+<canano-main-display-heading [helpUrl]="'https://wiki.nci.nih.gov/display/caNanoLab/Managing+Publications+in+caNanoLab#ManagingPublicationsincaNanoLab-SearchPublications'" [toolHeadingName]="'Publication Search Results'"> </canano-main-display-heading>
+<div class="error" *ngIf="errors['error']"> {{errors['error']}} </div>
+<div class="mainSection" *ngIf="searchResults">
+	<div *ngIf="!searchResults.length" class="mainBorder"> No search results found. </div>
+	<div *ngIf="searchResults.length"> <span class="ml-2">
             {{searchResults.length}} Item{{(searchResults.length > 1 ? 's' : '')}} found, displaying
             {{(currentPage * pageLength) + 1}}
-            -{{    (((currentPage * pageLength) + pageLength) > searchResults.length) ? searchResults.length : (currentPage * pageLength) + pageLength   }}
+            -{{ (((currentPage * pageLength) + pageLength) > searchResults.length) ? searchResults.length : (currentPage
+            * pageLength) + pageLength }}
         </span>
-        <canano-search-results-pager
-        style="float: right;"
-        [totalCount]=searchResultsCount
-        [startingPageLength]=pageLength
-    ></canano-search-results-pager>
-        <span
-        class="search-results-pager"
-  >
-              <!-- Page length number setting  -->
-              <span class="ml-5">
-                  Show
-                  <input
-                      class="number-spinner rows-per-page-spinner"
-                      min="1"
-                      max="{{maxPageLength}}"
-                      type="number"
-                      [(ngModel)]="pageLength"
-                      (change)="onPageLengthChange()"
-                  >
-                  entries
-              </span>
-
-      <!-- Pager buttons -->
-
-          </span><br /><br />
-          <table class="dataTable">
-
-
-            <!-- -----  Header row  ----- -->
-            <tr>
-                <ng-container *ngFor="let col of columnHeadings; let i = index">
-                    <th *ngFor="let colKeyValue of col | keyvalue" class="unselectable hand"
-                        (click)="onSortClick(i,colKeyValue.key)">
-                        <label for="sortClick" class="hand">
-                            {{colKeyValue.value}}
-                        </label>
-
-                        <!-- No sorting for "Actions" column -->
-                        <span *ngIf="i > 0" id="sortClick" (click)="onSortClick(i)">
+		<canano-search-results-pager style="float: right;" [totalCount]=searchResultsCount [startingPageLength]=pageLength></canano-search-results-pager> <span class="search-results-pager">
+            <!-- Page length number setting  -->
+            <span class="ml-5">
+                Show
+                <input class="number-spinner rows-per-page-spinner" min="1" max="{{maxPageLength}}" type="number"
+                    [(ngModel)]="pageLength" (change)="onPageLengthChange()">
+                entries
+            </span>
+		<!-- Pager buttons -->
+		</span>
+		<br />
+		<br />
+		<table class="dataTable">
+			<!-- -----  Header row  ----- -->
+			<tr>
+				<ng-container *ngFor="let col of columnHeadings; let i = index">
+					<th *ngFor="let colKeyValue of col | keyvalue" class="unselectable hand" (click)="onSortClick(i,colKeyValue.key)">
+						<label for="sortClick" class="hand"> {{colKeyValue.value}} </label>
+						<!-- No sorting for "Actions" column --><span *ngIf="i > 0" id="sortClick" (click)="onSortClick(i)">
                             <span *ngIf="i > 0">
                                 <!-- Add sorting icons -->
                                 <img *ngIf="sortingStates[i] === sortState.SORT_UP"
@@ -63,80 +37,36 @@
                                     src="assets/images/upAnddownTriangle2White.png" />
                                 <!-- space/place holder -->
 
-                            </span>
-                        </span>
-                        <!-- END Add sorting icons -->
-                    </th>
-                </ng-container>
-            </tr>
-            <!-- -----  END Header row  ----- -->
-
-
-            <tr *ngFor="let publication of searchResultsPageToDisplay; let even=even; let odd=odd; let i=index"
-                class="search-results-tr"
-                [ngClass]="{
+                            </span> </span>
+						<!-- END Add sorting icons -->
+					</th>
+				</ng-container>
+			</tr>
+			<!-- -----  END Header row  ----- -->
+			<tr *ngFor="let publication of searchResultsPageToDisplay; let even=even; let odd=odd; let i=index" class="search-results-tr" [ngClass]="{
                         '': even,
                         'rowOdd': odd
-                    }"
-            >
-
-
-
-                <td class="search-results-td" >
-                    <a
-                        *ngIf="properties.LOGGED_IN"
-                        (click)="navigateToPublication(publication['id'])"
-                    >Edit</a>
-
-
-                    <a *ngIf="! properties.LOGGED_IN" (click)="navigateToPublication(publication['id'])">View</a>
-                    <br>
-
-                    <a *ngIf="properties.LOGGED_IN" (click)="addToFavorites(publication)">Add to Favorites</a>
-
-                </td>
-
-                <td class="search-results-td" >
-                    <span [innerHtml]="publication.displayName"></span></td>
-
-                <td class="search-results-td" [innerHTML]="publication['publicationType']"></td>
-                <td class="search-results-td" >
-                    <ul>
-                        <li *ngFor="let researchArea of publication['researchAreas']">
-                            {{researchArea}}
-                        </li>
-                    </ul>
-                </td>
-
-                <td class="search-results-td" >
-                    <ul>
-                        <li *ngFor="let sample of publication['sampleNames']">
-                            {{sample}}
-                        </li>
-                    </ul>
-                </td>
-
-                <td class="search-results-td" >
-                    {{publication['descriptionDetail']}}
-                </td>
-
-                <td class="search-results-td" >
-                    {{publication.status}}
-                </td>
-
-                <td class="search-results-td" >
-                    {{publication['createdDate']  | date : "shortDate"}}
-                </td>
-
-            </tr>
-
-        </table>
-<br />
-
-        <canano-search-results-pager
-        style="float: right;"
-        [totalCount]=searchResultsCount
-        [startingPageLength]=pageLength
-    ></canano-search-results-pager>
-    </div>
-
+                    }">
+				<td class="search-results-td"> <a *ngIf="properties.LOGGED_IN" (click)="navigateToPublication(publication['id'])">Edit</a> <a *ngIf="! properties.LOGGED_IN" (click)="navigateToPublication(publication['id'])">View</a>
+					<br> <a *ngIf="properties.LOGGED_IN" (click)="addToFavorites(publication)">Add to Favorites</a> </td>
+				<td class="search-results-td"> <span [innerHtml]="publication.displayName"></span> </td>
+				<td class="search-results-td" [innerHTML]="publication['publicationType']"></td>
+				<td class="search-results-td">
+					<ul>
+						<li *ngFor="let researchArea of publication['researchAreas']"> {{researchArea}} </li>
+					</ul>
+				</td>
+				<td class="search-results-td">
+					<ul>
+						<li *ngFor="let sample of publication['sampleNames']"> {{sample}} </li>
+					</ul>
+				</td>
+				<td class="search-results-td"> {{publication['descriptionDetail']}} </td>
+				<td class="search-results-td"> {{publication.status}} </td>
+				<td class="search-results-td"> {{publication['createdDate'] | date : "shortDate"}} </td>
+			</tr>
+		</table>
+		<br />
+		<canano-search-results-pager style="float: right;" [totalCount]=searchResultsCount [startingPageLength]=pageLength></canano-search-results-pager>
+	</div>
+</div>

@@ -3,11 +3,17 @@
     [toolHeadingName]="'Search Results'">
 </canano-main-display-heading>
 
-<div class="mainSection">
+<div class="mainSection" *ngIf="searchResults">
     <div class="error" *ngIf="errors['error']">
         {{ errors["error"] }}
     </div>
-    <span class="ml-2">
+
+    <div *ngIf="!searchResults.length" class="mainBorder">
+        No search results found.
+    </div>
+    <div *ngIf="searchResults.length">
+
+      <span class="ml-2">
         {{ searchResults.length }} Item{{
         searchResults.length > 1 ? "s" : ""
         }}
@@ -24,84 +30,85 @@
         [totalCount]="searchResultsCount"
         [startingPageLength]="pageLength">
     </canano-search-results-pager>
-    <span class="search-results-pager">
-        <!-- Page length number setting  -->
-        <span class="ml-5">
-            Show
-            <input class="number-spinner rows-per-page-spinner" min="1" max="{{ maxPageLength }}" type="number"
-                [(ngModel)]="pageLength" (change)="onPageLengthChange()" />
-            entries
-        </span>
+        <span class="search-results-pager">
+            <!-- Page length number setting  -->
+            <span class="ml-5">
+                Show
+                <input class="number-spinner rows-per-page-spinner" min="1" max="{{ maxPageLength }}" type="number"
+                    [(ngModel)]="pageLength" (change)="onPageLengthChange()" />
+                entries
+            </span>
 
-        <!-- Pager buttons -->
-    </span><br /><br />
-    <table class="dataTable">
-        <!-- -----  Header row  ----- -->
-        <tr>
-            <ng-container *ngFor="let col of columnHeadings; let i = index">
-                <th *ngFor="let colKeyValue of col | keyvalue" class="unselectable hand" (click)="onSortClick(i,colKeyValue.key)">
-                    <label for="sortClick" class="hand">
-                        {{colKeyValue.value}}
-                    </label>
+            <!-- Pager buttons -->
+        </span><br /><br />
+        <table class="dataTable">
+            <!-- -----  Header row  ----- -->
+            <tr>
+                <ng-container *ngFor="let col of columnHeadings; let i = index">
+                    <th *ngFor="let colKeyValue of col | keyvalue" class="unselectable hand" (click)="onSortClick(i,colKeyValue.key)">
+                        <label for="sortClick" class="hand">
+                            {{colKeyValue.value}}
+                        </label>
 
-                    <!-- No sorting for "Actions" column -->
-                    <span *ngIf="i > 0" id="sortClick" (click)="onSortClick(i)">
-                        <span *ngIf="i > 0">
-                            <!-- Add sorting icons -->
-                            <img *ngIf="sortingStates[i] === sortState.SORT_UP" src="assets/images/upTriangle2White.png" />
-                            <img *ngIf="sortingStates[i] === sortState.SORT_DOWN" src="assets/images/downTriangle2White.png" />
-                            <img *ngIf="sortingStates[i] === sortState.NO_SORT" src="assets/images/upAnddownTriangle2White.png" />
-                            <!-- space/place holder -->
+                        <!-- No sorting for "Actions" column -->
+                        <span *ngIf="i > 0" id="sortClick" (click)="onSortClick(i)">
+                            <span *ngIf="i > 0">
+                                <!-- Add sorting icons -->
+                                <img *ngIf="sortingStates[i] === sortState.SORT_UP" src="assets/images/upTriangle2White.png" />
+                                <img *ngIf="sortingStates[i] === sortState.SORT_DOWN" src="assets/images/downTriangle2White.png" />
+                                <img *ngIf="sortingStates[i] === sortState.NO_SORT" src="assets/images/upAnddownTriangle2White.png" />
+                                <!-- space/place holder -->
 
+                            </span>
                         </span>
-                    </span>
-                    <!-- END Add sorting icons -->
-                </th>
-            </ng-container>
-        </tr>
-        <!-- -----  END Header row  ----- -->
-
-        <tr *ngFor="
-                let result of searchResultsPageToDisplay;
-                let even = even;
-                let odd = odd;
-                let i = index
-            " class="search-results-tr" [ngClass]="{
-                '': even,
-                rowOdd: odd
-            }">
-            <td class="search-results-td">
-                <a *ngIf="properties.LOGGED_IN" (click)="navigateToResultEdit(result)">Edit</a>
-
-                <ng-container *ngIf="!properties.LOGGED_IN">
-                    <a *ngIf="result.type=='protocol'&&result.fileId" (click)="navigateToResultView(result)">
-                        View
-                    </a>
-                    <a *ngIf="result.type=='sample'" (click)="navigateToResultView(result)">
-                        View
-                    </a>
+                        <!-- END Add sorting icons -->
+                    </th>
                 </ng-container>
-                <br />
+            </tr>
+            <!-- -----  END Header row  ----- -->
 
-                <a *ngIf="properties.LOGGED_IN" (click)="addToFavorites(result)">Add to Favorites</a>
-            </td>
+            <tr *ngFor="
+                    let result of searchResultsPageToDisplay;
+                    let even = even;
+                    let odd = odd;
+                    let i = index
+                " class="search-results-tr" [ngClass]="{
+                    '': even,
+                    rowOdd: odd
+                }">
+                <td class="search-results-td">
+                    <a *ngIf="properties.LOGGED_IN" (click)="navigateToResultEdit(result)">Edit</a>
 
-            <td class="search-results-td">{{ result.type }}</td>
+                    <ng-container *ngIf="!properties.LOGGED_IN">
+                        <a *ngIf="result.type=='protocol'&&result.fileId" (click)="navigateToResultView(result)">
+                            View
+                        </a>
+                        <a *ngIf="result.type=='sample'" (click)="navigateToResultView(result)">
+                            View
+                        </a>
+                    </ng-container>
+                    <br />
 
-            <td class="search-results-td">
-                {{ result.name }}
-            </td>
+                    <a *ngIf="properties.LOGGED_IN" (click)="addToFavorites(result)">Add to Favorites</a>
+                </td>
 
-            <td class="search-results-td">
-                {{ result["createdDate"] | date: "shortDate" }}
-            </td>
-            <td class="search-results-td">
-                {{ result.description }}
-            </td>
-        </tr>
-    </table>
-    <br />
-    <canano-search-results-pager style="float: right" [totalCount]="searchResultsCount"
-        [startingPageLength]="pageLength">
-    </canano-search-results-pager>
+                <td class="search-results-td">{{ result.type }}</td>
+
+                <td class="search-results-td">
+                    {{ result.name }}
+                </td>
+
+                <td class="search-results-td">
+                    {{ result["createdDate"] | date: "shortDate" }}
+                </td>
+                <td class="search-results-td">
+                    {{ result.description }}
+                </td>
+            </tr>
+        </table>
+        <br />
+        <canano-search-results-pager style="float: right" [totalCount]="searchResultsCount"
+            [startingPageLength]="pageLength">
+        </canano-search-results-pager>
+    </div>
 </div>

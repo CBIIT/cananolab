@@ -83,6 +83,16 @@ export class ProtocolSearchResultsComponent implements OnInit, OnDestroy {
         this.onPageLengthChange();
     }
 
+    isProtocolView(column) {
+        console.log(column)
+        if (!Properties.LOGGED_IN) {
+            if (column['key']=='Actions') {
+                return true
+            }
+        }
+        return false
+    }
+
     onPageLengthChange() {
         if (this.pageLength < 1) {
             this.pageLength = 1;
