@@ -1,7 +1,6 @@
 <canano-main-display-heading
     [helpUrl]="helpUrl"
-    [toolHeadingName]="toolHeadingNameSearchSample"
->
+    [toolHeadingName]="toolHeadingNameSearchSample">
 </canano-main-display-heading>
 
 <div class="mainSection">
@@ -9,155 +8,154 @@
         {{errors['error']}}
     </div>
     <div class="mainBorder">
-        <div class="myFilters">
-        <!-- ----  Checkboxes to show and/or hide Samples, Protocols, or Publications ----- -->
+        <div>
+            <!-- ----  Checkboxes to show and/or hide Samples, Protocols, or Publications ----- -->
             <input id="showSampleFavsCheckbox" type="checkbox" [(ngModel)]="showSampleFavs">
-            <label for="showSampleFavsCheckbox">
+            <label for="showSampleFavsCheckbox" class="right">
                 Samples
             </label>
             <input id="showProtocolsFavsCheckbox" type="checkbox" [(ngModel)]="showProtocolsFavs">
-            <label for="showProtocolsFavsCheckbox">
+            <label for="showProtocolsFavsCheckbox" class="right">
                 Protocols
             </label>
             <input id="showPublicationsFavsCheckbox" type="checkbox" [(ngModel)]="showPublicationsFavs">
-            <label for="showPublicationsFavsCheckbox">
+            <label for="showPublicationsFavsCheckbox" class="right">
                 Publications
             </label>
-        <!-- ----  END Checkboxes to show and/or hide Samples, Protocols, or Publications ----- -->
+            <!-- ----  END Checkboxes to show and/or hide Samples, Protocols, or Publications ----- -->
         </div>
+        <hr>
+        <!-- Samples -->
+        <div *ngIf="showSampleFavs">
+            <h5>My Samples</h5>
+            <div *ngIf="!favSamples">
+                There are no samples in your favorites.
+            </div>
+            <table class="dataTable" *ngIf="favSamples">
+                <tr>
+                    <th>
+                        Action
+                    </th>
+                    <th>
+                        Sample Name
+                    </th>
+                    <th>
+                        Nanomaterial Entity Description
+                    </th>
+                </tr>
 
-<hr>
-<!-- Samples -->
-<div *ngIf="showSampleFavs">
-    <h5>My Samples</h5>
-    <div *ngIf="!favSamples">
-        There are no samples in your favorites.
-    </div>
-    <table class="dataTable" *ngIf="favSamples">
-        <tr>
-            <th>
-                Action
-            </th>
-            <th>
-                Sample Name
-            </th>
-            <th>
-                Nanomaterial Entity Description
-            </th>
-        </tr>
-
-        <tr *ngFor="let fav of favSamples;let odd=odd" [ngClass]="{'rowOdd':odd}">
-            <td class="actions">
-                <div>
-                    <a (click)="navigateToSampleView(fav['dataId'])">
-                        View
-                    </a>
-                </div>
-                <div *ngIf="fav.editable">
-                    <a (click)="navigateToSampleEdit(fav['dataId'])">
-                        Edit
-                    </a>
-                </div>
-                <div>
-                    <a (click)="deleteSampleFromFavorites(fav)">
-                        <img style="width: 10px;" src="assets/images/trash_caNanoLab.png" alt="trash_icon">
-                        Delete from Favorites
-                    </a>
-                 </div>
-            </td>
-            <td>
-                {{fav['dataName']}}
-            </td>
-            <td>
-                {{fav['description']}}
-            </td>
-        </tr>
-    </table>
-</div>
-<!-- END Samples -->
+                <tr *ngFor="let fav of favSamples;let odd=odd" [ngClass]="{'rowOdd':odd}">
+                    <td class="actions">
+                        <div>
+                            <a (click)="navigateToSampleView(fav['dataId'])">
+                                View
+                            </a>
+                        </div>
+                        <div *ngIf="fav.editable">
+                            <a (click)="navigateToSampleEdit(fav['dataId'])">
+                                Edit
+                            </a>
+                        </div>
+                        <div>
+                            <a (click)="deleteSampleFromFavorites(fav)">
+                                <img style="width: 10px;" src="assets/images/trash_caNanoLab.png" alt="trash_icon">
+                                Delete from Favorites
+                            </a>
+                        </div>
+                    </td>
+                    <td>
+                        {{fav['dataName']}}
+                    </td>
+                    <td>
+                        {{fav['description']}}
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <!-- END Samples -->
 
 
-<!-- Protocols -->
-<div *ngIf="showProtocolsFavs">
-    <br />
-    <h5>My Protocols</h5>
-    <div *ngIf="!favProtocols">
-        There are no protocols in your favorites.
-    </div>
-    <table class="dataTable" *ngIf="favProtocols">
-        <tr>
-            <th>
-                Action
-            </th>
-            <th>
-                Protocol Name
-            </th>
-            <th>
-                Protocol File Title
-            </th>
-        </tr>
-        <tr *ngFor="let fav of favProtocols;let odd=odd" [ngClass]="{'rowOdd':odd}">
-            <td class="actions favorites">
-                <div *ngIf="fav.editable">
-                    <a (click)="navigateToProtocolEdit(fav['dataId'])">
-                        Edit
-                    </a>
-                </div>
-                <div>
-                    <a (click)="deleteProtocolFromFavorites(fav)">
-                        <img style="width: 10px;" src="assets/images/trash_caNanoLab.png" alt="trash_icon">
-                        Delete from Favorites
-                    </a>
-                </div>
-            </td>
-            <td>
-                {{fav['dataName']}}
-            </td>
-            <td>
-                {{fav['protocolFileTitle']}}
-            </td>
-        </tr>
-    </table>
+        <!-- Protocols -->
+        <div *ngIf="showProtocolsFavs">
+            <br />
+            <h5>My Protocols</h5>
+            <div *ngIf="!favProtocols">
+                There are no protocols in your favorites.
+            </div>
+            <table class="dataTable" *ngIf="favProtocols">
+                <tr>
+                    <th>
+                        Action
+                    </th>
+                    <th>
+                        Protocol Name
+                    </th>
+                    <th>
+                        Protocol File Title
+                    </th>
+                </tr>
+                <tr *ngFor="let fav of favProtocols;let odd=odd" [ngClass]="{'rowOdd':odd}">
+                    <td class="actions favorites">
+                        <div *ngIf="fav.editable">
+                            <a (click)="navigateToProtocolEdit(fav['dataId'])">
+                                Edit
+                            </a>
+                        </div>
+                        <div>
+                            <a (click)="deleteProtocolFromFavorites(fav)">
+                                <img style="width: 10px;" src="assets/images/trash_caNanoLab.png" alt="trash_icon">
+                                Delete from Favorites
+                            </a>
+                        </div>
+                    </td>
+                    <td>
+                        {{fav['dataName']}}
+                    </td>
+                    <td>
+                        {{fav['protocolFileTitle']}}
+                    </td>
+                </tr>
+            </table>
 
-</div>
-<!-- END Protocols -->
+        </div>
+        <!-- END Protocols -->
 
-<div *ngIf="showPublicationsFavs">
-    <br />
-    <h5>My Publications</h5>
-    <div *ngIf="!favPublications">
-        There are no publications in your favorites.
-    </div>
-    <table class="dataTable" *ngIf="favPublications">
-        <tr>
-            <th>
-                Action
-            </th>
-            <th>
-                Publication Title
-            </th>
-        </tr>
-        <tr *ngFor="let fav of favPublications; let odd=odd" [ngClass]="{'rowOdd':odd}">
-            <td class="actions favorites">
-                <div *ngIf="fav.editable">
-                    <a (click)="navigateToPublicationEdit(fav['dataId'])">
-                        Edit
-                    </a>
-                </div>
-                <div>
-                    <a (click)="deletePublicationFromFavorites(fav)">
-                        <img style="width: 10px;" src="assets/images/trash_caNanoLab.png" alt="trash_icon">
-                        Delete from Favorites
-                    </a>
-                </div>
-            </td>
-            <td>
-                {{fav['dataName']}}
-            </td>
-        </tr>
-    </table>
-</div>
-<!-- -----  Edit Protocol  ----- -->
-
+        <!-- Publications -->
+        <div *ngIf="showPublicationsFavs">
+            <br />
+            <h5>My Publications</h5>
+            <div *ngIf="!favPublications">
+                There are no publications in your favorites.
+            </div>
+            <table class="dataTable" *ngIf="favPublications">
+                <tr>
+                    <th>
+                        Action
+                    </th>
+                    <th>
+                        Publication Title
+                    </th>
+                </tr>
+                <tr *ngFor="let fav of favPublications; let odd=odd" [ngClass]="{'rowOdd':odd}">
+                    <td class="actions favorites">
+                        <div *ngIf="fav.editable">
+                            <a (click)="navigateToPublicationEdit(fav['dataId'])">
+                                Edit
+                            </a>
+                        </div>
+                        <div>
+                            <a (click)="deletePublicationFromFavorites(fav)">
+                                <img style="width: 10px;" src="assets/images/trash_caNanoLab.png" alt="trash_icon">
+                                Delete from Favorites
+                            </a>
+                        </div>
+                    </td>
+                    <td>
+                        {{fav['dataName']}}
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <!-- END Protocols -->
     </div>
 </div>
