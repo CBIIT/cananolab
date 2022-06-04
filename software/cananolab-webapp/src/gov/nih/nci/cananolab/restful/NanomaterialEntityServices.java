@@ -197,33 +197,6 @@ public class NanomaterialEntityServices {
 
 		}
 	}
-
-	@POST
-	@Path("/removeFile")
-	@Produces ("application/json")
-	public Response removeFile(@Context HttpServletRequest httpRequest,String fileId, SimpleNanomaterialEntityBean nanoBean) {
-
-		try {
-			NanomaterialEntityBO nanomaterialEntityBO =
-					(NanomaterialEntityBO) SpringApplicationContext.getBean(httpRequest, "nanomaterialEntityBO");
-			if (!SpringSecurityUtil.isUserLoggedIn())
-				return Response.status(Response.Status.UNAUTHORIZED)
-						.entity("Session expired").build();
-
-
-			SimpleNanomaterialEntityBean nano = nanomaterialEntityBO.removeFile(nanoBean,fileId, httpRequest);
-
-
-			List<String> errors = nano.getErrors();
-			return (errors == null || errors.size() == 0) ?
-					Response.ok(nano).build() :
-					Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(errors).build();
-
-		} catch (Exception e) {
-			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(CommonUtil.wrapErrorMessageInList("Error while removing the file" + e.getMessage())).build();
-
-		}
-	}
 	
 	@POST
 	@Path("/submit")

@@ -872,7 +872,6 @@ public class NanomaterialEntityBO extends BaseAnnotationBO
 			HttpServletRequest request)
 			throws Exception {
 		NanomaterialEntityBean entity = transferNanoMateriaEntityBean(nanoBean, request); 
-
 		FileBean theFile = entity.getTheFile();
 		entity.removeFile(theFile);
 		entity.setTheFile(new FileBean());
@@ -889,29 +888,7 @@ public class NanomaterialEntityBO extends BaseAnnotationBO
 		this.checkOpenForms(entity, request);
 		return setupUpdate(nanoBean.getSampleId(), entity.getDomainEntity().getId().toString(), request);
 	}
-
-	public SimpleNanomaterialEntityBean removeFile(SimpleNanomaterialEntityBean nanoBean, String fileId,
-												   HttpServletRequest request)
-			throws Exception {
-		NanomaterialEntityBean entity = transferNanoMateriaEntityBean(nanoBean, request);
-
-		FileBean theFile = entity.getFile(fileId);
-		entity.removeFile(theFile);
-		entity.setTheFile(new FileBean());
-		// save nanomaterial entity
-		List<String> msgs = validateInputs(request, entity);
-		if (msgs.size()>0) {
-			SimpleNanomaterialEntityBean nano = new SimpleNanomaterialEntityBean();
-			nano.setErrors(msgs);
-			return nano;
-		}
-		this.saveEntity(request, nanoBean.getSampleId(), entity);
-		compositionService.removeAccesses(entity.getDomainEntity().getSampleComposition(), theFile.getDomainFile());
-		request.setAttribute("anchor", "file");
-		this.checkOpenForms(entity, request);
-		return setupUpdate(nanoBean.getSampleId(), entity.getDomainEntity().getId().toString(), request);
-	}
-
+	
 	public List<String> delete(SimpleNanomaterialEntityBean nanoBean, HttpServletRequest request) throws Exception
 	{
 		List<String> msgs = new ArrayList<String>();
