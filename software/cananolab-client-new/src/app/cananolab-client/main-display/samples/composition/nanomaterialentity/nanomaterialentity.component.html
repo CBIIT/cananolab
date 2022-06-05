@@ -6,7 +6,6 @@
     <div class="error" *ngIf="errors['error']">
         {{errors['error']}}
     </div>
-    {{data|json}}
     <form name="nanomaterialForm">
         <div class="mainBorder">
             <table class="dataMain">
@@ -722,7 +721,7 @@
                         <button (click)="delete()" class="btn-canano btn-canano-danger btn-canano-lg mr-1">Delete</button>
                     </td>
                     <td>
-                        <button class="btn-canano btn-canano-danger btn-canano-lg mr-1">Reset</button>
+                        <button (click)="reset()" class="btn-canano btn-canano-danger btn-canano-lg mr-1">Reset</button>
                         <button [disabled]="!readyToSubmit()" (click)="submit()" class="btn-canano btn-canano-primary btn-canano-lg mr-1">Submit</button>
                     </td>
                 </tr>
