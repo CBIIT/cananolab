@@ -1,6 +1,21 @@
 @import "../../../../main-display/main-display.component.scss";
 @import '../../../../../btn-bravo-canano.scss';
 
+.dataTable {
+    width:700px !important;
+}
+
+.dataTable {
+    margin-bottom:15px;
+}
+.dataTable.last {
+    margin-bottom:0px;
+}
+
+.dataTable th {
+    text-transform:capitalize;
+}
+
 //     .mainSection td {
 //         padding-bottom:13px !important;
 //         font-size:$mainFontSize;

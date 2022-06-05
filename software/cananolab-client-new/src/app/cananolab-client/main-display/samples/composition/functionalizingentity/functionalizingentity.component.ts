@@ -328,11 +328,9 @@ getdata(sampleId){
     };
 
     changeFile(newItem:Object) {
-        console.log(newItem)
-        if (newItem['type']=='save') {
+        if (newItem['type']=='save'||newItem['type']=='delete') {
             this.data=newItem['data'];
             this.dataTrailer = JSON.parse(JSON.stringify(this.data));
-
         }
     }
 

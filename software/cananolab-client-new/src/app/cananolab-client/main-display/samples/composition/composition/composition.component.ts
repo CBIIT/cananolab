@@ -7,7 +7,7 @@ import { timeout } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { NavigationService } from '../../../../common/services/navigation.service';
 import { ApiService } from '../../../../common/services/api.service';
-import { StatusDisplayService } from 'src/app/cananolab-client/status-display/status-display.service';
+import {StatusDisplayService } from '../../../../status-display/status-display.service';
 @Component( {
     selector: 'canano-composition',
     templateUrl: './composition.component.html',
@@ -46,6 +46,12 @@ export class CompositionComponent implements OnInit{
                     } );
             }
         );
+    }
+
+    convertTitlesToRealWords(title) {
+        const wordRegex = /[A-Z]?[a-z]+|[0-9]+|[A-Z]+(?![a-z])/g;
+        const result = title.match(wordRegex);
+        return result.join(' ')
     }
 
     getCompositionEditData(){
@@ -93,9 +99,12 @@ export class CompositionComponent implements OnInit{
     }
 
     onNanomaterialEntityClick(dataId){
-        console.log('MHL onNanomaterialEntityClick: ', dataId);
-        console.log('MHL onNanomaterialEntityClick this.sampleName: ', this.sampleName);
-        this.router.navigate( ['home/samples/composition/nanomaterial-entity', Properties.CURRENT_SAMPLE_ID, dataId, this.sampleName] );  // @FIXME  Don't hard code these
+        if (dataId==-1) {
+            this.router.navigate( ['home/samples/composition/nanomaterial-entity', Properties.CURRENT_SAMPLE_ID] );  // @FIXME  Don't hard code these
+        }
+        else {
+            this.router.navigate( ['home/samples/composition/nanomaterial-entity', Properties.CURRENT_SAMPLE_ID, dataId] );  // @FIXME  Don't hard code these
+        }
     }
     onCompositionFileClick(dataId){
         if (dataId==-1){
@@ -104,6 +113,21 @@ export class CompositionComponent implements OnInit{
         else {
             this.router.navigate( ['home/samples/composition/composition-file', Properties.CURRENT_SAMPLE_ID, dataId] );  // @FIXME  Don't hard code these
         }
+    }
+
+    propertyCheck(entry) {
+        let keys=Object.keys(entry.Properties);
+        let displayableItems=[];
+        keys.forEach(item=> {
+            if (entry.Properties[item]&&entry.Properties[item]!='') {
+                displayableItems.push(item);
+            };
+        });
+        if (displayableItems.length) {
+            return true
+        };
+
+        return false
     }
 
     splitKeywordString(keyword) {

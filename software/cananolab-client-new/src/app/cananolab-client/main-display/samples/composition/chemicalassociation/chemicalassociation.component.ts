@@ -335,8 +335,6 @@ changeFile(newItem:Object) {
     if (newItem['type']=='save'||newItem['type']=='delete') {
         this.data=newItem['data'];
         this.dataTrailer = JSON.parse(JSON.stringify(this.data));
-
-
     }
 }
 

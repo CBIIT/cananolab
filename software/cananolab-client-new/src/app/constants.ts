@@ -42,7 +42,7 @@ export const Consts = {
     QUERY_DELETE_PROTOCOL: 'caNanoLab/rest/protocol/deleteProtocol',
     QUERY_DELETE_PROTOCOL_BY_ID: 'caNanoLab/rest/protocol/deleteProtocol',
     QUERY_DELETE_PUBLICATION_BY_ID: 'caNanoLab/rest/publication/deletePublicationById',
-
+    QUERY_REMOVE_COMPOSING_ELEMENT: 'caNanoLab/rest/nanomaterialEntity/removeComposingElement',
     QUERY_CREATE_PROTOCOL: 'caNanoLab/rest/protocol/submitProtocol',
     QUERY_UPDATE_PROTOCOL: 'caNanoLab/rest/protocol/submitProtocol', // SAME AS create
     QUERY_EDIT_PROTOCOL: 'caNanoLab/rest/protocol/edit',

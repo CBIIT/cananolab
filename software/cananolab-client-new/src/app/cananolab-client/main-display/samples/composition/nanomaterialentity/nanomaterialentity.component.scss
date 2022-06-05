@@ -1,39 +1,37 @@
 @import "../../../../../btn-bravo-canano";
+@import '../../../main-display.component.scss';
 
-$composing-element-font: arial, helvetica, verdana, sans-serif;
-$composing-element-font-size: 10px;
-$composing-element-input-border-color: #7f9DB9;
-$composing-element-input-background-color: #F4F4F5;
-$composing-element-input-text-color: #5C5C5C;
 
-.neDescription{
-   size: 100ch;
+.dataTable.properties {
+    width:800px !important;
+    margin-bottom:15px;
+    text-transform: none !important;
 }
 
-.nanomaterial-description{
-    border: solid #aaaaab 1px;
+.dataTable.properties th {
+    border:none;
 }
 
-.copy-to-other-samples{
-    width: 75%;
-    border: solid $composing-element-input-border-color 1px;
-    font-family: arial, helvetica, verdana, sans-serif;
+.dataTable.properties:last-child {
+    margin-bottom:0px;
 }
 
-.bottom-button-div{  // @TODO rename this
-    width: 75%;
+.dataTable.properties td {
+    border:none;
 }
 
-.other-nanomaterial-type{
-    width: 100%;
-    background-color: $composing-element-input-background-color;
-    border: solid #e0e0fa 2px;
+.dataTable.properties td:nth-child(3) {
+    text-align: right !important;
 }
 
-td{
-    border: solid #ff00aa;
+.mainBorder.properties {
+    margin-bottom:23px;
 }
 
-.other-nanomaterial-type-input{
-    width: 100%;
+.dataMain td.right {
+    text-align:right;
+}
+
+select.multiple {
+    width:300px;
 }

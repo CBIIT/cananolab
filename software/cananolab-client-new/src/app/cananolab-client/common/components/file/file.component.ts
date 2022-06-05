@@ -14,6 +14,7 @@ export class FileComponent implements OnInit, OnChanges {
 @Input() sampleId;
 @Input() saveUrl;
 @Input() deleteUrl;
+@Input() nanomaterial;
 @Output() changeFile = new EventEmitter<Object>();
 currentFile;
 theFile;
@@ -36,6 +37,26 @@ serverUrl = Properties.API_SERVER_URL;
       this.fileIndex=-1;
       this.setupCurrentFile();
   }
+
+  // used in nanomaterial only //
+  convertDomainEntityFieldsToNullAndStrings() {
+    let fieldsToIgnore=['id','createdDate','sampleComposition']
+    if (this.data['domainEntity']) {
+        let domainEntityKeys = Object.keys(this.data['domainEntity']);
+        domainEntityKeys.forEach((item) => {
+
+            if (this.data.domainEntity[item] != null) {
+                if (this.data.domainEntity[item] != '' && fieldsToIgnore.indexOf(item)==-1) {
+                    this.data.domainEntity[item] = this.data.domainEntity[item].toString()
+                }
+                if (this.data.domainEntity[item] == '') {
+                    this.data.domainEntity[item] = null;
+                }
+            }
+        });
+    }
+}
+
   cancelFile() {
     this.changeFile.emit({
         "fileIndex":null,
@@ -46,8 +67,12 @@ serverUrl = Properties.API_SERVER_URL;
   }
 
   deleteFile(file) {
+    if (this.nanomaterial) {
+        this.convertDomainEntityFieldsToNullAndStrings();
+      };
     if (confirm("Are you sure you wish to delete this file?")) {
         this.data[this.fileVariable]=file;
+        console.log(this.deleteUrl)
         let deleteUrl = this.httpClient.post(Properties.API_SERVER_URL+this.deleteUrl,this.data);
         deleteUrl.subscribe(data=> {
             this.data=data;
@@ -88,6 +113,9 @@ serverUrl = Properties.API_SERVER_URL;
   }
 
   saveFile() {
+      if (this.nanomaterial) {
+        this.convertDomainEntityFieldsToNullAndStrings();
+      };
       if (this.currentFile.uriExternal) {
         this.data[this.fileVariable]={
             "description":this.currentFile.description,
