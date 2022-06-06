@@ -49,7 +49,6 @@ import { SampleSearchComponent } from './cananolab-client/main-display/samples/g
 import { SampleSearchResultsComponent } from './cananolab-client/main-display/samples/general-info/sample-search/sample-search-results/sample-search-results.component';
 import { SampleCreateComponent } from './cananolab-client/main-display/samples/general-info/sample-create/sample-create.component';
 import { SampleCopyComponent } from './cananolab-client/main-display/samples/general-info/sample-copy/sample-copy.component';
-import { SampleAdvancedSearchComponent } from './cananolab-client/main-display/samples/general-info/sample-search/sample-advanced-search/sample-advanced-search.component';
 import { SampleAvailabilityDisplayComponent } from './cananolab-client/main-display/samples/general-info/sample-search/sample-search-results/sample-availability-display/sample-availability-display.component';
 import { SampleEditComponent } from './cananolab-client/main-display/samples/general-info/sample-edit/sample-edit.component';
 import { SampleViewComponent } from './cananolab-client/main-display/samples/sample-view/sample-view.component';
@@ -63,7 +62,6 @@ import { FunctionalizingentityComponent } from './cananolab-client/main-display/
 import { NanomaterialentityComponent } from './cananolab-client/main-display/samples/composition/nanomaterialentity/nanomaterialentity.component';
 import { CompositionfileComponent } from './cananolab-client/main-display/samples/composition/compositionfile/compositionfile.component';
 import { ChemicalassociationComponent } from './cananolab-client/main-display/samples/composition/chemicalassociation/chemicalassociation.component';
-import { SampleAdvancedSearchResultsComponent } from './cananolab-client/main-display/samples/general-info/sample-search/sample-advanced-search-results/sample-advanced-search-results.component';
 import { ManageFileEditComponent } from './cananolab-client/main-display/samples/composition/nanomaterialentity/manage-file-edit/manage-file-edit.component';
 import { ComposingElementFormComponent } from './cananolab-client/main-display/samples/composition/nanomaterialentity/manage-composing-element/composing-element-form/composing-element-form.component';
 import { ManageComposingElementComponent } from './cananolab-client/main-display/samples/composition/nanomaterialentity/manage-composing-element/manage-composing-element.component';
@@ -74,6 +72,8 @@ import { FileComponent } from './cananolab-client/common/components/file/file.co
 import { EditpublicationComponent } from './cananolab-client/main-display/samples/publications/editpublication/editpublication.component';
 import { SearchpublicationresultsComponent } from './cananolab-client/main-display/publications/search-publication-results/searchpublicationresults/searchpublicationresults.component';
 import { SearchResultsComponent } from './cananolab-client/main-display/search-results/search-results/search-results.component';
+import { AdvancedSearchComponent } from './cananolab-client/main-display/samples/general-info/sample-search/advanced-search/advanced-search.component';
+import { AdvancedSearchResultsComponent } from './cananolab-client/main-display/samples/general-info/sample-search/advanced-search-results/advanced-search-results.component';
 
 @NgModule({
   declarations: [
@@ -122,7 +122,6 @@ import { SearchResultsComponent } from './cananolab-client/main-display/search-r
     SampleSearchResultsComponent,
     SampleCreateComponent,
     SampleCopyComponent,
-    SampleAdvancedSearchComponent,
     SampleAvailabilityDisplayComponent,
     SampleEditComponent,
     SampleViewComponent,
@@ -137,7 +136,6 @@ import { SearchResultsComponent } from './cananolab-client/main-display/search-r
     CompositionfileComponent,
     ChemicalassociationComponent,
     SamplePublicationsComponent,
-    SampleAdvancedSearchResultsComponent,
     ManageFileEditComponent,
     ComposingElementFormComponent,
     ManageComposingElementComponent,
@@ -146,7 +144,9 @@ import { SearchResultsComponent } from './cananolab-client/main-display/search-r
     FileComponent,
     EditpublicationComponent,
     SearchpublicationresultsComponent,
-    SearchResultsComponent
+    SearchResultsComponent,
+    AdvancedSearchComponent,
+    AdvancedSearchResultsComponent
   ],
     imports: [
         BrowserModule,

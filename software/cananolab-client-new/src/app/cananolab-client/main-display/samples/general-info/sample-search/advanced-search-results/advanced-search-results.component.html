@@ -1,0 +1,109 @@
+
+<canano-main-display-heading
+    [helpUrl]="'https://wiki.nci.nih.gov/display/caNanoLab/Managing+Samples+in+caNanoLab#ManagingSamplesincaNanoLab-AdvSearchSample'"
+    [toolHeadingName]="'ADVANCED SAMPLE SEARCH RESULTS'">
+</canano-main-display-heading>
+<!-- {{searchResults|json}}<Br />
+{{data|json}}<br /> -->
+<div class="mainSection" *ngIf="searchResults">
+    <div *ngIf="!searchResults.length" class="mainBorder">
+        No search results found.
+    </div>
+
+    <div *ngIf="searchResults.length">
+
+    <span class="ml-2">
+        {{searchResults.length}} Item{{(searchResults.length > 1 ? 's' : '')}} found, displaying
+        {{(currentPage * pageLength) + 1}}
+        -{{ (((currentPage * pageLength) + pageLength) > searchResults.length) ? searchResults.length : (currentPage *
+        pageLength) + pageLength }}
+    </span>
+
+
+    <span class="search-results-pager">
+        <!-- Page length number setting  -->
+        <span class="ml-5">
+            Show
+            <input class="number-spinner rows-per-page-spinner" min="1" max="{{maxPageLength}}" type="number"
+                [(ngModel)]="pageLength" (change)="onPageLengthChange()">
+            entries
+        </span>
+
+        <!-- Pager buttons -->
+        <canano-search-results-pager style="float: right;" [totalCount]=searchResultsCount
+            [startingPageLength]=pageLength></canano-search-results-pager>
+    </span>
+
+    <table class="dataTable">
+        <!-- -----  Header row  ----- -->
+        <tr>
+            <ng-container *ngFor="let col of columnHeadings; let i = index">
+                <th *ngFor="let colKeyValue of col | keyvalue" class="unselectable hand"
+                    (click)="onSortClick(i, colKeyValue.key)">
+                    <label for="sortClick" class="hand">
+                        {{ colKeyValue.value }}
+                        <span id="sortClick" class="inline">
+                            <span class="sortImages" >
+                                <span *ngIf="sortingStates[i] === sortState.NO_SORT">
+                                    <svg width="10" height="10" fill="currentColor">
+                                        <use xlink:href="assets/images/bootstrap-icons.svg#caret-up-fill" />
+                                    </svg>
+                                    <svg width="10" height="10" fill="currentColor">
+                                        <use xlink:href="assets/images/bootstrap-icons.svg#caret-down-fill" />
+                                    </svg>
+                                </span>
+                                <svg *ngIf="sortingStates[i] === sortState.SORT_UP" width="10" height="10" fill="currentColor">
+                                    <use xlink:href="assets/images/bootstrap-icons.svg#caret-up-fill" />
+                                </svg>
+                                <svg *ngIf="sortingStates[i] === sortState.SORT_DOWN"  width="10" height="10" fill="currentColor">
+                                    <use xlink:href="assets/images/bootstrap-icons.svg#caret-down-fill" />
+                                </svg>
+                            </span>
+                        </span>
+                    </label>
+                    <!-- No sorting for "Actions" column -->
+
+                    <!-- END Add sorting icons -->
+                </th>
+            </ng-container>
+        </tr>
+        <!-- -----  END Header row  ----- -->
+
+
+        <tr *ngFor="let samp of searchResultsPageToDisplay; let even=even; let odd=odd; let i=index"
+            class="search-results-tr" [ngClass]="{
+                '': even,
+                'rowOdd': odd
+            }">
+
+
+            <ng-container *ngFor="let col of columnHeadings; let i = index">
+                <td *ngFor="let colKeyValue of col | keyvalue">
+                    <span *ngIf="i>0">
+                        <ng-container *ngFor="let val of samp[colKeyValue.key]">
+                            <div *ngIf="splitValue(val) as arrayofValues">
+                                <span [innerHtml]="arrayofValues[0]"></span>
+                                <span *ngIf="arrayofValues.length>1">
+                                    {{arrayofValues[1]}}
+                                </span>
+                            </div>
+                        </ng-container>
+                    </span>
+                    <span *ngIf="i==0">
+                        <a (click)="navigateToSample(samp)">
+                            {{samp[colKeyValue.key]}}
+                        </a>
+
+                    </span>
+                    <!-- {{splitValue(samp[colKeyValue.key])}} -->
+
+                </td>
+            </ng-container>
+        </tr>
+
+    </table><br />
+    <!-- Pager buttons -->
+    <canano-search-results-pager style="float: right; " [totalCount]=searchResultsCount [startingPageLength]=pageLength>
+    </canano-search-results-pager>
+</div>
+</div>

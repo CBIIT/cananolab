@@ -19,7 +19,6 @@ import { ProtocolCreateComponent } from './cananolab-client/main-display/protoco
 import { SampleSearchComponent } from './cananolab-client/main-display/samples/general-info/sample-search/sample-search.component';
 import { SampleCreateComponent } from './cananolab-client/main-display/samples/general-info/sample-create/sample-create.component';
 import { SampleCopyComponent } from './cananolab-client/main-display/samples/general-info/sample-copy/sample-copy.component';
-import { SampleAdvancedSearchComponent } from './cananolab-client/main-display/samples/general-info/sample-search/sample-advanced-search/sample-advanced-search.component';
 import { SampleSearchResultsComponent } from './cananolab-client/main-display/samples/general-info/sample-search/sample-search-results/sample-search-results.component';
 import { SampleEditComponent } from './cananolab-client/main-display/samples/general-info/sample-edit/sample-edit.component';
 import { SampleViewComponent } from './cananolab-client/main-display/samples/sample-view/sample-view.component';
@@ -31,12 +30,13 @@ import { NanomaterialentityComponent } from './cananolab-client/main-display/sam
 import { CompositionfileComponent } from './cananolab-client/main-display/samples/composition/compositionfile/compositionfile.component';
 import { ChemicalassociationComponent } from './cananolab-client/main-display/samples/composition/chemicalassociation/chemicalassociation.component';
 import { SamplePublicationsComponent } from './cananolab-client/main-display/samples/publications/sample-publications/sample-publications.component';
-import { SampleAdvancedSearchResultsComponent } from './cananolab-client/main-display/samples/general-info/sample-search/sample-advanced-search-results/sample-advanced-search-results.component';
 import { ProtocolViewComponent } from './cananolab-client/main-display/protocols/protocol-view/protocol-view.component';
 import { EditpublicationComponent } from './cananolab-client/main-display/samples/publications/editpublication/editpublication.component';
 import { SearchpublicationresultsComponent } from './cananolab-client/main-display/publications/search-publication-results/searchpublicationresults/searchpublicationresults.component';
 import { LoginComponent } from './cananolab-client/main-display/home/right-side-bar/home-user-actions/login/login.component';
 import { SearchResultsComponent } from './cananolab-client/main-display/search-results/search-results/search-results.component';
+import { AdvancedSearchComponent } from './cananolab-client/main-display/samples/general-info/sample-search/advanced-search/advanced-search.component';
+import { AdvancedSearchResultsComponent } from './cananolab-client/main-display/samples/general-info/sample-search/advanced-search-results/advanced-search-results.component';
 const routes: Routes = [
     { path: '', component: HomeComponent },
     { path: 'home', component: HomeComponent },
@@ -61,11 +61,11 @@ const routes: Routes = [
     { path: 'home/samples/view-sample/:sampleId', component: SampleViewComponent }, // @TODO Add Composition view here
     { path: 'home/samples/sample-search', component: SampleSearchComponent },
     { path: 'home/samples/sample-search-results', component: SampleSearchResultsComponent },
-    { path: 'home/samples/sample-advanced-search-results', component: SampleAdvancedSearchResultsComponent },
+    { path: 'home/samples/sample-advanced-search-results', component: AdvancedSearchResultsComponent },
 
-    { path: 'home/samples/sample-advanced-search-results/:searchResults', component: SampleAdvancedSearchResultsComponent },
+    { path: 'home/samples/sample-advanced-search-results/:searchResults', component: AdvancedSearchResultsComponent },
 
-    { path: 'home/samples/sample-advanced-search', component: SampleAdvancedSearchComponent },
+    { path: 'home/samples/sample-advanced-search', component: AdvancedSearchComponent },
     { path: 'home/samples/sample-create', component: SampleCreateComponent },
     { path: 'home/samples/sample-copy', component: SampleCopyComponent },
     { path: 'home/samples/characterization/:sampleId', component: CharacterizationComponent },

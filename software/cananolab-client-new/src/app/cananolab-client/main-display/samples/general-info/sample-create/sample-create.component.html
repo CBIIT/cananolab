@@ -3,46 +3,46 @@
     [toolHeadingName]="toolHeadingNameSearchSample"
 >
 </canano-main-display-heading>
-<div class="sample-create-div">
-    <table>
-        <tr>
-            <td>
-                Sample Name<sup><b>*</b></sup>
-            </td>
-            <td>
-                <input
-                    [(ngModel)]="sampleName"
-                    type="text"
-                >
-            </td>
-        </tr>
-        <tr>
-            <td>
-                Point of Contact<sup><b>*</b></sup>
-                &nbsp;&nbsp;&nbsp;&nbsp;
-                <button
-                    class="btn btn-primary"
-                    (click)="onAddPocClick()"
-                >Add</button>
-            </td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>
-                <button
-                    class="btn btn-danger"
-                >
-                    Reset
-                </button>
-                <button
-                    class="btn btn-primary"
-                    (click)="onSaveSample()"
-                >
-                    Save
-                </button>
-            </td>
-        </tr>
-    </table>
+<div class="mainSection">
+    <form name="createSampleForm">
+        <div class="mainBorder">
+            <table class="dataMain">
+                <tr>
+                    <td class="label">
+                        <label for="sampleName">
+                            Sample Name*
+                        </label>
+                    </td>
+                    <td>
+                        <input [(ngModel)]="sampleName" type="text">
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label">
+                        <label for="pointOfContact">
+                            Point of Contact*
+                        </label>
+                    </td>
+                    <td>
+                        <button class="btn-canano btn-canano-primary btn-canano-xs mr-1" (click)="onAddPocClick()">
+                            Add
+                        </button>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <br />
+        <div>
+            <table class="submit">
+                <tr>
+                    <td>
+                        <button class="btn-canano btn-canano-danger btn-canano-lg mr-1">Reset</button>
+                        <button (click)="onSaveSample()" class="btn-canano btn-canano-primary btn-canano-lg mr-1">Save</button>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </form>
 </div>
 
 <canano-point-of-contact-create

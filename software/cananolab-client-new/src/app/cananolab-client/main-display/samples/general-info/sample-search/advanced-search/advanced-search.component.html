@@ -1,0 +1,373 @@
+
+<canano-main-display-heading [helpUrl]="'https://wiki.nci.nih.gov/display/caNanoLab/Managing+Samples+in+caNanoLab#ManagingSamplesincaNanoLab-AdvSearchSample'" [toolHeadingName]="'ADVANCED SAMPLE SEARCH'">
+</canano-main-display-heading>
+<div class="error" *ngIf="errors['error']">
+    {{errors['error']}}
+</div>
+<div class="mainSection" *ngIf="setupData['loaded']">
+    <form name="advanced-search-form">
+    <div class="mainBorder">
+        <table class="dataMain">
+            <tr>
+                <td class="label">
+                    Sample Criteria
+                </td>
+            </tr>
+            <!-- List Existing Queries -->
+            <tr *ngIf="query['sampleQueries'].length">
+                <td>
+                    <div class="mainBorder">
+                        <table class="records">
+                            <tr *ngFor="let sample of query['sampleQueries'];let sampleIndex=index">
+                                <td>
+                                    {{sample.nameType}}
+                                </td>
+                                <td>
+                                    {{sample.operand}}
+                                </td>
+                                <td>
+                                    {{sample.name}}
+                                </td>
+                                <td>
+                                    <button (click)="editSampleQuery(sampleIndex)" class="btn-canano btn-canano-primary btn-canano-xs mr-1">Edit</button>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </td>
+            </tr>
+            <!-- End List Existing Queries -->
+
+            <!-- main selection area -->
+            <tr>
+                <td>
+                    <table class="inputs">
+                        <tr>
+                            <td>
+                                <label for="sampleQuery.nameType">
+                                    <select name="sampleQuery.nameType" id="sampleQuery.nameType" [(ngModel)]="sampleQuery.nameType">
+                                        <option [ngValue]="''">--Select--</option>
+                                        <option [ngValue]="'sample name'">Sample Name</option>
+                                        <option [ngValue]="'point of contact name'">Point of Contact Name</option>
+                                    </select>
+                                </label>
+                            </td>
+                            <td>
+                                <label for="sampleQuery.operand">
+                                    <select name="sampleQuery.operand" id="sampleQuery.operand" [(ngModel)]="sampleQuery.operand">
+                                        <option [ngValue]="''">--Select--</option>
+                                        <option [ngValue]="'contains'">Contains</option>
+                                        <option [ngValue]="'equals'">Equals</option>
+                                    </select>
+                                </label>
+                            </td>
+                            <td>
+                                <label for="sampleQuery.name">
+                                    <input type="text" name="sampleQuery.name" id="sampleQuery.name" [(ngModel)]="sampleQuery.name" size="50">
+                                </label>
+                            </td>
+                        </tr>
+                        <tr *ngIf="sampleEditIndex!=null">
+                            <td colspan="3">
+                                <button [disabled]="!isSampleAddValid()" (click)="saveSampleQuery()" class="btn-canano btn-canano-primary btn-canano-xs mr-1">Update</button>
+                                <button (click)="resetSampleQueries()" class="btn-canano btn-canano-danger btn-canano-xs mr-1">Reset</button>
+                                <button (click)="deleteSampleQuery()" class="btn-canano btn-canano-danger btn-canano-xs mr-1">Delete</button>
+                                <button (click)="cancelSampleQuery()" class="btn-canano btn-canano-default btn-canano-xs mr-1">Cancel</button>
+                            </td>
+                        </tr>
+                        <tr *ngIf="sampleEditIndex==null">
+                            <td colspan="3">
+                                <button [disabled]="!isSampleAddValid()" (click)="saveSampleQuery()" class="btn-canano btn-canano-primary btn-canano-xs mr-1">Add</button>
+                                <button (click)="resetSampleQueries()" class="btn-canano btn-canano-danger btn-canano-xs mr-1">Reset</button>
+                            </td>
+                        </tr>
+                        <tr *ngIf="query.sampleQueries.length>1">
+                            <td colspan="3">
+                                <div>
+                                    <input type="radio" name="sampleLogicalOperator" id="sampleLogicalOperator" [value]="'and'" [(ngModel)]="query.sampleLogicalOperator">
+                                    <label for="logicalOperator" class="right">
+                                        And
+                                    </label>
+                                    <input type="radio" name="sampleLogicalOperator" id="sampleLogicalOperator" [value]="'or'" [(ngModel)]="query.sampleLogicalOperator">
+                                    <label for="sampleLogicalOperator" class="right">
+                                        Or
+                                    </label>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            <!-- end main selection area -->
+        </table>
+    </div><br />
+
+    <div class="mainBorder">
+        <table class="dataMain">
+            <tr>
+                <td class="label">
+                    Composition Criteria
+                </td>
+            </tr>
+            <!-- List Existing Queries -->
+            <tr *ngIf="query['compositionQueries'].length">
+                <td>
+                    <div class="mainBorder">
+                        <table class="records">
+                            <tr *ngFor="let composition of query['compositionQueries'];let compositionIndex=index">
+                                <td>
+                                    {{composition.compositionType}}
+                                </td>
+                                <td>
+                                    {{composition.entityType}}
+                                </td>
+                                <td>
+                                    {{composition.operand}}
+                                </td>
+                                <td>
+                                    {{composition.chemicalName}}
+                                </td>
+                                <td>
+                                    <button (click)="editCompositionQuery(compositionIndex)" class="btn-canano btn-canano-primary btn-canano-xs mr-1">Edit</button>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </td>
+            </tr>
+            <!-- End List Existing Queries -->
+
+            <!-- main selection area -->
+            <tr>
+                <td>
+                    <table class="inputs">
+                        <tr>
+                            <td>
+                                <label for="compositionQuery.compositionType">
+                                    <select (ngModelChange)="changeCompositionType($event)" name="compositionQuery.compositionType" id="compositionQuery.compositionType" [(ngModel)]="compositionQuery.compositionType">
+                                        <option [ngValue]="''">--Select--</option>
+                                        <option [ngValue]="'nanomaterial entity'">Nanomaterial Entity</option>
+                                        <option [ngValue]="'functionalizing entity'">Functionalizing Entity</option>
+                                        <option [ngValue]="'function'">Function</option>
+                                    </select>
+                                </label>
+                            </td>
+                            <td>
+                                <label for="compositionQuery.entityType">
+                                    <select name="compositionQuery.entityType" id="compositionQuery.entityType" [(ngModel)]="compositionQuery.entityType">
+                                        <option [ngValue]="''">--Select--</option>
+                                        <option *ngFor="let entityType of setupData['compositionEntityTypes']" [ngValue]="entityType">{{entityType}}</option>
+                                    </select>
+                                </label>
+                            </td>
+                            <td>
+                                with chemical name
+                            </td>
+                            <td>
+                                <label for="compositionQuery.operand">
+                                    <select name="compositionQuery.operand" id="compositionQuery.operand" [(ngModel)]="compositionQuery.operand">
+                                        <option [ngValue]="''">--Select--</option>
+                                        <option [ngValue]="'contains'">Contains</option>
+                                        <option [ngValue]="'equals'">Equals</option>
+                                    </select>
+                                </label>
+                            </td>
+                            <td>
+                                <input type="text" name="compositionQuery.chemicalName" id="compositionQuery.chemicalName" [(ngModel)]="compositionQuery.chemicalName">
+                            </td>
+                        </tr>
+                        <tr *ngIf="compositionEditIndex!=null">
+                            <td colspan="5">
+                                <button [disabled]="!isCompositionAddValid()" (click)="saveCompositionQuery()" class="btn-canano btn-canano-primary btn-canano-xs mr-1">Update</button>
+                                <button (click)="resetCompositionQueries()" class="btn-canano btn-canano-danger btn-canano-xs mr-1">Reset</button>
+                                <button (click)="deleteCompositionQuery()" class="btn-canano btn-canano-danger btn-canano-xs mr-1">Delete</button>
+                                <button (click)="cancelCompositionQuery()" class="btn-canano btn-canano-default btn-canano-xs mr-1">Cancel</button>
+                            </td>
+                        </tr>
+                        <tr *ngIf="compositionEditIndex==null">
+                            <td colspan="5">
+                                <button [disabled]="!isCompositionAddValid()" (click)="saveCompositionQuery()" class="btn-canano btn-canano-primary btn-canano-xs mr-1">Add</button>
+                                <button (click)="resetCompositionQueries()" class="btn-canano btn-canano-danger btn-canano-xs mr-1">Reset</button>
+                            </td>
+                        </tr>
+                        <tr *ngIf="query.compositionQueries.length>1">
+                            <td colspan="5">
+                                <div>
+                                    <input type="radio" name="compositionLogicalOperator" id="compositionLogicalOperator" [value]="'and'" [(ngModel)]="query.compositionLogicalOperator">
+                                    <label for="compositionLogicalOperator" class="right">
+                                        And
+                                    </label>
+                                    <input type="radio" name="compositionLogicalOperator" id="compositionLogicalOperator" [value]="'or'" [(ngModel)]="query.compositionLogicalOperator">
+                                    <label for="compositionLogicalOperator" class="right">
+                                        Or
+                                    </label>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            <!-- end main selection area -->
+        </table>
+    </div><br />
+
+    <div class="mainBorder">
+        <table class="dataMain">
+            <tr>
+                <td class="label">
+                    Characterization Criteria
+                </td>
+            </tr>
+            <!-- List Existing Queries -->
+            <tr *ngIf="query['characterizationQueries'].length">
+                <td>
+                    <div class="mainBorder">
+                        <table class="records">
+                            <tr *ngFor="let characterization of query['characterizationQueries'];let characterizationIndex=index">
+                                <td>
+                                    {{characterization.characterizationType}}
+                                </td>
+                                <td>
+                                    {{characterization.characterizationName}}
+                                </td>
+                                <td>
+                                    {{characterization.datumName}}
+                                </td>
+                                <td>
+                                    {{characterization.operand}}
+                                </td>
+                                <td>
+                                    {{characterization.datumValue}}
+                                </td>
+                                <td>
+                                    {{characterization.datumValueUnit}}
+                                </td>
+                                <td>
+                                    <button (click)="editCharacterizationQuery(characterizationIndex)" class="btn-canano btn-canano-primary btn-canano-xs mr-1">Edit</button>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </td>
+            </tr>
+            <!-- End List Existing Queries -->
+
+            <!-- main selection area -->
+            <tr>
+                <td>
+                    <table class="inputs">
+                        <tr>
+                            <td>
+                                <label for="characterizationQuery.characterizationType">
+                                    <select (ngModelChange)="changeCharacterizationType($event,0)" name="characterizationQuery.characterizationType" id="characterizationQuery.characterizationType" [(ngModel)]="characterizationQuery.characterizationType">
+                                        <option [ngValue]="''">--Select--</option>
+                                        <option *ngFor="let type of setupData.characterizationTypes" [ngValue]="type.value">
+                                            {{type.label}}
+                                        </option>
+                                    </select>
+                                </label>
+                            </td>
+                            <td *ngIf="setupData.characterizationNames.length">
+                                <label for="characterizationQuery.characterizationName">
+                                    <select (ngModelChange)="changeCharacterizationName($event)" name="characterizationQuery.characterizationName" id="characterizationQuery.characterizationName" [(ngModel)]="characterizationQuery.characterizationName">
+                                        <option [ngValue]="''">--Select--</option>
+                                        <option *ngFor="let name of setupData['characterizationNames']" [ngValue]="name['value']">
+                                            {{name['label']}}
+                                        </option>
+                                    </select>
+                                </label>
+                            </td>
+                            <td *ngIf="setupData.characterizationDatumNames.length">
+                                <label for="characterizationQuery.datumName">
+                                    <select (ngModelChange)="changeCharacterizationDatumName($event)" name="characterizationQuery.datumName" id="characterizationQuery.datumName" [(ngModel)]="characterizationQuery.datumName">
+                                        <option [ngValue]="''">--Select--</option>
+                                        <option *ngFor="let datumName of setupData['characterizationDatumNames']" [ngValue]="datumName['value']">
+                                            {{datumName['label']}}
+                                        </option>
+                                    </select>
+                                </label>
+                            </td>
+                            <td *ngIf="setupData.characterizationDatumNames.length">
+                                <label for="characterizationQuery.operand">
+                                    <select name="characterizationQuery.operand" id="characterizationQuery.operand" [(ngModel)]="characterizationQuery.operand">
+                                        <option [ngValue]="''">--Select--</option>
+                                        <option [ngValue]="'='">=</option>
+                                        <option [ngValue]="'>'">&gt;</option>
+                                        <option [ngValue]="'>='">&gt;=</option>
+                                        <option [ngValue]="'<'">&lt;</option>
+                                        <option [ngValue]="'<='">&lt;=</option>
+                                    </select>
+                                </label>
+
+                            </td>
+                            <td *ngIf="setupData.characterizationDatumNames.length">
+                                <input type="number" name="characterizationQuery.datumValue" id="characterizationQuery.datumValue" [(ngModel)]="characterizationQuery.datumValue" size="15">
+                            </td>
+                            <td *ngIf="setupData['characterizationDatumValueUnits'].length">
+                                <label for="characterizationQuery.datumName">
+                                    <select name="characterizationQuery.datumValueUnit" id="characterizationQuery.datumValueUnit" [(ngModel)]="characterizationQuery.datumValueUnit">
+                                        <option [ngValue]="''">--Select--</option>
+                                        <option *ngFor="let datumValueUnit of setupData['characterizationDatumValueUnits']" [ngValue]="datumValueUnit">
+                                            {{datumValueUnit}}
+                                        </option>
+                                    </select>
+                                </label>
+                            </td>
+                        </tr>
+                        <tr *ngIf="characterizationEditIndex!=null">
+                            <td [colspan]="6">
+                                <button [disabled]="!isCharacterizationAddValid()" (click)="saveCharacterizationQuery()" class="btn-canano btn-canano-primary btn-canano-xs mr-1">Update</button>
+                                <button (click)="resetCharacterizationQueries()" class="btn-canano btn-canano-danger btn-canano-xs mr-1">Reset</button>
+                                <button (click)="deleteCharacterizationQuery()" class="btn-canano btn-canano-danger btn-canano-xs mr-1">Delete</button>
+                                <button (click)="cancelCharacterizationQuery()" class="btn-canano btn-canano-default btn-canano-xs mr-1">Cancel</button>
+                            </td>
+                        </tr>
+                        <tr *ngIf="characterizationEditIndex==null">
+                            <td colspan="6">
+                                <button [disabled]="!isCharacterizationAddValid()" (click)="saveCharacterizationQuery()" class="btn-canano btn-canano-primary btn-canano-xs mr-1">Add</button>
+                                <button (click)="resetCharacterizationQueries()" class="btn-canano btn-canano-danger btn-canano-xs mr-1">Reset</button>
+                            </td>
+                        </tr>
+                        <tr *ngIf="query.characterizationQueries.length>1">
+                            <td colspan="6">
+                                <div>
+                                    <input type="radio" name="characterizationLogicalOperator" id="characterizationLogicalOperator" [value]="'and'" [(ngModel)]="query.characterizationLogicalOperator">
+                                    <label for="characterizationLogicalOperator" class="right">
+                                        And
+                                    </label>
+                                    <input type="radio" name="characterizationLogicalOperator" id="characterizationLogicalOperator" [value]="'or'" [(ngModel)]="query.characterizationLogicalOperator">
+                                    <label for="characterizationLogicalOperator" class="right">
+                                        Or
+                                    </label>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            <!-- end main selection area -->
+        </table>
+    </div><br />
+    <div>
+        <input type="radio" name="logicalOperator" id="logicalOperator" [value]="'and'" [(ngModel)]="query.logicalOperator">
+        <label for="logicalOperator" class="right">
+            And
+        </label>
+        <input type="radio" name="logicalOperator" id="logicalOperator" [value]="'or'" [(ngModel)]="query.logicalOperator">
+        <label for="logicalOperator" class="right">
+            Or
+        </label>
+    </div>
+    <div>
+        <table class="submit">
+            <tr>
+                <td>
+                    <button (click)="search()" class="btn btn-primary float-right">Search</button>
+                    <button (click)="reset()" class="btn btn-danger float-right mr-1">Reset</button>
+                </td>
+            </tr>
+        </table>
+
+    </div>
+    </form>
+</div>
