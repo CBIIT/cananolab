@@ -2,7 +2,7 @@
     [helpUrl]="helpUrl"
     [toolHeadingName]="toolHeadingNameSearchSample">
 </canano-main-display-heading>
-<div class="mainSection" *ngIf="data" (click)="hideDataAvailability($event)">
+<div class="mainSection" *ngIf="data">
     <div class="error" *ngIf="errors['error']">
         {{errors['error']}}
     </div>
@@ -252,10 +252,149 @@
                 </td>
                 <td>
                     <textarea name="data.keywords" id="data.keywords" [(ngModel)]="data.keywords" rows="7" cols="70">
-                            sad
+
                     </textarea><br />
                         <i>(one keyword per line)</i>
 
+                </td>
+            </tr>
+            <tr>
+                <td class="label">
+                    <label for="dataAccess">
+                        Access to the
+                    </label>
+                </td>
+                <td>
+                    <button (click)="addAccess()" class="btn-canano btn-canano-primary btn-canano-xs mr-1">Add</button>
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>
+                    <table class="dataTable">
+                        <tr>
+                            <th>Group Name</th>
+                            <th>Access</th>
+                            <th></th>
+                        </tr>
+                        <tr *ngFor="let group of data.groupAccesses; let odd=odd; let gIndex=index" [ngClass]="{'rowOdd':odd}">
+                            <td>{{group.recipientDisplayName}}</td>
+                            <td>{{group.roleDisplayName}}</td>
+                            <td>
+                                <button (click)="editAccess(gIndex,group)" *ngIf="group.recipient != 'ROLE_CURATOR'" class="btn-canano btn-canano-primary btn-canano-xs mr-1">Edit</button>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            <tr *ngIf="data['userAccesses'].length">
+                <td></td>
+                <td>
+                    <table class="dataTable">
+                        <tr>
+                            <th>User Login Name</th>
+                            <th>Access</th>
+                            <th></th>
+                        </tr>
+                        <tr *ngFor="let user of data.userAccesses; let odd=odd;let uIndex=index" [ngClass]="{'rowOdd':odd}">
+                            <td>{{user.recipientDisplayName}}</td>
+                            <td>{{user.roleDisplayName}}</td>
+                            <td>
+                                <button (click)="editAccess(uIndex,user)" class="btn-canano btn-canano-primary btn-canano-xs mr-1">Edit</button>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            <tr *ngIf="theAccessIndex!=null" id="accessForm">
+                <td></td>
+                <td>
+                    <div class="mainBorder">
+                        <table class="dataMain access">
+                            <tr>
+                                <td class="label">
+                                    <label for="acces">
+                                        Access By*
+                                    </label>
+                                </td>
+                                <td>
+                                    <input (ngModelChange)="changeAccessType($event)" [value]="'group'" type="radio" name="theAccess.accessType" id="theAccess.accessType.group" [(ngModel)]="theAccess.accessType">
+                                    <label for="theAccess.accessType.group" class="right">
+                                        Collaboration Group
+                                    </label>
+                                    <input (ngModelChange)="changeAccessType($event)" [value]="'user'" type="radio" name="theAccess.accessType" id="theAccess.accessType.user" [(ngModel)]="theAccess.accessType">
+                                    <label for="theAccess.accessType.user" class="right">
+                                        User
+                                    </label>
+                                    <input (ngModelChange)="changeAccessType($event)" [value]="'role'" type="radio" name="theAccess.accessType" id="theAccess.accessType.role" [(ngModel)]="theAccess.accessType">
+                                    <label for="theAccess.accessType.role" class="right">
+                                        Public
+                                    </label>
+                                </td>
+                            </tr>
+                            <tr *ngIf="theAccess['accessType']=='group'">
+                                <td class="label">
+                                    <label for="theAccess.collaborationGroup">
+                                        Collaboration Group*
+                                    </label>
+                                </td>
+                                <td>
+                                    <select name="theAccess.recipient" id="theAccess.recipient" [(ngModel)]="theAccess.recipient">
+                                        <option [ngValue]="''">--Select--</option>
+                                        <option *ngFor="let recipient of userGroups|keyvalue" [ngValue]="recipient.key">
+                                            {{recipient.value}}, {{recipient.key}}
+                                        </option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr *ngIf="theAccess['accessType']=='user'">
+                                <td class="label">
+                                    <label for="theAccess.user">
+                                        User*
+                                    </label>
+                                </td>
+                                <td>
+                                    <select name="theAccess.recipient" id="theAccess.recipient" [(ngModel)]="theAccess.recipient">
+                                        <option [ngValue]="''">--Select--</option>
+                                        <option *ngFor="let recipient of users|keyvalue" [ngValue]="recipient.key">
+                                            {{recipient.value}}, {{recipient.key}}
+                                        </option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr *ngIf="theAccess['accessType']=='role'">
+                                <td colspan="2" class="label">
+                                    <label for="theAccess.role">
+                                        Public
+                                    </label>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="label">
+                                    <label for="theAccess.roleName">
+                                        Access to the*
+                                    </label>
+                                </td>
+                                <td>
+                                    <select name="theAccess.roleName" id="theAccess.roleName" [(ngModel)]="theAccess.roleName">
+                                        <option [ngValue]="''">--Select--</option>
+                                        <option *ngFor="let role of data.roleNames|keyvalue" [ngValue]="role.key">
+                                                {{role.value}}
+                                        </option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <button (click)="deleteAccess()" class="btn-canano btn-canano-danger btn-canano-xs mr-1">Delete</button>
+                                </td>
+                                <td>
+                                    <button [disabled]="theAccess.accessType==''||theAccess.recipient==''||theAccess.roleName==''" (click)="saveAccess()" class="btn-canano btn-canano-primary btn-canano-xs mr-1">Save</button>
+                                    <button (click)="cancelAccess()" class="btn-canano btn-canano-default btn-canano-xs mr-1">Cancel</button>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
                 </td>
             </tr>
             <tr>
@@ -315,7 +454,7 @@
         </table>
     </div>
 
-  <!-- Modal -->
+  <!-- Data Availability Modal -->
   <div class="modal fade" id="availabilityMetrics" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-top modal-lg modal-dialog-scrollable"  role="document">
       <div class="modal-content">
@@ -638,7 +777,7 @@
     </div>
   </div>
 </div>
-
+<!-- End Data Availabilty Modal -->
 
 
 <canano-point-of-contact-create

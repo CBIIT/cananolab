@@ -14,23 +14,24 @@ import { SampleAvailabilityDisplayService } from '../sample-search/sample-search
     styleUrls: ['./sample-edit.component.scss']
 } )
 export class SampleEditComponent implements OnInit, OnDestroy{
-    helpUrl = Consts.HELP_URL_SAMPLE_EDIT;
-    toolHeadingNameSearchSample = 'Update Sample';
     availabilityEditIndex;
     currentDropdownValues;
-    sampleId = -1;
-    metricsDeleted;
     data;
-    dataTrailer;
     dataAvailability;
+    dataTrailer;
     errors;
+    userGroups;
+    users;
+    theAccess;
+    theAccessIndex;
+    helpUrl = Consts.HELP_URL_SAMPLE_EDIT;
     message;
-    myParam;
-    pointOfContactIndex;
     pointOfContact;
-    newKeyword = '';
-    pointOfContacts;
-    showPointOfContactCreate = false;
+    pointOfContactIndex;
+    sampleId = -1;
+    toolHeadingNameSearchSample = 'Update Sample';
+
+
 
     constructor( private navigationService: NavigationService, private route: ActivatedRoute, private httpClient: HttpClient,
                  private pointOfContactService: PointOfContactService, private apiService: ApiService,
@@ -59,11 +60,73 @@ export class SampleEditComponent implements OnInit, OnDestroy{
                         this.data.keywords=this.joinKeywords(this.data.keywords);
                         this.dataTrailer=JSON.parse(JSON.stringify(this.data))
                         Properties.CURRENT_SAMPLE_NAME = data['sampleName'];
-                        this.pointOfContacts = this.data.pointOfContacts;
                     } );
             } );
     }
 
+    addAccess() {
+        this.theAccessIndex=-1;
+        this.theAccess={
+            accessType: "",
+            recipient: "",
+            recipientDisplayName: "",
+            roleName: "",
+        }
+
+        setTimeout(function () {
+            document.getElementById('accessForm').scrollIntoView();
+        }, 100);
+        this.getUserGroups();
+        this.getUsers();
+
+    }
+
+    saveAccess() {
+        this.data.theAccess=this.theAccess;
+        this.data['keywords']=this.data['keywords'].split('\n');
+        this.apiService.doPost(Consts.QUERY_SAMPLE_SAVE_ACCESS,this.data).subscribe(data=> {
+            this.data=data;
+            this.data['keywords']=this.joinKeywords(this.data['keywords']);
+            this.dataTrailer=JSON.parse(JSON.stringify(this.data));
+            this.theAccessIndex=null;
+        })
+    }
+
+    changeAccessType(event) {
+        this.theAccess.recipient="";
+        this.theAccess.roleName="";
+        if (event=='role') {
+            this.theAccess['recipient']='ROLE_ANONYMOUS';
+            this.theAccess['recipientDisplayName']='Public';
+        }
+    }
+
+    cancelAccess() {
+        this.theAccessIndex=null;
+    }
+    deleteAccess() {
+        if (confirm("Are you sure you wish to delete this access?")) {
+            this.theAccessIndex=null;
+            this.data['theAccess']=this.theAccess;
+            this.data['keywords'] = this.data['keywords'].split('\n');
+            this.apiService.doPost(Consts.QUERY_SAMPLE_DELETE_ACCESS,this.data).subscribe(data=> {
+                this.data=data;
+                this.data.keywords=this.joinKeywords(this.data['keywords']);
+                this.dataTrailer=JSON.parse(JSON.stringify(this.data));
+            })
+        }
+    }
+
+    editAccess(index,access) {
+        this.theAccessIndex=index;
+        this.theAccess=access;
+        setTimeout(function () {
+            document.getElementById('accessForm').scrollIntoView();
+        }, 100);
+        this.getUserGroups();
+        this.getUsers();
+
+    }
     // set pointer fields to old values when adding other //
     addOtherValue(field,currentValue) {
         this.currentDropdownValues[field]=currentValue;
@@ -147,14 +210,6 @@ export class SampleEditComponent implements OnInit, OnDestroy{
         console.log(keywords)
     }
 
-
-
-    onAddKeyword( newKeyword ){
-        this.data['keywords'].push( newKeyword );
-        this.newKeyword = '';
-    }
-
-
     onSampleDeleteClick(){
         console.log( 'onSampleDeleteClick' );
     }
@@ -194,6 +249,19 @@ export class SampleEditComponent implements OnInit, OnDestroy{
 
     }
 
+    getUsers() {
+        this.apiService.doGet(Consts.QUERY_GET_USERS,'searchStr').subscribe(data=> {
+            this.users=data;
+        })
+
+    }
+
+    getUserGroups() {
+        this.apiService.doGet(Consts.QUERY_GET_USER_GROUPS,'searchStr').subscribe(data=> {
+            this.userGroups=data;
+        })
+    }
+
     getSampleEditData(){
         let getUrl = Properties.API_SERVER_URL + '/caNanoLab/rest/sample/edit?sampleId=' + this.sampleId;
 
@@ -220,19 +288,6 @@ export class SampleEditComponent implements OnInit, OnDestroy{
         }
         return results;
 
-    }
-
-    hideDataAvailability(event) {
-        let target = event.target.id;
-        console.log(target)
-        // if (target!='availabilityMetrics' && target!='editDataAvailabilityButton') {
-        //     this.availabilityEditIndex=null;
-        // }
-    }
-
-    onAddPocClick(){
-        this.pointOfContactService.showPointOfContactCreateEmitter.emit( true );
-        this.showPointOfContactCreate = true;
     }
 
 

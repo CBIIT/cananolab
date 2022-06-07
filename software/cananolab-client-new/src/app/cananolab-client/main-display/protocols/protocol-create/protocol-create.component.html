@@ -153,7 +153,7 @@
                                 <td>{{group.recipientDisplayName}}</td>
                                 <td>{{group.roleDisplayName}}</td>
                                 <td>
-                                    <button (click)="editAccess(groupIndex,group)" class="btn-canano btn-canano-primary btn-canano-xs mr-1">Edit</button>
+                                    <button *ngIf="group.recipient != 'ROLE_CURATOR'" (click)="editAccess(groupIndex,group)" class="btn-canano btn-canano-primary btn-canano-xs mr-1">Edit</button>
                                 </td>
                             </tr>
                         </table>

@@ -26,6 +26,8 @@ export const Consts = {
     QUERY_SAMPLE_AVAILABILITY: 'caNanoLab/rest/sample/regenerateDataAvailability',
     QUERY_SAMPLE_VIEW_AVAILABILITY:'caNanoLab/rest/sample/viewDataAvailability',
     QUERY_SAMPLE_DELETE_AVAILABILITY:'caNanoLab/rest/sample/deleteDataAvailability',
+    QUERY_SAMPLE_DELETE_ACCESS:'caNanoLab/rest/sample/deleteAccess',
+    QUERY_SAMPLE_SAVE_ACCESS:'caNanoLab/rest/sample/saveAccess',
     QUERY_SAMPLE_UPDATE: 'caNanoLab/rest/sample/updateSample',
     QUERY_SAMPLE_AVAILABILITY_HTML: 'caNanoLab/views/sample/view/sampleDataAvailability.html',  // @FIXME That's not how this works
     QUERY_SAMPLE_POC_UPDATE_SAVE:  'caNanoLab/rest/sample/savePOC',
