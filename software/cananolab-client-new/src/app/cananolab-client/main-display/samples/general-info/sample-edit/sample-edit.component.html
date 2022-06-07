@@ -1,101 +1,646 @@
 <canano-main-display-heading
     [helpUrl]="helpUrl"
-    [toolHeadingName]="toolHeadingNameSearchSample"
->
+    [toolHeadingName]="toolHeadingNameSearchSample">
 </canano-main-display-heading>
-<canano-sample-availability-display></canano-sample-availability-display>
-
-<div class="mainSection">
+<div class="mainSection" *ngIf="data" (click)="hideDataAvailability($event)">
+    <div class="error" *ngIf="errors['error']">
+        {{errors['error']}}
+    </div>
+    <div class="error" *ngIf="message">
+        {{message}}
+    </div>
     <div class="mainBorder">
+        <table class="dataMain">
+            <tr>
+                <td class="label">
+                    <label for="data.sampleName">
+                        Sample Name
+                    </label>
+                </td>
+                <td>
+                    <input type="text" name="data.sampleName" id="data.sampleName" [(ngModel)]="data['sampleName']" size="100">
+                </td>
+            </tr>
+            <tr>
+                <td class="label">
+                    <label for="data.pointOfContact">
+                        Point of Contact*
+                    </label>
+                </td>
+                <td>
+                <button class="btn-canano btn-canano-primary btn-canano-xs mr-1" (click)="addPointOfContact()">Add</button>
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>
+                    <table class="dataTable">
+                        <tr>
+                            <th>Primary Contact?</th>
+                            <th>Contact Person</th>
+                            <th>Organization</th>
+                            <th>Role</th>
+                            <th></th>
+                        </tr>
+                        <tr *ngFor="let contact of data.pointOfContacts; let odd=odd; let pocIndex=index" [ngClass]="{'rowOdd':odd}">
+                            <td>
+                                {{contact.primaryContact}}
+                            </td>
+                            <td>
+                                {{contact.firstName}} {{contact.lastName}}
 
-    <table class="sample-edit-table">
-        <tr>
-            <td colspan="3">
-                Sample Name<sup><b>*</b></sup>
-                &nbsp;&nbsp;&nbsp;&nbsp;
-                <input type="text"
-                       [(ngModel)]="sampleData['sampleName']"
-                >
-            </td>
-        </tr>
+                            </td>
+                            <td>
+                                {{contact.organization.name}}
+                                <div *ngIf="contact.address.line1">
+                                    {{contact.address.line1}}
+                                </div>
+                                <div *ngIf="contact.address.line2">
+                                    {{contact.address.line2}}
+                                </div>
+                                <span *ngIf="contact.address.city">
+                                    {{contact.address.city}},
+                                </span>
+                                <span *ngIf="contact.address.stateProvince">
+                                    {{contact.address.stateProvince}}
+                                </span>
+                                <span *ngIf="contact.address.zip">
+                                    {{contact.address.zip}}
+                                </span>
+                                <span *ngIf="contact.address.country">
+                                    {{contact.address.country}}
+                                </span>
+                            </td>
+                            <td>
+                                {{contact.role}}
+                            </td>
+                            <td>
+                                <button (click)="editPointOfContact(pocIndex,contact)" class="btn-canano btn-canano-primary btn-canano-xs mr-1">Edit</button>
+                            </td>
+                        </tr>
+                    </table>
+                    <!-- <canano-point-of-contact
+                        [poc]=pointOfContacts
+                        [sampleData]="data"
+                    ></canano-point-of-contact> -->
+                </td>
+            </tr>
+            <tr *ngIf="pointOfContactIndex!=null">
+                <td></td>
+                <td>
+                    <div class="mainBorder" id="pocForm">
+                        <table class="dataMain">
+                            <tr>
+                                <td class="label">
+                                    <label for="pointOfContact.organization.name">
+                                        Organization Name*
+                                    </label>
+                                </td>
+                                <td>
+                                    <select (ngModelChange)="addOtherValue('pointOfContact.organization.name',pointOfContact.organization.name)" name="pointOfContact.organization.name" id="pointOfContact.organization.name" [(ngModel)]="pointOfContact.organization.name">
+                                        <option [ngValue]="''">--Select--</option>
+                                        <option *ngFor="let org of data.organizationNamesForUser" [ngValue]="org">
+                                            {{org}}
+                                        </option>
+                                        <option>other</option>
+                                    </select>
+                                    <div *ngIf="pointOfContact.organization.name ==='other'">
+                                        <canano-other-dropdown (saveOther)="saveOther($event)" [label]="'Organization Name'" [value]="currentDropdownValues['pointOfContact.organization.name']" [field]="'pointOfContact.organization.name'" [array]="'data.organizationNamesForUser'">
 
-        <tr>
-            <td>
-                Point of Contact<sup><b>*</b></sup>
-                &nbsp;&nbsp;&nbsp;&nbsp;
-                <button
-                    class="btn btn-primary"
-                    (click)="onAddPocClick()"
-                >Add
-                </button>
-            </td>
-        </tr>
-        <tr>
-            <td
-                class="p-3"
-            >
-                <canano-point-of-contact
-                    [poc]=pointOfContacts
-                    [sampleData]="sampleData"
-                ></canano-point-of-contact>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                Keywords:
-                <div class="keywords-container">
-                      <span class="keywords" *ngFor="let kWord of sampleData['keywords'] "> {{kWord}}</span>
-                </div>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <input type="text"
-                [(ngModel)]="newKeyword">
-                <button class="btn btn-primary"
-                    (click)="onAddKeyword(newKeyword)"
-                >Add</button>
-            </td>
-        </tr>
+                                        </canano-other-dropdown>
+                                    </div>
+                                </td>
+                                <td class="label">
+                                    <label for="pointOfContact.role">
+                                        Role
+                                    </label>
+                                </td>
+                                <td colspan="3">
+                                    <select (ngModelChange)="addOtherValue('pointOfContact.role',pointOfContact.role)" name="pointOfContact.role" id="pointOfContact.role" [(ngModel)]="pointOfContact['role']">
+                                        <option [ngValue]="''">--Select--</option>
+                                        <option *ngFor="let role of data.contactRoles" [ngValue]="role">
+                                            {{role}}
+                                        </option>
+                                        <option>other</option>
+                                    </select>
+                                    <div *ngIf="pointOfContact.role ==='other'">
+                                        <canano-other-dropdown (saveOther)="saveOther($event)" [label]="'Role'" [value]="currentDropdownValues['pointOfContact.role']" [field]="'pointOfContact.role'" [array]="'data.contactRoles'">
 
-        <tr>
-            <td>
-                Data Availability <br>
-                Metrics
-                <button
-                    class="btn btn-primary"
-                    (click)="onAvailabilityClick(sampleId)"
-                >
-                    Generate
-                </button>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <button
-                    class="btn btn-danger m-1"
-                    (click)="onSampleDeleteClick()"
-                >Delete</button>
-                <button
-                    class="btn btn-primary m-1"
-                    (click)="onSampleCopyClick()"
-                >Copy</button>
-            </td>
-            <td>
-                <button
-                    class="btn btn-danger m-1"
-                    (click)="onSampleResetClick()"
-                >Reset</button>
-                <button
-                    class="btn btn-primary m-1"
-                    (click)="onSampleUpdateClick()"
-                >Update</button>
-            </td>
-        </tr>
-    </table>
+                                        </canano-other-dropdown>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="label">
+                                    <label for="pointOfContact.firstName">
+                                        First Name
+                                    </label>
+                                </td>
+                                <td>
+                                    <input type="text" name="pointOfContact.firstName" id="pointOfContact.firstName" [(ngModel)]="pointOfContact.firstName">
+                                </td>
+                                <td class="label">
+                                    <label for="pointOfContact.middleInitial">
+                                        Middle Initial
+                                    </label>
+                                </td>
+                                <td>
+                                    <input type="text" name="pointOfContact.middleInitial" id="pointOfContact.middleInitial" [(ngModel)]="pointOfContact.middleInitial" size="4">
+                                </td>
+                                <td class="label">
+                                    <label for="pointOfContact.lastName">
+                                        Last Name
+                                    </label>
+                                </td>
+                                <td>
+                                    <input type="text" name="pointOfContact.lastName" id="pointOfContact.lastName" [(ngModel)]="pointOfContact.lastName">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="label">
+                                    <label for="pointOfContact.phoneNumber">
+                                        Phone Number
+                                    </label>
+                                </td>
+                                <td>
+                                    <input type="text" name="pointOfContact.phoneNumber" id="pointOfContact.phoneNumber" [(ngModel)]="pointOfContact.phoneNumber">
+                                </td>
+                                <td class="label">
+                                    <label for="pointOfContact.email">
+                                        Email
+                                    </label>
+                                </td>
+                                <td colspan="3">
+                                    <input type="text" name="pointOfContact.email" id="pointOfContact.email" [(ngModel)]="pointOfContact.email">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="label">
+                                    <label for="pointOfContact.address.line1">
+                                        Address Line 1
+                                    </label>
+                                </td>
+                                <td colspan="5">
+                                    <input type="text" name="pointOfContact.address.line1" id="pointOfContact.address.line1" [(ngModel)]="pointOfContact.address.line1">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="label">
+                                    <label for="pointOfContact.address.line2">
+                                        Address Line 2
+                                    </label>
+                                </td>
+                                <td colspan="5">
+                                    <input type="text" name="pointOfContact.address.line2" id="pointOfContact.address.line2" [(ngModel)]="pointOfContact.address.line2">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="label">
+                                    <label for="pointOfContact.address.city">
+                                        City
+                                    </label>
+                                </td>
+                                <td>
+                                    <input type="text" name="pointOfContact.address.city" id="pointOfContact.address.city" [(ngModel)]="pointOfContact.address.city">
+                                </td>
+                                <td class="label">
+                                    <label for="pointOfContact.address.stateProvince">
+                                        State
+                                    </label>
+                                </td>
+                                <td>
+                                    <input type="text" name="pointOfContact.address.stateProvince" id="pointOfContact.address.stateProvince" [(ngModel)]="pointOfContact.address.stateProvince">
+                                </td>
+                                <td class="label">
+                                    <label for="pointOfContact.address.zip">
+                                        Zip/Postal Code
+                                    </label>
+                                </td>
+                                <td>
+                                    <input type="text" name="pointOfContact.address.zip" id="pointOfContact.address.zip" [(ngModel)]="pointOfContact.address.zip" size="10">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="label">
+                                    <label for="pointOfContact.address.country">
+                                        Country
+                                    </label>
+                                </td>
+                                <td colspan="5">
+                                    <input type="text" name="pointOfContact.address.country" id="pointOfContact.address.country" [(ngModel)]="pointOfContact.address.country">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <button *ngIf="!pointOfContact.primaryContact" class="btn-canano btn-canano-danger btn-canano-xs mr-1" (click)="deletePointOfContact()">Delete</button>
+                                </td>
+                                <td colspan="4"></td>
+                                <td>
+                                    <button class="btn-canano btn-canano-primary btn-canano-xs mr-1" (click)="savePointOfContact()">Save</button>
+                                    <button class="btn-canano btn-canano-default btn-canano-xs mr-1" (click)="cancelPointOfContact()">Cancel</button>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td class="label">
+                    <label for="data.keywords">
+                        Keywords
+                    </label>
+                </td>
+                <td>
+                    <textarea name="data.keywords" id="data.keywords" [(ngModel)]="data.keywords" rows="7" cols="70">
+                            sad
+                    </textarea><br />
+                        <i>(one keyword per line)</i>
+
+                </td>
+            </tr>
+            <tr>
+                <td class="label">
+                    <label for="dataAvailability">
+                        Data Availability Metrics
+                    </label>
+                </td>
+                <td>
+                    <button *ngIf="!data.dataAvailability" class="btn-canano btn-canano-primary btn-canano-xs mr-1" (click)="onAvailabilityClick()">Generate</button>
+                    <table class="dataTable availability" *ngIf="data.dataAvailability">
+                        <tr>
+                            <th>caNanoLab Availability Score</th>
+                            <th>MINChar Availability Score</th>
+                            <th></th>
+                        </tr>
+                        <tr>
+                            <td>
+                                {{data.dataAvailability.dataAvailability}}
+                            </td>
+                            <td>
+                                {{data.dataAvailability.mincharScore}}
+                            </td>
+                            <td>
+                                <button (click)="onAvailabilityEdit($event)" data-toggle="modal" [attr.aria-expanded]="false" data-target="#availabilityMetrics" id="editDataAvailabilityButton" class="btn-canano btn-canano-primary btn-canano-xs mr-1">Edit</button>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div id="buttons">
+        <table class="dataMain submit">
+            <tr>
+                <td>
+                    <button
+                        class="btn btn-danger m-1"
+                        (click)="onSampleDeleteClick()"
+                    >Delete</button>
+                    <button
+                        class="btn btn-primary m-1"
+                        (click)="onSampleCopyClick()"
+                    >Copy</button>
+                </td>
+                <td>
+                    <button
+                        class="btn btn-danger m-1"
+                        (click)="onSampleResetClick()"
+                    >Reset</button>
+                    <button
+                        class="btn btn-primary m-1"
+                        (click)="onSampleUpdateClick()"
+                    >Update</button>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+  <!-- Modal -->
+  <div class="modal fade" id="availabilityMetrics" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-top modal-lg modal-dialog-scrollable"  role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title">Data Availability Metrics</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+        <div class="modal-body">
+            <form name="metrics">
+            <table class="summaryViewWithGrid" width="100%" align="left" *ngIf="dataAvailability">
+                <tr>
+                    <td colspan="3" class="help">
+                        <a href="https://wiki.nci.nih.gov/display/caNanoLab/Managing+Samples+in+caNanoLab#ManagingSamplesincaNanoLab-Metrics" target="_blank">
+                            Help
+                        </a>
+                    </td>
+                </tr>
+                <tr>
+                    <th colspan="3">
+                        caNanoLab Availability Score: {{dataAvailability.caNanoLabScore}}&nbsp;&nbsp;
+                        MINChar Availability Score: {{dataAvailability.mincharScore}}
+                    </th>
+                </tr>
+                <tr>
+                    <td>
+                        <B>
+                            caNanoLab
+                        </B>
+                    </td>
+                    <td>
+                        <B>
+                            MINChar
+                        </B>
+                    </td>
+                    <td>
+                        <B>
+                            {{dataAvailability.sampleName}}
+                        </B>
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>agglomeration and/or aggregation </td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>crystal structure/crystallinity</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>
+                        General Sample Information
+                    </td>
+                    <td></td>
+                    <td>
+                        <svg width="20" height="20" fill="currentColor">
+                            <use xlink:href="assets/images/bootstrap-icons.svg#check" />
+                        </svg>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Sample Composition
+                    </td>
+                    <td>
+                        chemical composition
+                    </td>
+                    <td>
+                        <span *ngFor="let entity of dataAvailability.availableEntityNames">
+                            <svg width="20" height="20" fill="currentColor" *ngIf="entity=='sample composition'">
+                                <use xlink:href="assets/images/bootstrap-icons.svg#check" />
+                            </svg>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="indent l1">
+                        nanomaterial entities
+                    </td>
+                    <td>
+                    </td>
+                    <td>
+                        <ng-container *ngFor="let entity of dataAvailability.availableEntityNames">
+                            <svg width="20" height="20" fill="currentColor" *ngIf="entity=='nanomaterial entities'">
+                                <use xlink:href="assets/images/bootstrap-icons.svg#check" />
+                            </svg>
+                        </ng-container>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="indent l1">
+                        functionalizing entities
+                    </td>
+                    <td>
+                    </td>
+                    <td>
+                        <ng-container *ngFor="let entity of dataAvailability.availableEntityNames">
+                            <svg width="20" height="20" fill="currentColor" *ngIf="entity=='functionalizing entities'">
+                                <use xlink:href="assets/images/bootstrap-icons.svg#check" />
+                            </svg>
+                        </ng-container>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="indent l1">
+                        chemical associations
+                    </td>
+                    <td>
+                    </td>
+                    <td>
+                        <ng-container *ngFor="let entity of dataAvailability.availableEntityNames">
+                            <svg width="20" height="20" fill="currentColor" *ngIf="entity=='chemical associations'">
+                                <use xlink:href="assets/images/bootstrap-icons.svg#check" />
+                            </svg>
+                        </ng-container>
+                    </td>
+                </tr>
+                <tr *ngFor="let chem of dataAvailability.chemicalAssocs">
+                    <td  class="indent l2">
+                        {{chem}}
+                    </td>
+                    <td>
+                        <span *ngFor="let i of dataAvailability.caNano2MINChar | keyvalue">
+                            <span *ngIf="i['key']==chem">{{i['value']}}
+                            </span>
+                        </span>
+                    </td>
+                    <td>
+                        <span *ngFor="let entity of dataAvailability.availableEntityNames">
+                            <svg width="20" height="20" fill="currentColor" *ngIf="entity==chem">
+                                <use xlink:href="assets/images/bootstrap-icons.svg#check" />
+                            </svg>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="indent l1">
+                        sample function
+                    </td>
+                    <td>
+                    </td>
+                    <td>
+                        <ng-container *ngFor="let entity of dataAvailability.availableEntityNames">
+                            <svg width="20" height="20" fill="currentColor" *ngIf="entity=='sample function'">
+                                <use xlink:href="assets/images/bootstrap-icons.svg#check" />
+                            </svg>
+                        </ng-container>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="3">
+                        Physico-Chemical Characterization
+                    </td>
+                </tr>
+                <ng-container *ngFor="let char of dataAvailability.physicoChars">
+                    <tr *ngIf="char=='surface'">
+                        <td class="indent l1">
+                            {{char}}
+                        </td>
+                        <td></td>
+                        <td>
+                            <ng-container *ngFor="let entity of dataAvailability.availableEntityNames">
+                                <svg width="20" height="20" fill="currentColor" *ngIf="entity==char">
+                                    <use xlink:href="assets/images/bootstrap-icons.svg#check" />
+                                </svg>
+                            </ng-container>
+                        </td>
+                    </tr>
+                </ng-container>
+                <tr>
+                    <td class="indent l2">
+                        surface area</td>
+                    <td>
+                        <span *ngFor="let i of dataAvailability.caNano2MINChar|keyvalue">
+                            <span *ngIf="i['key']=='surface area'">{{i['value']}}
+                            </span>
+                        </span>
+
+                    </td>
+                    <td>
+                        <ng-container *ngFor="let entity of dataAvailability.availableEntityNames">
+                            <svg width="20" height="20" fill="currentColor" *ngIf="entity=='surface area'">
+                                <use xlink:href="assets/images/bootstrap-icons.svg#check" />
+                            </svg>
+                        </ng-container>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="indent l2">
+                        surface charge</td>
+                    <td>
+                        <span *ngFor="let i of dataAvailability.caNano2MINChar|keyvalue">
+                            <span *ngIf="i['key']=='surface charge'">{{i['value']}}
+                            </span>
+                        </span>
+
+                    </td>
+                    <td>
+                        <ng-container *ngFor="let entity of dataAvailability.availableEntityNames">
+                            <svg width="20" height="20" fill="currentColor" *ngIf="entity=='surface charge'">
+                                <use xlink:href="assets/images/bootstrap-icons.svg#check" />
+                            </svg>
+                        </ng-container>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="indent l2">
+                        zeta potential</td>
+                    <td>
+                        <span *ngFor="let i of dataAvailability.caNano2MINChar|keyvalue">
+                            <span *ngIf="i['key']=='zeta potential'">{{i['value']}}
+                            </span>
+                        </span>
+
+                    </td>
+                    <td>
+                        <ng-container *ngFor="let entity of dataAvailability.availableEntityNames">
+                            <svg width="20" height="20" fill="currentColor" *ngIf="entity=='zeta potential'">
+                                <use xlink:href="assets/images/bootstrap-icons.svg#check" />
+                            </svg>
+                        </ng-container>
+                    </td>
+                </tr>
+                <ng-container *ngFor="let char of dataAvailability.physicoChars">
+                    <tr *ngIf="char!='surface'">
+                        <td class="indent l1">
+                            {{char}}</td>
+                    <td>
+                        <ng-container *ngFor="let i of dataAvailability.caNano2MINChar | keyvalue">
+                            <span *ngIf="i['key']==char">{{i['value']}}
+                            </span>
+                        </ng-container>
+
+                    </td>
+                    <td>
+                        <ng-container *ngFor="let entity of dataAvailability.availableEntityNames">
+                            <svg width="20" height="20" fill="currentColor" *ngIf="entity==char">
+                                <use xlink:href="assets/images/bootstrap-icons.svg#check" />
+                            </svg>
+                        </ng-container>
+                    </td>
+                    </tr>
+                </ng-container>
+                <tr>
+                    <td colspan="3">
+                        In Vitro Characterization
+                    </td>
+                </tr>
+                <ng-container *ngFor="let char of dataAvailability.invitroChars">
+                    <tr>
+                        <td class="indent l1">
+                            {{char}}</td>
+                    <td>
+                        <ng-container *ngFor="let i of dataAvailability.caNano2MINChar | keyvalue">
+                            <span  *ngIf="i['key']==char">{{i['value']}}
+                            </span>
+                        </ng-container>
+                    </td>
+                    <td>
+                        <ng-container  *ngFor="let entity of dataAvailability.availableEntityNames">
+                            <svg width="20" height="20" fill="currentColor" *ngIf="entity==char">
+                                <use xlink:href="assets/images/bootstrap-icons.svg#check" />
+                            </svg>
+                        </ng-container>
+                    </td>
+                    </tr>
+                </ng-container>
+                <tr>
+                    <td colspan="3">
+                        In Vivo Characterization
+                    </td>
+                </tr>
+                    <ng-container *ngFor="let char of dataAvailability.invivoChars">
+
+                    <tr>
+                        <td class="indent l1">
+                            {{char}}</td>
+                    <td>
+                        <ng-container *ngFor="let i of dataAvailability.caNano2MINChar | keyvalue">
+                            <span  *ngIf="i['key']==char">{{i['value']}}
+                            </span>
+                        </ng-container>
+
+                    </td>
+                    <td>
+                        <ng-container *ngFor="let entity of dataAvailability.availableEntityNames">
+                            <svg width="20" height="20" fill="currentColor" *ngIf="entity==char">
+                                <use xlink:href="assets/images/bootstrap-icons.svg#check" />
+                            </svg>
+                        </ng-container>
+                    </td>
+                    </tr>
+                </ng-container>
+                <tr>
+                    <td>
+                        Publications
+                    </td>
+                    <td></td>
+                    <td>
+                        <ng-container *ngFor="let entity of dataAvailability.availableEntityNames">
+                            <svg width="20" height="20" fill="currentColor" *ngIf="entity=='publications'">
+                                <use xlink:href="assets/images/bootstrap-icons.svg#check" />
+                            </svg>
+                        </ng-container>
+                    </td>
+                </tr>
+
+            </table>
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button type="button" (click)="onAvailabilityDeleteClick()" data-dismiss="modal" class="btn-canano btn-canano-danger btn-canano-modal">Delete</button>
+            <button type="button" (click)="onAvailabilityClick()" class="btn-canano btn-canano-primary btn-canano-modal" data-dismiss="modal">Regenerate</button>
+            <button type="button" data-dismiss="modal" class="btn-canano btn-canano-default btn-canano-modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
-</div>
+
+
 
 <canano-point-of-contact-create
-    [sampleData]="sampleData"
+    [sampleData]="data"
 ></canano-point-of-contact-create>
