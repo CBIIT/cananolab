@@ -24,9 +24,12 @@ export const Consts = {
     QUERY_SAMPLE_ADVANCED_SEARCH: 'caNanoLab/rest/sample/searchSampleAdvanced',
     QUERY_SEARCH_SAMPLE: 'caNanoLab/rest/sample/searchSample', // @TODO rename this SAMPLE_SEARCH
     QUERY_SAMPLE_AVAILABILITY: 'caNanoLab/rest/sample/regenerateDataAvailability',
+    QUERY_SAMPLE_VIEW_AVAILABILITY:'caNanoLab/rest/sample/viewDataAvailability',
+    QUERY_SAMPLE_DELETE_AVAILABILITY:'caNanoLab/rest/sample/deleteDataAvailability',
     QUERY_SAMPLE_UPDATE: 'caNanoLab/rest/sample/updateSample',
     QUERY_SAMPLE_AVAILABILITY_HTML: 'caNanoLab/views/sample/view/sampleDataAvailability.html',  // @FIXME That's not how this works
     QUERY_SAMPLE_POC_UPDATE_SAVE:  'caNanoLab/rest/sample/savePOC',
+    QUERY_SAMPLE_POC_UPDATE_DELETE: 'caNanoLab/rest/sample/deletePOC',
     QUERY_SAMPLE_GET_CHARACTERIZATION_OPTIONS:  'caNanoLab/rest/sample/getDecoratedCharacterizationOptions',
     QUERY_SAMPLE_GET_DATUM_OPTIONS:  'caNanoLab/rest/sample/getDecoratedDatumOptions',
     QUERY_SAMPLE_GET_DATUM_UNIT_OPTIONS:  'caNanoLab/rest/sample/getDatumUnitOptions',
