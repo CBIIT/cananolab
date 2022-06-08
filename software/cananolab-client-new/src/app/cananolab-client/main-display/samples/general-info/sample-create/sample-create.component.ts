@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Consts } from '../../../../../constants';
-import { PointOfContactService } from '../../../../point-of-contact/point-of-contact.service';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { ApiService } from 'src/app/cananolab-client/common/services/api.service';
@@ -18,7 +17,7 @@ export class SampleCreateComponent implements OnInit{
     pointOfContact;
     pointOfContactIndex;
 
-    constructor(private apiService:ApiService,private pointOfContactService: PointOfContactService, private httpClient: HttpClient,
+    constructor(private apiService:ApiService,private httpClient: HttpClient,
                  private router: Router){
     }
 

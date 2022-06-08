@@ -52,9 +52,6 @@ import { SampleCopyComponent } from './cananolab-client/main-display/samples/gen
 import { SampleAvailabilityDisplayComponent } from './cananolab-client/main-display/samples/general-info/sample-search/sample-search-results/sample-availability-display/sample-availability-display.component';
 import { SampleEditComponent } from './cananolab-client/main-display/samples/general-info/sample-edit/sample-edit.component';
 import { SampleViewComponent } from './cananolab-client/main-display/samples/sample-view/sample-view.component';
-import { PointOfContactComponent } from './cananolab-client/point-of-contact/point-of-contact.component';
-import { PointOfContactEditorComponent } from './cananolab-client/point-of-contact/point-of-contact-editor/point-of-contact-editor.component';
-import { PointOfContactCreateComponent } from './cananolab-client/point-of-contact/point-of-contact-create/point-of-contact-create.component';
 import { CharacterizationComponent } from './cananolab-client/main-display/samples/characterization/characterization.component';
 import { CompositionComponent } from './cananolab-client/main-display/samples/composition/composition/composition.component';
 import { SamplePublicationsComponent } from './cananolab-client/main-display/samples/publications/sample-publications/sample-publications.component';
@@ -125,9 +122,6 @@ import { AdvancedSearchResultsComponent } from './cananolab-client/main-display/
     SampleAvailabilityDisplayComponent,
     SampleEditComponent,
     SampleViewComponent,
-    PointOfContactComponent,
-    PointOfContactEditorComponent,
-    PointOfContactCreateComponent,
     CharacterizationComponent,
     CompositionComponent,
     SamplePublicationsComponent,

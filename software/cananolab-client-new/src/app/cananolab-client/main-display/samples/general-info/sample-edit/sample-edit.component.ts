@@ -4,7 +4,6 @@ import { ActivatedRoute, Params } from '@angular/router';
 import { Properties } from '../../../../../../assets/properties';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { timeout } from 'rxjs/operators';
-import { PointOfContactService } from '../../../../point-of-contact/point-of-contact.service';
 import { ApiService } from '../../../../common/services/api.service';
 import { NavigationService } from '../../../../common/services/navigation.service';
 import { SampleAvailabilityDisplayService } from '../sample-search/sample-search-results/sample-availability-display/sample-availability-display.service';
@@ -36,7 +35,7 @@ export class SampleEditComponent implements OnInit, OnDestroy{
 
 
     constructor( private router:Router,private navigationService: NavigationService, private route: ActivatedRoute, private httpClient: HttpClient,
-                 private pointOfContactService: PointOfContactService, private apiService: ApiService,
+                 private apiService: ApiService,
                  private sampleAvailabilityDisplayService: SampleAvailabilityDisplayService){
     }
 
