@@ -1,11 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Consts } from '../../../../../constants';
 import { PointOfContactService } from '../../../../point-of-contact/point-of-contact.service';
-import { Properties } from '../../../../../../assets/properties';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { takeUntil, timeout } from 'rxjs/operators';
-import { Subject } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { ApiService } from 'src/app/cananolab-client/common/services/api.service';
 
 @Component( {
     selector: 'canano-sample-create',
@@ -13,87 +11,54 @@ import { Router } from '@angular/router';
     styleUrls: ['./sample-create.component.scss']
 } )
 export class SampleCreateComponent implements OnInit{
+    currentDropdownValues={};
+    data;
+    errors={};
     helpUrl = Consts.HELP_URL_SAMPLE_EDIT;
-    toolHeadingNameSearchSample = 'Create Sample';
+    pointOfContact;
+    pointOfContactIndex;
 
-    pointOfContacts = [];
-    userGroups = undefined;
-    sampleData = {};
-    sampleName = '';
-    sampleId = '';
-    showPointOfContactCreate = false;
-    organizationNames = [];
-    private ngUnsubscribe: Subject<boolean> = new Subject<boolean>();
-
-    constructor(private pointOfContactService: PointOfContactService, private httpClient: HttpClient,
+    constructor(private apiService:ApiService,private pointOfContactService: PointOfContactService, private httpClient: HttpClient,
                  private router: Router){
     }
 
     ngOnInit(): void{
-        this.userGroups = this.getUserGroups().subscribe(  // @TODO move this to a common service
-            data => {
-                this.organizationNames = data;
-            });
-
-        this.pointOfContactService.emitNewPocEmitter.pipe( takeUntil( this.ngUnsubscribe ) ).subscribe(
-            (data) => {
-                this.sampleId = data.sampleId;
-                this.pointOfContacts.push(data);
-                this.router.navigate(['home/samples/sample',this.sampleId ]);  // @FIXME  Don't hard code these
-            });
+        this.apiService.doGet(Consts.QUERY_SAMPLE_SUBMISSION_SETUP,'').subscribe(data=> {
+            this.data=data;
+            this.data['sampleId']=0;
+            this.data.pointOfContact={dirty:true,organization:{name:""},address:{},role:""};
+        },
+        errors=> {
+            this.errors=errors;
+        })
     }
 
+    addOtherValue(field,currentValue) {
+        this.currentDropdownValues[field]=currentValue;
+    };
 
-
-       // @TODO move this to a common service or component
-        getUserGroups(){
-        let getUrl = Properties.API_SERVER_URL + '/caNanoLab/rest/sample/submissionSetup';
-
-        if( Properties.DEBUG_CURL ){
-            let curl = 'curl  -k \'' + getUrl + '\'';
-            console.log( curl );
-        }
-
-        let headers = new HttpHeaders( {
-            'Content-Type': 'application/x-www-form-urlencoded'
-        } );
-
-        let options = {
-            headers: headers,
-            method: 'get',
-        };
-
-        let results;
-        try{
-            results = this.httpClient.get( getUrl, options ).pipe( timeout( Properties.HTTP_TIMEOUT ) );
-        }catch( e ){
-            // TODO react to error.
-            console.error( 'doGet Exception: ' + e );
-        }
-        return results;
+    addPointOfContact() {
+        this.pointOfContactIndex=-1;
     }
 
     onSaveSample(){
-        this.sampleData['sampleName'] = this.sampleName;
-        this.sampleData['newSampleName'] = null;
-        this.sampleData['sampleId'] = 0;
-        this.pocForSampleSubmit();
+        this.data.pointOfContacts.push(this.data.pointOfContact);
+        delete this.data.pointOfContact;
+        this.apiService.doPost(Consts.QUERY_SAMPLE_POC_UPDATE_SAVE,this.data).subscribe(data=> {
+            this.router.navigate(['home/samples/sample',data.sampleId]);
+        },
+        errors=>{
+            this.errors=errors;
+        })
     }
 
-    pocForSampleSubmit(){
-        let pocArray = [];
-        for (let i = 0; i < this.pointOfContacts.length; i++) {
-            console.log(this.pointOfContacts[i]);
-            let temp = {};
-            temp['organization'] = { }
+    saveOther(newItem: Object) {
+        if (newItem['change'] && newItem['value']) {
+            this.addDropdownItem(newItem['array'],newItem['value'])
+            this.setValue(newItem['field'],newItem['value']);
         }
-    }
-
-
-    onAddPocClick(){
-        this.pointOfContactService.showPocCreate(  );
-        this.showPointOfContactCreate = true;
-    }
-
-
+        else {
+            this.setValue(newItem['field'],newItem['value']);
+        }
+    };
 }

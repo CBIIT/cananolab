@@ -19,6 +19,7 @@ export const Consts = {
     QUERY_SAMPLE_GET_SAMPLE_NAME: 'caNanoLab/rest/sample/getCurrentSampleName',
     QUERY_SAMPLE_COPY: 'caNanoLab/rest/sample/copySample',
     QUERY_SAMPLE_SUBMIT: 'caNanoLab/rest/sample/submitSample',
+    QUERY_SAMPLE_SUBMISSION_SETUP: 'caNanoLab/rest/sample/submissionSetup',
     QUERY_SAMPLE_SETUP: 'caNanoLab/rest/sample/setup',
     QUERY_SAMPLE_DELETE_FROM_WORKSPACE: 'caNanoLab/rest/sample/deleteSampleFromWorkspace',
     QUERY_SAMPLE_ADVANCED_SEARCH_SETUP: 'caNanoLab/rest/sample/setupAdvancedSearch',

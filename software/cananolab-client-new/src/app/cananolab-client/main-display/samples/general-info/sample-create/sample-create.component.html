@@ -1,9 +1,12 @@
 <canano-main-display-heading
     [helpUrl]="helpUrl"
-    [toolHeadingName]="toolHeadingNameSearchSample"
+    [toolHeadingName]="'Create Sample'"
 >
 </canano-main-display-heading>
-<div class="mainSection">
+<div class="mainSection" *ngIf="data">
+    <div class="error" *ngIf="errors['error']">
+        {{errors['error']}}
+    </div>
     <form name="createSampleForm">
         <div class="mainBorder">
             <table class="dataMain">
@@ -14,7 +17,7 @@
                         </label>
                     </td>
                     <td>
-                        <input [(ngModel)]="sampleName" type="text">
+                        <input [(ngModel)]="data.sampleName" name="data.sampleName" id="data.sampleName" type="text" size="100">
                     </td>
                 </tr>
                 <tr>
@@ -24,11 +27,153 @@
                         </label>
                     </td>
                     <td>
-                        <button class="btn-canano btn-canano-primary btn-canano-xs mr-1" (click)="onAddPocClick()">
-                            Add
-                        </button>
+                        <div class="mainBorder" id="pocForm">
+                            <table class="dataMain">
+                                <tr>
+                                    <td class="label">
+                                        <label for="data.pointOfContact.organization.name">
+                                            Organization Name*
+                                        </label>
+                                    </td>
+                                    <td>
+                                        <select (ngModelChange)="addOtherValue('data.pointOfContact.organization.name',data.pointOfContact.organization.name)" name="data.pointOfContact.organization.name" id="data.pointOfContact.organization.name" [(ngModel)]="data.pointOfContact.organization.name">
+                                            <option [ngValue]="''">--Select--</option>
+                                            <option *ngFor="let org of data.organizationNamesForUser" [ngValue]="org">
+                                                {{org}}
+                                            </option>
+                                            <option>other</option>
+                                        </select>
+                                        <div *ngIf="data.pointOfContact.organization.name ==='other'">
+                                            <canano-other-dropdown (saveOther)="saveOther($event)" [label]="'Organization Name'" [value]="currentDropdownValues['data.pointOfContact.organization.name']" [field]="'data.pointOfContact.organization.name'" [array]="'data.organizationNamesForUser'">
+
+                                            </canano-other-dropdown>
+                                        </div>
+                                    </td>
+                                    <td class="label">
+                                        <label for="data.pointOfContact.role">
+                                            Role
+                                        </label>
+                                    </td>
+                                    <td colspan="3">
+                                        <select (ngModelChange)="addOtherValue('data.pointOfContact.role',data.pointOfContact.role)" name="data.pointOfContact.role" id="data.pointOfContact.role" [(ngModel)]="data.pointOfContact['role']">
+                                            <option [ngValue]="''">--Select--</option>
+                                            <option *ngFor="let role of data.contactRoles" [ngValue]="role">
+                                                {{role}}
+                                            </option>
+                                            <option>other</option>
+                                        </select>
+                                        <div *ngIf="data.pointOfContact.role ==='other'">
+                                            <canano-other-dropdown (saveOther)="saveOther($event)" [label]="'Role'" [value]="currentDropdownValues['data.pointOfContact.role']" [field]="'data.pointOfContact.role'" [array]="'data.contactRoles'">
+
+                                            </canano-other-dropdown>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="label">
+                                        <label for="data.pointOfContact.firstName">
+                                            First Name
+                                        </label>
+                                    </td>
+                                    <td>
+                                        <input type="text" name="data.pointOfContact.firstName" id="data.pointOfContact.firstName" [(ngModel)]="data.pointOfContact.firstName">
+                                    </td>
+                                    <td class="label">
+                                        <label for="data.pointOfContact.middleInitial">
+                                            Middle Initial
+                                        </label>
+                                    </td>
+                                    <td>
+                                        <input type="text" name="data.pointOfContact.middleInitial" id="data.pointOfContact.middleInitial" [(ngModel)]="data.pointOfContact.middleInitial" size="4">
+                                    </td>
+                                    <td class="label">
+                                        <label for="data.pointOfContact.lastName">
+                                            Last Name
+                                        </label>
+                                    </td>
+                                    <td>
+                                        <input type="text" name="data.pointOfContact.lastName" id="data.pointOfContact.lastName" [(ngModel)]="data.pointOfContact.lastName">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="label">
+                                        <label for="data.pointOfContact.phoneNumber">
+                                            Phone Number
+                                        </label>
+                                    </td>
+                                    <td>
+                                        <input type="text" name="data.pointOfContact.phoneNumber" id="data.pointOfContact.phoneNumber" [(ngModel)]="data.pointOfContact.phoneNumber">
+                                    </td>
+                                    <td class="label">
+                                        <label for="data.pointOfContact.email">
+                                            Email
+                                        </label>
+                                    </td>
+                                    <td colspan="3">
+                                        <input type="text" name="data.pointOfContact.email" id="data.pointOfContact.email" [(ngModel)]="data.pointOfContact.email">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="label">
+                                        <label for="data.pointOfContact.address.line1">
+                                            Address Line 1
+                                        </label>
+                                    </td>
+                                    <td colspan="5">
+                                        <input type="text" name="data.pointOfContact.address.line1" id="data.pointOfContact.address.line1" [(ngModel)]="data.pointOfContact.address.line1">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="label">
+                                        <label for="data.pointOfContact.address.line2">
+                                            Address Line 2
+                                        </label>
+                                    </td>
+                                    <td colspan="5">
+                                        <input type="text" name="data.pointOfContact.address.line2" id="data.pointOfContact.address.line2" [(ngModel)]="data.pointOfContact.address.line2">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="label">
+                                        <label for="data.pointOfContact.address.city">
+                                            City
+                                        </label>
+                                    </td>
+                                    <td>
+                                        <input type="text" name="data.pointOfContact.address.city" id="data.pointOfContact.address.city" [(ngModel)]="data.pointOfContact.address.city">
+                                    </td>
+                                    <td class="label">
+                                        <label for="data.pointOfContact.address.stateProvince">
+                                            State
+                                        </label>
+                                    </td>
+                                    <td>
+                                        <input type="text" name="data.pointOfContact.address.stateProvince" id="data.pointOfContact.address.stateProvince" [(ngModel)]="data.pointOfContact.address.stateProvince">
+                                    </td>
+                                    <td class="label">
+                                        <label for="data.pointOfContact.address.zip">
+                                            Zip/Postal Code
+                                        </label>
+                                    </td>
+                                    <td>
+                                        <input type="text" name="data.pointOfContact.address.zip" id="data.pointOfContact.address.zip" [(ngModel)]="data.pointOfContact.address.zip" size="10">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="label">
+                                        <label for="data.pointOfContact.address.country">
+                                            Country
+                                        </label>
+                                    </td>
+                                    <td colspan="5">
+                                        <input type="text" name="data.pointOfContact.address.country" id="data.pointOfContact.address.country" [(ngModel)]="data.pointOfContact.address.country">
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
                     </td>
                 </tr>
+
             </table>
         </div>
         <br />
@@ -37,7 +182,7 @@
                 <tr>
                     <td>
                         <button class="btn-canano btn-canano-danger btn-canano-lg mr-1">Reset</button>
-                        <button (click)="onSaveSample()" class="btn-canano btn-canano-primary btn-canano-lg mr-1">Save</button>
+                        <button [disabled]="data.sampleName==''||data.pointOfContact.name==''||data.pointOfContact.role==''" (click)="onSaveSample()" class="btn-canano btn-canano-primary btn-canano-lg mr-1">Save</button>
                     </td>
                 </tr>
             </table>
@@ -45,8 +190,8 @@
     </form>
 </div>
 
-<canano-point-of-contact-create
+<!-- <canano-point-of-contact-create
     [poc]=pointOfContacts
     [sampleData]="organizationNames"
     [sampleName]="sampleName"
-></canano-point-of-contact-create>
+></canano-point-of-contact-create> -->
