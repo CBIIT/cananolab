@@ -55,7 +55,8 @@ export class SampleViewComponent implements OnInit{
                         Properties.SAMPLE_TOOLS = true;
                         this.sampleData = data;
                         Properties.CURRENT_SAMPLE_NAME = data['sampleName'];
-                        this.pointOfContacts = this.sampleData['pointOfContactMap'];
+                        // this.pointOfContacts = this.sampleData['pointOfContactMap'];
+                        this.getPointOfContacts(data);
                         this.keyWords = this.sampleData.keywords.split( /<br>/ );
                         this.toolHeadingNameViewSample = 'Sample ' + Properties.CURRENT_SAMPLE_NAME;
                     } );
@@ -103,5 +104,17 @@ export class SampleViewComponent implements OnInit{
             console.error( 'doGet Exception: ' + e );
         }
         return results;
+    }
+
+    getPointOfContacts(data) {
+
+        data['pointOfContactMap']['contactPerson'].forEach((element,index)=> {
+            let pointOfContact={
+                primaryContact:data['pointOfContactMap']['primaryContact'][index],
+                organizationDisplayName:data['pointOfContactMap']['organizationDisplayName'][index],
+                role:data['pointOfContactMap']['role'][index]
+            };
+            this.pointOfContacts.push(pointOfContact);
+        });
     }
 }

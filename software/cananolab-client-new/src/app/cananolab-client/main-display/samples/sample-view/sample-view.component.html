@@ -3,54 +3,30 @@
     [toolHeadingName]="toolHeadingNameViewSample"
 >
 </canano-main-display-heading>
+<div class="mainSection">
 
-<div class="sample-view-heading p-2 m-2">
-    <span class="clicker-view p-3"
-        (click)="topButtonGeneralInfo()"
-    >
-       <b>General Info</b>
-    </span>
 
-    <span class="clicker-view  p-3"
-        (click)="topButtonComposition()"
-    >
-        <b>Composition</b>
-    </span>
-
-    <span class="clicker-view  p-3"
-        (click)="topButtonCharacterization()"
-    >
-        <b>Characterization</b>
-    </span>
-
-    <span class="clicker-view  p-3"
-        (click)="topButtonPublication()"
-    >
-        <b>Publication</b>
-    </span>
-</div>
-
-<div class="sample-view-main-div m-2">
-    <table>
+<div class="mainBorder">
+    <table class="dataMain">
         <tr>
-            <td>
-                <b>Sample Name</b>
+            <td class="label">
+                Sample Name
             </td>
             <td>
                 {{sampleData['sampleName']}}
             </td>
         </tr>
         <tr>
-            <td>
-                <b>Created Date</b>
+            <td class="label">
+                Created Date
             </td>
             <td>
                   {{sampleData['createdDate']}}
             </td>
         </tr>
         <tr>
-            <td>
-                <b>Keywords</b>
+            <td class="label">
+                Keywords
             </td>
             <td>
                 <div *ngFor="let keyword of keyWords">
@@ -59,33 +35,36 @@
             </td>
         </tr>
         <tr>
-            <td>
-                <b>Point of Contact</b>
+            <td class="label">
+                Point of Contacts
             </td>
             <td>
-                <b>Primary Contact</b>
-            </td>
-            <td>
-                <b>Organization</b>
-            </td>
-            <td>
-                <b>Role</b>
-            </td>
-        </tr>
-        <tr *ngIf="pointOfContacts['primaryContact'] != undefined">
-            <td></td>
-            <td>
-                {{pointOfContacts['primaryContact'][0]?'Yes':'No' }}
-            </td>
-            <td>
-                {{pointOfContacts['contactPerson'][0]}}
-            </td>
-            <td>
-                {{pointOfContacts['organizationDisplayName'][0]}}
-            </td>
-            <td>
-                {{pointOfContacts['role'][0]}}
+                <table class="dataTable">
+                    <tr>
+                        <th>
+                            Primary Contact
+                        </th>
+                        <th>
+                            Organization
+                        </th>
+                        <th>
+                            Role
+                        </th>
+                    </tr>
+                    <tr *ngFor="let contact of pointOfContacts">
+                        <td>
+                            {{contact.primaryContact}}
+                        </td>
+                        <td>
+                            {{contact.organizationDisplayName}}
+                        </td>
+                        <td>
+                            {{contact.role}}
+                        </td>
+                    </tr>
+                </table>
             </td>
         </tr>
     </table>
+</div>
 </div>
