@@ -9,7 +9,6 @@ import { ActivatedRoute, Params } from '@angular/router';
 import { Properties } from '../../../../../../assets/properties';
 import { Consts } from '../../../../../constants';
 import { NavigationService } from '../../../../common/services/navigation.service';
-import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { ApiService } from '../../../../common/services/api.service';
 import { StatusDisplayService } from 'src/app/cananolab-client/status-display/status-display.service';
@@ -26,7 +25,7 @@ export class SamplePublicationsComponent implements OnInit{
     publicationData;
     toolHeadingNameManage;
     editUrl=false;
-    constructor( private statusDisplayService:StatusDisplayService,private apiService:ApiService,private router:Router,private httpClient:HttpClient,private navigationService:NavigationService,private route: ActivatedRoute ){
+    constructor( private statusDisplayService:StatusDisplayService,private apiService:ApiService,private router:Router,private navigationService:NavigationService,private route: ActivatedRoute ){
     }
 
     ngOnInit(): void{
@@ -46,7 +45,7 @@ export class SamplePublicationsComponent implements OnInit{
                 }else{
                     Properties.CURRENT_SAMPLE_ID = this.sampleId;
                 };
-                let url = this.httpClient.get(Properties.API_SERVER_URL+'/caNanoLab/rest/publication/summaryView?sampleId='+this.sampleId)
+                let url = this.apiService.doGet(Consts.QUERY_PUBLICATION_SUMMARY_VIEW,'sampleId='+this.sampleId);
                 url.subscribe(data=> {
                     console.log(data)
                     this.data=data;

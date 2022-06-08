@@ -275,7 +275,7 @@ export class SampleEditComponent implements OnInit, OnDestroy{
     }
 
     getSampleEditData(){
-        let getUrl = Properties.API_SERVER_URL + '/caNanoLab/rest/sample/edit?sampleId=' + this.sampleId;
+        let getUrl = Consts.QUERY_SAMPLE_EDIT;
 
         if( Properties.DEBUG_CURL ){
             let curl = 'curl  -k \'' + getUrl + '\'';
@@ -293,7 +293,7 @@ export class SampleEditComponent implements OnInit, OnDestroy{
 
         let results;
         try{
-            results = this.httpClient.get( getUrl, options ).pipe( timeout( Properties.HTTP_TIMEOUT ) );
+            results = this.apiService.doGet(getUrl,'sampleId=' + this.sampleId).pipe( timeout( Properties.HTTP_TIMEOUT ) );
         }catch( e ){
             // TODO react to error.
             console.error( 'doGet Exception: ' + e );

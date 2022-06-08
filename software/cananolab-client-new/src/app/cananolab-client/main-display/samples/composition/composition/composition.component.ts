@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import { Properties } from '../../../../../../assets/properties';
 import { Consts } from '../../../../../constants';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpHeaders } from '@angular/common/http';
 import { timeout } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { NavigationService } from '../../../../common/services/navigation.service';
@@ -20,7 +20,7 @@ export class CompositionComponent implements OnInit{
     toolHeadingNameManage;
     data;
     editUrl=false;
-    constructor( private statusDisplayService:StatusDisplayService,private apiService:ApiService,private navigationService:NavigationService,private router: Router, private route: ActivatedRoute,private httpClient: HttpClient ){
+    constructor( private statusDisplayService:StatusDisplayService,private apiService:ApiService,private navigationService:NavigationService,private router: Router, private route: ActivatedRoute ){
     }
 
     ngOnInit(): void{
@@ -55,7 +55,7 @@ export class CompositionComponent implements OnInit{
     }
 
     getCompositionEditData(){
-        let getUrl = Properties.API_SERVER_URL + '/caNanoLab/rest/composition/summaryView?sampleId=' + this.sampleId;
+        let getUrl = Consts.QUERY_COMPOSITION_SUMMARY_VIEW;
 
         if( Properties.DEBUG_CURL ){
             let curl = 'curl  -k \'' + getUrl + '\'';
@@ -73,7 +73,7 @@ export class CompositionComponent implements OnInit{
 
         let results;
         try{
-            results = this.httpClient.get( getUrl, options ).pipe( timeout( Properties.HTTP_TIMEOUT ) );
+            results = this.apiService.doGet(getUrl,'sampleId=' + this.sampleId).pipe( timeout( Properties.HTTP_TIMEOUT ) );
         }catch( e ){
             // TODO react to error.
             console.error( 'doGet Exception: ' + e );

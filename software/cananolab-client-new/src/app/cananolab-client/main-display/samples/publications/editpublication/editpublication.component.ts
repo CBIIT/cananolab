@@ -69,7 +69,7 @@ export class EditpublicationComponent implements OnInit {
             };
 
             this.type=params['type'];
-            let url=this.httpClient.get(Properties.API_SERVER_URL+'/caNanoLab/rest/publication/setup');
+            let url = this.apiService.doGet(Consts.QUERY_PUBLICATION_SETUP,'');
             url.subscribe(data=> {
                 if (this.sampleId) { Properties.SAMPLE_TOOLS = true; }
                 this.setupData=data;
@@ -85,10 +85,10 @@ export class EditpublicationComponent implements OnInit {
 
                     var editUrl;
                     if (this.sampleId) {
-                        editUrl=this.httpClient.get(Properties.API_SERVER_URL+'/caNanoLab/rest/publication/edit?publicationId='+this.publicationId+'&sampleId='+this.sampleId);
+                        editUrl = this.apiService.doGet(Consts.QUERY_PUBLICATION_EDIT,'publicationId='+this.publicationId+'&sampleId='+this.sampleId);
                     }
                     else {
-                        editUrl=this.httpClient.get(Properties.API_SERVER_URL+'/caNanoLab/rest/publication/edit?publicationId='+this.publicationId+'&sampleId=');
+                        editUrl = this.apiService.doGet(Consts.QUERY_PUBLICATION_EDIT,'publicationId='+this.publicationId+'&sampleId=');
                     }
                     editUrl.subscribe(data=> {
                         this.data=data;
@@ -141,7 +141,7 @@ export class EditpublicationComponent implements OnInit {
 
     delete() {
         if (confirm("Are you sure you wish to delete this publication?")) {
-            let url = this.httpClient.post(Properties.API_SERVER_URL+'/caNanoLab/rest/publication/deletePublication',this.data);
+            let url = this.apiService.doPost(Consts.QUERY_PUBLICATION_DELETE,this.data);
             url.subscribe(data=> {
                 if (this.sampleId) {
                     this.router.navigate( ['home/samples/publications', this.sampleId] );  // @FIXME  Don't hard code these
@@ -202,7 +202,7 @@ export class EditpublicationComponent implements OnInit {
     deleteAccess() {
         if (confirm("Are you sure you wish to delete this " + this.theAccess.accessType + "?")) {
             this.data['theAccess']=this.theAccess;
-            let url = this.httpClient.post(Properties.API_SERVER_URL+'/caNanoLab/rest/publication/deleteAccess',this.data);
+            let url = this.apiService.doPost(Consts.QUERY_PUBLICATION_DELETE_ACCESS,this.data);
             url.subscribe(data=>{
                 this.data=data;
                 this.accessIndex=null;
@@ -218,10 +218,10 @@ export class EditpublicationComponent implements OnInit {
     getRecipientList() {
         var url;
         if (this.theAccess.accessType=='group') {
-            url=this.httpClient.get(Properties.API_SERVER_URL+'/caNanoLab/rest/core/getCollaborationGroup?searchStr=');
+            url = this.apiService.doGet(Consts.QUERY_GET_COLLABORATION_GROUPS,'searchStr=');
         }
         if (this.theAccess.accessType=='user') {
-            url=this.httpClient.get(Properties.API_SERVER_URL+'/caNanoLab/rest/core/getUsers?searchStr=');
+            url = this.apiService.doGet(Consts.QUERY_GET_USERS,'searchStr=');
         }
         url.subscribe(data=> {
             this.recipientList=data;
@@ -234,7 +234,7 @@ export class EditpublicationComponent implements OnInit {
     }
 
     getSampleList() {
-        let url=this.httpClient.get(Properties.API_SERVER_URL+'/caNanoLab/rest/publication/getSamples?searchStr=');
+        let url = this.apiService.doGet(Consts.QUERY_PUBLICATION_GET_SAMPLES,'searchStr=');
         url.subscribe(data=> {
             this.sampleList=data;
         },
@@ -248,16 +248,15 @@ export class EditpublicationComponent implements OnInit {
         if (event.target.value!='') {
             let category=JSON.parse(JSON.stringify(this.data.category));
             let status=JSON.parse(JSON.stringify(this.data.status));
-            let getPubmedUrl=this.httpClient.get(Properties.API_SERVER_URL+'/caNanoLab/rest/publication/getPubmedPublication?pubmedId='+event.target.value);
+            let getPubmedUrl = this.apiService.doGet(Consts.QUERY_PUBLICATION_GET_PUBMED_PUBLICATION,'pubmedId='+event.target.value);
             getPubmedUrl.subscribe(data=> {
                 if (confirm("A database record with the same PubMed ID already exists.  Load saved information?")) {
                     var editUrl;
                     if (this.sampleId) {
-                        editUrl=this.httpClient.get(Properties.API_SERVER_URL+'/caNanoLab/rest/publication/edit?publicationId='+data+'&sampleId='+this.sampleId);
+                        editUrl = this.apiService.doGet(Consts.QUERY_PUBLICATION_EDIT,'publicationId='+data+'&sampleId='+this.sampleId);
                     }
                     else {
-                        editUrl=this.httpClient.get(Properties.API_SERVER_URL+'/caNanoLab/rest/publication/edit?publicationId='+data+'&sampleId=');
-
+                        editUrl = this.apiService.doGet(Consts.QUERY_PUBLICATION_EDIT,'publicationId='+data+'&sampleId=');
                     }
                     editUrl.subscribe(data=> {
                         this.data=data;
@@ -284,7 +283,7 @@ export class EditpublicationComponent implements OnInit {
     }
 
     retrieveRecordByPubmedId(pubMedId,category,status) {
-        let url=this.httpClient.get(Properties.API_SERVER_URL+'/caNanoLab/rest/publication/retrievePubMedInfo?pubmedId='+pubMedId);
+        let url = this.apiService.doGet(Consts.QUERY_PUBLICATION_GET_PUBMED_INFO,'pubmedId='+pubMedId);
         url.subscribe(data=> {
             this.authorIndex=null;
             this.accessIndex=null;
@@ -348,7 +347,7 @@ export class EditpublicationComponent implements OnInit {
 
     saveAccess() {
         this.data['theAccess']=this.theAccess;
-        let url=this.httpClient.post(Properties.API_SERVER_URL+'/caNanoLab/rest/publication/saveAccess',this.data);
+        let url = this.apiService.doPost(Consts.QUERY_PUBLICATION_SAVE_ACCESS,this.data);
         url.subscribe(data=> {
             this.data=data;
             this.errors={};
@@ -392,7 +391,7 @@ export class EditpublicationComponent implements OnInit {
       if (this.theFile) {
         this.theFile.append('uriExternal',this.currentFile['uriExternal']);
         this.theFile.append('externalUrl',this.currentFile['externalUrl']);
-        let uploadFileUrl=this.httpClient.post(Properties.API_SERVER_URL+'/caNanoLab/rest/core/uploadFile',this.theFile);
+        let uploadFileUrl = this.apiService.doPost(Consts.QUERY_UPLOAD_FILE,this.theFile);
         uploadFileUrl.subscribe(data=> {
             this.data['uri']=data['fileName'];
             this.submitPublication();
@@ -409,7 +408,7 @@ export class EditpublicationComponent implements OnInit {
   }
 
   submitPublication() {
-    let submitUrl=this.httpClient.post(Properties.API_SERVER_URL+'/caNanoLab/rest/publication/submitPublication',this.data);
+    let submitUrl = this.apiService.doPost(Consts.QUERY_PUBLICATION_SAVE,this.data);
     submitUrl.subscribe(data=> {
         console.log(this.sampleId)
         if (this.sampleId) {

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import { Properties } from '../../../../../../assets/properties';
 import { Consts } from '../../../../../constants';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpHeaders } from '@angular/common/http';
 import { timeout } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { NavigationService } from '../../../../common/services/navigation.service';
@@ -40,7 +40,7 @@ export class FunctionalizingentityComponent implements OnInit {
     targetCopy;
     targetIndex;
 
-  constructor( private apiService:ApiService,private navigationService:NavigationService,private router: Router, private route: ActivatedRoute,private httpClient: HttpClient ){
+  constructor( private apiService:ApiService,private navigationService:NavigationService,private router: Router, private route: ActivatedRoute ){
   }
 
   ngOnInit(): void{
@@ -111,7 +111,7 @@ cancelTarget() {
 deleteInherentFunction() {
     if (confirm("Are you sure you want to delete this inherent function?")) {
         this.data['simpleFunctionBean']=this.inherentFunction;
-        let url = this.httpClient.post( Properties.API_SERVER_URL + '/caNanoLab/rest/functionalizingEntity/removeFunction', this.data );
+        let url = this.apiService.doPost(Consts.QUERY_FUNCTIONALIZING_ENTITY_REMOVE_FUNCTION,this.data);
         url.subscribe( data => {
             this.data=data;
             this.dataTrailer = JSON.parse(JSON.stringify(this.data));
@@ -180,7 +180,7 @@ editTarget(target,index) {
 // saves curent inherent function //
 saveInherentFunction() {
     this.data['simpleFunctionBean']=this.inherentFunction;
-    let url = this.httpClient.post( Properties.API_SERVER_URL + '/caNanoLab/rest/functionalizingEntity/saveFunction', this.data );
+    let url = this.apiService.doPost(Consts.QUERY_FUNCTIONALIZING_ENTITY_SAVE_FUNCTION,this.data);
     url.subscribe( data => {
         this.data=data;
         this.dataTrailer = JSON.parse(JSON.stringify(this.data));
@@ -205,7 +205,7 @@ saveTarget() {
 
 // gets all data for current functionalizing entity //
 getdata(sampleId){
-    let getUrl = Properties.API_SERVER_URL + '/caNanoLab/rest/functionalizingEntity/edit?sampleId=' + sampleId + '&dataId=' + this.dataId;
+    let getUrl = Consts.QUERY_FUNCTIONALIZING_ENTITY_EDIT;
 
     if( Properties.DEBUG_CURL ){
         let curl = 'curl  -k \'' + getUrl + '\'';
@@ -222,7 +222,7 @@ getdata(sampleId){
 
     let results;
     try{
-        results = this.httpClient.get( getUrl, options ).pipe( timeout( Properties.HTTP_TIMEOUT ) );
+        results = this.apiService.doGet(getUrl,'sampleId=' + sampleId + '&dataId=' + this.dataId).pipe( timeout( Properties.HTTP_TIMEOUT ) );
     }catch( e ){
         // TODO react to error.
         console.error( 'doGet Exception: ' + e );
@@ -233,7 +233,7 @@ getdata(sampleId){
 
     // gets dropdown data //
     getSetupData(sampleId){
-        let getUrl = Properties.API_SERVER_URL + '/caNanoLab/rest/functionalizingEntity/setup?sampleId=' + sampleId;
+        let getUrl = Consts.QUERY_FUNCTIONALIZING_ENTITY_SETUP;
 
         if( Properties.DEBUG_CURL ){
             let curl = 'curl  -k \'' + getUrl + '\'';
@@ -250,7 +250,7 @@ getdata(sampleId){
 
         let results;
         try{
-            results = this.httpClient.get( getUrl, options ).pipe( timeout( Properties.HTTP_TIMEOUT ) );
+            results = this.apiService.doGet(getUrl,'sampleId=' + sampleId).pipe( timeout( Properties.HTTP_TIMEOUT ) );
         }catch( e ){
             // TODO react to error.
             console.error( 'doGet Exception: ' + e );
@@ -298,7 +298,7 @@ getdata(sampleId){
     // deletes current functionalizing entity //
     deleteFunctionalizingEntity() {
         if (confirm("Are you sure you want to delete this functionalizing entity?")) {
-            let url = this.httpClient.post( Properties.API_SERVER_URL + '/caNanoLab/rest/functionalizingEntity/delete', this.data );
+            let url = this.apiService.doPost(Consts.QUERY_FUNCTIONALIZING_ENTITY_DELETE,this.data)
             url.subscribe( data => {
                 this.router.navigate( ['home/samples/composition', this.sampleId] );
                 this.errors={};
@@ -316,7 +316,7 @@ getdata(sampleId){
 
     // saves functionalizing entity //
     submitFunctionalizingEntity() {
-        let url = this.httpClient.post( Properties.API_SERVER_URL + '/caNanoLab/rest/functionalizingEntity/submit', this.data );
+        let url = this.apiService.doPost(Consts.QUERY_FUNCTIONALIZING_ENTITY_SAVE,this.data);
         url.subscribe( data => {
             this.router.navigate( ['home/samples/composition', this.sampleId] );
             this.errors={};

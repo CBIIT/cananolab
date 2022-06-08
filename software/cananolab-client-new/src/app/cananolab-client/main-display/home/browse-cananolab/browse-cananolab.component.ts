@@ -4,8 +4,6 @@ import { Consts } from '../../../../constants';
 import { MainDisplayService } from '../../main-display.service';
 import { UtilService } from '../../../common/services/util.service';
 import { Router } from '@angular/router';
-import { HttpClient} from '@angular/common/http';
-import { Properties } from '../../../../../assets/properties';
 import { SampleSearchResultsService } from '../../samples/general-info/sample-search/sample-search-results/sample-search-results.service';
 
 @Component( {
@@ -17,7 +15,7 @@ export class BrowseCananolabComponent implements OnInit{
     initData = {};
     searchResults;
 
-    constructor( private sampleSearchResultsService: SampleSearchResultsService, private httpClient: HttpClient, private apiService: ApiService, private mainDisplayService: MainDisplayService,
+    constructor( private sampleSearchResultsService: SampleSearchResultsService,private apiService: ApiService, private mainDisplayService: MainDisplayService,
                  private router: Router, private utilService: UtilService ){
     }
 
@@ -53,7 +51,7 @@ export class BrowseCananolabComponent implements OnInit{
     // searches and returns all samples publicly available to user //
     // redirects to sample results //
     onSearchAllSamplesClick() {
-        let url = this.httpClient.post(Properties.API_SERVER_URL + '/caNanoLab/rest/sample/searchSample',{});
+        let url = this.apiService.doPost(Consts.QUERY_SEARCH_SAMPLE,{});
         url.subscribe(
             data=> {
                 this.searchResults = <any>data;

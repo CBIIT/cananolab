@@ -2,8 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import { Properties } from '../../../../../../assets/properties';
 import { Consts } from '../../../../../constants';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { timeout } from 'rxjs/operators';
+import { HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { NavigationService } from '../../../../common/services/navigation.service';
 import { ApiService } from '../../../../common/services/api.service';
@@ -20,7 +19,7 @@ export class ChemicalassociationComponent implements OnInit {
   toolHeadingNameManage = 'Sample Composition';
   data;
   dataTrailer;
-  errors;
+  errors={};
   fileIndex;
   message;
   nanomaterialEntityOptions;
@@ -33,7 +32,7 @@ export class ChemicalassociationComponent implements OnInit {
   setupData;
   currentDropdownValues;
   currentField;
-    constructor( private apiService:ApiService,private navigationService:NavigationService,private router: Router, private route: ActivatedRoute,private httpClient: HttpClient ){
+    constructor( private apiService:ApiService,private navigationService:NavigationService,private router: Router, private route: ActivatedRoute ){
     }
 
 
@@ -74,11 +73,13 @@ export class ChemicalassociationComponent implements OnInit {
                         this.errors={};
                     },
                     error=>{
+                        Properties.SAMPLE_TOOLS = true;
                         this.errors=error;
                     } );
               }
               else {
                   this.loadSetupData();
+                  Properties.SAMPLE_TOOLS = true;
 
               }
 
@@ -91,7 +92,7 @@ export class ChemicalassociationComponent implements OnInit {
   }
 
   getdata(){
-    let getUrl = Properties.API_SERVER_URL + '/caNanoLab/rest/chemicalAssociation/edit?sampleId=' + this.sampleId + '&dataId=' + this.dataId;
+    let getUrl = Consts.QUERY_CHEMICAL_ASSOCIATION_EDIT;
 
     if( Properties.DEBUG_CURL ){
         let curl = 'curl  -k \'' + getUrl + '\'';
@@ -108,9 +109,10 @@ export class ChemicalassociationComponent implements OnInit {
 
     let results;
     try{
-        results = this.httpClient.get( getUrl, options ).pipe( timeout( Properties.HTTP_TIMEOUT ) );
+        results = this.apiService.doGet(getUrl,'sampleId='+this.sampleId+'&dataId='+this.dataId);
     }catch( e ){
         // TODO react to error.
+        this.errors=e;
         console.error( 'doGet Exception: ' + e );
     }
     return results;
@@ -201,8 +203,8 @@ changeEntityId(compositionType,entity, val) {
     // no need to do anything if functionalizing entity //
     if (entity=='nanomaterial entity') {
         if (compositionType==='compositionTypeA') {
-            this.data.assoentityDisplayName
-            let url = this.httpClient.post( Properties.API_SERVER_URL + '/caNanoLab/rest/chemicalAssociation/getComposingElementsByNanomaterialEntityId?id='+val,{});
+            this.data.assoentityDisplayName;
+            let url = this.apiService.doPost(Consts.QUERY_CHEMICAL_ASSOCIATION_GET_COMPOSING_ELEMENTS_BY_NANO_ID+'?id='+val,{});
             url.subscribe( data => {
                 this.composingElementOptionsA=data;
                 this.errors={};
@@ -212,7 +214,7 @@ changeEntityId(compositionType,entity, val) {
             });
         }
         else {
-            let url = this.httpClient.post( Properties.API_SERVER_URL + '/caNanoLab/rest/chemicalAssociation/getComposingElementsByNanomaterialEntityId?id='+val,{});
+            let url = this.apiService.doPost(Consts.QUERY_CHEMICAL_ASSOCIATION_GET_COMPOSING_ELEMENTS_BY_NANO_ID+'?id='+val,{});
             url.subscribe( data => {
                 this.composingElementOptionsB=data;
                 this.errors={};
@@ -263,7 +265,7 @@ changeCompositionType(compositionType,val,edit) {
 
 deleteChemicalAssociation() {
     if (confirm("Are you sure you want to delete this functionalizing entity?")) {
-        let url = this.httpClient.post( Properties.API_SERVER_URL + '/caNanoLab/rest/chemicalAssociation/delete',this.data);
+        let url = this.apiService.doPost(Consts.QUERY_CHEMICAL_ASSOCIATION_DELETE,this.data);
         url.subscribe( data => {
             this.router.navigate( ['home/samples/composition', this.sampleId] );
             this.errors={};
@@ -279,7 +281,7 @@ resetChemicalAssociation() {
 }
 
 submitChemicalAssociation() {
-    let url = this.httpClient.post( Properties.API_SERVER_URL + '/caNanoLab/rest/chemicalAssociation/submit',this.data);
+    let url = this.apiService.doPost(Consts.QUERY_CHEMICAL_ASSOCIATION_SAVE,this.data);
     url.subscribe( data => {
         this.router.navigate( ['home/samples/composition', this.sampleId] );
         this.errors={};
@@ -302,12 +304,12 @@ loadDropdowns() {
 }
 
 loadSetupData() {
-    let getUrl = this.httpClient.get(Properties.API_SERVER_URL + '/caNanoLab/rest/chemicalAssociation/setup?sampleId=' + this.sampleId);
+    let getUrl = this.apiService.doGet(Consts.QUERY_CHEMICAL_ASSOCIATION_SETUP,'sampleId='+this.sampleId);
     getUrl.subscribe( data => {
         this.setupData = data;
-        let nanoUrl = this.httpClient.post( Properties.API_SERVER_URL + '/caNanoLab/rest/chemicalAssociation/getAssociatedElementOptions?compositionType=nanomaterial entity',{});
+        let nanoUrl = this.apiService.doPost(Consts.QUERY_CHEMICAL_ASSOCIATION_GET_ASSOCIATED_ELEMENT_OPTIONS+'?compositionType=nanomaterial entity',{});
         nanoUrl.subscribe( data => {
-            let functionalizingUrl = this.httpClient.post( Properties.API_SERVER_URL + '/caNanoLab/rest/chemicalAssociation/getAssociatedElementOptions?compositionType=functionalizing entity',{});
+            let functionalizingUrl = this.apiService.doPost(Consts.QUERY_CHEMICAL_ASSOCIATION_GET_ASSOCIATED_ELEMENT_OPTIONS+'?compositionType=functionalizing entity',{});
             this.nanomaterialEntityOptions=data;
             functionalizingUrl.subscribe( data => {
                 this.errors={};

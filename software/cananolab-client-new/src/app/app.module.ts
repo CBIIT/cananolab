@@ -71,6 +71,7 @@ import { SearchpublicationresultsComponent } from './cananolab-client/main-displ
 import { SearchResultsComponent } from './cananolab-client/main-display/search-results/search-results/search-results.component';
 import { AdvancedSearchComponent } from './cananolab-client/main-display/samples/general-info/sample-search/advanced-search/advanced-search.component';
 import { AdvancedSearchResultsComponent } from './cananolab-client/main-display/samples/general-info/sample-search/advanced-search-results/advanced-search-results.component';
+import { AdminComponent } from './cananolab-client/main-display/admin/admin.component';
 
 @NgModule({
   declarations: [
@@ -140,7 +141,8 @@ import { AdvancedSearchResultsComponent } from './cananolab-client/main-display/
     SearchpublicationresultsComponent,
     SearchResultsComponent,
     AdvancedSearchComponent,
-    AdvancedSearchResultsComponent
+    AdvancedSearchResultsComponent,
+    AdminComponent
   ],
     imports: [
         BrowserModule,

@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Properties } from '../../../../../assets/properties';
 import { Consts } from '../../../../constants';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { timeout } from 'rxjs/operators';
 import { NavigationService } from '../../../common/services/navigation.service';
 import { ApiService } from '../../../common/services/api.service';
@@ -29,7 +28,7 @@ export class CharacterizationComponent implements OnInit{
     serverUrl = Properties.API_SERVER_URL;
     editUrl=false;
 
-    constructor( private statusDisplayService:StatusDisplayService,private apiService:ApiService,private navigationService:NavigationService, private router: Router, private route: ActivatedRoute,private httpClient: HttpClient ){
+    constructor( private statusDisplayService:StatusDisplayService,private apiService:ApiService,private navigationService:NavigationService, private router: Router, private route: ActivatedRoute ){
     }
 
     ngOnInit(): void{
@@ -63,7 +62,7 @@ export class CharacterizationComponent implements OnInit{
     getCharacterizationData() {
         let results;
         try{
-            results = this.httpClient.get(Properties.API_SERVER_URL + '/caNanoLab/rest/sample/characterizationView?sampleId='+this.sampleId).pipe( timeout( Properties.HTTP_TIMEOUT ) );
+            results = this.apiService.doGet(Consts.QUERY_CHARACTERIZATION_VIEW,'sampleId='+this.sampleId).pipe( timeout( Properties.HTTP_TIMEOUT ) );
         }catch( e ){
             console.error( 'doGet Exception: ' + e );
         }

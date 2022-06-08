@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Properties } from '../../../../assets/properties';
 import { Router } from '@angular/router';
-
+import { Consts } from 'src/app/constants';
+import { ApiService } from '../../common/services/api.service';
 @Component({
   selector: 'canano-curation',
   templateUrl: './curation.component.html',
@@ -13,10 +12,10 @@ export class CurationComponent implements OnInit {
     errors={};
     helpUrl='https://wiki.nci.nih.gov/display/caNanoLab/Managing+Data+Curation#ManagingDataCuration-ReviewBatchResults';
     toolHeadingNameManage = 'Review By Curator';
-    constructor(private router:Router,private httpClient:HttpClient) { }
+    constructor(private apiService:ApiService,private router:Router) { }
 
     ngOnInit(): void {
-        let url=this.httpClient.get(Properties.API_SERVER_URL+'/caNanoLab/rest/curation/reviewData');
+        let url=this.apiService.doGet(Consts.QUERY_CURATION_REVIEW_DATA,'');
         url.subscribe(data=> {
             this.data=data;
             this.errors={};

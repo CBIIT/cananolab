@@ -14,6 +14,7 @@ import { UtilService } from './common/services/util.service';
 import { ApiService } from './common/services/api.service';
 import { TopMainMenuService } from './top-main-menu/top-main-menu.service';
 import { StatusDisplayService } from './status-display/status-display.service';
+import { Consts } from '../constants';
 @Component( {
     selector: 'canano-cananolab-client',
     templateUrl: './cananolab-client.component.html',
@@ -50,10 +51,16 @@ export class CananolabClientComponent implements OnInit{
                 this.properties['logged_in']=true;
                 this.properties['current_user']=keys[0];
                 this.statusDisplayService.updateUser(this.properties['current_user']);
-                this.menuItems.push('WORKFLOW','PROTOCOLS','SAMPLES','PUBLICATIONS','GROUPS','CURATION','MY_WORKSPACE','MY_FAVORITES','LOGOUT');
-                this.topMainMenuService.showOnlyMenuItems(
-                    this.menuItems
-                )
+                let tabs=[];
+                this.apiService.getTabs().subscribe(data=> {
+                        data['tabs'].forEach(element => {
+                            this.menuItems.push(element[0].replace(' ','_'))
+                        });
+                        this.topMainMenuService.showOnlyMenuItems(
+                            this.menuItems
+                        )
+                })
+                // this.menuItems.push('HOME','WORKFLOW','PROTOCOLS','SAMPLES','PUBLICATIONS','GROUPS','CURATION','MY_WORKSPACE','MY_FAVORITES','LOGOUT');
             }
             else {
 

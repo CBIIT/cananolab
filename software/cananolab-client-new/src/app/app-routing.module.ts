@@ -37,6 +37,7 @@ import { LoginComponent } from './cananolab-client/main-display/home/right-side-
 import { SearchResultsComponent } from './cananolab-client/main-display/search-results/search-results/search-results.component';
 import { AdvancedSearchComponent } from './cananolab-client/main-display/samples/general-info/sample-search/advanced-search/advanced-search.component';
 import { AdvancedSearchResultsComponent } from './cananolab-client/main-display/samples/general-info/sample-search/advanced-search-results/advanced-search-results.component';
+import { AdminComponent } from './cananolab-client/main-display/admin/admin.component';
 const routes: Routes = [
     { path: '', component: HomeComponent },
     { path: 'home', component: HomeComponent },
@@ -94,6 +95,7 @@ const routes: Routes = [
     { path: 'home/workflow', component: WorkflowComponent },
     { path: 'home/myworkspace', component: MyWorkspaceComponent },
     { path: 'home/myfavorites', component: MyFavoritesComponent },
+    { path: 'home/admin', component: AdminComponent },
 
     // { path: 'home/logout', component: HomeComponent },
      { path: 'home/logout', component: LogoutComponent },

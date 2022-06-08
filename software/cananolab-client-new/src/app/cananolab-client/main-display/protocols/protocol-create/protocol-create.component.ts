@@ -2,7 +2,6 @@ import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { Consts } from '../../../../constants';
 import { ApiService } from '../../../common/services/api.service';
 import { UtilService } from '../../../common/services/util.service';
-import { HttpClient } from '@angular/common/http';
 import { Router, Params, ActivatedRoute } from '@angular/router';
 @Component( {
     selector: 'canano-protocol-create',
@@ -29,7 +28,7 @@ export class ProtocolCreateComponent implements OnInit, AfterViewInit{
     theAccess={};
 
     constructor( private route:ActivatedRoute,private router:Router,private apiService: ApiService, private utilService: UtilService,
-                 private httpClient: HttpClient ){
+                 ){
     }
 
     ngOnInit(): void{
@@ -93,7 +92,7 @@ export class ProtocolCreateComponent implements OnInit, AfterViewInit{
     deleteAccess() {
         if (confirm("Are you sure you wish to delete this " + this.theAccess['accessType'] + "?")) {
             this.data['theAccess']=this.theAccess;
-            let url = this.httpClient.post(Consts.QUERY_PROTOCOL_DELETE_ACCESS,this.data);
+            let url = this.apiService.doPost(Consts.QUERY_PROTOCOL_DELETE_ACCESS,this.data);
             url.subscribe(data=>{
                 this.data=data;
                 this.accessIndex=null;
@@ -151,10 +150,10 @@ export class ProtocolCreateComponent implements OnInit, AfterViewInit{
     getRecipientList() {
         var url;
         if (this.theAccess['accessType']=='group') {
-            url=this.httpClient.get(Consts.QUERY_GET_COLLABORATION_GROUPS+'?searchStr=');
+            url=this.apiService.doGet(Consts.QUERY_GET_COLLABORATION_GROUPS,'searchStr=');
         }
         if (this.theAccess['accessType']=='user') {
-            url=this.httpClient.get(Consts.QUERY_GET_USERS+'?searchStr=');
+            url=this.apiService.doGet(Consts.QUERY_GET_USERS,'searchStr=');
         }
         url.subscribe(data=> {
             this.recipientList=data;
@@ -240,7 +239,7 @@ export class ProtocolCreateComponent implements OnInit, AfterViewInit{
             formData.delete( 'externalUrl' );
 
 
-            let upload$ = this.httpClient.post( Consts.QUERY_UPLOAD_FILE, formData );
+            let upload$ = this.apiService.doPost( Consts.QUERY_UPLOAD_FILE, formData );
             upload$.subscribe( data => {
                     this.errors={};
                     this.data.fileId="0";
@@ -299,7 +298,7 @@ export class ProtocolCreateComponent implements OnInit, AfterViewInit{
 
     saveAccess() {
         this.data['theAccess']=this.theAccess;
-        let url=this.httpClient.post(Consts.QUERY_PROTOCOL_SAVE_ACCESS,this.data);
+        let url=this.apiService.doPost(Consts.QUERY_PROTOCOL_SAVE_ACCESS,this.data);
         url.subscribe(data=> {
             this.data=data;
             this.errors={};

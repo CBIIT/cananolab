@@ -5,6 +5,7 @@ import { Properties } from '../../../../../assets/properties';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { timeout } from 'rxjs/operators';
 import { NavigationService } from 'src/app/cananolab-client/common/services/navigation.service';
+import { ApiService } from 'src/app/cananolab-client/common/services/api.service';
 @Component( {
     selector: 'canano-sample-view',
     templateUrl: './sample-view.component.html',
@@ -21,8 +22,12 @@ export class SampleViewComponent implements OnInit{
     pointOfContacts = [];
     keyWords = [];
 
-    constructor( private navigationService:NavigationService,private route: ActivatedRoute, private httpClient: HttpClient,
-                 private router: Router){
+    constructor(
+        private navigationService:NavigationService,
+        private route: ActivatedRoute,
+        private httpClient: HttpClient,
+        private router: Router,
+        private apiService:ApiService){
     }
 
     ngOnInit(): void{
@@ -74,7 +79,7 @@ export class SampleViewComponent implements OnInit{
     }
 
     getSampleViewData(){
-        let getUrl = Properties.API_SERVER_URL + '/caNanoLab/rest/sample/view?sampleId=' + this.sampleId;
+        let getUrl = Consts.QUERY_SAMPLE_VIEW;
 
         if( Properties.DEBUG_CURL ){
             let curl = 'curl  -k \'' + getUrl + '\'';
@@ -92,7 +97,7 @@ export class SampleViewComponent implements OnInit{
 
         let results;
         try{
-            results = this.httpClient.get( getUrl, options ).pipe( timeout( Properties.HTTP_TIMEOUT ) );
+            results = this.apiService.doGet(getUrl,'sampleId='+this.sampleId);
         }catch( e ){
             // TODO react to error.
             console.error( 'doGet Exception: ' + e );

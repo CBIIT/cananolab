@@ -2,8 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import { Properties } from '../../../../../../assets/properties';
 import { Consts } from '../../../../../constants';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { timeout } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { NavigationService } from '../../../../common/services/navigation.service';
 import { ApiService } from '../../../../common/services/api.service';
@@ -26,7 +24,7 @@ export class CompositionfileComponent implements OnInit {
     toolHeadingNameManage = 'Sample ' + this.sampleName + ' Composition File';
     serverUrl = Properties.API_SERVER_URL;
 
-  constructor( private apiService:ApiService,private navigationService:NavigationService,private router: Router, private route: ActivatedRoute,private httpClient: HttpClient ){
+  constructor( private apiService:ApiService,private navigationService:NavigationService,private router: Router, private route: ActivatedRoute ){
   }
 
     ngOnInit(): void{
@@ -44,7 +42,7 @@ export class CompositionfileComponent implements OnInit {
                 this.apiService.getSampleName(this.sampleId).subscribe(
                     data=>this.toolHeadingNameManage='Edit ' +data['sampleName'] + ' Composition File'
                 )
-                let url = this.httpClient.get(Properties.API_SERVER_URL+'/caNanoLab/rest/compositionFile/setup?sampleId='+this.sampleId);
+                let url = this.apiService.doGet(Consts.QUERY_COMPOSITION_FILE_SETUP,'sampleId='+this.sampleId);
                 url.subscribe(data=> {
                     this.errors={};
                     Properties.SAMPLE_TOOLS=true;
@@ -54,7 +52,7 @@ export class CompositionfileComponent implements OnInit {
                     this.errors=error;
                 });
                 if (this.dataId) {
-                    let url = this.httpClient.get(Properties.API_SERVER_URL+'/caNanoLab/rest/compositionFile/edit?sampleId='+this.sampleId+'&dataId='+this.dataId);
+                    let url = this.apiService.doGet(Consts.QUERY_COMPOSITION_FILE_EDIT,'sampleId='+this.sampleId+'&dataId='+this.dataId);
                     url.subscribe(data=> {
                         this.errors={};
                         this.data=data;
@@ -77,7 +75,7 @@ export class CompositionfileComponent implements OnInit {
     delete() {
         if(confirm("Are you sure you wish to delete this composition file?"))
         {
-            let url = this.httpClient.post(Properties.API_SERVER_URL+'/caNanoLab/rest/compositionFile/delete',this.data);
+            let url = this.apiService.doPost(Consts.QUERY_COMPOSITION_FILE_DELETE,this.data);
             url.subscribe(data=> {
                 this.errors={};
                 this.router.navigate( ['home/samples/composition', this.sampleId] );
@@ -107,7 +105,7 @@ export class CompositionfileComponent implements OnInit {
 
     saveFile() {
         if (this.data.uriExternal) {
-          let saveUrl=this.httpClient.post(Properties.API_SERVER_URL+'/caNanoLab/rest/compositionFile/submit',this.data) ;
+        let saveUrl = this.apiService.doPost(Consts.QUERY_COMPOSITION_FILE_SAVE,this.data);
           saveUrl.subscribe(data=> {
               this.data=data;
               this.errors={};
@@ -124,11 +122,11 @@ export class CompositionfileComponent implements OnInit {
           this.theFile.append('title',this.data['title']);
           this.theFile.append('keywordsStr',this.data['keywordsStr']);
           this.theFile.append('description',this.data['description']);
-          let uploadUrl = this.httpClient.post(Properties.API_SERVER_URL+'/caNanoLab/rest/core/uploadFile', this.theFile);
+          let uploadUrl=this.apiService.doPost(Consts.QUERY_UPLOAD_FILE,this.theFile);
           uploadUrl.subscribe(data=> {
                 this.errors={};
                 this.data['uri']=data['fileName'];
-                let saveUrl=this.httpClient.post(Properties.API_SERVER_URL+'/caNanoLab/rest/compositionFile/submit',this.data) ;
+                let saveUrl = this.apiService.doPost(Consts.QUERY_COMPOSITION_FILE_SAVE,this.data);
                 saveUrl.subscribe(data=> {
                 this.errors={};
                   this.data=data;

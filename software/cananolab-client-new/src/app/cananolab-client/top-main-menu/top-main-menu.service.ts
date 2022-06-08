@@ -27,6 +27,7 @@ export let TopMenuItems = {
     CURATION: 'Curation',
     MY_WORKSPACE: 'My Workspace',
     MY_FAVORITES: 'My Favorites',
+    ADMIN: 'ADMIN',
     HELP: 'Help',
     GLOSSARY: 'Glossary',
     LOGOUT: 'Logout',
@@ -99,6 +100,11 @@ export let TopMenuData = [
         'name': 'MY_FAVORITES',
         'displayName': 'My Favorites',
         'route': 'home/myfavorites'
+    },
+    {
+        'name': 'ADMIN',
+        'displayName': 'Admin',
+        'route': 'home/admin'
     },
     {
         'name': 'HELP',
@@ -242,6 +248,8 @@ export class TopMainMenuService{
      * @param menuItems
      */
     showOnlyMenuItems( menuItems ){
+        console.log(menuItems)
+
         this.hideAllMenuItems();
         for( let i = 0; i < menuItems.length; i++ ){
             this.visibleMenuArray[this.getIndexByKey( menuItems[i] )] = true;

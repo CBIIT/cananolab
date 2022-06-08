@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Properties } from '../../../../../../assets/properties';
 import { Consts } from '../../../../../constants';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { NavigationService } from '../../../../common/services/navigation.service';
 import { ApiService } from '../../../../common/services/api.service';
 
@@ -43,7 +42,7 @@ export class EditcharacterizationComponent implements OnInit {
     fileName;
     type;
 
-    constructor( private apiService:ApiService,private navigationService:NavigationService,private router: Router, private route: ActivatedRoute,private httpClient: HttpClient ){
+    constructor( private apiService:ApiService,private navigationService:NavigationService,private router: Router, private route: ActivatedRoute){
     }
 
   ngOnInit(): void {
@@ -68,7 +67,7 @@ export class EditcharacterizationComponent implements OnInit {
 
 
                 if (!this.charId) {
-                    let url = this.httpClient.get(Properties.API_SERVER_URL + '/caNanoLab/rest/characterization/setupAdd?sampleId='+this.sampleId+'&charType='+this.type);
+                    let url = this.apiService.doGet(Consts.QUERY_CHARACTERIZATION_SETUP_ADD,'sampleId='+this.sampleId+'&charType='+this.type);
                     url.subscribe(
                         data=>{
                             Properties.SAMPLE_TOOLS = true;
@@ -89,7 +88,7 @@ export class EditcharacterizationComponent implements OnInit {
                     );
                 }
                 else {
-                    let url = this.httpClient.get(Properties.API_SERVER_URL + '/caNanoLab/rest/characterization/setupUpdate?sampleId='+this.sampleId+'&charType='+this.type + '&charId='+this.charId+'&charClassName='+this.charClassName);
+                    let url = this.apiService.doGet(Consts.QUERY_CHARACTERIZATION_SETUP_UPDATE,'sampleId='+this.sampleId+'&charType='+this.type+'&charId='+this.charId+'&charClassName='+this.charClassName);
                     url.subscribe(
                         data=>{
                             Properties.SAMPLE_TOOLS = true;
@@ -193,7 +192,7 @@ export class EditcharacterizationComponent implements OnInit {
 
     changeColumnType(value,isDropdown) {
         console.log(value,isDropdown)
-        let url = this.httpClient.get(Properties.API_SERVER_URL+'/caNanoLab/rest/characterization/getColumnNameOptionsByType?columnType='+value+'&charName='+this.data.name+'&assayType=');
+        let url = this.apiService.doGet(Consts.QUERY_CHARACTERIZATION_GET_COLUMN_NAME_OPTIONS_BY_TYPE,'columnType='+value+'&charName='+this.data.name+'&assayType=');
         url.subscribe(data=> {
             this.errors={};
             this.setupData.columnNameOptions=data;
@@ -212,7 +211,7 @@ export class EditcharacterizationComponent implements OnInit {
     };
 
     changeColumnName(value, isDropdown) {
-        let url = this.httpClient.get(Properties.API_SERVER_URL+'/caNanoLab/rest/characterization/getColumnValueUnitOptions?columnName='+value+'&conditionProperty=null');
+        let url = this.apiService.doGet(Consts.QUERY_CHARACTERIZATION_GET_COLUMN_VALUE_UNIT_OPTIONS,'columnName='+value+'&conditionProperty=null');
         url.subscribe(data=> {
             this.errors={};
             this.setupData.valueUnitOptions=data;
@@ -227,7 +226,7 @@ export class EditcharacterizationComponent implements OnInit {
 
     changeName(name) {
         this.data.assayType = '';
-        let assayUrl = this.httpClient.get(Properties.API_SERVER_URL + '/caNanoLab/rest/characterization/getAssayTypesByCharName?charName='+name);
+        let assayUrl = this.apiService.doGet(Consts.QUERY_CHARACTERIZATION_GET_ASSAY_TYPES_BY_CHAR_NAME,'charName='+name);
         assayUrl.subscribe(
             data=> {
                 this.errors={};
@@ -237,7 +236,7 @@ export class EditcharacterizationComponent implements OnInit {
                 this.errors=error;
             }
         );
-        let charPropertiesUrl = this.httpClient.get(Properties.API_SERVER_URL + '/caNanoLab/rest/characterization/getCharProperties?charName='+name);
+        let charPropertiesUrl = this.apiService.doGet(Consts.QUERY_CHARACTERIZATION_GET_CHAR_PROPERTIES,'charName='+name)
         this.propertiesLoaded=null;
         charPropertiesUrl.subscribe(
             data=> {
@@ -255,8 +254,7 @@ export class EditcharacterizationComponent implements OnInit {
     changeType(type) {
         this.data.name='';
         this.data['assayTypesByCharNameLookup'] = [];
-
-        let url = this.httpClient.get(Properties.API_SERVER_URL + '/caNanoLab/rest/characterization/getCharNamesByCharType?charType='+type);
+        let url = this.apiService.doGet(Consts.QUERY_CHARACTERIZATION_GET_CHAR_NAMES_BY_CHAR_TYPE,'?charType='+type)
         url.subscribe(
             data=> {
                 this.data.charNamesForCurrentType = data;
@@ -269,7 +267,7 @@ export class EditcharacterizationComponent implements OnInit {
 
     deleteCharacterization() {
         if (confirm('Are you sure you wish to delete this characterization')) {
-            let url = this.httpClient.post(Properties.API_SERVER_URL+'/caNanoLab/rest/characterization/removeCharacterization',this.data);
+            let url = this.apiService.doPost(Consts.QUERY_CHARACTERIZATION_REMOVE,this.data);
             url.subscribe(data=> {
                 this.errors={};
                 this.router.navigate( ['home/samples/characterization', this.sampleId] );
@@ -286,7 +284,7 @@ export class EditcharacterizationComponent implements OnInit {
             this.currentFinding.files.splice(fileIndex,1);
             this.currentFinding.dirty=1;
             this.currentFinding['theFileIndex']=fileIndex;
-            let url = this.httpClient.post(Properties.API_SERVER_URL+'/caNanoLab/rest/characterization/removeFile',this.currentFinding)
+            let url = this.apiService.doPost(Consts.QUERY_CHARACTERIZATION_REMOVE_FILE,this.currentFinding);
             url.subscribe(data=> {
                 this.errors={};
                 this.currentFinding=data;
@@ -304,7 +302,7 @@ export class EditcharacterizationComponent implements OnInit {
         if (confirm('Are you sure you wish to delete this finding?')) {
             this.columnHeaderIndex=null;
             this.findingIndex=null;
-            let url = this.httpClient.post(Properties.API_SERVER_URL+'/caNanoLab/rest/characterization/removeFinding',this.currentFinding);
+            let url = this.apiService.doPost(Consts.QUERY_CHARACTERIZATION_REMOVE_FINDING,this.currentFinding);
             url.subscribe(data=> {
                 this.errors={};
                 this.data=data;
@@ -331,8 +329,7 @@ export class EditcharacterizationComponent implements OnInit {
 
     deleteTechniqueInstrument() {
         if (confirm("Are you sure you want to delete this technique and instrument?")) {
-
-            let url = this.httpClient.post(Properties.API_SERVER_URL+'/caNanoLab/rest/characterization/removeExperimentConfig',this.techniqueInstrument);
+            let url = this.apiService.doPost(Consts.QUERY_CHARACTERIZATION_REMOVE_EXPERIMENT,this.techniqueInstrument);
             url.subscribe(data=> {
                 this.data=data;
                 this.errors={};
@@ -408,7 +405,7 @@ export class EditcharacterizationComponent implements OnInit {
     };
 
     getInstrumentTypes(value) {
-        let url = this.httpClient.get(Properties.API_SERVER_URL+'/caNanoLab/rest/characterization/getInstrumentTypesByTechniqueType?techniqueType='+value);
+        let url = this.apiService.doGet(Consts.QUERY_CHARACTERIZATION_GET_INSTRUMENT_TYPES_BY_TECHNIQUE,'techniqueType='+value);
         url.subscribe(data=> {
             this.errors={};
             this.setupData['instrumentTypeLookup']=data;
@@ -433,7 +430,7 @@ export class EditcharacterizationComponent implements OnInit {
 
     saveColumnOrder() {
         this.currentFinding=JSON.parse(JSON.stringify(this.columnOrder));
-        let url = this.httpClient.post(Properties.API_SERVER_URL+'/caNanoLab/rest/characterization/setColumnOrder',this.columnOrder);
+        let url = this.apiService.doPost(Consts.QUERY_CHARACTERIZATION_SET_COLUMN_ORDER,this.columnOrder);
         url.subscribe(data=> {
             this.errors={};
             this.currentFinding=data;
@@ -454,7 +451,7 @@ export class EditcharacterizationComponent implements OnInit {
         this.theFile.append('keywordsStr',this.currentFile['keywordsStr']);
         this.theFile.append('description',this.currentFile['description']);
         console.log(this.currentFile)
-        let uploadUrl=this.httpClient.post(Properties.API_SERVER_URL+'/caNanoLab/rest/core/uploadFile',this.theFile);
+        let uploadUrl = this.apiService.doPost(Consts.QUERY_UPLOAD_FILE,this.theFile);
         uploadUrl.subscribe(data=> {
             if (this.fileIndex==-1) {
                 this.currentFinding.files.push(data);
@@ -468,7 +465,7 @@ export class EditcharacterizationComponent implements OnInit {
             this.currentFinding.theFile=this.currentFile;
             this.currentFinding['theFile']['uri']=data['fileName']
             // this.currentFinding['theFile']=data;
-            let saveUrl=this.httpClient.post(Properties.API_SERVER_URL+'/caNanoLab/rest/characterization/saveFile',this.currentFinding) ;
+            let saveUrl = this.apiService.doPost(Consts.QUERY_CHARACTERIZATION_SAVE_FILE,this.currentFinding);
             saveUrl.subscribe(data=> {
                 this.errors={};
                 this.currentFinding=data;
@@ -498,7 +495,7 @@ export class EditcharacterizationComponent implements OnInit {
         else {
             this.data.finding[this.findingIndex]=JSON.parse(JSON.stringify(this.currentFinding));
         }
-        let url = this.httpClient.post(Properties.API_SERVER_URL+'/caNanoLab/rest/characterization/saveFinding',this.data);
+        let url = this.apiService.doPost(Consts.QUERY_CHARACTERIZATION_SAVE_FINDING,this.data);
         url.subscribe(data=> {
             this.errors={};
 
@@ -535,14 +532,13 @@ export class EditcharacterizationComponent implements OnInit {
     saveTechniqueInstrument() {
         if (this.techniqueIndex==-1) {
             this.data.techniqueInstruments.experiments.push(this.techniqueInstrument);
-            let url = this.httpClient.post(Properties.API_SERVER_URL+'/caNanoLab/rest/characterization/saveExperimentConfig',this.data);
-
+            let url = this.apiService.doPost(Consts.QUERY_CHARACTERIZATION_REMOVE_EXPERIMENT,this.data);
             // push technique, call save and overwrite this.data //
         }
 
         this.data.techniqueInstruments.experiments[this.techniqueIndex]=this.techniqueInstrument;
-            let url = this.httpClient.post(Properties.API_SERVER_URL+'/caNanoLab/rest/characterization/saveExperimentConfig',this.data);
-            url.subscribe(
+        let url = this.apiService.doPost(Consts.QUERY_CHARACTERIZATION_REMOVE_EXPERIMENT,this.data);
+        url.subscribe(
                 data=> {
                     this.errors={};
 
@@ -563,7 +559,7 @@ export class EditcharacterizationComponent implements OnInit {
         this.dataTrailer = JSON.parse(JSON.stringify(this.data));
         this.data.characterizationDate = this.formatDate(this.data.characterizationDate)
         this.setupData = [];
-        let url = this.httpClient.get(Properties.API_SERVER_URL+'/caNanoLab/rest/characterization/getDatumNumberModifier?columnName=Number%20Modifier');
+        let url = this.apiService.doGet(Consts.QUERY_CHARACTERIZATION_GET_DATUM_NUMBER_MODIFIER,'columnName=Number%20Modifier');
         url.subscribe(data=> {
             this.errors={};
 
@@ -600,7 +596,7 @@ export class EditcharacterizationComponent implements OnInit {
 
     submitCharacterization() {
         this.data.characterizationDate = new Date(this.data.characterizationDate+' 00:00');
-        let url = this.httpClient.post(Properties.API_SERVER_URL+'/caNanoLab/rest/characterization/saveCharacterization',this.data);
+        let url = this.apiService.doPost(Consts.QUERY_CHARACTERIZATION_SAVE,this.data);
         url.subscribe(
             data=> {
                 this.errors={};
@@ -613,7 +609,7 @@ export class EditcharacterizationComponent implements OnInit {
     };
 
     updateRowsColumns() {
-        let url = this.httpClient.post(Properties.API_SERVER_URL+'/caNanoLab/rest/characterization/updateDataConditionTable',this.currentFinding);
+        let url = this.apiService.doPost(Consts.QUERY_CHARACTERIZTAION_UPDATE_FINDING,this.currentFinding)
         url.subscribe(data=> {
             this.errors={};
             this.currentFinding=data;

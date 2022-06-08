@@ -1,10 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Properties } from '../../../../../assets/properties';
 import { SearchPublicationService } from './search-publication.service';
 import { ApiService } from '../../../common/services/api.service';
 import { Router } from '@angular/router';
-
+import { Consts } from 'src/app/constants';
 @Component({
   selector: 'canano-search-publication',
   templateUrl: './search-publication.component.html',
@@ -19,7 +17,7 @@ export class SearchPublicationComponent implements OnInit {
     toolHeadingNameManage;
     setupData;
 
-    constructor(private router:Router,private apiService:ApiService,private searchPublicationService:SearchPublicationService,private httpClient:HttpClient) { }
+    constructor(private router:Router,private apiService:ApiService,private searchPublicationService:SearchPublicationService) { }
 
     ngOnInit(): void {
         this.errors={};
@@ -44,7 +42,7 @@ export class SearchPublicationComponent implements OnInit {
     }
 
     getSetupData() {
-        let url=this.httpClient.get(Properties.API_SERVER_URL+'/caNanoLab/rest/publication/setup');
+        let url = this.apiService.doGet(Consts.QUERY_PUBLICATION_SETUP,'')
         url.subscribe(data=> {
             this.setupData=data;
             this.errors={};
@@ -59,7 +57,7 @@ export class SearchPublicationComponent implements OnInit {
     }
 
     searchPublication() {
-        this.apiService.doPost('caNanoLab/rest/publication/searchPublication',this.data).subscribe(data=> {
+        this.apiService.doPost(Consts.QUERY_PUBLICATION_SEARCH,this.data).subscribe(data=> {
             this.errors={};
             this.searchPublicationService.setPublicationSearchResults(data);
             this.router.navigate( ['home/publications/publication-search-results'] );

@@ -37,12 +37,17 @@ export class ApiService{
     }
 
     getSampleName(sampleId) {
-        let url = this.httpClient.get(Properties.API_SERVER_URL+'/caNanoLab/rest/sample/getCurrentSampleName?sampleId='+sampleId);
+        let url = this.doGet(Consts.QUERY_SAMPLE_GET_SAMPLE_NAME,'sampleId='+sampleId);
         return url;
     }
     /**
      *  @TESTING These kind of functions will call api services, not be a part of it
      */
+
+    getTabs() {
+        return this.doGet(Consts.QUERY_GET_TABS,'');
+    }
+
     testRestCall(){
 
         // If we are in test mode, we don't talk to the server
@@ -297,22 +302,16 @@ export class ApiService{
                 ( loginReturnData ) => {
                     Properties.LOGGED_IN = true;
                     Properties.current_user = user;
+                    let tabs=[];
+                    this.getTabs().subscribe(data=> {
+                        data['tabs'].forEach(element => {
+                            tabs.push(element[0].replace(' ','_'))
+                        });
+                        this.topMainMenuService.showOnlyMenuItems(tabs);
+                        this.currentlyAuthenticatingUser = false;
 
-                    this.topMainMenuService.showOnlyMenuItems(
-                        [
-                            'HOME',
-                            'WORKFLOW',
-                            'PROTOCOLS',
-                            'SAMPLES',
-                            'PUBLICATIONS',
-                            'GROUPS',
-                            'CURATION',
-                            'MY_WORKSPACE',
-                            'MY_FAVORITES',
-                            'LOGOUT'
-                        ]
-                    );
-                    this.currentlyAuthenticatingUser = false;
+                    });
+
                 },
                 // ERROR
                 ( err ) => {
