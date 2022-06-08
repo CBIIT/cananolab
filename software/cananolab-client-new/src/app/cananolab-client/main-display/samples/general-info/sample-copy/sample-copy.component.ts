@@ -16,7 +16,7 @@ export class SampleCopyComponent implements OnInit{
     sampleName = '';
     sampleId;
     newSampleName = '';
-
+    errors={};
     sampleNames;
     showNamesMenu = false;
 
@@ -69,8 +69,7 @@ export class SampleCopyComponent implements OnInit{
                 this.router.navigate(['home/samples/sample',data.sampleId])
             },
             ( err ) => {
-                console.log( 'ERROR Copy sample: ', err );
-                // alert('Error Copy sample: ' + err['error'][0] ); // @TODO need nice error display
+                this.errors=err;
             }
         );
     }
