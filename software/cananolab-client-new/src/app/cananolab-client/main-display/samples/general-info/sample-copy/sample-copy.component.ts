@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Consts } from '../../../../../constants';
 import { ApiService } from '../../../../common/services/api.service';
 import { Router } from '@angular/router';
-
+import { ActivatedRoute } from '@angular/router';
 @Component( {
     selector: 'canano-sample-copy',
     templateUrl: './sample-copy.component.html',
@@ -14,15 +14,24 @@ export class SampleCopyComponent implements OnInit{
     toolHeadingNameSearchSample = 'Copy Sample';
 
     sampleName = '';
+    sampleId;
     newSampleName = '';
 
     sampleNames;
     showNamesMenu = false;
 
-    constructor( private apiService: ApiService, private router: Router ){
+    constructor( private activatedRoute:ActivatedRoute,private apiService: ApiService, private router: Router ){
     }
 
     ngOnInit(): void{
+        this.activatedRoute.params.subscribe(data=> {
+            this.sampleId=data['sampleId'];
+            if (this.sampleId) {
+                this.apiService.doGet(Consts.QUERY_SAMPLE_GET_SAMPLE_NAME,'sampleId='+this.sampleId).subscribe(data=> {
+                    this.sampleName=data['sampleName']
+                })
+            }
+        })
         this.init();
     }
 
@@ -49,10 +58,15 @@ export class SampleCopyComponent implements OnInit{
         this.sampleName = nm;
     }
 
+    reset() {
+        this.sampleName='';
+        this.newSampleName='';
+    }
+
     onSubmitCopyClicked(){
         this.apiService.doPost( Consts.QUERY_SAMPLE_COPY, { 'newSampleName': this.newSampleName, 'sampleName': this.sampleName } ).subscribe(
             data => {
-                // console.log( 'Copy sample: ', data );
+                this.router.navigate(['home/samples/sample',data.sampleId])
             },
             ( err ) => {
                 console.log( 'ERROR Copy sample: ', err );

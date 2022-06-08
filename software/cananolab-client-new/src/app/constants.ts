@@ -16,6 +16,7 @@ export const Consts = {
 
     QUERY_SAMPLE_SEARCH_BY_PUB: 'caNanoLab/rest/publication/searchById',
     QUERY_SAMPLE_GET_NAMES: 'caNanoLab/rest/sample/getSampleNames',
+    QUERY_SAMPLE_GET_SAMPLE_NAME: 'caNanoLab/rest/sample/getCurrentSampleName',
     QUERY_SAMPLE_COPY: 'caNanoLab/rest/sample/copySample',
     QUERY_SAMPLE_SUBMIT: 'caNanoLab/rest/sample/submitSample',
     QUERY_SAMPLE_SETUP: 'caNanoLab/rest/sample/setup',
@@ -28,6 +29,7 @@ export const Consts = {
     QUERY_SAMPLE_DELETE_AVAILABILITY:'caNanoLab/rest/sample/deleteDataAvailability',
     QUERY_SAMPLE_DELETE_ACCESS:'caNanoLab/rest/sample/deleteAccess',
     QUERY_SAMPLE_SAVE_ACCESS:'caNanoLab/rest/sample/saveAccess',
+    QUERY_SAMPLE_DELETE: 'caNanoLab/rest/sample/deleteSample',
     QUERY_SAMPLE_UPDATE: 'caNanoLab/rest/sample/updateSample',
     QUERY_SAMPLE_AVAILABILITY_HTML: 'caNanoLab/views/sample/view/sampleDataAvailability.html',  // @FIXME That's not how this works
     QUERY_SAMPLE_POC_UPDATE_SAVE:  'caNanoLab/rest/sample/savePOC',

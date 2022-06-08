@@ -1,11 +1,14 @@
+@import '../../../main-display.component.scss';
+@import '../../../../../btn-bravo-canano.scss';
 
-.sample-copy-div{
-    border: solid #000 5px;
-    width: 100%;
-    height: 100%;
-    // background-color: #82e83e;
+.dataMain.copy {
+    width:600px;
 }
 
-.sample-copy-table{
-    width: 100%;
+.dataMain tr:first-child{
+    height:27px;
+}
+
+select.multiple {
+    width:400px;
 }

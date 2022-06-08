@@ -4,54 +4,55 @@
 >
 </canano-main-display-heading>
 
-<div class="sample-copy-div">
-    <table class="sample-copy-table">
+<div class="mainSection">
+    <div class="mainBorder">
+    <table class="dataMain copy">
         <tr>
-            <td>
-                Existing<br>Sample<sup><b>*</b></sup>
+            <td class="label">
+                <label for="sampleName">
+                    Existing Sample*
+                </label>
             </td>
             <td>
-                <input type="text"
-                [(ngModel)]="sampleName"
-                >
-                <img src="../../../../../../assets/images/icon_browse.jpg" alt="icon_browse.jpg"
-                     (click)="browseClicked()">
-
-                <span *ngIf="showNamesMenu" >
-                    <select name="nameMenu" id="nameMenu">
-                            <option *ngFor="let nm of sampleNames"
-                            (click)="selectSampleName(nm)" >{{nm}}</option>
+                <input type="text" name="sampleName" id="sampleName" [(ngModel)]="sampleName" size="60">
+            </td>
+        </tr>
+        <tr>
+            <td class="label">
+                <label for="newSampleName">
+                    New Sample*
+                </label>
+            </td>
+            <td>
+                <input type="text" name="newSampleName" id="newSampleName" [(ngModel)]="newSampleName" size="60">
+            </td>
+        </tr>
+        <tr>
+            <td class="label">
+                <label for="existingSamples">
+                    Existing Samples
+                </label>
+            </td>
+            <td>
+                <span>
+                    <select class="multiple" name="nameMenu" id="nameMenu" size="10" [(ngModel)]="sampleName">
+                            <option [ngValue]="nm" *ngFor="let nm of sampleNames" (click)="selectSampleName(nm)">
+                                {{nm}}
+                            </option>
                     </select>
                 </span>
             </td>
         </tr>
-        <tr>
-            <td>
-                New<br>Sample<sup><b>*</b></sup>
-            </td>
-            <td>
-                <input type="text"
-                       [(ngModel)]="newSampleName"
-                >
-            </td>
-        </tr>
-
-        <tr>
-            <td></td> <td></td>
-            <td>
-                <button
-                    class="btn btn-danger"
-                >
-                    Reset
-                </button>
-                <button
-                    class="btn btn-primary"
-                    (click)="onSubmitCopyClicked()"
-                >
-                    Submit
-                </button>
-            </td>
-        </tr>
-
     </table>
+</div>
+<div>
+    <table class="dataMain submit">
+        <tr>
+            <td>
+                <button (click)="reset()" class="btn-canano btn-canano-danger btn-canano-lg mr-1">Reset</button>
+                <button [disabled]="sampleName=='' || newSampleName==''" (click)="onSubmitCopyClicked()" class="btn-canano btn-canano-primary btn-canano-lg mr-1">Submit</button>
+            </td>
+        </tr>
+    </table>
+</div>
 </div>

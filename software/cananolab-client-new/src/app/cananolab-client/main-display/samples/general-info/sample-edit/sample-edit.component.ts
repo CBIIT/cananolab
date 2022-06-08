@@ -8,6 +8,8 @@ import { PointOfContactService } from '../../../../point-of-contact/point-of-con
 import { ApiService } from '../../../../common/services/api.service';
 import { NavigationService } from '../../../../common/services/navigation.service';
 import { SampleAvailabilityDisplayService } from '../sample-search/sample-search-results/sample-availability-display/sample-availability-display.service';
+import { Router} from '@angular/router';
+
 @Component( {
     selector: 'canano-sample-edit',
     templateUrl: './sample-edit.component.html',
@@ -33,7 +35,7 @@ export class SampleEditComponent implements OnInit, OnDestroy{
 
 
 
-    constructor( private navigationService: NavigationService, private route: ActivatedRoute, private httpClient: HttpClient,
+    constructor( private router:Router,private navigationService: NavigationService, private route: ActivatedRoute, private httpClient: HttpClient,
                  private pointOfContactService: PointOfContactService, private apiService: ApiService,
                  private sampleAvailabilityDisplayService: SampleAvailabilityDisplayService){
     }
@@ -113,6 +115,17 @@ export class SampleEditComponent implements OnInit, OnDestroy{
                 this.data=data;
                 this.data.keywords=this.joinKeywords(this.data['keywords']);
                 this.dataTrailer=JSON.parse(JSON.stringify(this.data));
+            })
+        }
+    }
+
+    delete() {
+        if (confirm("Are you sure you wish to delete this sample?")) {
+            this.apiService.doGet(Consts.QUERY_SAMPLE_DELETE,'sampleId='+this.sampleId).subscribe(data=> {
+                this.router.navigate(['home/samples'])
+            },
+            error=> {
+                this.errors=error;
             })
         }
     }
@@ -215,7 +228,7 @@ export class SampleEditComponent implements OnInit, OnDestroy{
     }
 
     onSampleCopyClick(){
-        console.log( 'onSampleCopyClick' );
+        this.router.navigate(['home/samples/sample-copy',this.sampleId])
     }
 
     onSampleResetClick(){
