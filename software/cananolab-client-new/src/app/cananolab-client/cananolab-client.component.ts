@@ -9,7 +9,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ConfigurationService } from './common/services/configuration.service';
 import { Properties } from '../../assets/properties';
-import { Router,Event,NavigationStart } from '@angular/router';
+import { Router,Event,NavigationStart,NavigationEnd } from '@angular/router';
 import { UtilService } from './common/services/util.service';
 import { ApiService } from './common/services/api.service';
 import { TopMainMenuService } from './top-main-menu/top-main-menu.service';
@@ -41,9 +41,15 @@ export class CananolabClientComponent implements OnInit{
                     this.menuItems=['HOME'];
                 }
             };
+            if (event instanceof NavigationEnd) {
+                console.log('nav end')
+                this.apiService.getUserGroups().subscribe(data=> {
+
+                })
+            }
 
         })
-        let loginUrl=this.apiService.doGet('caNanoLab/rest/security/getUserGroups',{});
+        let loginUrl=this.apiService.doGet(Consts.QUERY_GET_USER_GROUPS,{});
         loginUrl.subscribe(data=> {
             let keys=Object.keys(data);
             if (keys[0]!='anonymousUser') {
@@ -71,6 +77,7 @@ export class CananolabClientComponent implements OnInit{
             }
         })
     }
+
 
     navigateToUrl(url) {
         window.open(url);

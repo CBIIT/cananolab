@@ -59,7 +59,8 @@ export const Consts = {
     QUERY_NANOMATERIAL_EDIT: 'caNanoLab/rest/nanomaterialEntity/edit',
     QUERY_NANOMATERIAL_SETUP: 'caNanoLab/rest/nanomaterialEntity/setup',
     QUERY_NANOMATERIAL_DELETE: 'caNanoLab/rest/nanomaterialEntity/delete',
-
+    QUERY_NANOMATERIAL_SAVE_FILE: 'caNanoLab/rest/nanomaterialEntity/saveFile',
+    QUERY_NANOMATERIAL_REMOVE_FILE: 'caNanoLab/rest/nanomaterialEntity/removeFile',
     QUERY_PROTOCOL_SETUP: 'caNanoLab/rest/protocol/setup',
     QUERY_PROTOCOL_SAVE_ACCESS: 'caNanoLab/rest/protocol/saveAccess',
     QUERY_SEARCH_PROTOCOL: 'caNanoLab/rest/protocol/searchProtocol',
@@ -106,6 +107,8 @@ export const Consts = {
     QUERY_CHARACTERIZATION_GET_DATUM_NUMBER_MODIFIER:'caNanoLab/rest/characterization/getDatumNumberModifier',
     QUERY_CHARACTERIZATION_SAVE:'caNanoLab/rest/characterization/saveCharacterization',
     QUERY_CHARACTERIZTAION_UPDATE_FINDING:'caNanoLab/rest/characterization/updateDataConditionTable',
+    QUERY_CHEMICAL_ASSOCIATION_SAVE_FILE: 'caNanoLab/rest/chemicalAssociation/saveFile',
+    QUERY_CHEMICAL_ASSOCIATION_REMOVE_FILE: 'caNanoLab/rest/chemicalAssociation/removeFile',
     QUERY_CHEMICAL_ASSOCIATION_EDIT:'caNanoLab/rest/chemicalAssociation/edit',
     QUERY_CHEMICAL_ASSOCIATION_GET_COMPOSING_ELEMENTS_BY_NANO_ID:'caNanoLab/rest/chemicalAssociation/getComposingElementsByNanomaterialEntityId',
     QUERY_CHEMICAL_ASSOCIATION_DELETE:'caNanoLab/rest/chemicalAssociation/delete',
@@ -117,31 +120,14 @@ export const Consts = {
     QUERY_COMPOSITION_FILE_EDIT:'caNanoLab/rest/compositionFile/edit',
     QUERY_COMPOSITION_FILE_DELETE:'caNanoLab/rest/compositionFile/delete',
     QUERY_COMPOSITION_FILE_SAVE:'caNanoLab/rest/compositionFile/submit',
+    QUERY_FUNCTIONALIZING_ENTITY_SAVE_FILE: 'caNanoLab/rest/functionalizingEntity/saveFile',
+    QUERY_FUNCTIONALIZING_ENTITY_REMOVE_FILE: 'caNanoLab/rest/functionalizingEntity/removeFile',
     QUERY_FUNCTIONALIZING_ENTITY_REMOVE_FUNCTION:'caNanoLab/rest/functionalizingEntity/removeFunction',
     QUERY_FUNCTIONALIZING_ENTITY_SAVE_FUNCTION:'caNanoLab/rest/functionalizingEntity/saveFunction',
     QUERY_FUNCTIONALIZING_ENTITY_EDIT:'caNanoLab/rest/functionalizingEntity/edit',
     QUERY_FUNCTIONALIZING_ENTITY_SETUP:'caNanoLab/rest/functionalizingEntity/setup',
     QUERY_FUNCTIONALIZING_ENTITY_DELETE:'caNanoLab/rest/functionalizingEntity/delete',
     QUERY_FUNCTIONALIZING_ENTITY_SAVE:'caNanoLab/rest/functionalizingEntity/submit',
-    /*
-
-    QUERY_GET_TABS: 'rest/core/getTabs',
-
-    QUERY_SEARCH: 'rest/customsearch/search',
-    QUERY_INIT_SETUP: 'rest/core/initSetup',
-    QUERY_GET_USER_GROUPS: 'rest/security/getUserGroups',
-    QUERY_GET_COLLABORATION_GROUPS: 'rest/core/getCollaborationGroup',
-    QUERY_GET_USERS: 'rest/core/getUsers',
-    QUERY_SAMPLE_SEARCH_BY_PUB: 'rest/publication/searchById',
-
-    QUERY_PROTOCOL_SETUP: 'rest/protocol/setup',
-    QUERY_SEARCH_PROTOCOL: 'rest/protocol/searchProtocol',
-    QUERY_CREATE_PROTOCOL: 'rest/protocol/submitProtocol',
-
-    QUERY_EDIT_PROTOCOL: 'rest/protocol/edit',
-*/
-
-
     QUERY_ADD_FAVORITE: 'caNanoLab/rest/core/addFavorite',
     QUERY_GET_FAVORITE: 'caNanoLab/rest/core/getFavorites',
     QUERY_GET_WORKSPACE: 'caNanoLab/rest/core/getWorkspaceItems',
