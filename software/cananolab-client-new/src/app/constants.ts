@@ -6,7 +6,13 @@ export const Consts = {
 
     // For each rest service
     QUERY_GET_TABS: 'caNanoLab/rest/core/getTabs',
+    QUERY_ADMIN_SEARCH_USERS: 'caNanoLab/rest/useraccount/search',
+    QUERY_ADMIN_RESET_PASSWORD: 'caNanoLab/rest/useraccount/resetpwd',
+    QUERY_ADMIN_USER_CREATE: 'caNanoLab/rest/useraccount/create',
+    QUERY_ADMIN_USER_READ: 'caNanoLab/rest/useraccount/read',
+    QUERY_ADMIN_USER_UPDATE: 'caNanoLab/rest/useraccount/update',
     QUERY_CURATION_REVIEW_DATA: 'caNanoLab/rest/curation/reviewData',
+    QUERY_CURATION_GENERATE_BATCH_AVAILABILITY: 'caNanoLab/rest/curation/generateBatchDataAvailability',
     QUERY_COLLABORATION_GET_GROUPS: 'caNanoLab/rest/community/getCollaborationGroups',
     QUERY_COLLABORATION_SETUP_NEW: 'caNanoLab/rest/community/setupNew',
     QUERY_COLLABORATION_DELETE_GROUPS: 'caNanoLab/rest/community/deleteCollaborationGroups',

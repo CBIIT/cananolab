@@ -85,7 +85,7 @@ export class GroupsComponent implements OnInit {
         setTimeout(function() {
             document.getElementById('collaborationForm').scrollIntoView();
         },100);
-        this.apiService.doGet(Consts.QUERY_COLLABORATION_EDIT_GROUP,'groupId='+group.id)
+        let url = this.apiService.doGet(Consts.QUERY_COLLABORATION_EDIT_GROUP,'groupId='+group.id)
         url.subscribe(data=> {
             setTimeout(function() {
                 document.getElementById('collaborationForm').scrollIntoView();

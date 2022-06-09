@@ -1,1 +1,268 @@
-<p>admin works!</p>
+
+<canano-main-display-heading [helpUrl]="''"
+[toolHeadingName]="toolHeadingName">
+
+</canano-main-display-heading>
+
+
+<div class="mainSection">
+    <div class="mainBorder" *ngIf="currentUrl=='admin'">
+        <div class="links-panel card ml-1 mt-2">
+            <div  class="card-header mb-0 pb-0">
+                <span class="card-title unselectable m-0 p-0">
+                    <h5>USER LINKS</h5>
+                </span>
+
+            </div>
+            <div class="card-body">
+                <a class="link-clicker" routerLink="/home/admin/create-user">Create a New User</a><br>
+                Select to create a new user.<br><br>
+
+                <a  class="link-clicker" routerLink="/home/admin/search-user">Search Existing Users</a><br>
+                Enter search criteria to obtain information on users of interest.
+
+
+            </div>
+        </div>
+    </div>
+    <ng-container *ngIf="currentUrl=='reset-password'">
+        <div class="mainBorder">
+            <table class="dataMain">
+                <tr *ngIf="errors['error']">
+                    <td colspan="2" class="message">
+                        {{errors['error']}}
+                    </td>
+                </tr>
+                <tr *ngIf="message!=''">
+                    <td colspan="2" class="message">
+                        {{message}}
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label">
+                        Username
+                    </td>
+                    <td>
+                        <B>{{username}}</B>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label">
+                        <label for="resetData.oldpassword">
+                            Old Password
+                        </label>
+                    </td>
+                    <td>
+                        <input type="text" name="resetData.oldpassword" id="resetData.oldpassword" [(ngModel)]="resetData.oldpassword" size="50">
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label">
+                        <label for="newpassword">
+                            New Password
+                        </label>
+                    </td>
+                    <td>
+                        <input type="text" name="resetData.newpassword" id="resetData.newpassword" [(ngModel)]="resetData.newpassword" size="50">
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div>
+            <table class="dataMain submit">
+                <tr>
+                    <td>{{oldpassword}}
+                        <button [disabled]="resetData.oldpassword==''||resetData.newpassword==''" (click)="resetPassword()" class="btn-canano btn-canano-danger btn-canano-lg mr-1">Reset Password</button>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </ng-container>
+
+    <ng-container *ngIf="currentUrl=='search-user'">
+        <div  class="mainBorder">
+            <table class="dataMain">
+                <tr>
+                    <td class="label">
+                        <label for="username">
+                            Search Name
+                        </label>
+                    </td>
+                    <td>
+                        <input type="text" name="username" id="username" [(ngModel)]="searchUserName" size="50">
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <i>Note: You can search using Username, First Name or Last Name in the above field.
+                            Searching without any parameters returns all users.</i>
+                    </td>
+                </tr>
+                <tr *ngIf="userSearchResults">
+                    <td colspan="2">
+                        <table class="dataTable">
+                            <tr>
+                                <th>Actions</th>
+                                <th>Username</th>
+                                <th>First Name</th>
+                                <th>Last Name</th>
+                                <th>Organization</th>
+                                <th>Department</th>
+                                <th>Title</th>
+                                <th>Phone</th>
+                                <th>Email</th>
+                            </tr>
+                            <tr *ngFor="let user of userSearchResults">
+                                <td>
+                                    <a (click)="navigateToEditUser(user)">Edit</a><br />
+                                    <a (click)="navigateToResetPassword(user)">Reset Password</a>
+                                </td>
+                                <td>{{user.username}}</td>
+                                <td>{{user.firstName}}</td>
+                                <td>{{user.lastName}}</td>
+                                <td>{{user.organization}}</td>
+                                <td>{{user.department}}</td>
+                                <td>{{user.title}}</td>
+                                <td>{{user.phoneNumber}}</td>
+                                <td>{{user.emailId}}</td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div>
+            <table class="dataMain submit">
+                <tr>
+                    <td>
+                        <button (click)="searchForUsers()" class="btn-canano btn-canano-primary btn-canano-lg mr-1">Search</button>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </ng-container>
+    <ng-container *ngIf="currentUrl=='update-user'||currentUrl=='create-user'">
+        <div class="mainBorder">
+
+            <table class="dataMain">
+                <tr *ngIf="message!=''">
+                    <td colspan="2" class="message">
+                        {{message}}
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label">
+                        <label for="userData.username">
+                            Username*
+                        </label>
+                    </td>
+                    <td>
+                        <B *ngIf="currentUrl=='update-user'">{{this.userData.username}}</B>
+                        <input *ngIf="currentUrl=='create-user'" type="text" name="userData.userName" id="userData.username" [(ngModel)]="userData.username" size="70">
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label">
+                        <label for="userData.firstName">
+                            First Name*
+                        </label>
+                    </td>
+                    <td>
+                        <input type="text" name="userData.firstName" id="userData.firstName" [(ngModel)]="userData.firstName" size="70">
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label">
+                        <label for="userData.lastName">
+                            Last Name*
+                        </label>
+                    </td>
+                    <td>
+                        <input type="text" name="userData.lastName" id="userData.lastName" [(ngModel)]="userData.lastName" size="70">
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label">
+                        <label for="userData.organization">
+                            Organization
+                        </label>
+                    </td>
+                    <td>
+                        <input type="text" name="userData.organization" id="userData.organization" [(ngModel)]="userData.organization" size="70">
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label">
+                        <label for="userData.department">
+                            Department
+                        </label>
+                    </td>
+                    <td>
+                        <input type="text" name="userData.department" id="userData.department" [(ngModel)]="userData.department" size="70">
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label">
+                        <label for="userData.title">
+                            Title
+                        </label>
+                    </td>
+                    <td>
+                        <input type="text" name="userData.title" id="userData.title" [(ngModel)]="userData.title" size="70">
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label">
+                        <label for="userData.phoneNumber">
+                            Phone Number
+                        </label>
+                    </td>
+                    <td>
+                        <input type="text" name="userData.phoneNumber" id="userData.phoneNumber" [(ngModel)]="userData.phoneNumber" size="70">
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label">
+                        <label for="userData.emailId">
+                            Email
+                        </label>
+                    </td>
+                    <td>
+                        <input type="text" name="userData.emailId" id="userData.emailId" [(ngModel)]="userData.emailId" size="70">
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label">
+                        <label for="userData.roles">
+                            Role
+                        </label>
+                    </td>
+                    <td>
+                        <select class="multiple" name="userData.roles" id="userData.roles" [(ngModel)]="userData.roles" multiple size="3">
+                            <option [ngValue]="'ROLE_CURATOR'">
+                                Curator
+                            </option>
+                            <option [ngValue]="'ROLE_RESEARCHER'">
+                                Researcher
+                            </option>
+                            <option [ngValue]="'ROLE_ADMIN'">
+                                Admin
+                            </option>
+                        </select>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div>
+            <table class="dataMain submit">
+                <tr>
+                    <td>
+                        <button (click)="reset()" class="btn-canano btn-canano-danger btn-canano-lg mr-1">Reset</button>
+                        <button (click)="submit()" [disabled]="userData.username==''||userData.firstName==''||userData.lastName==''" class="btn-canano btn-canano-primary btn-canano-lg mr-1">Submit</button>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </ng-container>
+
+</div>

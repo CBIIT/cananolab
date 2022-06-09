@@ -1,0 +1,14 @@
+@import '../../main-display/main-display.component.scss';
+@import '../../../btn-bravo-canano.scss';
+select.multiple {
+    width:300px;
+    height:100px;
+}
+
+.message {
+    color:red;
+}
+
+.searchButton {
+    margin-left:30px;
+}

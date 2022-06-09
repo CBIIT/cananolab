@@ -91,11 +91,18 @@ const routes: Routes = [
     { path: 'home/samples/publications/publication/:publicationId', component: EditpublicationComponent },
 
     { path: 'home/curation', component: CurationComponent },
+    { path: 'home/curation/review-data', component: CurationComponent },
+    { path: 'home/curation/manage-availability', component: CurationComponent },
+
     { path: 'home/groups', component: GroupsComponent },
     { path: 'home/workflow', component: WorkflowComponent },
     { path: 'home/myworkspace', component: MyWorkspaceComponent },
     { path: 'home/myfavorites', component: MyFavoritesComponent },
     { path: 'home/admin', component: AdminComponent },
+    { path: 'home/admin/create-user', component: AdminComponent },
+    { path: 'home/admin/update-user/:username', component: AdminComponent },
+    { path: 'home/admin/search-user', component: AdminComponent },
+    { path: 'home/admin/reset-password/:username', component: AdminComponent },
 
     // { path: 'home/logout', component: HomeComponent },
      { path: 'home/logout', component: LogoutComponent },

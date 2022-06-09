@@ -16,7 +16,7 @@
     >Glossary
     </span>
 
-    <span
+    <span *ngIf="helpUrl!=''"
         class="float-right clicker mr-2"
     (click)="openHelpWindow(helpUrl)"
     >Help

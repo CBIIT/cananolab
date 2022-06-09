@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Consts } from 'src/app/constants';
 import { ApiService } from '../../common/services/api.service';
+import { ActivatedRoute } from '@angular/router';
 @Component({
   selector: 'canano-curation',
   templateUrl: './curation.component.html',
@@ -10,20 +11,38 @@ import { ApiService } from '../../common/services/api.service';
 export class CurationComponent implements OnInit {
     data;
     errors={};
-    helpUrl='https://wiki.nci.nih.gov/display/caNanoLab/Managing+Data+Curation#ManagingDataCuration-ReviewBatchResults';
-    toolHeadingNameManage = 'Review By Curator';
-    constructor(private apiService:ApiService,private router:Router) { }
+    message='';
+    currentUrl = 'curation';
+    generateOptions={option:""};
+    helpUrl='https://wiki.nci.nih.gov/display/caNanoLab/Managing+Data+Curation';
+    toolHeadingNameManage = 'Manage Curation';
+    constructor(private activatedRoute:ActivatedRoute,private apiService:ApiService,private router:Router) { }
 
     ngOnInit(): void {
-        let url=this.apiService.doGet(Consts.QUERY_CURATION_REVIEW_DATA,'');
-        url.subscribe(data=> {
-            this.data=data;
-            this.errors={};
-        },
-        error=> {
-            this.errors=error;
-            console.log('error')
-        })
+        if (this.router.url.includes('manage-availability')) {
+            this.currentUrl = 'manage-availability';
+            this.helpUrl='https://wiki.nci.nih.gov/display/caNanoLab/Managing+Data+Curation#ManagingDataCuration-ManageBatch';
+            this.toolHeadingNameManage='Manage Data Batch Availability';
+        }
+        if (this.router.url.includes('review-data')) {
+            this.currentUrl = 'review-data';
+            this.helpUrl='https://wiki.nci.nih.gov/display/caNanoLab/Managing+Data+Curation#ManagingDataCuration-ReviewBatchResults';
+            this.toolHeadingNameManage='Review By Curator';
+        }
+        let reviewDataUrl=this.apiService.doGet(Consts.QUERY_CURATION_REVIEW_DATA,'');
+        if (this.currentUrl=='review-data') {
+            reviewDataUrl.subscribe(data=> {
+                this.data=data;
+                this.errors={};
+            },
+            error=> {
+                this.errors=error;
+            })
+        }
+
+        let generateUrl=this.apiService.doPost(Consts.QUERY_CURATION_GENERATE_BATCH_AVAILABILITY,this.generateOptions);
+
+
     }
 
     edit(record) {
@@ -37,4 +56,15 @@ export class CurationComponent implements OnInit {
             this.router.navigate(['/home/samples/publications/publication',record.dataId]);
         };
     };
+
+    resetGenerateOptions() {
+        this.generateOptions={option:""}
+    }
+
+    submitGenerateOptions() {
+        let url = this.apiService.doPost(Consts.QUERY_CURATION_GENERATE_BATCH_AVAILABILITY,this.generateOptions);
+        url.subscribe(data=> {
+            this.message=data;
+        })
+    }
 }
