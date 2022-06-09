@@ -1,24 +1,21 @@
 <!-- Button trigger modal -->
-<button type="button" class="btn btn-primary hidden" data-toggle="modal" data-target="#timeoutModal" id="showTimeoutButton">
-    Launch
+<button type="button" class="btn btn-primary hidden" data-backdrop="static" id="timeoutModalButton" data-toggle="modal" data-target="#timeoutModal">
+    Timeout Button
 </button>
 
   <!-- Modal -->
-  <div class="modal fade" id="timeoutModal" tabindex="-1" role="dialog" aria-labelledby="timeoutModal" aria-hidden="true">
+  <div class="modal fade" id="timeoutModal" tabindex="-1" role="dialog" aria-labelledby="timeoutModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="timeoutModalLabel">Modal title</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
+          <h5 class="modal-title" id="timeoutModalLabel">Session Timeout Notification</h5>
         </div>
         <div class="modal-body">
-          ...
+            For your protection you are about to be automatically logged out of caNanoLab. Your session will expire in
+            <b>{{convertSecondsToMinutesSeconds()}}</b>. If you would like keep your session active, click OK below.
         </div>
         <div class="modal-footer">
-          <button (click)="timeoutClose()" type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary">Save changes</button>
+          <button type="button" class="btn btn-primary" id="timeoutModalButtonClose" data-dismiss="modal" (click)="closeModal()">OK</button>
         </div>
       </div>
     </div>

@@ -3,6 +3,8 @@ export const Consts = {
     LOGIN_URL: 'caNanoLab/login',
     QUERY_LOGOUT: 'caNanoLab/logout',
     waitTime: 11,
+    timeoutWarning: 300,
+    sessionTimeInSeconds: 1800,
 
     // For each rest service
     QUERY_GET_TABS: 'caNanoLab/rest/core/getTabs',

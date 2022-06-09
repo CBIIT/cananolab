@@ -70,7 +70,9 @@ export class ApiService{
 
     // END TESTING
 
-
+    getUserGroups() {
+        return this.doGet(Consts.QUERY_GET_USER_GROUPS,'');
+    }
     /**
      *
      * @param queryType

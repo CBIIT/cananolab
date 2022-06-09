@@ -14,9 +14,6 @@ export class EditcharacterizationComponent implements OnInit {
     sampleId = Properties.CURRENT_SAMPLE_ID;
     helpUrl = Consts.HELP_URL_SAMPLE_CHARACTERIZATION;
     toolHeadingNameManage;
-    serverUrl = Properties.API_SERVER_URL;
-
-
     charClassName;
     charId;
     columnHeader;

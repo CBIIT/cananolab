@@ -28,7 +28,6 @@ export class EditpublicationComponent implements OnInit {
     sampleId = Properties.CURRENT_SAMPLE_ID;
     sampleList;
     samples;
-    serverUrl = Properties.API_SERVER_URL;
     setupData;
     toolHeadingNameManage;
     theAccess;

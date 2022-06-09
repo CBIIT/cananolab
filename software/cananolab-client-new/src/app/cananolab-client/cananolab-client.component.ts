@@ -15,6 +15,7 @@ import { ApiService } from './common/services/api.service';
 import { TopMainMenuService } from './top-main-menu/top-main-menu.service';
 import { StatusDisplayService } from './status-display/status-display.service';
 import { Consts } from '../constants';
+import { IdleService } from './common/components/idle/idle.service';
 @Component( {
     selector: 'canano-cananolab-client',
     templateUrl: './cananolab-client.component.html',
@@ -25,7 +26,7 @@ export class CananolabClientComponent implements OnInit{
     properties = Properties;
     currentRoute;
     menuItems=[];
-    constructor( private statusDisplayService:StatusDisplayService,private topMainMenuService:TopMainMenuService,private apiService:ApiService,private configurationService: ConfigurationService, private router: Router,
+    constructor( private idleService:IdleService,private statusDisplayService:StatusDisplayService,private topMainMenuService:TopMainMenuService,private apiService:ApiService,private configurationService: ConfigurationService, private router: Router,
                  private utilService: UtilService ){
 
     }
@@ -40,14 +41,10 @@ export class CananolabClientComponent implements OnInit{
                 if (event.url!='/home') {
                     this.menuItems=['HOME'];
                 }
-            };
-            if (event instanceof NavigationEnd) {
-                console.log('nav end')
-                // this.apiService.getUserGroups().subscribe(data=> {
-
-                // })
             }
-
+            if (event instanceof NavigationEnd) {
+                this.idleService.startTimer();
+            }
         })
         let loginUrl=this.apiService.doGet(Consts.QUERY_GET_USER_GROUPS,{});
         loginUrl.subscribe(data=> {

@@ -6,6 +6,7 @@ import { StatusDisplayService } from '../../status-display/status-display.servic
 import { Router } from '@angular/router';
 import { UtilService } from '../../common/services/util.service';
 import { TopMainMenuService } from '../../top-main-menu/top-main-menu.service';
+import { IdleService } from '../../common/components/idle/idle.service';
 @Component({
   selector: 'canano-logout',
   templateUrl: './logout.component.html',
@@ -14,7 +15,7 @@ import { TopMainMenuService } from '../../top-main-menu/top-main-menu.service';
 export class LogoutComponent implements OnInit{
     properties=Properties;
 
-    constructor( private topMainMenuService:TopMainMenuService,private apiService: ApiService, private statusDisplayService: StatusDisplayService,
+    constructor( private idleService:IdleService,private topMainMenuService:TopMainMenuService,private apiService: ApiService, private statusDisplayService: StatusDisplayService,
                  private router: Router, private utilService: UtilService ){
     }
 
@@ -41,6 +42,8 @@ export class LogoutComponent implements OnInit{
                 console.error('ERROR doPost Consts.QUERY_LOGOUT: ', err);
             }
         );
+        this.idleService.stopTimer();
     }
+
 
 }

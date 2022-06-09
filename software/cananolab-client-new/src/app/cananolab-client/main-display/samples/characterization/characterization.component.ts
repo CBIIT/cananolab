@@ -25,7 +25,6 @@ export class CharacterizationComponent implements OnInit{
             "other":[]
         }
     types = ['physico-chemical characterization', 'in vitro characterization','in vivo characterization','other']
-    serverUrl = Properties.API_SERVER_URL;
     editUrl=false;
 
     constructor( private statusDisplayService:StatusDisplayService,private apiService:ApiService,private navigationService:NavigationService, private router: Router, private route: ActivatedRoute ){
