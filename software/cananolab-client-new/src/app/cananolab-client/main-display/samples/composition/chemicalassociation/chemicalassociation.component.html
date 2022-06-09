@@ -146,7 +146,7 @@
                     File
                 </td>
                 <td>
-                    <canano-file (changeFile)="changeFile($event)" [saveUrl]="'/caNanoLab/rest/chemicalAssociation/saveFile'" [deleteUrl]="'/caNanoLab/rest/chemicalAssociation/removeFile'" [fileVariable]="'simpleFile'" [sampleId]="sampleId" [data]="data" [fileArray]="'files'">
+                    <canano-file (changeFile)="changeFile($event)" [saveUrl]="consts.QUERY_CHEMICAL_ASSOCIATION_SAVE_FILE" [deleteUrl]="QUERY_CHEMICAL_ASSOCIATION_REMOVE_FILE" [fileVariable]="'simpleFile'" [sampleId]="sampleId" [data]="data" [fileArray]="'files'">
 
                     </canano-file>
                 </td>

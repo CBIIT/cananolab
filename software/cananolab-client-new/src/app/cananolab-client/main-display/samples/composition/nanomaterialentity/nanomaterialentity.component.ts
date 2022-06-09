@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Consts } from '../../../../../constants';
 import { ApiService } from '../../../../common/services/api.service';
@@ -12,6 +12,7 @@ import { NavigationService } from '../../../../common/services/navigation.servic
 })
 export class NanomaterialentityComponent implements OnInit {
     composingElementIndex;
+    consts=Consts;
     composingElement;
     currentDropdownValues = {};
     currentField;

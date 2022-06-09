@@ -13,6 +13,7 @@ import { ApiService } from '../../../../common/services/api.service';
 })
 export class ChemicalassociationComponent implements OnInit {
   sampleId = Properties.CURRENT_SAMPLE_ID;
+  consts=Consts;
   dataId;
   sampleName = Properties.CURRENT_SAMPLE_NAME;
   helpUrl =  Consts.HELP_URL_SAMPLE_COMPOSITION;

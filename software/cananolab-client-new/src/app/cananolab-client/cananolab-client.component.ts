@@ -43,9 +43,9 @@ export class CananolabClientComponent implements OnInit{
             };
             if (event instanceof NavigationEnd) {
                 console.log('nav end')
-                this.apiService.getUserGroups().subscribe(data=> {
+                // this.apiService.getUserGroups().subscribe(data=> {
 
-                })
+                // })
             }
 
         })

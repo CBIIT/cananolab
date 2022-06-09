@@ -73,7 +73,7 @@ serverUrl = Properties.API_SERVER_URL;
     if (confirm("Are you sure you wish to delete this file?")) {
         this.data[this.fileVariable]=file;
         console.log(this.deleteUrl)
-        let deleteUrl = this.httpClient.post(Properties.API_SERVER_URL+this.deleteUrl,this.data);
+        let deleteUrl = this.httpClient.post(this.deleteUrl,this.data);
         deleteUrl.subscribe(data=> {
             this.data=data;
             this.changeFile.emit({
@@ -125,7 +125,7 @@ serverUrl = Properties.API_SERVER_URL;
             "uriExternal":true,
             "externalUrl":this.currentFile.externalUrl
         }
-        let saveUrl=this.httpClient.post(Properties.API_SERVER_URL+this.saveUrl,this.data) ;
+        let saveUrl=this.httpClient.post(this.saveUrl,this.data) ;
         saveUrl.subscribe(data=> {
             this.data=data;
             this.changeFile.emit({
@@ -157,7 +157,7 @@ serverUrl = Properties.API_SERVER_URL;
                 "uri":data['fileName'],
                 "uriExternal":false
             }
-            let saveUrl=this.httpClient.post(Properties.API_SERVER_URL+this.saveUrl,this.data) ;
+            let saveUrl=this.httpClient.post(this.saveUrl,this.data) ;
             saveUrl.subscribe(data=> {
                 this.data=data;
                 this.changeFile.emit({

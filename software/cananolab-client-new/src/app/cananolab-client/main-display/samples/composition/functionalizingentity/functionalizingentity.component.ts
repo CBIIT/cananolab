@@ -17,6 +17,7 @@ export class FunctionalizingentityComponent implements OnInit {
     // currentDropdownValue is the previous dropdown value selected //
     // This is used to reset the dropdown if other is selected and canceled //
     currentDropdownValues;
+    consts=Consts;
     dataId;
     errors;
     inherentFunction;
