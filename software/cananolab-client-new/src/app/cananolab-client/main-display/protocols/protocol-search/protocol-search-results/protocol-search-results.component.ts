@@ -174,7 +174,7 @@ export class ProtocolSearchResultsComponent implements OnInit, OnDestroy {
             protocolFileId: fileId,
             protocolFileTitle: protocolFileTitle,
             editable: true,
-            loginName: 'canano_curator',
+            loginName: this.userName,
         };
 
         this.apiService

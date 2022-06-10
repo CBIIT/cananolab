@@ -98,7 +98,7 @@ export class SampleSearchResultsComponent implements OnInit, OnDestroy {
 
     addToFavorites(samp) {
         console.log('addToFavorites samp: ', samp);
-        let favObj = { dataType: 'sample', loginName: 'canano_curator' }; // @FIXME User real user name
+        let favObj = { dataType: 'sample', loginName: this.userName}; // @FIXME User real user name
         favObj['dataName'] = samp['sampleName'];
         favObj['dataId'] = samp['sampleId'];
         favObj['description'] = samp['nanoEntityDesc'];
