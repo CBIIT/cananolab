@@ -11,7 +11,7 @@
         <div class="error" *ngIf="errors['error']">
             {{errors['error']}}
         </div>
-        <div class="mainBorder" *ngIf="setupData">
+        <div class="mainBorder">
             <table class="searchForm">
                 <tr>
                     <td class="label">
@@ -128,7 +128,7 @@
                         </label>
                     </td>
                     <td>
-                        <select class="multiple" name="nanomaterialEntityTypes" [size]="setupData.nanomaterialEntityTypes.length"  id="nanomaterialEntityTypes" multiple [(ngModel)]="data.nanomaterialEntityTypes">
+                        <select class="multiple" name="nanomaterialEntityTypes" [size]="7"  id="nanomaterialEntityTypes" multiple [(ngModel)]="data.nanomaterialEntityTypes">
                             <option *ngFor="let type of setupData.nanomaterialEntityTypes">
                                 {{type}}
                             </option>
@@ -140,7 +140,7 @@
                         </label>
                     </td>
                     <td>
-                        <select class="multiple" name="functionTypes" [size]="setupData.nanomaterialEntityTypes.length"  id="functionalizingEntityTypes" multiple [(ngModel)]="data.functionalizingEntityTypes">
+                        <select class="multiple" name="functionTypes" [size]="7"  id="functionalizingEntityTypes" multiple [(ngModel)]="data.functionalizingEntityTypes">
                             <option *ngFor="let type of setupData.functionalizingEntityTypes">
                                 {{type}}
                             </option>
@@ -152,7 +152,7 @@
                         </label>
                     </td>
                     <td>
-                        <select class="multiple" name="functionTypes" [size]="setupData.nanomaterialEntityTypes.length"  id="functionTypes" multiple [(ngModel)]="data.functionTypes">
+                        <select class="multiple" name="functionTypes" [size]="7"  id="functionTypes" multiple [(ngModel)]="data.functionTypes">
                             <option *ngFor="let type of setupData.functionTypes">
                                 {{type}}
                             </option>

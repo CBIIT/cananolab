@@ -16,7 +16,11 @@ export class SearchPublicationComponent implements OnInit {
     helpUrl;
     loading;
     toolHeadingNameManage;
-    setupData;
+    setupData:any={
+        publicationResearchAreas:[],
+        publicationCategories:[],
+
+    };
 
     constructor(private router:Router,private apiService:ApiService,private searchPublicationService:SearchPublicationService) { }
 
