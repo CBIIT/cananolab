@@ -146,7 +146,7 @@ serverUrl = Properties.API_SERVER_URL;
         this.theFile.append('title',this.currentFile['title']);
         this.theFile.append('keywordsStr',this.currentFile['keywordsStr']);
         this.theFile.append('description',this.currentFile['description']);
-        let uploadUrl = this.httpClient.post(Consts.QUERY_UPLOAD_FILE, this.theFile);
+        let uploadUrl = this.httpClient.post('/'+Consts.QUERY_UPLOAD_FILE, this.theFile);
         uploadUrl.subscribe(data=> {
             // this.data[this.fileVariable].push(data);
             this.data[this.fileVariable]={
