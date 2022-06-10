@@ -20,7 +20,7 @@ export class SampleSearchComponent implements OnInit {
     dataTrailer;
     errors;
     sampleSetupData={};
-    loading=true;
+    loading;
     pocOperand = 'contains';
     nameOperand = 'contains';
     sampleName;
