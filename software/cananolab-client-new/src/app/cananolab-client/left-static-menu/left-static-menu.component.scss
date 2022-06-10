@@ -71,7 +71,7 @@
 
 .p-2 {
     @extend .left-menu-top-heading;
-    background-color:#005E7E;
+    background-color:$menuHeadingBackgroundColor;
     text-transform: none;
     border: solid $leftMenuBorderColor;
     border-width:1px 0px 0px 0px;

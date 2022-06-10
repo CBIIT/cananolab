@@ -19,7 +19,8 @@ export class SampleSearchComponent implements OnInit {
     data;
     dataTrailer;
     errors;
-    sampleSetupData;
+    sampleSetupData={};
+    loading=true;
     pocOperand = 'contains';
     nameOperand = 'contains';
     sampleName;
@@ -75,16 +76,18 @@ export class SampleSearchComponent implements OnInit {
     }
 
     onSubmit(){
+        this.loading=true;
         // QUERY_SEARCH_SAMPLE
         this.apiService.doPost( Consts.QUERY_SEARCH_SAMPLE, this.data ).subscribe(
             data => {
                 this.searchResults = <any>data;
-
+                this.loading=null;
                 // send search results to samplesSearchResults
                 this.sampleSearchResultsService.setSearchResults( this.searchResults );
                 this.router.navigate(['home/samples/sample-search-results']); // @FIXME TESTING  Don't hard code this!!!
             },
             error=> {
+                this.loading=null;
                 this.errors=error;
             } );
     }

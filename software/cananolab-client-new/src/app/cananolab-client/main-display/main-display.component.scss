@@ -15,6 +15,12 @@
     border:1px solid #ccc;
 }
 
+.mainBorder.loading {
+	background-color:$menuHeadingBackgroundColor !important;
+	color:#fff;
+	padding:15px !important;
+}
+
 .dataMain  {
     margin:5px;
     width:90%;

@@ -73,6 +73,7 @@ import { AdvancedSearchComponent } from './cananolab-client/main-display/samples
 import { AdvancedSearchResultsComponent } from './cananolab-client/main-display/samples/general-info/sample-search/advanced-search-results/advanced-search-results.component';
 import { AdminComponent } from './cananolab-client/main-display/admin/admin.component';
 import { IdleComponent } from './cananolab-client/common/components/idle/idle.component';
+import { LoaderComponent } from './cananolab-client/common/components/loader/loader.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -143,7 +144,8 @@ import { IdleComponent } from './cananolab-client/common/components/idle/idle.co
     AdvancedSearchComponent,
     AdvancedSearchResultsComponent,
     AdminComponent,
-    IdleComponent
+    IdleComponent,
+    LoaderComponent
   ],
     imports: [
         BrowserModule,

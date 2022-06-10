@@ -7,9 +7,9 @@
 <div class="error" *ngIf="errors['error']">
     {{errors['error']}}
 </div>
-<div *ngIf="sampleSetupData">
+<div class="mainSection">
+    <canano-loader [loading]="loading"></canano-loader>
     <form name="sampleSearchForm">
-    <div class="mainSection">
         <div class="mainBorder">
             <table class="searchForm">
                 <tr>
@@ -23,7 +23,7 @@
 
                         </textarea><br />
                         <i>
-                            characterization keywords, publication keywords and text in characterization descriptions enter one keyword per line
+                            searching characterization keywords, publication keywords and text in characterization descriptions enter one keyword per line
                         </i>
                     </td>
                 </tr>
@@ -40,7 +40,7 @@
                                 <option>equals</option>
                             </select>
                         </label>
-                        <input type="text" id="sampleName" name="data.sampleName" [(ngModel)]="data.sampleName">
+                        <input type="text" id="sampleName" name="data.sampleName" [(ngModel)]="data.sampleName" size="60">
                     </td>
                 </tr>
                 <tr>
@@ -56,7 +56,7 @@
                                 <option>equals</option>
                             </select>
                         </label>
-                        <input type="text" name="data.samplePointOfContact" id="samplePointOfContact" [(ngModel)]="data.samplePointOfContact">
+                        <input type="text" name="data.samplePointOfContact" id="samplePointOfContact" [(ngModel)]="data.samplePointOfContact" size="60">
                     </td>
                 </tr>
                 <tr>
@@ -130,14 +130,13 @@
                 </tr>
             </table>
         </div>
-    </div>
-    <div class="buttons">
-        <div>
-            Searching without any parameters returns all samples.
-        </div>
-        <button (click)="reset()" class="btn-canano btn-canano-danger btn-canano-lg mr-1">Reset</button>
-        <button (click)="onSubmit()" class="btn-canano btn-canano-primary btn-canano-lg mr-1">Search</button>
+        <div class="buttons">
+            <div>
+                Searching without any parameters returns all samples.
+            </div>
+            <button (click)="reset()" class="btn-canano btn-canano-danger btn-canano-lg mr-1">Reset</button>
+            <button (click)="onSubmit()" class="btn-canano btn-canano-primary btn-canano-lg mr-1">Search</button>
 
-    </div>
+        </div>
     </form>
 </div>
