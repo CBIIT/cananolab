@@ -14,7 +14,7 @@ import { Router } from '@angular/router';
 } )
 export class TopKeywordSearchComponent implements OnInit{
     topKeyWordSearchText = '';
-
+    loading;
     constructor( private router:Router,private topKeywordSearchService:TopKeywordSearchService,private apiService: ApiService ){
     }
 
@@ -22,6 +22,7 @@ export class TopKeywordSearchComponent implements OnInit{
     }
 
     onTopKeyWordSearchClick(){
+        this.loading=true;
 
         //  @TODO
         this.apiService.doGet( Consts.QUERY_SEARCH, 'keyword=' + this.topKeyWordSearchText ).subscribe(
@@ -29,8 +30,10 @@ export class TopKeywordSearchComponent implements OnInit{
                 this.topKeywordSearchService.setKeywordResults(data);
                 this.router.navigateByUrl('home', {skipLocationChange: true}).then(()=>
                 this.router.navigate(['home/search-results']));
+                this.loading=null;
             },
             ( err ) => {
+                this.loading=null;
                 console.log( 'ERROR onTopKeyWordSearchClick: ', err );
             } );
     }

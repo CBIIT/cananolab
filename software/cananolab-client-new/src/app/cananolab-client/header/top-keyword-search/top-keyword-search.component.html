@@ -8,9 +8,9 @@
                 placeholder="Enter keyword"
                 name="topKeyWordSearchText"
                 [(ngModel)]="topKeyWordSearchText">
-        <button type="submit" class="btn-canano btn-canano-primary btn-canano-xs mr-1 topSearch"
+                <button [disabled]="loading" type="submit" class="btn-canano btn-canano-primary btn-canano-xs mr-1 topSearch"
                 (click)="onTopKeyWordSearchClick()">
-                Search
+                <span *ngIf="loading" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>&nbsp;Search
         </button>
     </form>
 </span>
