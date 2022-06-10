@@ -62,6 +62,7 @@ export class SearchPublicationComponent implements OnInit {
     }
 
     searchPublication() {
+        this.loading=true;
         this.apiService.doPost(Consts.QUERY_PUBLICATION_SEARCH,this.data).subscribe(data=> {
             this.errors={};
             this.searchPublicationService.setPublicationSearchResults(data);
@@ -69,6 +70,7 @@ export class SearchPublicationComponent implements OnInit {
 
         },
         error=> {
+            this.loading=null;
             this.errors=error;
         })
     }
