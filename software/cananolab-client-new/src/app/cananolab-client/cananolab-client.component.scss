@@ -183,12 +183,24 @@ img {
 	background-color:#fff;
 	border:0px;
 	padding:10px 0px 0px 0px;
-	font-size:10px;
+	font-size:9.5px;
+    color:#333;
 };
 
 .footer.white a {
-	text-decoration:none !important;
+    text-decoration:none !important;
 };
+
+.footer.white a:hover {
+    text-decoration:underline !important;
+    color:#333;
+}
+
+.footer.white.release {
+    font-size:12px !important;
+	font-weight:normal !important;
+	color:#4A49A8;
+}
 
 .footer.white .divider {
 	padding:0px 10px 0px 10px;
