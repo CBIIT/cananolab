@@ -89,7 +89,7 @@
 
             <td class="search-results-td">{{samp['sampleName']}}</td>
 
-            <td [innerHTML]="samp['pointOfContact']"></td>
+            <td class="sample-search-results-poc-td" [innerHTML]="samp['pointOfContact']"></td>
             <td class="search-results-td">
                 <span *ngIf="
                 samp['composition'] !== undefined &&

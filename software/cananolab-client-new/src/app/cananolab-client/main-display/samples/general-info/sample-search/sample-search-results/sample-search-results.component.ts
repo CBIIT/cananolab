@@ -19,7 +19,7 @@ export class SampleSearchResultsComponent implements OnInit, OnDestroy {
     columnHeadings = [
         { actions: 'Actions' },
         { sampleName: 'Sample Name' },
-        { pointOfContact: 'Primary POC' },
+        { pointOfContact: 'Primary Point of Contact' },
         { composition: 'Composition' },
         { functions: 'Functions' },
         { characterizations: 'Characterizations' },
