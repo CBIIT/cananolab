@@ -5,6 +5,8 @@
     {{errors['error']}}
 </div>
 <div class="mainSection" *ngIf="setupData['loaded']">
+    <canano-loader [loading]="loading" [message]="'Searching'"></canano-loader>
+
     <form name="advanced-search-form">
     <div class="mainBorder">
         <table class="dataMain">
@@ -363,8 +365,8 @@
         <table class="submit">
             <tr>
                 <td>
-                    <button (click)="search()" class="btn btn-primary float-right">Search</button>
-                    <button (click)="reset()" class="btn btn-danger float-right mr-1">Reset</button>
+                    <button [disabled]="loading" (click)="search()" class="btn btn-primary float-right">Search</button>
+                    <button [disabled]="loading" (click)="reset()" class="btn btn-danger float-right mr-1">Reset</button>
                 </td>
             </tr>
         </table>

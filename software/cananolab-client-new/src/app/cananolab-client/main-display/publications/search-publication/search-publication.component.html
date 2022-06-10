@@ -3,12 +3,11 @@
     [toolHeadingName]="'Publication Search'"
 >
 </canano-main-display-heading>
-
-
-
 <div>
     <form name="publicationSearchForm">
     <div class="mainSection">
+        <canano-loader [loading]="loading" [message]="'Searching'"></canano-loader>
+
         <div class="error" *ngIf="errors['error']">
             {{errors['error']}}
         </div>
@@ -167,8 +166,8 @@
         <div>
             Searching without any parameters returns all publications.
         </div>
-        <button (click)="reset()" class="btn-canano btn-canano-danger btn-canano-lg mr-1">Reset</button>
-        <button (click)="searchPublication()" class="btn-canano btn-canano-primary btn-canano-lg mr-1">Search</button>
+        <button [disabled]="loading" (click)="reset()" class="btn-canano btn-canano-danger btn-canano-lg mr-1">Reset</button>
+        <button [disabled]="loading" (click)="searchPublication()" class="btn-canano btn-canano-primary btn-canano-lg mr-1">Search</button>
 
     </div>
     </form>

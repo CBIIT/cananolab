@@ -14,6 +14,7 @@ export class SearchPublicationComponent implements OnInit {
     dataTrailer;
     errors;
     helpUrl;
+    loading;
     toolHeadingNameManage;
     setupData;
 

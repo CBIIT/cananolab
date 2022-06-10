@@ -8,7 +8,7 @@
     {{errors['error']}}
 </div>
 <div class="mainSection">
-    <canano-loader [loading]="loading"></canano-loader>
+    <canano-loader [loading]="loading" [message]="'Searching'"></canano-loader>
     <form name="sampleSearchForm">
         <div class="mainBorder">
             <table class="searchForm">
@@ -134,8 +134,8 @@
             <div>
                 Searching without any parameters returns all samples.
             </div>
-            <button (click)="reset()" class="btn-canano btn-canano-danger btn-canano-lg mr-1">Reset</button>
-            <button (click)="onSubmit()" class="btn-canano btn-canano-primary btn-canano-lg mr-1">Search</button>
+            <button [disabled]="loading" (click)="reset()" class="btn-canano btn-canano-danger btn-canano-lg mr-1">Reset</button>
+            <button [disabled]="loading" (click)="onSubmit()" class="btn-canano btn-canano-primary btn-canano-lg mr-1">Search</button>
 
         </div>
     </form>

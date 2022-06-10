@@ -1,7 +1,11 @@
 
-<!-- -----  Search Results  ----- -->
+<canano-main-display-heading
+[helpUrl]="'https://wiki.nci.nih.gov/display/caNanoLab/Managing+Protocols+in+caNanoLab#ManagingProtocolsincaNanoLab-SearchProtocols'"
+[toolHeadingName]="'Protocol Search'">
+</canano-main-display-heading>
 
 <div class="mainSection" *ngIf="protocolSearchForm">
+    <canano-loader [loading]="loading" [message]="'Searching'"></canano-loader>
     <form name="protocolSearchForm">
         <div class="mainBorder">
             <table>
@@ -75,8 +79,8 @@
             <div>
                 Searching without any parameters returns all protocols.
             </div>
-            <button (click)="onResetClick()" class="btn-canano btn-canano-danger btn-canano-lg mr-1">Reset</button>
-            <button (click)="onSubmit()" class="btn-canano btn-canano-primary btn-canano-lg mr-1">Search</button>
+            <button [disabled]="loading" (click)="onResetClick()" class="btn-canano btn-canano-danger btn-canano-lg mr-1">Reset</button>
+            <button [disabled]="loading" (click)="onSubmit()" class="btn-canano btn-canano-primary btn-canano-lg mr-1">Search</button>
 
         </div>
     </form>

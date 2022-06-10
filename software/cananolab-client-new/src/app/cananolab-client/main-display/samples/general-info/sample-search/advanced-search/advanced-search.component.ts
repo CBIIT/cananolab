@@ -22,6 +22,7 @@ export class AdvancedSearchComponent implements OnInit {
         compositionEntityTypes=[];
         compositionQuery;
         errors={};
+        loading;
         query={};
         sampleEditIndex;
         sampleQuery;
@@ -266,11 +267,13 @@ export class AdvancedSearchComponent implements OnInit {
         this.setupCharacterizationQuery();
     }
     search() {
+        this.loading=true;
         this.apiService.doPost(Consts.QUERY_SAMPLE_ADVANCED_SEARCH,this.query).subscribe(data=> {
             this.advancedSearchService.setAdvancedSearchResults(data);
             this.router.navigate(['home/samples/sample-advanced-search-results'])
         },
         error=> {
+            this.loading=null;
             this.errors=error;
         })
     }

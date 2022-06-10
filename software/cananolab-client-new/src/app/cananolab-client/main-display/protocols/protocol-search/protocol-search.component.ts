@@ -18,6 +18,7 @@ export class ProtocolSearchComponent implements OnInit, OnDestroy{
     /**
      * For canano-main-display-heading @Input()
      */
+    loading;
     helpUrl = Consts.HELP_URL_PROTOCOL_SEARCH;
     helpUrlSearchResults = Consts.HELP_URL_PROTOCOL_SEARCH_RESULTS;
     toolHeadingName = 'Protocol Search';
@@ -104,19 +105,17 @@ export class ProtocolSearchComponent implements OnInit, OnDestroy{
 
 
     onSubmit(  ){
-        // QUERY_SEARCH_PROTOCOL
-        // Do the search
+        this.loading=true;
         this.apiService.doPost( Consts.QUERY_SEARCH_PROTOCOL, this.protocolSearchForm ).subscribe(
             data => {
                 this.protocolsService.setProtocolSearchResults(data);
                 this.router.navigate(['home/protocols/protocol-search-results']);
                 this.errors={};
-                // this.protocolScreenToShow = ProtocolScreen.PROTOCOL_SEARCH_RESULTS_SCREEN;
-                // this.searchResults = data;
             },
             err => {
                 if( err.status === 404 ){ // @checkme
                     this.errors=err;
+                    this.loading=false;
                 }
             }
         );

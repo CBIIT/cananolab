@@ -11,7 +11,7 @@
 }
 .mainBorder {
     padding:5px;
-    margin:2px;
+    margin:2px 0px 0px 2px;
     border:1px solid #ccc;
 }
 
@@ -19,6 +19,7 @@
 	background-color:$menuHeadingBackgroundColor !important;
 	color:#fff;
 	padding:15px !important;
+    margin-bottom:15px;
 }
 
 .dataMain  {
