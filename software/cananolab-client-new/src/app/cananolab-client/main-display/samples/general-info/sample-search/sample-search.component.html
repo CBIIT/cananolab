@@ -66,7 +66,7 @@
                         </label>
                     </td>
                     <td>
-                        <select [size]="sampleSetupData['nanomaterialEntityTypes'].length" class="multiple" multiple name="data.nanomaterialEntityTypes" id="nanomaterialEntityTypes" [(ngModel)]="data.nanomaterialEntityTypes">
+                        <select [size]="7" class="multiple" multiple name="data.nanomaterialEntityTypes" id="nanomaterialEntityTypes" [(ngModel)]="data.nanomaterialEntityTypes">
                             <option *ngFor="let samp of sampleSetupData['nanomaterialEntityTypes']">
                                 {{samp}}
                             </option>
@@ -78,7 +78,7 @@
                         </label>
                     </td>
                     <td>
-                        <select [size]="sampleSetupData['nanomaterialEntityTypes'].length" class="multiple" multiple name="data.functionalizingEntityTypes" id="functionalizingEntityTypes" [(ngModel)]="data.functionalizingEntityTypes">
+                        <select [size]="7" class="multiple" multiple name="data.functionalizingEntityTypes" id="functionalizingEntityTypes" [(ngModel)]="data.functionalizingEntityTypes">
                             <option *ngFor="let samp of sampleSetupData['functionalizingEntityTypes']">
                                 {{samp}}
                             </option>
@@ -90,7 +90,7 @@
                         </label>
                     </td>
                     <td>
-                        <select [size]="sampleSetupData['nanomaterialEntityTypes'].length" class="multiple" multiple name="data.functionTypes" id="functionTypes" [(ngModel)]="data.functionTypes">
+                        <select [size]="7" class="multiple" multiple name="data.functionTypes" id="functionTypes" [(ngModel)]="data.functionTypes">
                             <option *ngFor="let samp of sampleSetupData['functionTypes']">
                                 {{samp}}
                             </option>
@@ -120,7 +120,7 @@
                     </td>
                     <td colspan="3">
                         <ng-container *ngIf="data.characterizationType!=''">
-                            <select [size]="sampleSetupData['nanomaterialEntityTypes'].length" class="multiple" multiple name="data.characterizations" id="characterizations" [(ngModel)]="data.characterizations">
+                            <select [size]="7" class="multiple" multiple name="data.characterizations" id="characterizations" [(ngModel)]="data.characterizations">
                                 <option *ngFor="let samp of characterizationsList">
                                     {{samp}}
                                 </option>
