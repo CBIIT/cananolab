@@ -12,7 +12,7 @@ $mainDisplayHeadingHeight: 28px;
 $mainDisplayHeadingMargin: 8px;
 
 .main-display-heading{
-    text-transform: uppercase;
+    text-transform: capitalize;
     font-weight:bold;
     font-size:$mainFontSize;
     padding: $mainDisplayHeadingMargin;
