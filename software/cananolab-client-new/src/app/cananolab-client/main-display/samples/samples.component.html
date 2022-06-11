@@ -14,7 +14,6 @@
             comparative analysis. In this section, depending on your authorization level, you may submit new sample information
             or search for an existing sample for editing, copying, viewing, printing, or exporting.
         </p>
-
         <div class="links-panel card ml-1 mt-2">
             <div  class="card-header mb-0 pb-0">
                 <span class="card-title unselectable m-0 p-0">
@@ -24,6 +23,7 @@
             </div>
 
             <div class="card-body">
+
                 <ng-container *ngIf="properties.LOGGED_IN">
                     <a class="link-clicker" routerLink="sample-create">Create a New Sample</a><br>
                     Select to create a new sample.
@@ -45,8 +45,6 @@
                 <a class="link-clicker" routerLink="sample-advanced-search">Advanced Sample Search</a><br>
                 Enter advanced search criteria based on caNanoLab metadata to obtain information on samples of interest.
             </div>
-
-
-
+        </div>
     </div>
 </div>

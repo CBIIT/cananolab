@@ -5,30 +5,29 @@
 </canano-main-display-heading>
 <div class="mainSection">
     <div class="mainBorder">
+        <P>
+            This is the manage publications section. Publications can include book chapters, editorials, peer review articles, reports, reviews and other forms of documents. In this section, depending on your authorization level, you may submit a new publication or search for an existing publication.
+        </P>
+        <div class="links-panel card ml-1 mt-2">
+            <div  class="card-header mb-0 pb-0">
+                <span class="card-title unselectable m-0 p-0">
+                    <h5>Publication Links</h5>
+                </span>
 
-         This is the manage publications section. Publications can include book chapters, editorials, peer review articles, reports, reviews and other forms of documents. In this section, depending on your authorization level, you may submit a new publication or search for an existing publication.
+            </div>
+            <div class="card-body">
+                <ng-container *ngIf="properties.LOGGED_IN">
+                    <a class="link-clicker" routerLink="/home/samples/publications/publication/-1">Create a New Publication</a><br>
+                Select to create a new publication.<br><br>
+                </ng-container>
+                <a  class="link-clicker" routerLink="publication-search">Search Existing Publication</a><br>
+                Enter search criteria to obtain information on publications of interest.<br><br>
 
+                <a  class="link-clicker" routerLink="sample-search-by-publication">Search for Samples by Publication</a><br>
+                Enter DOI/Pubmed Id to obtain the related sample information.<br>
 
-     <div class="links-panel card ml-1 mt-2">
-         <div  class="card-header mb-0 pb-0">
-             <span class="card-title unselectable m-0 p-0">
-                 <h5>Publication Links</h5>
-             </span>
-
-         </div>
-         <div class="card-body">
-             <ng-container *ngIf="properties.LOGGED_IN">
-                <a class="link-clicker" routerLink="/home/samples/publications/publication/-1">Create a New Publication</a><br>
-             Select to create a new publication.<br><br>
-            </ng-container>
-             <a  class="link-clicker" routerLink="publication-search">Search Existing Publication</a><br>
-             Enter search criteria to obtain information on publications of interest.<br><br>
-
-             <a  class="link-clicker" routerLink="sample-search-by-publication">Search for Samples by Publication</a><br>
-             Enter DOI/Pubmed Id to obtain the related sample information.<br>
-
-         </div>
-     </div>
+            </div>
+        </div>
     </div>
 </div>
 
