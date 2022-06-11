@@ -17,9 +17,10 @@
 
          </div>
          <div class="card-body">
-             <a class="link-clicker" routerLink="/home/samples/publications/publication/-1">Create a New Publication</a><br>
+             <ng-container *ngIf="properties.LOGGED_IN">
+                <a class="link-clicker" routerLink="/home/samples/publications/publication/-1">Create a New Publication</a><br>
              Select to create a new publication.<br><br>
-
+            </ng-container>
              <a  class="link-clicker" routerLink="publication-search">Search Existing Publication</a><br>
              Enter search criteria to obtain information on publications of interest.<br><br>
 

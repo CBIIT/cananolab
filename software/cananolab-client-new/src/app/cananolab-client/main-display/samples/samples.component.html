@@ -24,17 +24,17 @@
             </div>
 
             <div class="card-body">
+                <ng-container *ngIf="properties.LOGGED_IN">
+                    <a class="link-clicker" routerLink="sample-create">Create a New Sample</a><br>
+                    Select to create a new sample.
+                    <br>
+                    <br>
+                    <a class="link-clicker" routerLink="sample-copy">Copy an Existing Sample</a><br>
+                    Select to copy information from an existing sample to a new sample.
 
-                <a class="link-clicker" routerLink="sample-create">Create a New Sample</a><br>
-                Select to create a new sample.
-                <br>
-                <br>
-                <a class="link-clicker" routerLink="sample-copy">Copy an Existing Sample</a><br>
-                Select to copy information from an existing sample to a new sample.
-
-                <br>
-                <br>
-
+                    <br>
+                    <br>
+                </ng-container>
                 <a class="link-clicker" routerLink="sample-search">Search Existing Samples</a><br>
                 Enter search criteria to obtain information on samples of interest.
 

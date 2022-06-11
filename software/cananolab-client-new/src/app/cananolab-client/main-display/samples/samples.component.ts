@@ -15,7 +15,7 @@ export class SamplesComponent implements OnInit{
 // QUERY_SAMPLE_SETUP
     sampleScreen = SampleScreen;
     sampleScreenToShow = SampleScreen.SAMPLE_MANAGE_SCREEN; // Starting screen for Samples
-
+    properties=Properties;
     toolHeadingNameManage = 'Manage Samples';
     helpUrl = Consts.HELP_URL_SAMPLE_SEARCH;
     toolHeadingNameSearchResults = 'Sample Search Results';

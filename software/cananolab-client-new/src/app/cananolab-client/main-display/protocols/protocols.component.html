@@ -15,8 +15,10 @@
 
             </div>
             <div class="card-body">
-                <a class="link-clicker" routerLink="protocol-create">Create a New Protocol</a><br>
+                <ng-container *ngIf="properties.LOGGED_IN">
+                    <a class="link-clicker" routerLink="protocol-create">Create a New Protocol</a><br>
                 Select to create a new protocol.<br><br>
+                </ng-container>
 
                 <a  class="link-clicker" routerLink="protocol-search">Search Existing Protocols</a><br>
                 Enter search criteria to obtain information on protocols of interest.<br><br>
