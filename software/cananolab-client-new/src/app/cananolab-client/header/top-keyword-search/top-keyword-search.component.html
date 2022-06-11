@@ -10,7 +10,16 @@
                 [(ngModel)]="topKeyWordSearchText">
                 <button [disabled]="loading" type="submit" class="btn-canano btn-canano-primary btn-canano-xs mr-1 topSearch"
                 (click)="onTopKeyWordSearchClick()">
-                <span *ngIf="loading" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>&nbsp;Search
+                Search
         </button>
     </form>
 </span>
+<div>
+    <span *ngIf="!loading">
+        &nbsp;
+    </span>
+    <span *ngIf="loading">
+        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+        Searching
+    </span>
+</div>
