@@ -14,8 +14,13 @@ $keywordSearchFontSize: 12px;
 $oddRowColor:#efeded;
 $mainDisplayHeadingHeight: 28px;
 $mainDisplayHeadingMargin: 8px;
+$font-family-sans-serif:arial,helvetica,verdana,sans-serif !important;
+html {
+    font-family:$font-family-sans-serif;
+
+}
 body {
-    font-family:arial,helvetica,verdana,sans-serif !important;
+    font-family:$font-family-sans-serif;
 }
 .header {
 	margin:0px;

@@ -12,7 +12,6 @@
 .left-menu-div{
     width: $leftMenuWidth;
     margin-right: $leftMenuMargin;
-    margin-top:0px;
 }
 
 
@@ -56,8 +55,13 @@
     color: #fff;
     margin-top: 0px;
     cursor: default;
+    padding-top:10px
 }
 
+.left-menu-heading.p-2{
+    padding-top:6px !important;
+    padding-bottom:6px !important;
+}
 .left-menu-top-heading{
     @extend .left-menu-button;
     @extend .rounded-0;
@@ -75,6 +79,7 @@
     text-transform: none;
     border: solid $leftMenuBorderColor;
     border-width:1px 0px 0px 0px;
+    padding-left:5px !important;
 }
 
 a{
@@ -92,14 +97,14 @@ a{
     background-color:#02055A !important;
     width:100%;
     color:#fff;
-    padding:3px 10px 3px 17px;
+    padding:5px 1px 5px 15px;
     border: solid $leftMenuBorderColor;
     border-width:.1em 0px 0px 0px !important;
     font-weight:bold;
     font-size:$mainFontSize;
     margin:0px !important;
     text-align:left;
-
+    line-height:normal !important
 }
 
 .left-nav:hover {
