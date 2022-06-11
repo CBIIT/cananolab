@@ -8,9 +8,6 @@
 @import "../../../btn-canano";
 @import "../../cananolab-client.component";
 
-$mainDisplayHeadingHeight: 28px;
-$mainDisplayHeadingMargin: 8px;
-
 .main-display-heading{
     text-transform: capitalize;
     font-weight:bold;
@@ -20,7 +17,7 @@ $mainDisplayHeadingMargin: 8px;
     // height: $mainDisplayHeadingHeight;
     background-color: $menuHeadingBackgroundColor;
     color: #fff;
-    width: calc(100% - #{$mainDisplayHeadingMargin * 2});
+    width: calc(100% - #{$mainDisplayHeadingMargin});
 }
 
 .display-heading-button{
