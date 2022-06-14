@@ -13,6 +13,7 @@ import { HomeUserActionsComponent } from './cananolab-client/main-display/home/r
 import { HomeWhatsNewComponent } from './cananolab-client/main-display/home/right-side-bar/home-whats-new/home-whats-new.component';
 import { HttpClientModule } from '@angular/common/http';
 import { IdleComponent } from './cananolab-client/common/components/idle/idle.component';
+import { HomeComponent } from './cananolab-client/main-display/home/home.component';
 import { LeftNavigationMenuComponent } from './cananolab-client/left-navigation-menu/left-navigation-menu.component';
 import { LeftStaticMenuComponent } from './cananolab-client/left-static-menu/left-static-menu.component';
 import { NgModule } from '@angular/core';
@@ -22,6 +23,7 @@ import { SharedModule } from './cananolab-client/common/modules/set-object-value
 import { StatusDisplayComponent } from './cananolab-client/status-display/status-display.component';
 import { TopKeywordSearchComponent } from './cananolab-client/header/top-keyword-search/top-keyword-search.component';
 import { TopMainMenuComponent } from './cananolab-client/top-main-menu/top-main-menu.component';
+import { LoginComponent } from './cananolab-client/main-display/home/right-side-bar/home-user-actions/login/login.component';
 
 @NgModule({
   declarations: [
@@ -31,12 +33,15 @@ import { TopMainMenuComponent } from './cananolab-client/top-main-menu/top-main-
     HeaderComponent,
     IdleComponent,
     LeftStaticMenuComponent,
+    LoginComponent,
+    HomeComponent,
     HomeFeaturesComponent,
     HomeHowToComponent,
     HomeKeepingUpWithCananolabComponent,
     HomeUserActionsComponent,
     HomeWhatsNewComponent,
     LeftNavigationMenuComponent,
+    LoginComponent,
     RightSideBarComponent,
     StatusDisplayComponent,
     TopKeywordSearchComponent,
@@ -49,8 +54,7 @@ import { TopMainMenuComponent } from './cananolab-client/top-main-menu/top-main-
         HttpClientModule,
         ReactiveFormsModule,
         SetObjectValueModule,
-        SharedModule,
-
+        SharedModule
     ],
   providers: [{provide: LocationStrategy, useClass: HashLocationStrategy}],
   bootstrap: [AppComponent]

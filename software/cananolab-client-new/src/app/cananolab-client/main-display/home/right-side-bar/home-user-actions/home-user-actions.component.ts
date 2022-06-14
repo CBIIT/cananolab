@@ -12,6 +12,7 @@ export class HomeUserActionsComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+      console.log(this.properties)
   }
 
 }

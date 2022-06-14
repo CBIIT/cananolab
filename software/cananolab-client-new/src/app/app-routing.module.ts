@@ -1,9 +1,11 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { HomeComponent } from './cananolab-client/main-display/home/home.component';
+import { LoginComponent } from './cananolab-client/main-display/home/right-side-bar/home-user-actions/login/login.component';
 const routes: Routes = [
-    { path: 'home', loadChildren: () => import('./cananolab-client/main-display/home/home.module').then(m => m.HomeModule) },
+    { path: 'home', component:HomeComponent },
     { path: 'home/logout', loadChildren: () => import('./cananolab-client/main-display/logout/logout.module').then(m => m.LogoutModule) },
-    { path: 'home/login', loadChildren: () => import('./cananolab-client/main-display/home/right-side-bar/home-user-actions/login/login.module').then(m => m.LoginModule) },
+    { path: 'home/login', component:LoginComponent },
 
     { path: 'home/samples', loadChildren: () => import('./cananolab-client/main-display/samples/samples.module').then(m => m.SamplesModule) },
     { path: 'home/samples/sample-search', loadChildren: () => import('./cananolab-client/main-display/samples/general-info/sample-search/sample-search.module').then(m => m.SampleSearchModule) },
