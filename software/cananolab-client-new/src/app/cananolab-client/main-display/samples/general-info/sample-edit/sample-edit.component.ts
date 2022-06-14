@@ -252,7 +252,7 @@ export class SampleEditComponent implements OnInit, OnDestroy{
             data => {
                 this.data=data;
                 this.data.keywords=this.joinKeywords(this.data.keywords);
-                this.dataTrailer=JSON.parse(JSON.stringify(JSON.parse(this.data)));
+                this.dataTrailer=JSON.parse(JSON.stringify(this.data));
                 this.message='Sample Updated'
             },
             ( err ) => {

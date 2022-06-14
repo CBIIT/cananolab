@@ -9,14 +9,12 @@
     </div>
 
     <div *ngIf="searchResults.length">
-
     <span class="ml-2">
         {{searchResults.length}} Item{{(searchResults.length > 1 ? 's' : '')}} found, displaying
         {{(currentPage * pageLength) + 1}}
         -{{ (((currentPage * pageLength) + pageLength) > searchResults.length) ? searchResults.length : (currentPage *
         pageLength) + pageLength }}
     </span>
-
 
     <span class="search-results-pager">
         <!-- Page length number setting  -->

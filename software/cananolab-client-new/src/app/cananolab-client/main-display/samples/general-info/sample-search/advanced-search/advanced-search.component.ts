@@ -236,6 +236,7 @@ export class AdvancedSearchComponent implements OnInit {
     };
 
     reset() {
+        console.log('test')
         this.setupCharacterizationQuery();
         this.setupCompositionQuery();
         this.setupSampleQuery();

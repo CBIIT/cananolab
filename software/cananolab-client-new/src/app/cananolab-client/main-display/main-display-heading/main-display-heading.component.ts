@@ -15,6 +15,8 @@ import { Subject } from 'rxjs';
     templateUrl: './main-display-heading.component.html',
     styleUrls: ['./main-display-heading.component.scss']
 } )
+
+
 export class MainDisplayHeadingComponent implements OnInit, OnDestroy{
     @Input() helpUrl = '';
     @Input() toolHeadingName = '';

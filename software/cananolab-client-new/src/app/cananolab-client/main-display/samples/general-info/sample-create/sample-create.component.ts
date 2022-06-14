@@ -12,6 +12,7 @@ import { ApiService } from 'src/app/cananolab-client/common/services/api.service
 export class SampleCreateComponent implements OnInit{
     currentDropdownValues={};
     data;
+    dataTrailer;
     errors={};
     helpUrl = Consts.HELP_URL_SAMPLE_EDIT;
     pointOfContact;
@@ -25,7 +26,8 @@ export class SampleCreateComponent implements OnInit{
         this.apiService.doGet(Consts.QUERY_SAMPLE_SUBMISSION_SETUP,'').subscribe(data=> {
             this.data=data;
             this.data['sampleId']=0;
-            this.data.pointOfContact={dirty:true,organization:{name:""},address:{},role:""};
+            this.pointOfContact={dirty:true,organization:{name:""},address:{},role:""};
+            this.dataTrailer=JSON.parse(JSON.stringify(this.data));
         },
         errors=> {
             this.errors=errors;
@@ -40,9 +42,13 @@ export class SampleCreateComponent implements OnInit{
         this.pointOfContactIndex=-1;
     }
 
+    reset() {
+        this.data=JSON.parse(JSON.stringify(this.dataTrailer));
+        this.pointOfContact={dirty:true,organization:{name:""},address:{},role:""};
+    }
+
     onSaveSample(){
-        this.data.pointOfContacts.push(this.data.pointOfContact);
-        delete this.data.pointOfContact;
+        this.data.pointOfContacts.push(this.pointOfContact);
         this.apiService.doPost(Consts.QUERY_SAMPLE_POC_UPDATE_SAVE,this.data).subscribe(data=> {
             this.router.navigate(['home/samples/sample',data.sampleId]);
         },

@@ -1,113 +1,63 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { PublicationsComponent } from './cananolab-client/main-display/publications/publications.component';
-import { HomeComponent } from './cananolab-client/main-display/home/home.component';
-import { WorkflowComponent } from './cananolab-client/main-display/workflow/workflow.component';
-import { ProtocolsComponent } from './cananolab-client/main-display/protocols/protocols.component';
-import { SamplesComponent } from './cananolab-client/main-display/samples/samples.component';
-import { MyWorkspaceComponent } from './cananolab-client/main-display/my-workspace/my-workspace.component';
-import { LogoutComponent } from './cananolab-client/main-display/logout/logout.component';
-import { TestComponent } from './cananolab-client/main-display/test/test.component';
-import { CurationComponent } from './cananolab-client/main-display/curation/curation.component';
-import { GroupsComponent } from './cananolab-client/main-display/groups/groups.component';
-import { MyFavoritesComponent } from './cananolab-client/main-display/my-favorites/my-favorites.component';
-import { SearchPublicationComponent } from './cananolab-client/main-display/publications/search-publication/search-publication.component';
-import { SearchSamplesByPublicationComponent } from './cananolab-client/main-display/publications/search-samples-by-publication/search-samples-by-publication.component';
-import { ProtocolSearchComponent } from './cananolab-client/main-display/protocols/protocol-search/protocol-search.component';
-import { ProtocolSearchResultsComponent } from './cananolab-client/main-display/protocols/protocol-search/protocol-search-results/protocol-search-results.component';
-import { ProtocolCreateComponent } from './cananolab-client/main-display/protocols/protocol-create/protocol-create.component';
-import { SampleSearchComponent } from './cananolab-client/main-display/samples/general-info/sample-search/sample-search.component';
-import { SampleCreateComponent } from './cananolab-client/main-display/samples/general-info/sample-create/sample-create.component';
-import { SampleCopyComponent } from './cananolab-client/main-display/samples/general-info/sample-copy/sample-copy.component';
-import { SampleSearchResultsComponent } from './cananolab-client/main-display/samples/general-info/sample-search/sample-search-results/sample-search-results.component';
-import { SampleEditComponent } from './cananolab-client/main-display/samples/general-info/sample-edit/sample-edit.component';
-import { SampleViewComponent } from './cananolab-client/main-display/samples/sample-view/sample-view.component';
-import { CharacterizationComponent } from './cananolab-client/main-display/samples/characterization/characterization.component';
-import { EditcharacterizationComponent } from './cananolab-client/main-display/samples/characterization/editcharacterization/editcharacterization.component';
-import { CompositionComponent } from './cananolab-client/main-display/samples/composition/composition/composition.component';
-import { FunctionalizingentityComponent } from './cananolab-client/main-display/samples/composition/functionalizingentity/functionalizingentity.component';
-import { NanomaterialentityComponent } from './cananolab-client/main-display/samples/composition/nanomaterialentity/nanomaterialentity.component';
-import { CompositionfileComponent } from './cananolab-client/main-display/samples/composition/compositionfile/compositionfile.component';
-import { ChemicalassociationComponent } from './cananolab-client/main-display/samples/composition/chemicalassociation/chemicalassociation.component';
-import { SamplePublicationsComponent } from './cananolab-client/main-display/samples/publications/sample-publications/sample-publications.component';
-import { ProtocolViewComponent } from './cananolab-client/main-display/protocols/protocol-view/protocol-view.component';
-import { EditpublicationComponent } from './cananolab-client/main-display/samples/publications/editpublication/editpublication.component';
-import { SearchpublicationresultsComponent } from './cananolab-client/main-display/publications/search-publication-results/searchpublicationresults/searchpublicationresults.component';
-import { LoginComponent } from './cananolab-client/main-display/home/right-side-bar/home-user-actions/login/login.component';
-import { SearchResultsComponent } from './cananolab-client/main-display/search-results/search-results/search-results.component';
-import { AdvancedSearchComponent } from './cananolab-client/main-display/samples/general-info/sample-search/advanced-search/advanced-search.component';
-import { AdvancedSearchResultsComponent } from './cananolab-client/main-display/samples/general-info/sample-search/advanced-search-results/advanced-search-results.component';
-import { AdminComponent } from './cananolab-client/main-display/admin/admin.component';
 const routes: Routes = [
-    { path: '', component: HomeComponent },
-    { path: 'home', component: HomeComponent },
-    { path: 'home/login', component: LoginComponent },
-    { path: 'home/search-results', component: SearchResultsComponent },
-    { path: 'home/publications', component: PublicationsComponent },
-    { path: 'home/publications/publication-search', component: SearchPublicationComponent },
-    { path: 'home/publications/sample-search-by-publication', component: SearchSamplesByPublicationComponent },
-    { path: 'home/publications/publication-search-results', component: SearchpublicationresultsComponent },
+    { path: 'home', loadChildren: () => import('./cananolab-client/main-display/home/home.module').then(m => m.HomeModule) },
+    { path: 'home/logout', loadChildren: () => import('./cananolab-client/main-display/logout/logout.module').then(m => m.LogoutModule) },
+    { path: 'home/login', loadChildren: () => import('./cananolab-client/main-display/home/right-side-bar/home-user-actions/login/login.module').then(m => m.LoginModule) },
 
-    { path: 'home/protocols/protocol-create', component: ProtocolCreateComponent },
-    { path: 'home/protocols/edit-protocol/:protocolId', component: ProtocolCreateComponent },
-    { path: 'home/protocols/edit-protocol/:protocolId/:message', component: ProtocolCreateComponent },
-    { path: 'home/protocols/protocol-search', component: ProtocolSearchComponent },
-    { path: 'home/protocols/protocol-search-results', component: ProtocolSearchResultsComponent },
-    { path: 'home/protocols/protocolViewComponent', component: ProtocolViewComponent },
-
-    { path: 'home/protocols', component: ProtocolsComponent },
-    { path: 'home/samples', component: SamplesComponent },
-
-    { path: 'home/samples/sample/:sampleId', component: SampleEditComponent },
-    { path: 'home/samples/view-sample/:sampleId', component: SampleViewComponent }, // @TODO Add Composition view here
-    { path: 'home/samples/sample-search', component: SampleSearchComponent },
-    { path: 'home/samples/sample-search-results', component: SampleSearchResultsComponent },
-    { path: 'home/samples/sample-advanced-search-results', component: AdvancedSearchResultsComponent },
-
-    { path: 'home/samples/sample-advanced-search-results/:searchResults', component: AdvancedSearchResultsComponent },
-
-    { path: 'home/samples/sample-advanced-search', component: AdvancedSearchComponent },
-    { path: 'home/samples/sample-create', component: SampleCreateComponent },
-    { path: 'home/samples/sample-copy', component: SampleCopyComponent },
-    { path: 'home/samples/sample-copy/:sampleId', component: SampleCopyComponent },
-    { path: 'home/samples/characterization/:sampleId', component: CharacterizationComponent },
-    { path: 'home/samples/view-characterization/:sampleId', component: CharacterizationComponent },
-    { path: 'home/samples/characterization/edit-characterization/:sampleId/:type', component: EditcharacterizationComponent },
-    { path: 'home/samples/characterization/edit-characterization/:sampleId/:charId/:charClassName/:type', component: EditcharacterizationComponent },
-    { path: 'home/samples/composition/:sampleId', component: CompositionComponent },
-    { path: 'home/samples/view-composition/:sampleId', component: CompositionComponent },
-    { path: 'home/samples/composition/functionalizing-entity/:sampleId/:dataId', component: FunctionalizingentityComponent },
-    { path: 'home/samples/composition/functionalizing-entity/:sampleId', component: FunctionalizingentityComponent },
-    { path: 'home/samples/composition/nanomaterial-entity/:sampleId/:dataId', component: NanomaterialentityComponent },
-    { path: 'home/samples/composition/nanomaterial-entity/:sampleId', component: NanomaterialentityComponent },
-    { path: 'home/samples/composition/composition-file/:sampleId/:dataId', component: CompositionfileComponent },
-    { path: 'home/samples/composition/composition-file/:sampleId', component: CompositionfileComponent },
-    { path: 'home/samples/composition/chemical-association/:sampleId/:dataId', component: ChemicalassociationComponent },
-    { path: 'home/samples/composition/chemical-association/:sampleId', component: ChemicalassociationComponent },
-    { path: 'home/samples/publications/:sampleId', component: SamplePublicationsComponent },
-    { path: 'home/samples/view-publications/:sampleId', component: SamplePublicationsComponent },
-    { path: 'home/samples/publications/publication/:sampleId/:type', component: EditpublicationComponent },
-    { path: 'home/samples/publications/publication/:sampleId/:publicationId/:type', component: EditpublicationComponent },
-    { path: 'home/samples/publications/publication/:publicationId', component: EditpublicationComponent },
-
-    { path: 'home/curation', component: CurationComponent },
-    { path: 'home/curation/review-data', component: CurationComponent },
-    { path: 'home/curation/manage-availability', component: CurationComponent },
-
-    { path: 'home/groups', component: GroupsComponent },
-    { path: 'home/workflow', component: WorkflowComponent },
-    { path: 'home/myworkspace', component: MyWorkspaceComponent },
-    { path: 'home/myfavorites', component: MyFavoritesComponent },
-    { path: 'home/admin', component: AdminComponent },
-    { path: 'home/admin/create-user', component: AdminComponent },
-    { path: 'home/admin/update-user/:username', component: AdminComponent },
-    { path: 'home/admin/search-user', component: AdminComponent },
-    { path: 'home/admin/reset-password/:username', component: AdminComponent },
-
-    // { path: 'home/logout', component: HomeComponent },
-     { path: 'home/logout', component: LogoutComponent },
-
-    { path: 'home/test', component: TestComponent }
+    { path: 'home/samples', loadChildren: () => import('./cananolab-client/main-display/samples/samples.module').then(m => m.SamplesModule) },
+    { path: 'home/samples/sample-search', loadChildren: () => import('./cananolab-client/main-display/samples/general-info/sample-search/sample-search.module').then(m => m.SampleSearchModule) },
+    { path: 'home/samples/sample-search-results', loadChildren: () => import('./cananolab-client/main-display/samples/general-info/sample-search/sample-search-results/sample-search-results.module').then(m => m.SampleSearchResultsModule) },
+    { path: 'home/samples/sample-advanced-search', loadChildren: () => import('./cananolab-client/main-display/samples/general-info/sample-search/advanced-search/advanced-search.module').then(m => m.AdvancedSearchModule) },
+    { path: 'home/samples/sample-advanced-search-results', loadChildren: () => import('./cananolab-client/main-display/samples/general-info/sample-search/advanced-search-results/advanced-search-results.module').then(m => m.AdvnacedSearchResultsModule) },
+    { path: 'home/samples/sample-advanced-search-results/:searchResults', loadChildren: () => import('./cananolab-client/main-display/samples/general-info/sample-search/advanced-search-results/advanced-search-results.module').then(m => m.AdvnacedSearchResultsModule) },
+    { path: 'home/samples/sample-copy', loadChildren: () => import('./cananolab-client/main-display/samples/general-info/sample-copy/sample-copy.module').then(m => m.SampleCopyModule) },
+    { path: 'home/samples/sample-copy/:sampleId', loadChildren: () => import('./cananolab-client/main-display/samples/general-info/sample-copy/sample-copy.module').then(m => m.SampleCopyModule) },
+    { path: 'home/samples/sample/:sampleId', loadChildren: () => import('./cananolab-client/main-display/samples/general-info/sample-edit/sample-edit.module').then(m => m.SampleEditModule) },
+    { path: 'home/samples/sample-create', loadChildren: () => import('./cananolab-client/main-display/samples/general-info/sample-create/sample-create.module').then(m => m.SampleCreateModule) },
+    { path: 'home/publications', loadChildren: () => import('./cananolab-client/main-display/publications/publications.module').then(m => m.PublicationsModule) },
+    { path: 'home/samples/publications/publication/:sampleId/:type', loadChildren: () => import('./cananolab-client/main-display/samples/publications/editpublication/editpublication.module').then(m => m.EditpublicationModule) },
+    { path: 'home/samples/publications/publication/:sampleId/:publicationId/:type', loadChildren: () => import('./cananolab-client/main-display/samples/publications/editpublication/editpublication.module').then(m => m.EditpublicationModule) },
+    { path: 'home/samples/publications/publication/:publicationId', loadChildren: () => import('./cananolab-client/main-display/samples/publications/editpublication/editpublication.module').then(m => m.EditpublicationModule) },
+    { path: 'home/publications/publication-search', loadChildren: () => import('./cananolab-client/main-display/publications/search-publication/search-publication.module').then(m => m.SearchPublicationModule) },
+    { path: 'home/publications/publication-search-results', loadChildren: () => import('./cananolab-client/main-display/publications/search-publication-results/searchpublicationresults/searchpublicationresults.module').then(m => m.SearchpublicationresultsModule) },
+    { path: 'home/publications/sample-search-by-publication', loadChildren: () => import('./cananolab-client/main-display/publications/search-samples-by-publication/search-samples-by-publication.module').then(m => m.SearchSamplesByPublicationModule) },
+    { path: 'home/protocols', loadChildren: () => import('./cananolab-client/main-display/protocols/protocols.module').then(m => m.ProtocolsModule) },
+    { path: 'home/protocols/protocol-create', loadChildren: () => import('./cananolab-client/main-display/protocols/protocol-create/protocol-create.module').then(m => m.ProtocolCreateModule) },
+    { path: 'home/protocols/edit-protocol/:protocolId', loadChildren: () => import('./cananolab-client/main-display/protocols/protocol-create/protocol-create.module').then(m => m.ProtocolCreateModule) },
+    { path: 'home/protocols/edit-protocol/:protocolId/:message', loadChildren: () => import('./cananolab-client/main-display/protocols/protocol-create/protocol-create.module').then(m => m.ProtocolCreateModule) },
+    { path: 'home/protocols/protocol-search', loadChildren: () => import('./cananolab-client/main-display/protocols/protocol-search/protocol-search.module').then(m => m.ProtocolSearchModule) },
+    { path: 'home/protocols/protocol-search-results', loadChildren: () => import('./cananolab-client/main-display/protocols/protocol-search/protocol-search-results/protocol-search-results.module').then(m => m.ProtocolSearchResultsModule) },
+    { path: 'home/search-results', loadChildren: () => import('./cananolab-client/main-display/search-results/search-results/search-results.module').then(m => m.SearchResultsModule) },
+    { path: 'home/groups', loadChildren: () => import('./cananolab-client/main-display/groups/groups.module').then(m => m.GroupsModule) },
+    { path: 'home/curation', loadChildren: () => import('./cananolab-client/main-display/curation/curation.module').then(m => m.CurationModule) },
+    { path: 'home/curation/review-data', loadChildren: () => import('./cananolab-client/main-display/curation/curation.module').then(m => m.CurationModule) },
+    { path: 'home/curation/manage-availability', loadChildren: () => import('./cananolab-client/main-display/curation/curation.module').then(m => m.CurationModule) },
+    { path: 'home/workflow', loadChildren: () => import('./cananolab-client/main-display/workflow/workflow.module').then(m => m.WorkflowModule) },
+    { path: 'home/myworkspace', loadChildren: () => import('./cananolab-client/main-display/my-workspace/my-workspace.module').then(m => m.MyWorkspaceModule) },
+    { path: 'home/myfavorites', loadChildren: () => import('./cananolab-client/main-display/my-favorites/my-favorites.module').then(m => m.MyFavoritesModule) },
+    { path: 'home/admin', loadChildren: () => import('./cananolab-client/main-display/admin/admin.module').then(m => m.AdminModule) },
+    { path: 'home/admin/create-user', loadChildren: () => import('./cananolab-client/main-display/admin/admin.module').then(m => m.AdminModule) },
+    { path: 'home/admin/update-user/:username', loadChildren: () => import('./cananolab-client/main-display/admin/admin.module').then(m => m.AdminModule) },
+    { path: 'home/admin/search-user', loadChildren: () => import('./cananolab-client/main-display/admin/admin.module').then(m => m.AdminModule) },
+    { path: 'home/admin/reset-password/:username', loadChildren: () => import('./cananolab-client/main-display/admin/admin.module').then(m => m.AdminModule) },
+    { path: 'home/samples/composition/:sampleId', loadChildren: () => import('./cananolab-client/main-display/samples/composition/composition/composition.module').then(m => m.CompositionModule) },
+    { path: 'home/samples/view-composition/:sampleId', loadChildren: () => import('./cananolab-client/main-display/samples/composition/composition/composition.module').then(m => m.CompositionModule) },
+    { path: 'home/samples/composition/composition-file/:sampleId/:dataId', loadChildren: () => import('./cananolab-client/main-display/samples/composition/compositionfile/compositionfile.module').then(m => m.CompositionfileModule) },
+    { path: 'home/samples/composition/composition-file/:sampleId', loadChildren: () => import('./cananolab-client/main-display/samples/composition/compositionfile/compositionfile.module').then(m => m.CompositionfileModule) },
+    { path: 'home/samples/composition/functionalizing-entity/:sampleId/:dataId', loadChildren: () => import('./cananolab-client/main-display/samples/composition/functionalizingentity/functionalizingentity.module').then(m => m.FunctionalizingentityModule) },
+    { path: 'home/samples/composition/functionalizing-entity/:sampleId', loadChildren: () => import('./cananolab-client/main-display/samples/composition/functionalizingentity/functionalizingentity.module').then(m => m.FunctionalizingentityModule) },
+    { path: 'home/samples/composition/nanomaterial-entity/:sampleId/:dataId', loadChildren: () => import('./cananolab-client/main-display/samples/composition/nanomaterialentity/nanomaterialentity.module').then(m => m.NanomaterialentityModule) },
+    { path: 'home/samples/composition/nanomaterial-entity/:sampleId', loadChildren: () => import('./cananolab-client/main-display/samples/composition/nanomaterialentity/nanomaterialentity.module').then(m => m.NanomaterialentityModule) },
+    { path: 'home/samples/composition/chemical-association/:sampleId/:dataId', loadChildren: () => import('./cananolab-client/main-display/samples/composition/chemicalassociation/chemicalassociation.module').then(m => m.ChemicalassociationModule) },
+    { path: 'home/samples/composition/chemical-association/:sampleId', loadChildren: () => import('./cananolab-client/main-display/samples/composition/chemicalassociation/chemicalassociation.module').then(m => m.ChemicalassociationModule) },
+    { path: 'home/samples/characterization/:sampleId', loadChildren: () => import('./cananolab-client/main-display/samples/characterization/characterization.module').then(m => m.CharacterizationModule) },
+    { path: 'home/samples/view-characterization/:sampleId', loadChildren: () => import('./cananolab-client/main-display/samples/characterization/characterization.module').then(m => m.CharacterizationModule) },
+    { path: 'home/samples/characterization/edit-characterization/:sampleId/:type', loadChildren: () => import('./cananolab-client/main-display/samples/characterization/editcharacterization/editcharacterization.module').then(m => m.EditcharacterizationModule) },
+    { path: 'home/samples/characterization/edit-characterization/:sampleId/:charId/:charClassName/:type', loadChildren: () => import('./cananolab-client/main-display/samples/characterization/editcharacterization/editcharacterization.module').then(m => m.EditcharacterizationModule) },
+    { path: 'home/samples/publications/:sampleId', loadChildren: () => import('./cananolab-client/main-display/samples/publications/sample-publications/sample-publications.module').then(m => m.SamplePublicationsModule) },
+    { path: 'home/samples/view-publications/:sampleId', loadChildren: () => import('./cananolab-client/main-display/samples/publications/sample-publications/sample-publications.module').then(m => m.SamplePublicationsModule) },
+    { path: 'home/samples/view-sample/:sampleId', loadChildren: () => import('./cananolab-client/main-display/samples/sample-view/sample-view.module').then(m => m.SampleViewModule) },
 ];
 
 @NgModule({

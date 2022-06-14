@@ -31,39 +31,39 @@
                             <table class="dataMain">
                                 <tr>
                                     <td class="label">
-                                        <label for="data.pointOfContact.organization.name">
+                                        <label for="pointOfContact.organization.name">
                                             Organization Name*
                                         </label>
                                     </td>
                                     <td>
-                                        <select (ngModelChange)="addOtherValue('data.pointOfContact.organization.name',data.pointOfContact.organization.name)" name="data.pointOfContact.organization.name" id="data.pointOfContact.organization.name" [(ngModel)]="data.pointOfContact.organization.name">
+                                        <select (ngModelChange)="addOtherValue('pointOfContact.organization.name',pointOfContact.organization.name)" name="pointOfContact.organization.name" id="pointOfContact.organization.name" [(ngModel)]="pointOfContact.organization.name">
                                             <option [ngValue]="''">--Select--</option>
                                             <option *ngFor="let org of data.organizationNamesForUser" [ngValue]="org">
                                                 {{org}}
                                             </option>
                                             <option>other</option>
                                         </select>
-                                        <div *ngIf="data.pointOfContact.organization.name ==='other'">
-                                            <canano-other-dropdown (saveOther)="saveOther($event)" [label]="'Organization Name'" [value]="currentDropdownValues['data.pointOfContact.organization.name']" [field]="'data.pointOfContact.organization.name'" [array]="'data.organizationNamesForUser'">
+                                        <div *ngIf="pointOfContact.organization.name ==='other'">
+                                            <canano-other-dropdown (saveOther)="saveOther($event)" [label]="'Organization Name'" [value]="currentDropdownValues['pointOfContact.organization.name']" [field]="'pointOfContact.organization.name'" [array]="'data.organizationNamesForUser'">
 
                                             </canano-other-dropdown>
                                         </div>
                                     </td>
                                     <td class="label">
-                                        <label for="data.pointOfContact.role">
+                                        <label for="pointOfContact.role">
                                             Role
                                         </label>
                                     </td>
                                     <td colspan="3">
-                                        <select (ngModelChange)="addOtherValue('data.pointOfContact.role',data.pointOfContact.role)" name="data.pointOfContact.role" id="data.pointOfContact.role" [(ngModel)]="data.pointOfContact['role']">
+                                        <select (ngModelChange)="addOtherValue('pointOfContact.role',pointOfContact.role)" name="pointOfContact.role" id="pointOfContact.role" [(ngModel)]="pointOfContact['role']">
                                             <option [ngValue]="''">--Select--</option>
                                             <option *ngFor="let role of data.contactRoles" [ngValue]="role">
                                                 {{role}}
                                             </option>
                                             <option>other</option>
                                         </select>
-                                        <div *ngIf="data.pointOfContact.role ==='other'">
-                                            <canano-other-dropdown (saveOther)="saveOther($event)" [label]="'Role'" [value]="currentDropdownValues['data.pointOfContact.role']" [field]="'data.pointOfContact.role'" [array]="'data.contactRoles'">
+                                        <div *ngIf="pointOfContact.role ==='other'">
+                                            <canano-other-dropdown (saveOther)="saveOther($event)" [label]="'Role'" [value]="currentDropdownValues['pointOfContact.role']" [field]="'pointOfContact.role'" [array]="'data.contactRoles'">
 
                                             </canano-other-dropdown>
                                         </div>
@@ -71,102 +71,102 @@
                                 </tr>
                                 <tr>
                                     <td class="label">
-                                        <label for="data.pointOfContact.firstName">
+                                        <label for="pointOfContact.firstName">
                                             First Name
                                         </label>
                                     </td>
                                     <td>
-                                        <input type="text" name="data.pointOfContact.firstName" id="data.pointOfContact.firstName" [(ngModel)]="data.pointOfContact.firstName">
+                                        <input type="text" name="pointOfContact.firstName" id="pointOfContact.firstName" [(ngModel)]="pointOfContact.firstName">
                                     </td>
                                     <td class="label">
-                                        <label for="data.pointOfContact.middleInitial">
+                                        <label for="pointOfContact.middleInitial">
                                             Middle Initial
                                         </label>
                                     </td>
                                     <td>
-                                        <input type="text" name="data.pointOfContact.middleInitial" id="data.pointOfContact.middleInitial" [(ngModel)]="data.pointOfContact.middleInitial" size="4">
+                                        <input type="text" name="pointOfContact.middleInitial" id="pointOfContact.middleInitial" [(ngModel)]="pointOfContact.middleInitial" size="4">
                                     </td>
                                     <td class="label">
-                                        <label for="data.pointOfContact.lastName">
+                                        <label for="pointOfContact.lastName">
                                             Last Name
                                         </label>
                                     </td>
                                     <td>
-                                        <input type="text" name="data.pointOfContact.lastName" id="data.pointOfContact.lastName" [(ngModel)]="data.pointOfContact.lastName">
+                                        <input type="text" name="pointOfContact.lastName" id="pointOfContact.lastName" [(ngModel)]="pointOfContact.lastName">
                                     </td>
                                 </tr>
                                 <tr>
                                     <td class="label">
-                                        <label for="data.pointOfContact.phoneNumber">
+                                        <label for="pointOfContact.phoneNumber">
                                             Phone Number
                                         </label>
                                     </td>
                                     <td>
-                                        <input type="text" name="data.pointOfContact.phoneNumber" id="data.pointOfContact.phoneNumber" [(ngModel)]="data.pointOfContact.phoneNumber">
+                                        <input type="text" name="pointOfContact.phoneNumber" id="pointOfContact.phoneNumber" [(ngModel)]="pointOfContact.phoneNumber">
                                     </td>
                                     <td class="label">
-                                        <label for="data.pointOfContact.email">
+                                        <label for="pointOfContact.email">
                                             Email
                                         </label>
                                     </td>
                                     <td colspan="3">
-                                        <input type="text" name="data.pointOfContact.email" id="data.pointOfContact.email" [(ngModel)]="data.pointOfContact.email">
+                                        <input type="text" name="pointOfContact.email" id="pointOfContact.email" [(ngModel)]="pointOfContact.email">
                                     </td>
                                 </tr>
                                 <tr>
                                     <td class="label">
-                                        <label for="data.pointOfContact.address.line1">
+                                        <label for="pointOfContact.address.line1">
                                             Address Line 1
                                         </label>
                                     </td>
                                     <td colspan="5">
-                                        <input type="text" name="data.pointOfContact.address.line1" id="data.pointOfContact.address.line1" [(ngModel)]="data.pointOfContact.address.line1">
+                                        <input type="text" name="pointOfContact.address.line1" id="pointOfContact.address.line1" [(ngModel)]="pointOfContact.address.line1">
                                     </td>
                                 </tr>
                                 <tr>
                                     <td class="label">
-                                        <label for="data.pointOfContact.address.line2">
+                                        <label for="pointOfContact.address.line2">
                                             Address Line 2
                                         </label>
                                     </td>
                                     <td colspan="5">
-                                        <input type="text" name="data.pointOfContact.address.line2" id="data.pointOfContact.address.line2" [(ngModel)]="data.pointOfContact.address.line2">
+                                        <input type="text" name="pointOfContact.address.line2" id="pointOfContact.address.line2" [(ngModel)]="pointOfContact.address.line2">
                                     </td>
                                 </tr>
                                 <tr>
                                     <td class="label">
-                                        <label for="data.pointOfContact.address.city">
+                                        <label for="pointOfContact.address.city">
                                             City
                                         </label>
                                     </td>
                                     <td>
-                                        <input type="text" name="data.pointOfContact.address.city" id="data.pointOfContact.address.city" [(ngModel)]="data.pointOfContact.address.city">
+                                        <input type="text" name="pointOfContact.address.city" id="pointOfContact.address.city" [(ngModel)]="pointOfContact.address.city">
                                     </td>
                                     <td class="label">
-                                        <label for="data.pointOfContact.address.stateProvince">
+                                        <label for="pointOfContact.address.stateProvince">
                                             State
                                         </label>
                                     </td>
                                     <td>
-                                        <input type="text" name="data.pointOfContact.address.stateProvince" id="data.pointOfContact.address.stateProvince" [(ngModel)]="data.pointOfContact.address.stateProvince">
+                                        <input type="text" name="pointOfContact.address.stateProvince" id="pointOfContact.address.stateProvince" [(ngModel)]="pointOfContact.address.stateProvince">
                                     </td>
                                     <td class="label">
-                                        <label for="data.pointOfContact.address.zip">
+                                        <label for="pointOfContact.address.zip">
                                             Zip/Postal Code
                                         </label>
                                     </td>
                                     <td>
-                                        <input type="text" name="data.pointOfContact.address.zip" id="data.pointOfContact.address.zip" [(ngModel)]="data.pointOfContact.address.zip" size="10">
+                                        <input type="text" name="pointOfContact.address.zip" id="pointOfContact.address.zip" [(ngModel)]="pointOfContact.address.zip" size="10">
                                     </td>
                                 </tr>
                                 <tr>
                                     <td class="label">
-                                        <label for="data.pointOfContact.address.country">
+                                        <label for="pointOfContact.address.country">
                                             Country
                                         </label>
                                     </td>
                                     <td colspan="5">
-                                        <input type="text" name="data.pointOfContact.address.country" id="data.pointOfContact.address.country" [(ngModel)]="data.pointOfContact.address.country">
+                                        <input type="text" name="pointOfContact.address.country" id="pointOfContact.address.country" [(ngModel)]="pointOfContact.address.country">
                                     </td>
                                 </tr>
                             </table>
@@ -181,8 +181,8 @@
             <table class="submit">
                 <tr>
                     <td>
-                        <button class="btn-canano btn-canano-danger btn-canano-lg mr-1">Reset</button>
-                        <button [disabled]="data.sampleName==''||data.pointOfContact.name==''||data.pointOfContact.role==''" (click)="onSaveSample()" class="btn-canano btn-canano-primary btn-canano-lg mr-1">Save</button>
+                        <button (click)="reset()" class="btn-canano btn-canano-danger btn-canano-lg mr-1">Reset</button>
+                        <button [disabled]="data.sampleName==''||pointOfContact.name==''||pointOfContact.role==''" (click)="onSaveSample()" class="btn-canano btn-canano-primary btn-canano-lg mr-1">Save</button>
                     </td>
                 </tr>
             </table>
