@@ -39,20 +39,48 @@
                         {{results.type}} ID:{{results.id}}
                     </a>
 
-                    <a *ngIf="results.type=='DOI'" [href]="'http://www.ncbi.nlm.ns'+results.id" target="_blank">
+                    <a *ngIf="results.type=='DOI'" [href]="consts.QUERY_PUBLICATION_DOWNLOAD_FILE + results.externalUrl" target="_blank">
                         {{results.type}} ID:{{results.id}}
                     </a>
                 </td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
+                <td>
+                    {{results.authors}}
+                </td>
+                <td>
+                    {{results.title}}
+                </td>
+                <td>
+                    Samples curated in caNanoLab:
+                    <div *ngFor="let sample of results['samples'] | keyvalue">
+                        <a [routerLink]="['/home/samples/view-composition',sample['key']]" routerLinkActive="router-link-active" >
+                            {{sample['value']}}
+                        </a>
+                    </div>
+                </td>
+                <td>
+                    Samples curated in caNanoLab:
+                    <div *ngFor="let sample of results['samples'] | keyvalue">
+                        <a [routerLink]="['/home/samples/view-characterization',sample['key']]" routerLinkActive="router-link-active" >
+                            {{sample['value']}}
+                        </a>
+                    </div>
+                </td>
+                <td>
+                    {{results.journal}}
+                </td>
+                <td>
+                    {{results.year}}
+                </td>
+                <td>
+                    {{results.volumn}}
+                </td>
+            </tr>
+            <tr>
+                <td colspan="8">
+                    {{results.description}}
+                </td>
             </tr>
         </table>
-        {{results|json}}
     </div>
 </div>
 

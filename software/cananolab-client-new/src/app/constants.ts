@@ -77,6 +77,7 @@ export const Consts = {
     QUERY_GET_PROTOCOL: 'caNanoLab/rest/protocol/getProtocol',
     QUERY_PROTOCOL_DELETE_ACCESS: 'caNanoLab/rest/protocol/deleteAccess',
     QUERY_DOWNLOAD_FILE: 'caNanoLab/rest/protocol/download',
+    QUERY_PUBLICATION_DOWNLOAD_FILE:'caNanoLab/',
     QUERY_PUBLICATION_SETUP: 'caNanoLab/rest/publication/setup',
     QUERY_PUBLICATION_SAVE: 'caNanoLab/rest/publication/submitPublication',
     QUERY_PUBLICATION_SEARCH: 'caNanoLab/rest/publication/searchPublication',

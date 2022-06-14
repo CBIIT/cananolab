@@ -4,6 +4,7 @@ import { EditpublicationComponent } from './editpublication.component';
 import { EditpublicationRoutingModule } from './editpublication-routing.module';
 import { SharedModule } from '../../../../common/modules/set-object-value/shared.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { OtherDropdownModule } from 'src/app/cananolab-client/common/components/other-dropdown/other-dropdown.module';
 @NgModule({
     declarations: [EditpublicationComponent],
     imports: [
@@ -11,7 +12,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
       EditpublicationRoutingModule,
       SharedModule,
       FormsModule,
-      ReactiveFormsModule
+      ReactiveFormsModule,
+      OtherDropdownModule
     ]
   })
   export class EditpublicationModule { }

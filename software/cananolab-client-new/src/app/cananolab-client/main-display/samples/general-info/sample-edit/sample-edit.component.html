@@ -93,6 +93,7 @@
                                     </label>
                                 </td>
                                 <td>
+
                                     <select (ngModelChange)="addOtherValue('pointOfContact.organization.name',pointOfContact.organization.name)" name="pointOfContact.organization.name" id="pointOfContact.organization.name" [(ngModel)]="pointOfContact.organization.name">
                                         <option [ngValue]="''">--Select--</option>
                                         <option *ngFor="let org of data.organizationNamesForUser" [ngValue]="org">

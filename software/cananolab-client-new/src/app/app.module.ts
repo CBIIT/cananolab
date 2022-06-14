@@ -19,11 +19,11 @@ import { LeftStaticMenuComponent } from './cananolab-client/left-static-menu/lef
 import { NgModule } from '@angular/core';
 import { RightSideBarComponent } from './cananolab-client/main-display/home/right-side-bar/right-side-bar.component';
 import { SetObjectValueModule } from './cananolab-client/common/modules/set-object-value/set-object-value.module';
-import { SharedModule } from './cananolab-client/common/modules/set-object-value/shared.module';
 import { StatusDisplayComponent } from './cananolab-client/status-display/status-display.component';
 import { TopKeywordSearchComponent } from './cananolab-client/header/top-keyword-search/top-keyword-search.component';
 import { TopMainMenuComponent } from './cananolab-client/top-main-menu/top-main-menu.component';
 import { LoginComponent } from './cananolab-client/main-display/home/right-side-bar/home-user-actions/login/login.component';
+
 
 @NgModule({
   declarations: [
@@ -45,7 +45,7 @@ import { LoginComponent } from './cananolab-client/main-display/home/right-side-
     RightSideBarComponent,
     StatusDisplayComponent,
     TopKeywordSearchComponent,
-    TopMainMenuComponent
+    TopMainMenuComponent,
   ],
     imports: [
         AppRoutingModule,
@@ -54,7 +54,6 @@ import { LoginComponent } from './cananolab-client/main-display/home/right-side-
         HttpClientModule,
         ReactiveFormsModule,
         SetObjectValueModule,
-        SharedModule
     ],
   providers: [{provide: LocationStrategy, useClass: HashLocationStrategy}],
   bootstrap: [AppComponent]

@@ -4,6 +4,7 @@ import { SampleEditComponent } from './sample-edit.component';
 import { SampleEditRoutingModule } from './sample-edit-routing.module';
 import { SharedModule } from '../../../../common/modules/set-object-value/shared.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { OtherDropdownModule } from 'src/app/cananolab-client/common/components/other-dropdown/other-dropdown.module';
 
 
 @NgModule({
@@ -13,7 +14,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
       SampleEditRoutingModule,
       SharedModule,
       FormsModule,
-      ReactiveFormsModule
+      ReactiveFormsModule,
+      OtherDropdownModule
     ]
   })
   export class SampleEditModule { }

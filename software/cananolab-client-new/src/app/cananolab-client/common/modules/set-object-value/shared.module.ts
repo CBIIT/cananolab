@@ -8,7 +8,7 @@ const COMPONENT=[
     MainDisplayHeadingComponent,
     LoaderComponent,
     SampleAvailabilityDisplayComponent,
-    SearchResultsPagerComponent
+    SearchResultsPagerComponent,
 ]
 
 @NgModule({
