@@ -58,6 +58,9 @@ export class CananolabClientComponent implements OnInit{
                 this.apiService.getTabs().subscribe(data=> {
                         data['tabs'].forEach(element => {
                             this.menuItems.push(element[0].replace(' ','_'))
+                            if (element[0]=='CURATION') {
+                                this.menuItems.push('RESULTS');
+                            }
                         });
                         this.topMainMenuService.showOnlyMenuItems(
                             this.menuItems

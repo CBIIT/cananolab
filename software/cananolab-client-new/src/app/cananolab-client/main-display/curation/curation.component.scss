@@ -3,3 +3,11 @@
 .message{
     color:red;
 }
+
+.dataTable th:first-child{
+    width:25% !important
+}
+
+.dataTable th:last-child{
+    width:75% !important
+}

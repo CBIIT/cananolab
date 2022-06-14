@@ -35,6 +35,7 @@ const routes: Routes = [
     { path: 'home/curation', loadChildren: () => import('./cananolab-client/main-display/curation/curation.module').then(m => m.CurationModule) },
     { path: 'home/curation/review-data', loadChildren: () => import('./cananolab-client/main-display/curation/curation.module').then(m => m.CurationModule) },
     { path: 'home/curation/manage-availability', loadChildren: () => import('./cananolab-client/main-display/curation/curation.module').then(m => m.CurationModule) },
+    { path: 'home/curation/results', loadChildren: () => import('./cananolab-client/main-display/curation/curation.module').then(m => m.CurationModule) },
     { path: 'home/workflow', loadChildren: () => import('./cananolab-client/main-display/workflow/workflow.module').then(m => m.WorkflowModule) },
     { path: 'home/myworkspace', loadChildren: () => import('./cananolab-client/main-display/my-workspace/my-workspace.module').then(m => m.MyWorkspaceModule) },
     { path: 'home/myfavorites', loadChildren: () => import('./cananolab-client/main-display/my-favorites/my-favorites.module').then(m => m.MyFavoritesModule) },

@@ -14,6 +14,7 @@ export const Consts = {
     QUERY_ADMIN_USER_READ: 'caNanoLab/rest/useraccount/read',
     QUERY_ADMIN_USER_UPDATE: 'caNanoLab/rest/useraccount/update',
     QUERY_CURATION_REVIEW_DATA: 'caNanoLab/rest/curation/reviewData',
+    QUERY_CURATION_RESULTS: 'caNanoLab/rest/curation/manageResult',
     QUERY_CURATION_GENERATE_BATCH_AVAILABILITY: 'caNanoLab/rest/curation/generateBatchDataAvailability',
     QUERY_COLLABORATION_GET_GROUPS: 'caNanoLab/rest/community/getCollaborationGroups',
     QUERY_COLLABORATION_SETUP_NEW: 'caNanoLab/rest/community/setupNew',

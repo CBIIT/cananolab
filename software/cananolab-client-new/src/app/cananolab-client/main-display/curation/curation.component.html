@@ -101,5 +101,31 @@
             </table>
         </div>
     </ng-container>
+
+
+    <ng-container *ngIf="currentUrl=='results'">
+        <div class="message" *ngIf="message!=''">
+            {{message}}
+        </div>
+        <div class="mainBorder">
+            <table class="dataTable" *ngIf="currationResults">
+                <tr>
+                    <th>Process Type</th>
+                    <th>Process Status</th>
+                </tr>
+                <tr *ngFor="let result of currationResults">
+                    <td>
+                        {{result.processType}}
+                    </td>
+                    <td>
+                        {{result.statusMessage}}
+                    </td>
+                </tr>
+            </table>
+            <span *ngIf="!currationResults">
+                There are currently no pending long running processes or pending results to view.
+            </span>
+        </div>
+    </ng-container>
 </div>
 

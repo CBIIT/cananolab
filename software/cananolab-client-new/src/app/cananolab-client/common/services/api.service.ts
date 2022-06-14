@@ -307,7 +307,11 @@ export class ApiService{
                     let tabs=[];
                     this.getTabs().subscribe(data=> {
                         data['tabs'].forEach(element => {
-                            tabs.push(element[0].replace(' ','_'))
+                            console.log(element[0])
+                            tabs.push(element[0].replace(' ','_'));
+                            if (element[0]=='CURATION') {
+                                tabs.push('RESULTS')
+                            }
                         });
                         this.topMainMenuService.showOnlyMenuItems(tabs);
                         this.currentlyAuthenticatingUser = false;

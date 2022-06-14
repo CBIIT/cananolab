@@ -12,6 +12,7 @@ export class CurationComponent implements OnInit {
     data;
     errors={};
     message='';
+    currationResults;
     currentUrl = 'curation';
     generateOptions={option:""};
     helpUrl='https://wiki.nci.nih.gov/display/caNanoLab/Managing+Data+Curation';
@@ -40,6 +41,13 @@ export class CurationComponent implements OnInit {
             })
         }
 
+        if (this.router.url.includes('results')) {
+            this.currentUrl = 'results';
+            this.helpUrl='https://wiki.nci.nih.gov/display/caNanoLab/Managing+Data+Curation';
+            this.toolHeadingNameManage='Long Running Processes';
+            this.getCurationResults();
+        }
+
         let generateUrl=this.apiService.doPost(Consts.QUERY_CURATION_GENERATE_BATCH_AVAILABILITY,this.generateOptions);
 
 
@@ -65,6 +73,12 @@ export class CurationComponent implements OnInit {
         let url = this.apiService.doPost(Consts.QUERY_CURATION_GENERATE_BATCH_AVAILABILITY,this.generateOptions);
         url.subscribe(data=> {
             this.message=data;
+        })
+    }
+
+    getCurationResults() {
+        this.apiService.doGet(Consts.QUERY_CURATION_RESULTS,'').subscribe(data=> {
+            this.currationResults=data;
         })
     }
 }

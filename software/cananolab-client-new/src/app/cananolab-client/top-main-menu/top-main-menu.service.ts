@@ -25,6 +25,7 @@ export let TopMenuItems = {
     SEARCH_SAMPLES_BY_PUBLICATIONS: 'Search for Samples by Publication',
     GROUPS: 'Groups',
     CURATION: 'Curation',
+    RESULTS: 'Results',
     MY_WORKSPACE: 'My Workspace',
     MY_FAVORITES: 'My Favorites',
     ADMIN: 'ADMIN',
@@ -90,6 +91,11 @@ export let TopMenuData = [
         'name': 'CURATION',
         'displayName': 'Curation',
         'route': 'home/curation'
+    },
+    {
+        'name': 'RESULTS',
+        'displayName': 'Results',
+        'route': 'home/curation/results'
     },
     {
         'name': 'MY_WORKSPACE',
