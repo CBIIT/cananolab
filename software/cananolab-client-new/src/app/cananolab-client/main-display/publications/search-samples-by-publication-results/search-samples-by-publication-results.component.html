@@ -1,0 +1,58 @@
+<canano-main-display-heading
+    [helpUrl]="'https://wiki.nci.nih.gov/display/caNanoLab/Managing+Publications+in+caNanoLab#ManagingPublicationsincaNanoLab-SearchSamplesbyPublications'"
+    [toolHeadingName]="'Sample Information by Publication'"
+>
+</canano-main-display-heading>
+
+<div class="mainSection">
+    <div class="mainBorder">
+        <table class="dataTable" *ngIf="results">
+            <tr>
+                <th>
+                    Publication REF
+                </th>
+                <th>
+                    Authors
+                </th>
+                <th>
+                    Title
+                </th>
+                <th>
+                    Sample Composition
+                </th>
+                <th>
+                    Sample Characterization
+                </th>
+                <th>
+                    Journal
+                </th>
+                <th>
+                    Year
+                </th>
+                <th>
+                    Vol(lss)Pg
+                </th>
+            </tr>
+            <tr>
+                <td>
+                    <a *ngIf="results.type=='PubMed'" [href]="'http://www.ncbi.nlm.nih.gov/pubmed/'+results.id" target="_blank">
+                        {{results.type}} ID:{{results.id}}
+                    </a>
+
+                    <a *ngIf="results.type=='DOI'" [href]="'http://www.ncbi.nlm.ns'+results.id" target="_blank">
+                        {{results.type}} ID:{{results.id}}
+                    </a>
+                </td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+        </table>
+        {{results|json}}
+    </div>
+</div>
+

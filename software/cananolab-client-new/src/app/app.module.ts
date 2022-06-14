@@ -45,7 +45,7 @@ import { LoginComponent } from './cananolab-client/main-display/home/right-side-
     RightSideBarComponent,
     StatusDisplayComponent,
     TopKeywordSearchComponent,
-    TopMainMenuComponent,
+    TopMainMenuComponent
   ],
     imports: [
         AppRoutingModule,
