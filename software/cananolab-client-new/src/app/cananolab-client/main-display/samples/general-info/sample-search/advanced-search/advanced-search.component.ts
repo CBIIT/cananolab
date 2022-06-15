@@ -23,12 +23,15 @@ export class AdvancedSearchComponent implements OnInit {
         compositionQuery;
         errors={};
         loading;
+        loadingMessage=Consts.searchingMessage;
         query={};
         sampleEditIndex;
         sampleQuery;
         setupData={};
 
     ngOnInit(): void {
+        this.loading=true;
+        this.loadingMessage=Consts.loadingMessage;
         this.apiService.doGet(Consts.QUERY_SAMPLE_ADVANCED_SEARCH_SETUP,'').subscribe(data=> {
             this.setupData=data;
             this.setupData['characterizationDatumNames']=[];
@@ -36,6 +39,10 @@ export class AdvancedSearchComponent implements OnInit {
             this.setupData['characterizationNames']=[];
             this.setupData['compositionEntityTypes']=[];
             this.setupData['loaded']=true;
+            this.loading=null;
+            },
+            error=> {
+                this.loading=null;
             });
         this.setupQueries(); // sets up main query //
     }
@@ -269,6 +276,7 @@ export class AdvancedSearchComponent implements OnInit {
     }
     search() {
         this.loading=true;
+        this.loadingMessage=Consts.searchingMessage;
         this.apiService.doPost(Consts.QUERY_SAMPLE_ADVANCED_SEARCH,this.query).subscribe(data=> {
             this.advancedSearchService.setAdvancedSearchResults(data);
             this.router.navigate(['home/samples/sample-advanced-search-results'])

@@ -1,12 +1,15 @@
 export const Consts = {
 
-    LOGIN_URL: 'caNanoLab/login',
-    QUERY_LOGOUT: 'caNanoLab/logout',
+
     waitTime: 11,
     timeoutWarning: 300,
     sessionTimeInSeconds: 1800,
-
+    loadingMessage:'Loading Data',
+    searchingMessage:'Searching',
+    serverlUrl:'/caNanoLab',
     // For each rest service
+    LOGIN_URL: 'caNanoLab/login',
+    QUERY_LOGOUT: 'caNanoLab/logout',
     QUERY_GET_TABS: 'caNanoLab/rest/core/getTabs',
     QUERY_ADMIN_SEARCH_USERS: 'caNanoLab/rest/useraccount/search',
     QUERY_ADMIN_RESET_PASSWORD: 'caNanoLab/rest/useraccount/resetpwd',

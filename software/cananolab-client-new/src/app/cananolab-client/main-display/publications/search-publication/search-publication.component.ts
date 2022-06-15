@@ -15,6 +15,7 @@ export class SearchPublicationComponent implements OnInit {
     errors;
     helpUrl;
     loading;
+    loadingMessage=Consts.searchingMessage;
     toolHeadingNameManage;
     setupData:any={
         publicationResearchAreas:[],
@@ -47,12 +48,16 @@ export class SearchPublicationComponent implements OnInit {
     }
 
     getSetupData() {
+        this.loading=true;
+        this.loadingMessage=Consts.loadingMessage;
         let url = this.apiService.doGet(Consts.QUERY_PUBLICATION_SETUP,'')
         url.subscribe(data=> {
             this.setupData=data;
             this.errors={};
+            this.loading=null;
         },
         errors=> {
+            this.loading=null;
             this.errors=errors;
         })
     }
@@ -63,6 +68,7 @@ export class SearchPublicationComponent implements OnInit {
 
     searchPublication() {
         this.loading=true;
+        this.loadingMessage=Consts.searchingMessage;
         this.apiService.doPost(Consts.QUERY_PUBLICATION_SEARCH,this.data).subscribe(data=> {
             this.errors={};
             this.searchPublicationService.setPublicationSearchResults(data);

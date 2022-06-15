@@ -19,6 +19,7 @@ export class ProtocolSearchComponent implements OnInit, OnDestroy{
      * For canano-main-display-heading @Input()
      */
     loading;
+    loadingMessage=Consts.searchingMessage;
     helpUrl = Consts.HELP_URL_PROTOCOL_SEARCH;
     helpUrlSearchResults = Consts.HELP_URL_PROTOCOL_SEARCH_RESULTS;
     toolHeadingName = 'Protocol Search';
@@ -67,25 +68,6 @@ export class ProtocolSearchComponent implements OnInit, OnDestroy{
         };
         this.initData=JSON.parse(JSON.stringify(this.protocolSearchForm))
 
-
-
-        this.topMainMenuService.showOnlyMenuItems(
-            [
-                'HOME',
-                'WORKFLOW',
-                'PROTOCOLS',
-                'SAMPLES',
-                'PUBLICATIONS',
-                'GROUPS',
-                'CURATION',
-                'MY_WORKSPACE',
-                'MY_FAVORITES'
-            ]
-        );
-        if( Properties.LOGGED_IN ){
-            this.topMainMenuService.showMenuItem( 'LOGOUT' );
-        }
-
         // Listen for changing Protocol screens
         this.protocolsService.currentProtocolScreenEmitter.pipe( takeUntil( this.ngUnsubscribe ) ).subscribe(
             ( data ) => {
@@ -106,16 +88,18 @@ export class ProtocolSearchComponent implements OnInit, OnDestroy{
 
     onSubmit(  ){
         this.loading=true;
+        this.loadingMessage=Consts.searchingMessage;
         this.apiService.doPost( Consts.QUERY_SEARCH_PROTOCOL, this.protocolSearchForm ).subscribe(
             data => {
                 this.protocolsService.setProtocolSearchResults(data);
                 this.router.navigate(['home/protocols/protocol-search-results']);
                 this.errors={};
+                this.loading=null;
             },
             err => {
                 if( err.status === 404 ){ // @checkme
                     this.errors=err;
-                    this.loading=false;
+                    this.loading=null;
                 }
             }
         );
@@ -123,17 +107,19 @@ export class ProtocolSearchComponent implements OnInit, OnDestroy{
 
 
     init(){
-
         // Get list of Protocol types for dropdown
         if( Properties.PROTOCOL_TYPES.length < 1){
+            this.loading=true;
+            this.loadingMessage=Consts.loadingMessage;
             this.apiService.doGet( Consts.QUERY_PROTOCOL_SETUP, '' ).subscribe(
                 data => {
                     this.errors={};
                     this.protocolTypes = <any>data['protocolTypes'];
-
                     Properties.PROTOCOL_TYPES = this.protocolTypes; // Cache it
+                    this.loading=false;
                 },
                 error=> {
+                    this.loading=null;
                     this.errors=error;
                 } );
         }else{

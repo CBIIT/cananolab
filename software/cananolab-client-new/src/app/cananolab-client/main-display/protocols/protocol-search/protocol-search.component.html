@@ -5,7 +5,7 @@
 </canano-main-display-heading>
 
 <div class="mainSection" *ngIf="protocolSearchForm">
-    <canano-loader [loading]="loading" [message]="'Searching'"></canano-loader>
+    <canano-loader [loading]="loading" [message]="loadingMessage"></canano-loader>
     <form name="protocolSearchForm">
         <div class="mainBorder">
             <table>

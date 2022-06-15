@@ -4,10 +4,10 @@
 <div class="error" *ngIf="errors['error']">
     {{errors['error']}}
 </div>
-<div class="mainSection" *ngIf="setupData['loaded']">
-    <canano-loader [loading]="loading" [message]="'Searching'"></canano-loader>
+<div class="mainSection">
+    <canano-loader [loading]="loading" [message]="loadingMessage"></canano-loader>
 
-    <form name="advanced-search-form">
+    <form name="advanced-search-form" *ngIf="setupData['loaded']">
     <div class="mainBorder">
         <table class="dataMain">
             <tr>

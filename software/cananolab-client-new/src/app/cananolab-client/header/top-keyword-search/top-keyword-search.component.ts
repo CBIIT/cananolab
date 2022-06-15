@@ -15,6 +15,7 @@ import { Router } from '@angular/router';
 export class TopKeywordSearchComponent implements OnInit{
     topKeyWordSearchText = '';
     loading;
+    loadingMessage=Consts.searchingMessage;
     constructor( private router:Router,private topKeywordSearchService:TopKeywordSearchService,private apiService: ApiService ){
     }
 

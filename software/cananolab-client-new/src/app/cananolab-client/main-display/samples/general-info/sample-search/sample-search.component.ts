@@ -21,6 +21,7 @@ export class SampleSearchComponent implements OnInit {
     errors;
     sampleSetupData={};
     loading;
+    loadingMessage=Consts.searchingMessage;
     pocOperand = 'contains';
     nameOperand = 'contains';
     sampleName;
@@ -58,10 +59,15 @@ export class SampleSearchComponent implements OnInit {
     }
 
     init(){
-
+        this.loading=true;
+        this.loadingMessage=Consts.loadingMessage;
         this.apiService.doGet( Consts.QUERY_SAMPLE_SETUP, '' ).subscribe(
             data => {
+                this.loading=null;
                 this.sampleSetupData = data;
+            },
+            error=> {
+                this.loading=null;
             } );
     }
 
@@ -77,6 +83,7 @@ export class SampleSearchComponent implements OnInit {
 
     onSubmit(){
         this.loading=true;
+        this.loadingMessage=Consts.searchingMessage;
         // QUERY_SEARCH_SAMPLE
         this.apiService.doPost( Consts.QUERY_SEARCH_SAMPLE, this.data ).subscribe(
             data => {

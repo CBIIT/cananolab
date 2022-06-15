@@ -4,8 +4,16 @@ import { ProtocolSearchResultsComponent } from './protocol-search-results.compon
 import { ProtocolSearchResultsRoutingModule } from './protocol-search-results-routing.module';
 import { SharedModule } from '../../../../common/modules/set-object-value/shared.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ProtocolSearchResultsDisplayTitlePipe } from './protocol-search-results-display-title.pipe';
+import { ProtocolSearchResultsDisplayDescriptionPipe } from './protocol-search-results-display-description.pipe';
+import { ProtocolSearchResultsDisplayHrefPipe } from './protocol-search-results-display-href.pipe';
 @NgModule({
-    declarations: [ProtocolSearchResultsComponent],
+    declarations: [
+        ProtocolSearchResultsComponent,
+        ProtocolSearchResultsDisplayTitlePipe,
+        ProtocolSearchResultsDisplayDescriptionPipe,
+        ProtocolSearchResultsDisplayHrefPipe
+        ],
     imports: [
       CommonModule,
       ProtocolSearchResultsRoutingModule,

@@ -11,6 +11,7 @@ import { ProtocolsService } from '../../protocols.service';
 import { ApiService } from '../../../../common/services/api.service';
 import { StatusDisplayService } from '../../../../status-display/status-display.service';
 import { Router } from '@angular/router';
+
 @Component({
     selector: 'canano-protocol-search-results',
     templateUrl: './protocol-search-results.component.html',
@@ -27,6 +28,7 @@ export class ProtocolSearchResultsComponent implements OnInit, OnDestroy {
         {fileInfo:'File'},
         {createdDate:'Created'}
     ];
+    consts=Consts;
     maxPageLength = Properties.MAX_PAGE_LENGTH;
     pageLength = Properties.DEFAULT_PAGE_LENGTH;
     pageCount = 10;
@@ -84,7 +86,6 @@ export class ProtocolSearchResultsComponent implements OnInit, OnDestroy {
     }
 
     isProtocolView(column) {
-        console.log(column)
         if (!Properties.LOGGED_IN) {
             if (column['key']=='Actions') {
                 return true
@@ -111,6 +112,11 @@ export class ProtocolSearchResultsComponent implements OnInit, OnDestroy {
             this.pageLength * this.currentPage,
             this.pageLength * (this.currentPage + 1)
         );
+    }
+
+    formatFileField(data) {
+        data = data.replace('rest/',Consts.serverlUrl+'/rest/')
+        return data;
     }
 
     parseFileData(fileData: string) {}

@@ -76,9 +76,7 @@
 				<td class="search-results-td"> <span *ngIf="res['fileInfo'].length > 0 ">
                     <div><b><i>Title:</i></b>&nbsp;&nbsp;
                         <span [innerHtml]="res['fileInfo']| protocolSearchResultsDisplayTitle"></span> </div>
-	<div><b><i>Description:</i></b>&nbsp;&nbsp;{{res['fileInfo']| protocolSearchResultsDisplayDescription}}</div>
-	<div><a href="{{properties.API_SERVER_URL}}/caNanoLab/{{res['fileInfo']| protocolSearchResultsDisplayHref}}" target="_blank" style="color: #00f;">view</a></div>
-	</span>
+                        <div><b><i>Description:</i></b><span [innerHtml]="formatFileField(res['fileInfo'])"></span> &nbsp;&nbsp;</div>	</span>
 	</td>
 	<td class="search-results-td protocol-search-results-created-td"> {{res['createdDate'] | date : "shortDate"}} </td>
 	</tr>
