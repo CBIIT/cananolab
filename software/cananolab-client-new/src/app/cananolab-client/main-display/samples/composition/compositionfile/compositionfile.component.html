@@ -3,14 +3,15 @@
 
 </canano-main-display-heading>
 
-<div class="error" *ngIf="errors['error']">
-    {{errors['error']}}
-</div>
-<div class="error" *ngIf="message">
-    {{message}}
-</div>
+
 <div class="mainSection">
-    <form action="" method="get" name="functionalizingEntityForm">
+    <div class="error" *ngIf="errors['error']">
+        {{errors['error']}}
+    </div>
+    <div class="error" *ngIf="message">
+        {{message}}
+    </div>
+        <form action="" method="get" name="functionalizingEntityForm">
         <div class="mainBorder">
             <table class="dataMain" *ngIf="data">
                 <tr>

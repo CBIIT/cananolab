@@ -1,10 +1,10 @@
 
 <canano-main-display-heading [helpUrl]="'https://wiki.nci.nih.gov/display/caNanoLab/Managing+Samples+in+caNanoLab#ManagingSamplesincaNanoLab-AdvSearchSample'" [toolHeadingName]="'ADVANCED SAMPLE SEARCH'">
 </canano-main-display-heading>
-<div class="error" *ngIf="errors['error']">
-    {{errors['error']}}
-</div>
 <div class="mainSection">
+    <div class="error" *ngIf="errors['error']">
+        {{errors['message']}}
+    </div>
     <canano-loader [loading]="loading" [message]="loadingMessage"></canano-loader>
 
     <form name="advanced-search-form" *ngIf="setupData['loaded']">

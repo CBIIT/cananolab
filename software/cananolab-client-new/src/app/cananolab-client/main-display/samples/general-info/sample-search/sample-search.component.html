@@ -3,11 +3,10 @@
     [toolHeadingName]="toolHeadingNameSearchSample"
 >
 </canano-main-display-heading>
-
-<div class="error" *ngIf="errors['error']">
-    {{errors['error']}}
-</div>
 <div class="mainSection">
+    <div class="error" *ngIf="errors['error']">
+        {{errors['error']}}
+    </div>
     <canano-loader [loading]="loading" [message]="loadingMessage"></canano-loader>
     <form name="sampleSearchForm">
         <div class="mainBorder">
