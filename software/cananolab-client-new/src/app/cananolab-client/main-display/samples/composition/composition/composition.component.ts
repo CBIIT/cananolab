@@ -28,6 +28,10 @@ export class CompositionComponent implements OnInit{
         this.navigationService.setCurrentSelectedItem(1);
         this.route.params.subscribe(
             ( params: Params ) => {
+                setTimeout(()=> {
+                    Properties.SAMPLE_TOOLS = true;
+
+                },200)
                 this.sampleId = params['sampleId'];
                 if(
                     this.sampleId <= 0 ){
@@ -40,7 +44,6 @@ export class CompositionComponent implements OnInit{
                 )
                 this.data = this.getCompositionEditData().subscribe(
                     data => {
-                        Properties.SAMPLE_TOOLS = true;
                         this.data = data;
                         Properties.CURRENT_SAMPLE_NAME = data['sampleName'];
                     } );

@@ -35,6 +35,10 @@ export class CharacterizationComponent implements OnInit{
         this.navigationService.setCurrentSelectedItem(2);
         this.route.params.subscribe(
             ( params: Params ) => {
+                setTimeout(()=> {
+                    Properties.SAMPLE_TOOLS = true;
+
+                },200)
                 this.sampleId = params['sampleId'];
                 this.apiService.getSampleName(this.sampleId).subscribe(
                     data=>this.toolHeadingNameManage='Sample ' +data['sampleName'] + ' Characterization'
@@ -48,7 +52,6 @@ export class CharacterizationComponent implements OnInit{
                 this.getCharacterizationData().subscribe( data => {
                     this.tempData=data;
                     this.separateDataSets(data);
-                    Properties.SAMPLE_TOOLS = true;
                 },
                 err => {
                     console.error( 'Error ', err );
@@ -65,6 +68,7 @@ export class CharacterizationComponent implements OnInit{
         }catch( e ){
             console.error( 'doGet Exception: ' + e );
         }
+
         return results;
     }
 
