@@ -24,7 +24,6 @@ export class TopKeywordSearchComponent implements OnInit{
 
     onTopKeyWordSearchClick(){
         this.loading=true;
-
         //  @TODO
         this.apiService.doGet( Consts.QUERY_SEARCH, 'keyword=' + this.topKeyWordSearchText ).subscribe(
             data => {
