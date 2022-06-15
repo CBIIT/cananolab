@@ -15,7 +15,7 @@ export class CompositionfileComponent implements OnInit {
     setupData;
     data;
     dataTrailer;
-    errors;
+    errors={};
     message;
     theFile;
     sampleId = Properties.CURRENT_SAMPLE_ID;
