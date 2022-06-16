@@ -10,16 +10,13 @@ The diagram below illustrates the caNanoLab functionality and workflow. Active l
 
 <img src="assets/images/Home_Page_Workflow.png" border="0" width="750" height="520" usemap="#funcMap" alt="rectangle" />
 <map class="ng-scope" name="funcMap" id="funcMap">
-    <area (click)="onAreaClick( '#/login' )" alt="login" shape="rect" coords="65,176,206,238" />
-    <area (click)="onAreaClick('#/submitProtocol')" alt="submit protocols" shape="rect" coords="294,72,435,134" />
-    <area href="#/submitSample" alt="submit samples" shape="rect" coords="291,165,435,244" />
-    <area href="#/submitPublication" alt="submit publications" shape="rect" coords="291,277,435,333" />
-    <!--  <area href="" alt="submit general information" shape="rect" coords="518,94,662,153" />
-     <area href="" alt="submit composition" shape="rect" coords="519,174,663,233" />
-     <area href="" alt="submit characterizations" shape="rect" coords="516,251,662,311" />
-     --> <area href="#/searchProtocol" alt="search protocols" shape="rect" coords="177,379,326,467" />
-    <area href="#/searchSample" alt="search samples" shape="rect" coords="346,379,494,465" />
-    <area href="#/searchPublication" alt="search publications" shape="rect" coords="512,380,660,466" />
+    <area [routerLink]="['/home/login']" routerLinkActive="router-link-active" alt="login" shape="rect" coords="65,176,206,238" />
+    <area [routerLink]="['/home/protocols/protocol-create']" routerLinkActive="router-link-active"  alt="submit protocols" shape="rect" coords="294,72,435,134" />
+    <area [routerLink]="['/home/samples/sample-create']" routerLinkActive="router-link-active"  alt="submit samples" shape="rect" coords="291,165,435,244" />
+    <area [routerLink]="['/home/samples/publications/publication/-1']" routerLinkActive="router-link-active" alt="submit publications" shape="rect" coords="291,277,435,333" />
+    <area [routerLink]="['/home/protocols/protocol-search']" routerLinkActive="router-link-active" alt="search protocols" shape="rect" coords="177,379,326,467" />
+    <area [routerLink]="['/home/samples/sample-search']" routerLinkActive="router-link-active"  alt="search samples" shape="rect" coords="346,379,494,465" />
+    <area [routerLink]="['/home/publications/publication-search']" routerLinkActive="router-link-active" alt="search publications" shape="rect" coords="512,380,660,466" />
 </map>
 </div>
 </div>
