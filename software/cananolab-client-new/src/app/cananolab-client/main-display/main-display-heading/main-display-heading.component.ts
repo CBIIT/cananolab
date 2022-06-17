@@ -122,17 +122,20 @@ export class MainDisplayHeadingComponent implements OnInit, OnDestroy{
         let sampleIds=this.sampleIds.join();
         this.apiService.doPost(Consts.QUERY_SAMPLE_EXPORT_XML,{sampleIds:sampleIds}).subscribe(data=> {
             let b = (window).document.createElement('a');
-            b.href = (window).URL.createObjectURL(new Blob([JSON.stringify([data])], {
-              type: 'application/xml'
+            b.href = (window).URL.createObjectURL(new Blob([data], {
+                type: 'application/xml'
             }));
             // Use epoch for unique file name
             b.download = 'caNanoLab_sample_data_' + new Date().getTime() + '.xml';
             window.document.body.appendChild(b);
             b.click();
             (window).document.body.removeChild(b);
+            console.log(data);
+            localStorage.setItem('tempXML',JSON.stringify(data));
             this.downloadReady.emit(true);
         },
         error=> {
+            console.log(error);
             this.downloadReady.emit(true)
         })
     }
