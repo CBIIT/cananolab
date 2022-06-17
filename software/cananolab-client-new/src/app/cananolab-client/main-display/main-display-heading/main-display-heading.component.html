@@ -22,4 +22,18 @@
     >Help
     </span>
 
+
+    <span *ngIf="exportXML"
+        class="float-right clicker mr-2"
+    (click)="exportAsXML()"
+    >Export(XML)
+    </span>
+
+
+    <span *ngIf="exportJSON"
+        class="float-right clicker mr-2"
+    (click)="exportAsJSON()"
+    >Export(JSON)
+    </span>
+
 </div>

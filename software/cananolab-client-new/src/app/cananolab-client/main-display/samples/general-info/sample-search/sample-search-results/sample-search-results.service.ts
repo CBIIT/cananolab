@@ -6,7 +6,8 @@ import { EventEmitter, Injectable } from '@angular/core';
 } )
 export class SampleSearchResultsService{
 
-    searchResults ;
+    searchResults;
+    sampleIds=[];
     searchResultsEmitter = new EventEmitter();
 
     constructor(){
@@ -24,5 +25,19 @@ export class SampleSearchResultsService{
             return results
         }
         return this.searchResults;
+    }
+
+    getSampleIds() {
+        let results = JSON.parse(localStorage.getItem('cananolab_sample_search_results'));
+        if (results) {
+            // do samples ids stuff
+        }
+        else {
+            results=this.searchResults;
+        }
+        results.forEach(sample=> {
+            this.sampleIds.push(sample.sampleId)
+        })
+        return this.sampleIds;
     }
 }

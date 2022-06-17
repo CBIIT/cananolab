@@ -9,7 +9,8 @@ import { TopMenuItems } from '../../top-main-menu/top-main-menu.service';
 import { takeUntil } from 'rxjs/operators';
 import { MainDisplayService } from '../main-display.service';
 import { Subject } from 'rxjs';
-
+import { ApiService } from '../../common/services/api.service';
+import { Consts } from '../../../constants';
 @Component( {
     selector: 'canano-main-display-heading',
     templateUrl: './main-display-heading.component.html',
@@ -19,6 +20,9 @@ import { Subject } from 'rxjs';
 
 export class MainDisplayHeadingComponent implements OnInit, OnDestroy{
     @Input() helpUrl = '';
+    @Input() exportJSON;
+    @Input() exportXML;
+    @Input() sampleIds;
     @Input() toolHeadingName = '';
 
     // For HTML access
@@ -26,7 +30,7 @@ export class MainDisplayHeadingComponent implements OnInit, OnDestroy{
 
     private ngUnsubscribe: Subject<boolean> = new Subject<boolean>();
 
-    constructor(private mainDisplayService: MainDisplayService) {
+    constructor(private apiService:ApiService,private mainDisplayService: MainDisplayService) {
     }
 
     ngOnInit(): void {
@@ -91,6 +95,20 @@ export class MainDisplayHeadingComponent implements OnInit, OnDestroy{
     ngOnDestroy(): void {
         this.ngUnsubscribe.next();
         this.ngUnsubscribe.complete();
+    }
+
+    exportAsJSON() {
+        let sampleIds=this.sampleIds.join();
+        this.apiService.doPost(Consts.QUERY_SAMPLE_EXPORT_JSON,{sampleIds:sampleIds}).subscribe(data=> {
+
+        })
+    }
+
+    exportAsXML() {
+        let sampleIds=this.sampleIds.join();
+        this.apiService.doPost(Consts.QUERY_SAMPLE_EXPORT_XML,{sampleIds:sampleIds}).subscribe(data=> {
+
+        })
     }
 
 

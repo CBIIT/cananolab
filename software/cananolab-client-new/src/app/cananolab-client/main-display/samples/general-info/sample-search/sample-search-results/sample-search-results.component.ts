@@ -31,6 +31,7 @@ export class SampleSearchResultsComponent implements OnInit, OnDestroy {
     pageLength = Properties.DEFAULT_PAGE_LENGTH;
 
     searchResults;
+    sampleIds=[];
     helpUrl = Consts.HELP_URL_SAMPLE_SEARCH;
     toolHeadingNameSearchSample = 'Sample Search Results';
     pageCount = 10;
@@ -66,9 +67,8 @@ export class SampleSearchResultsComponent implements OnInit, OnDestroy {
 
     ngOnInit(): void {
         this.searchResults = this.sampleSearchResultsService.getSearchResults();
-        console.log(this.searchResults);
         this.searchResultsCount = this.searchResults.length;
-
+        this.sampleIds=this.sampleSearchResultsService.getSampleIds();
         this.searchResultsPagerService.currentPageChangeEmitter
             .pipe(takeUntil(this.ngUnsubscribe))
             .subscribe((data) => {
