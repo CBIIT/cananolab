@@ -28,6 +28,7 @@ export class SampleSearchResultsService{
     }
 
     getSampleIds() {
+        this.sampleIds=[];
         let results = JSON.parse(localStorage.getItem('cananolab_sample_search_results'));
         if (results) {
             // do samples ids stuff
@@ -38,6 +39,7 @@ export class SampleSearchResultsService{
         results.forEach(sample=> {
             this.sampleIds.push(sample.sampleId)
         })
+        console.log(this.sampleIds)
         return this.sampleIds;
     }
 }
