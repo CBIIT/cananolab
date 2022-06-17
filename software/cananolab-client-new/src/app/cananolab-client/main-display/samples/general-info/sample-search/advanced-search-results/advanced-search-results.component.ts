@@ -23,6 +23,8 @@ export class AdvancedSearchResultsComponent implements OnInit,OnDestroy {
         SortState.NO_SORT
     ];
     data;
+    sampleIds;
+    loading;
     searchResults;
     pageCount = 10;
     searchResultsCount = -1;
@@ -48,6 +50,8 @@ export class AdvancedSearchResultsComponent implements OnInit,OnDestroy {
 
     ngOnInit(): void {
         this.data=this.advancedSearchService.getAdvancedSearchResults();
+        this.sampleIds=this.advancedSearchService.getSampleIds();
+
         this.searchResults=this.data['resultTable']['dataRows'];
         this.setupColumnHeadings();
         this.searchResultsCount = this.searchResults.length;
@@ -105,6 +109,15 @@ export class AdvancedSearchResultsComponent implements OnInit,OnDestroy {
         this.searchResultsPagerService.setPageCount(this.pageCount);
         this.setupPage(); // Sets this page as the currently vied search results.
     }
+    downloadReady(event) {
+        if (event==true) {
+            this.loading=null;
+        }
+        if (event==false) {
+            this.loading=true;
+        }
+    }
+
 
     onSortClick(i, key) {
         if (i>=0) {

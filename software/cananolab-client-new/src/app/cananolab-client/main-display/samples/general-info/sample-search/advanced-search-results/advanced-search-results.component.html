@@ -1,11 +1,14 @@
 
 <canano-main-display-heading
     [helpUrl]="'https://wiki.nci.nih.gov/display/caNanoLab/Managing+Samples+in+caNanoLab#ManagingSamplesincaNanoLab-AdvSearchSample'"
-    [toolHeadingName]="'ADVANCED SAMPLE SEARCH RESULTS'">
+    [toolHeadingName]="'ADVANCED SAMPLE SEARCH RESULTS'" [exportXML]="true" [exportJSON]="true" [sampleIds]="sampleIds" (downloadReady)="downloadReady($event)">
 </canano-main-display-heading>
 <!-- {{searchResults|json}}<Br />
 {{data|json}}<br /> -->
 <div class="mainSection" *ngIf="searchResults">
+    <canano-loader [loading]="loading" [message]="'Exporting Data'">
+
+    </canano-loader>
     <div *ngIf="!searchResults.length" class="mainBorder">
         No search results found.
     </div>

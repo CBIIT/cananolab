@@ -11,7 +11,6 @@ import { MainDisplayService } from '../main-display.service';
 import { Subject } from 'rxjs';
 import { ApiService } from '../../common/services/api.service';
 import { Consts } from '../../../constants';
-import { HttpHeaders } from '@angular/common/http';
 import { HttpClient } from '@angular/common/http';
 @Component( {
     selector: 'canano-main-display-heading',
@@ -122,15 +121,7 @@ export class MainDisplayHeadingComponent implements OnInit, OnDestroy{
     exportAsXML() {
         this.downloadReady.emit(false);
         let sampleIds=this.sampleIds.join();
-        let headers = new HttpHeaders( {
-
-            responseType: 'text'
-            } );
-        let options={
-            headers:headers,
-            method:'post',
-        }
-        this.httpClient.post(Consts.QUERY_SAMPLE_EXPORT_XML,{sampleIds:sampleIds},{ responseType: 'text' }).subscribe(data=> {
+        this.httpClient.post(Consts.QUERY_SAMPLE_EXPORT_XML,{sampleIds:sampleIds},{responseType:'text'}).subscribe(data=> {
             let a = (window).document.createElement('a');
             a.href = (window).URL.createObjectURL(new Blob([data], {
               type: 'application/xml'
@@ -142,6 +133,7 @@ export class MainDisplayHeadingComponent implements OnInit, OnDestroy{
             this.downloadReady.emit(true);
         },
         error=> {
+            console.log(error);
             this.downloadReady.emit(true)
         })
     }

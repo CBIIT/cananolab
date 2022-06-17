@@ -4,6 +4,7 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class AdvancedSearchService {
+    sampleIds;
     advancedSearchResults;
     constructor() { }
 
@@ -20,5 +21,20 @@ export class AdvancedSearchService {
     setAdvancedSearchResults(data) {
         this.advancedSearchResults=data;
         localStorage.setItem('cananolab_advanced_search_results',JSON.stringify(data));
+    }
+
+    getSampleIds() {
+        this.sampleIds=[];
+        let results = JSON.parse(localStorage.getItem('cananolab_advanced_search_results'));
+        if (results) {
+            // do samples ids stuff
+        }
+        else {
+            results=this.advancedSearchResults;
+        }
+        results['resultTable']['dataRows'].forEach(sample=> {
+            this.sampleIds.push(sample.sampleId)
+        })
+        return this.sampleIds;
     }
 }
