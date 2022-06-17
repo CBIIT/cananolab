@@ -4,7 +4,7 @@
 // ----------   Contains topic name, context sensitive Help link, and Glossary link  ------
 // ----------------------------------------------------------------------------------------
 
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit, Output,EventEmitter } from '@angular/core';
 import { TopMenuItems } from '../../top-main-menu/top-main-menu.service';
 import { takeUntil } from 'rxjs/operators';
 import { MainDisplayService } from '../main-display.service';
@@ -24,6 +24,7 @@ export class MainDisplayHeadingComponent implements OnInit, OnDestroy{
     @Input() exportXML;
     @Input() sampleIds;
     @Input() toolHeadingName = '';
+    @Output() downloadReady = new EventEmitter<Boolean>();
 
     // For HTML access
     topMenuItems =  TopMenuItems;
@@ -98,16 +99,41 @@ export class MainDisplayHeadingComponent implements OnInit, OnDestroy{
     }
 
     exportAsJSON() {
+        this.downloadReady.emit(false);
         let sampleIds=this.sampleIds.join();
         this.apiService.doPost(Consts.QUERY_SAMPLE_EXPORT_JSON,{sampleIds:sampleIds}).subscribe(data=> {
-
-        })
+            let a = (window).document.createElement('a');
+            a.href = (window).URL.createObjectURL(new Blob([JSON.stringify(data)], {
+              type: 'application/json'
+            }));
+            // Use epoch for unique file name
+            a.download = 'caNanoLab_sample_data_' + new Date().getTime() + '.json';
+            window.document.body.appendChild(a);
+            a.click();
+            this.downloadReady.emit(true);
+        },
+        error=> {
+            this.downloadReady.emit(true);
+        });
     }
 
     exportAsXML() {
+        this.downloadReady.emit(false);
         let sampleIds=this.sampleIds.join();
         this.apiService.doPost(Consts.QUERY_SAMPLE_EXPORT_XML,{sampleIds:sampleIds}).subscribe(data=> {
-
+            let a = (window).document.createElement('a');
+            a.href = (window).URL.createObjectURL(new Blob([data], {
+              type: 'application/xml'
+            }));
+            // Use epoch for unique file name
+            a.download = 'caNanoLab_sample_data_' + new Date().getTime() + '.xml';
+            window.document.body.appendChild(a);
+            a.click();
+            (window).document.body.removeChild(a);
+            this.downloadReady.emit(true);
+        },
+        error=> {
+            this.downloadReady.emit(true)
         })
     }
 

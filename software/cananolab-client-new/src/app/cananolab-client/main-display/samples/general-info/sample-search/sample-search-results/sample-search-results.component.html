@@ -1,10 +1,13 @@
 <canano-main-display-heading [helpUrl]="helpUrl" [toolHeadingName]="toolHeadingNameSearchSample"
-[exportXML]="true" [exportJSON]="true" [sampleIds]="sampleIds">
+[exportXML]="true" [exportJSON]="true" [sampleIds]="sampleIds" (downloadReady)="downloadReady($event)">
 </canano-main-display-heading>
 
 <canano-sample-availability-display></canano-sample-availability-display>
 
 <div class="mainSection" *ngIf="searchResults">
+    <canano-loader [loading]="loading" [message]="'Exporting Data'">
+
+    </canano-loader>
     <div *ngIf="!searchResults.length" class="mainBorder">
         No search results found.
     </div>

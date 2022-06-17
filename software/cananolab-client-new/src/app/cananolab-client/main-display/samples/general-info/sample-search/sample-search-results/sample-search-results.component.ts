@@ -29,7 +29,7 @@ export class SampleSearchResultsComponent implements OnInit, OnDestroy {
 
     maxPageLength = Properties.MAX_PAGE_LENGTH;
     pageLength = Properties.DEFAULT_PAGE_LENGTH;
-
+    loading;
     searchResults;
     sampleIds=[];
     helpUrl = Consts.HELP_URL_SAMPLE_SEARCH;
@@ -126,6 +126,16 @@ export class SampleSearchResultsComponent implements OnInit, OnDestroy {
                     console.log('ERROR QUERY_SAMPLE_AVAILABILITY: ', err);
                 }
             );
+    }
+
+
+    downloadReady(event) {
+        if (event==true) {
+            this.loading=null;
+        }
+        if (event==false) {
+            this.loading=true;
+        }
     }
 
     /*
