@@ -11,6 +11,8 @@ import { MainDisplayService } from '../main-display.service';
 import { Subject } from 'rxjs';
 import { ApiService } from '../../common/services/api.service';
 import { Consts } from '../../../constants';
+import { HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 @Component( {
     selector: 'canano-main-display-heading',
     templateUrl: './main-display-heading.component.html',
@@ -31,7 +33,7 @@ export class MainDisplayHeadingComponent implements OnInit, OnDestroy{
 
     private ngUnsubscribe: Subject<boolean> = new Subject<boolean>();
 
-    constructor(private apiService:ApiService,private mainDisplayService: MainDisplayService) {
+    constructor(private httpClient:HttpClient,private apiService:ApiService,private mainDisplayService: MainDisplayService) {
     }
 
     ngOnInit(): void {
@@ -120,9 +122,17 @@ export class MainDisplayHeadingComponent implements OnInit, OnDestroy{
     exportAsXML() {
         this.downloadReady.emit(false);
         let sampleIds=this.sampleIds.join();
-        this.apiService.doPost(Consts.QUERY_SAMPLE_EXPORT_XML,{sampleIds:sampleIds}).subscribe(data=> {
+        let headers = new HttpHeaders( {
+
+            responseType: 'text'
+            } );
+        let options={
+            headers:headers,
+            method:'post',
+        }
+        this.httpClient.post(Consts.QUERY_SAMPLE_EXPORT_XML,{sampleIds:sampleIds},{ responseType: 'text' }).subscribe(data=> {
             let a = (window).document.createElement('a');
-            a.href = (window).URL.createObjectURL(new Blob([JSON.stringify(data)], {
+            a.href = (window).URL.createObjectURL(new Blob([data], {
               type: 'application/xml'
             }));
             a.download = 'caNanoLab_sample_data_' + new Date().getTime() + '.xml';
@@ -132,7 +142,6 @@ export class MainDisplayHeadingComponent implements OnInit, OnDestroy{
             this.downloadReady.emit(true);
         },
         error=> {
-            console.log(error);
             this.downloadReady.emit(true)
         })
     }
