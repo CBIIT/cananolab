@@ -1,8 +1,11 @@
 <canano-main-display-heading
     [helpUrl]="helpUrl"
-    [toolHeadingName]="toolHeadingNameSearchSample">
+    [toolHeadingName]="toolHeadingNameSearchSample" [exportXML]="true" [exportJSON]="true" [sampleIds]="[sampleId]" (downloadReady)="downloadReady($event)">
 </canano-main-display-heading>
 <div class="mainSection" *ngIf="data">
+    <canano-loader [loading]="loading" [message]="'Exporting Data'">
+
+    </canano-loader>
     <div class="error" *ngIf="errors['error']">
         {{errors['error']}}
     </div>

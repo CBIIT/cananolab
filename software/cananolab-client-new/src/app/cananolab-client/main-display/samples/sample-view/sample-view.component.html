@@ -1,10 +1,12 @@
 <canano-main-display-heading
     [helpUrl]="helpUrl"
     [toolHeadingName]="toolHeadingNameViewSample"
->
+    [exportXML]="true" [exportJSON]="true" [sampleIds]="[sampleId]" (downloadReady)="downloadReady($event)">
 </canano-main-display-heading>
 <div class="mainSection">
+    <canano-loader [loading]="loading" [message]="'Exporting Data'">
 
+    </canano-loader>
 
 <div class="mainBorder">
     <table class="dataMain">

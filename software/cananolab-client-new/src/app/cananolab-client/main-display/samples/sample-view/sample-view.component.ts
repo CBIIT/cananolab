@@ -15,7 +15,7 @@ export class SampleViewComponent implements OnInit{
     sampleId = -1;
     sampleName = '';
     sampleData;
-
+    loading;
     helpUrl = Consts.HELP_URL_SAMPLE_VIEW;
     toolHeadingNameViewSample = 'Sample ' + this.sampleName;
 
@@ -62,6 +62,16 @@ export class SampleViewComponent implements OnInit{
                     } );
             } );
 
+    }
+
+
+    downloadReady(event) {
+        if (event==true) {
+            this.loading=null;
+        }
+        if (event==false) {
+            this.loading=true;
+        }
     }
 
     topButtonGeneralInfo(){

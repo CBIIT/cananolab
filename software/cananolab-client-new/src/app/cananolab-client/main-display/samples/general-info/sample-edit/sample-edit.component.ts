@@ -21,7 +21,9 @@ export class SampleEditComponent implements OnInit, OnDestroy{
     dataAvailability;
     dataTrailer;
     errors;
+    loading;
     userGroups;
+    sampleIds;
     users;
     theAccess;
     theAccessIndex;
@@ -221,6 +223,16 @@ export class SampleEditComponent implements OnInit, OnDestroy{
 
         }
         console.log(keywords)
+    }
+
+
+    downloadReady(event) {
+        if (event==true) {
+            this.loading=null;
+        }
+        if (event==false) {
+            this.loading=true;
+        }
     }
 
     onSampleDeleteClick(){
