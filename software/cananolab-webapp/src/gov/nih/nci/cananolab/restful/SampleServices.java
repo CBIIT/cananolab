@@ -942,76 +942,65 @@ public class SampleServices {
 
 
     /**
-     * Export one Sample as JSON
+     * Export list of results as JSON.
      *
      * @param httpRequest
      * @param httpResponse
-     * @param sampleId
+     * @param sampleIds
      */
-    @GET
-    @Path("/fullSampleExportJson")
-    public void fullSampleExportJson(@Context HttpServletRequest httpRequest, @Context HttpServletResponse httpResponse,
-                                     @DefaultValue("") @QueryParam("sampleId") String sampleId)
+    @POST
+    @Path("/fullSampleExportJsonAll")
+    @Produces ("application/json")
+    public Response fullSampleExportJsonAll(@Context HttpServletRequest httpRequest, String sampleIds, @Context HttpServletResponse httpResponse)
     {
-        String jsonData = buildSampleJson( httpRequest, httpResponse, sampleId, 0);
-
-        // Send to user
-        try
+    	sampleIds = sampleIds.replaceFirst("\\{\"sampleIds\":\"", "");
+		sampleIds = sampleIds.replace("\"}", "");
+		try
         {
-            PrintWriter out = httpResponse.getWriter();
-            httpResponse.setContentType("application/force-download");
-            httpResponse.setContentLength(jsonData.length() );
-            httpResponse.setHeader("Content-Disposition","attachment; filename=\"SampleData_" + sampleId + ".json\"");
-            out.print( jsonData);
-            out.close();
-            }
+            String[] idlist = sampleIds.split( "\\s*,\\s*" );
+            String jsonData = buildAllJson(httpRequest, httpResponse, idlist);
+            return Response.ok(jsonData).header("Access-Control-Allow-Credentials", "true")
+                    .header("Access-Control-Allow-Origin", "*")
+                    .header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS")
+                    .header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization").build();
+        }
         catch( Exception e )
         {
-            System.err.println( "Error sending JSON to client: " + e.getMessage() );
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(CommonUtil.wrapErrorMessageInList("Error sending JSON to client: " + e.getMessage())).build();
         }
     }
 
     /**
-     * Export one Sample as XML
+     * Export list of results as XML
      *
      * @param httpRequest
      * @param httpResponse
-     * @param sampleId
+     * @param sampleIds  Comma separated list of Sample IDs
      */
-    @GET
-    @Path("/fullSampleExportXml")
-    public void fullSampleExportXml(@Context HttpServletRequest httpRequest, @Context HttpServletResponse httpResponse,
-                                     @DefaultValue("") @QueryParam("sampleId") String sampleId)
+    @POST
+    @Path("/fullSampleExportXmlAll")
+    @Produces ("application/xml")
+    public Response fullSampleExportXmlAll(@Context HttpServletRequest httpRequest, String sampleIds, @Context HttpServletResponse httpResponse)
     {
-        String xmlData = null;
-
-        // Get data as JSON
-        String jsonData =  buildSampleJson( httpRequest, httpResponse, sampleId, 0);
-
-        // Build XML from JSON
-        try
+		sampleIds = sampleIds.replaceFirst("\\{\"sampleIds\":\"", "");
+		sampleIds = sampleIds.replace("\"}", "");
+		try
         {
-            xmlData = jsonToXml( jsonData );
+            String[] idlist = sampleIds.split( "\\s*,\\s*" );
+            String jsonData =  "{\n \"csNanoLabData\": " + buildAllJson(httpRequest, httpResponse, idlist) +"\n}\n";
+            String xmlData = jsonToXml( jsonData );
+            if( xmlData == null){
+                return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity( "Error creating valid XML" ) .build();
+            }
+
+            return Response.ok(xmlData).header("Access-Control-Allow-Credentials", "true")
+                    .header("Access-Control-Allow-Origin", "*")
+                    .header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS")
+                    .header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization").build();
         }
         catch( Exception e )
         {
-            System.err.println( "Error converting JSON to XML: " + e.getMessage() );
-        }
-
-        ///////////////////////////////////////////////////////////////////////////////
-        // Send to user
-        try
-        {
-            PrintWriter out = httpResponse.getWriter();
-            httpResponse.setContentType("application/force-download");
-            httpResponse.setContentLength( xmlData.length() );
-            httpResponse.setHeader("Content-Disposition","attachment; filename=\"SampleData_" + sampleId + ".xml\"");
-            out.print( xmlData );
-            out.close();
-        }
-        catch( Exception e )
-        {
-            System.err.println( "Error sending XML to client: " + e.getMessage() );
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(CommonUtil.wrapErrorMessageInList("Error sending XML to client: " + e.getMessage())).build();
         }
     }
 
