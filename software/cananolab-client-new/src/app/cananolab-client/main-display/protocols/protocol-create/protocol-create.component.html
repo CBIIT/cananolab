@@ -90,7 +90,7 @@
                     <!-- END Radio buttons for "Upload"/"Enter File URL" -->
                     <!-- File browser button -->
                     <br />
-                    <input [ngClass]="{'hide': uriExternal}" type="file" (change)="getFiles($event)">
+                    <input [ngClass]="{'hide': data.uriExternal}" type="file" (change)="getFiles($event)">
                     <div *ngIf="data.uri">
                         <a [href]="downloadUrl+'?fileId='+data.fileId">
                             {{data.uri}}
@@ -98,7 +98,7 @@
                     </div>
                     <!-- END File browser button -->
                     <!-- File URL text input -->
-                    <input [ngClass]="{'hide': ! uriExternal}" placeholder="File URL" type="text" id="externalUrl" name="externalUrl" [(ngModel)]="data.externalUrl">
+                    <input [ngClass]="{'hide': ! data.uriExternal}" placeholder="File URL" type="text" id="externalUrl" name="externalUrl" [(ngModel)]="data.externalUrl">
                     <!-- File URL text input -->
                 </td>
             </tr>
@@ -203,7 +203,7 @@
                                     &nbsp;
                                     <input (ngModelChange)="changeAccessType($event)" type="radio" name="accessType.role" id="accessType.role" [value]="'role'" [(ngModel)]="theAccess['accessType']">
                                     <label for="accessType.role" class="right">
-                                        Role
+                                        Public
                                     </label>
                                 </td>
                             </tr>
@@ -243,7 +243,7 @@
                             <tr>
                                 <td class="label">
                                     <label for="access.roleName">
-                                        Access to the Publication*
+                                        Access to the Protocol*
                                     </label>
                                 </td>
                                 <td class="field">

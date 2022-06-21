@@ -84,6 +84,7 @@ export class ProtocolCreateComponent implements OnInit, AfterViewInit{
         this.theAccess['recipient']='';
         this.theAccess['roleName']='';
         if (event=='role') {
+            this.theAccess['recipientDisplayName']='Public';
             this.theAccess['recipient']='ROLE_ANONYMOUS';
             this.theAccess['roleName']="R";
         };
