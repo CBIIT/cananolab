@@ -23,6 +23,7 @@ import { Router } from '@angular/router';
 export class MainDisplayHeadingComponent implements OnInit, OnDestroy{
     @Input() helpUrl = '';
     @Input() backUrl;
+    @Input() otherUrl;
     @Input() exportJSON;
     @Input() exportXML;
     @Input() sampleIds;
@@ -144,6 +145,10 @@ export class MainDisplayHeadingComponent implements OnInit, OnDestroy{
 
     navigateBack() {
         this.router.navigate([this.backUrl])
+    }
+
+    navigateToOtherUrl() {
+        this.router.navigate([this.otherUrl['link']])
     }
 
 

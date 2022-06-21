@@ -1,6 +1,6 @@
 <canano-main-display-heading
     [helpUrl]="helpUrl"
-    [toolHeadingName]="toolHeadingNameSearchSample" [exportXML]="true" [exportJSON]="true" [sampleIds]="[sampleId]" (downloadReady)="downloadReady($event)">
+    [toolHeadingName]="toolHeadingNameSearchSample" [exportXML]="true" [exportJSON]="true" [sampleIds]="[sampleId]" (downloadReady)="downloadReady($event)" [backUrl]="'home/samples/sample-search-results'">
 </canano-main-display-heading>
 <div class="mainSection" *ngIf="data">
     <canano-loader [loading]="loading" [message]="'Exporting Data'">

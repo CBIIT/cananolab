@@ -1,4 +1,4 @@
-<canano-main-display-heading [helpUrl]="'https://wiki.nci.nih.gov/display/caNanoLab/Managing+Protocols+in+caNanoLab#ManagingProtocolsincaNanoLab-ProtocolResults'" [toolHeadingName]="'Protocol Search Results'"> </canano-main-display-heading>
+<canano-main-display-heading [helpUrl]="'https://wiki.nci.nih.gov/display/caNanoLab/Managing+Protocols+in+caNanoLab#ManagingProtocolsincaNanoLab-ProtocolResults'" [toolHeadingName]="'Protocol Search Results'" [backUrl]="'home/protocols/protocol-search'"> </canano-main-display-heading>
 <div class="mainSection" *ngIf="searchResults">
 	<div *ngIf="!searchResults.length" class="mainBorder"> No search results found. </div>
 	<div *ngIf="searchResults.length"> <span class="ml-2">
