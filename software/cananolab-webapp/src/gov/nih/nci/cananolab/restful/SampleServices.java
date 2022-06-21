@@ -908,40 +908,6 @@ public class SampleServices {
     }
 
     /**
-     * Export list of results as XML
-     *
-     * @param httpRequest
-     * @param httpResponse
-     * @param sampleIds  Comma separated list of Sample IDs
-     */
-    @GET
-    @Path("/fullSampleExportXmlAll")
-    @Produces ("application/xml")
-    public Response fullSampleExportXmlAll(@Context HttpServletRequest httpRequest, @Context HttpServletResponse httpResponse,
-                                        @DefaultValue("") @QueryParam("sampleIds") String sampleIds)
-    {
-        try
-        {
-            String[] idlist = sampleIds.split( "\\s*,\\s*" );
-            String jsonData =  "{\n \"csNanoLabData\": " + buildAllJson(httpRequest, httpResponse, idlist) +"\n}\n";
-            String xmlData = jsonToXml( jsonData );
-            if( xmlData == null){
-                return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity( "Error creating valid XML" ) .build();
-            }
-
-            return Response.ok(xmlData).header("Access-Control-Allow-Credentials", "true")
-                    .header("Access-Control-Allow-Origin", "*")
-                    .header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS")
-                    .header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization").build();
-        }
-        catch( Exception e )
-        {
-            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(CommonUtil.wrapErrorMessageInList("Error sending XML to client: " + e.getMessage())).build();
-        }
-    }
-
-
-    /**
      * Export list of results as JSON.
      *
      * @param httpRequest
