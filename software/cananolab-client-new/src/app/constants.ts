@@ -11,7 +11,7 @@ export const Consts = {
     LOGIN_URL: 'caNanoLab/login',
     QUERY_LOGOUT: 'caNanoLab/logout',
     QUERY_SAMPLE_EXPORT_JSON: 'caNanoLab/rest/sample/fullSampleExportJsonAll',
-    QUERY_SAMPLE_EXPORT_XML: 'caNanoLab/rest/sample/fullSampleExportXmlAll',
+    QUERY_SAMPLE_EXPORT_XML: '/caNanoLab/rest/sample/fullSampleExportXmlAll',
     QUERY_GET_TABS: 'caNanoLab/rest/core/getTabs',
     QUERY_ADMIN_SEARCH_USERS: 'caNanoLab/rest/useraccount/search',
     QUERY_ADMIN_RESET_PASSWORD: 'caNanoLab/rest/useraccount/resetpwd',
