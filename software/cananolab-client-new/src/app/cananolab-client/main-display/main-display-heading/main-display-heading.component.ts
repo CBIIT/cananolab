@@ -12,6 +12,7 @@ import { Subject } from 'rxjs';
 import { ApiService } from '../../common/services/api.service';
 import { Consts } from '../../../constants';
 import { HttpClient } from '@angular/common/http';
+import { Router } from '@angular/router';
 @Component( {
     selector: 'canano-main-display-heading',
     templateUrl: './main-display-heading.component.html',
@@ -21,6 +22,7 @@ import { HttpClient } from '@angular/common/http';
 
 export class MainDisplayHeadingComponent implements OnInit, OnDestroy{
     @Input() helpUrl = '';
+    @Input() backUrl;
     @Input() exportJSON;
     @Input() exportXML;
     @Input() sampleIds;
@@ -32,7 +34,7 @@ export class MainDisplayHeadingComponent implements OnInit, OnDestroy{
 
     private ngUnsubscribe: Subject<boolean> = new Subject<boolean>();
 
-    constructor(private httpClient:HttpClient,private apiService:ApiService,private mainDisplayService: MainDisplayService) {
+    constructor(private router:Router,private httpClient:HttpClient,private apiService:ApiService,private mainDisplayService: MainDisplayService) {
     }
 
     ngOnInit(): void {
@@ -138,6 +140,10 @@ export class MainDisplayHeadingComponent implements OnInit, OnDestroy{
             console.log(error);
             this.downloadReady.emit(true)
         })
+    }
+
+    navigateBack() {
+        this.router.navigate([this.backUrl])
     }
 
 

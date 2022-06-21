@@ -21,10 +21,12 @@ export class AdminComponent implements OnInit {
     username='';
     userSearchResults;
     searchUserName='';
+    searchAll;
     constructor(private activatedRoute:ActivatedRoute,private router:Router,private apiService:ApiService,private httpClient:HttpClient) { }
     ngOnInit(): void {
         this.activatedRoute.params.subscribe(data=> {
             this.username=data['username'];
+            this.searchAll=data['all'];
             if (this.username) {
                 this.resetData['username']=this.username;
                 this.apiService.doGet(Consts.QUERY_ADMIN_USER_READ,'username='+this.username).subscribe(data=> {
@@ -52,6 +54,9 @@ export class AdminComponent implements OnInit {
         if (this.router.url.includes('search-user')) {
             this.currentUrl='search-user';
             this.toolHeadingName='Search Users';
+            if (this.searchAll) {
+                this.searchForUsers();
+            }
         }
         if (this.router.url.includes('reset-password')) {
             this.currentUrl='reset-password';
@@ -59,6 +64,10 @@ export class AdminComponent implements OnInit {
         }
 
 
+    }
+
+    cancelResetPassword() {
+        this.router.navigate(['home/admin/search-user/all'])
     }
 
     navigateToEditUser(user) {
@@ -77,6 +86,10 @@ export class AdminComponent implements OnInit {
         if (this.currentUrl=='update-user') {
             this.userData['username']=this.username;
         }
+    }
+
+    resetSearch() {
+        this.searchUserName='';
     }
     resetPassword() {
         let params =[];

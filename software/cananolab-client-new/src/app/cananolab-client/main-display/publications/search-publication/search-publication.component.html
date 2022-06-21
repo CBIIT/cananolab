@@ -85,7 +85,8 @@
                     <td [colSpan]="setupData.publicationResearchAreas.length">
                         <textarea name="authorsStr" id="authorsStr" rows="3" cols="50" [(ngModel)]="data.authorsStr">
 
-                        </textarea>
+                        </textarea><br />
+                        <i>enter one author per line</i>
                     </td>
                 </tr>
                 <tr>
@@ -98,6 +99,8 @@
                         <textarea name="keywordsStr" id="keywordsStr" rows="3" cols="50" [(ngModel)]="data.keywordsStr">
 
                         </textarea>
+                        <br />
+                        <i>enter one keyword per line</i>
                     </td>
                 </tr>
             </table>

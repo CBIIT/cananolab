@@ -7,7 +7,7 @@
 @import "../../../app.component";
 @import "../../../btn-canano";
 @import "../../cananolab-client.component";
-
+@import '../../../btn-bravo-canano.scss';
 .main-display-heading{
     text-transform: capitalize;
     font-weight:bold;
@@ -22,4 +22,9 @@
 
 .display-heading-button{
     outline: none;
+}
+
+.btn-canano.btn-canano-success {
+    background-color:green;
+    border:1px solid #fff;
 }

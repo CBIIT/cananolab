@@ -269,10 +269,23 @@
                 </td>
             </tr>
         </table>
-        <div class="buttons">
-            <button (click)="onReset()" class="btn-canano btn-canano-danger btn-canano-lg mr-1">Reset</button>
-            <button [disabled]="data.type==''||data.name==''" (click)="onSubmit()" class="btn-canano btn-canano-primary btn-canano-lg mr-1">Submit</button>
+        <div id="buttons">
+            <table class="dataMain submit">
+                <tr>
+                    <td>
+                        <button *ngIf="showDeleteButton()"
+                            class="btn btn-danger m-1"
+                            (click)="delete()"
+                        >Delete</button>
+                    </td>
+                    <td>
+                        <button (click)="onReset()" class="btn-canano btn-canano-danger btn-canano-lg mr-1">Reset</button>
+                        <button [disabled]="data.type==''||data.name==''" (click)="onSubmit()" class="btn-canano btn-canano-primary btn-canano-lg mr-1">Submit</button>
+                    </td>
+                </tr>
+            </table>
         </div>
+
     </form>
 </div>
 

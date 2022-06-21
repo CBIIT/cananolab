@@ -1,6 +1,6 @@
 <canano-main-display-heading
     [helpUrl]="'https://wiki.nci.nih.gov/display/caNanoLab/Managing+Publications+in+caNanoLab#ManagingPublicationsincaNanoLab-SearchSamplesbyPublications'"
-    [toolHeadingName]="'Sample Information by Publication'"
+    [toolHeadingName]="'Sample Information by Publication'" [backUrl]="'home/publications/sample-search-by-publication'"
 >
 </canano-main-display-heading>
 
@@ -39,9 +39,9 @@
                         {{results.type}} ID:{{results.id}}
                     </a>
 
-                    <a *ngIf="results.type=='DOI'" [href]="consts.QUERY_PUBLICATION_DOWNLOAD_FILE + results.externalUrl" target="_blank">
+                    <div *ngIf="results.type=='DOI'">
                         {{results.type}} ID:{{results.id}}
-                    </a>
+                    </div>
                 </td>
                 <td>
                     {{results.authors}}

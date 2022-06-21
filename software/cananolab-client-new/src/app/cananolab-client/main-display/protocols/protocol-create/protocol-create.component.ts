@@ -36,7 +36,12 @@ export class ProtocolCreateComponent implements OnInit, AfterViewInit{
             ( params: Params ) => {
                 this.protocolId=params['protocolId'];
                 if (params['message']) {
-                    this.message='Protocol Created Successfully'
+                    if (params['message']=='deleted') {
+                        this.message='Protocol Deleted Succesfully'
+                    }
+                    else {
+                        this.message='Protocol Created Successfully'
+                    }
                 }
                 this.init();
             });
@@ -77,6 +82,24 @@ export class ProtocolCreateComponent implements OnInit, AfterViewInit{
 
     cancelAccess() {
         this.accessIndex=null;
+    }
+
+    delete() {
+        if (confirm("Are you sure you wish to delete this protocol?")) {
+            this.apiService.doPost(Consts.QUERY_DELETE_PROTOCOL,this.data).subscribe(data=> {
+                this.router.navigate(['home/protocols/protocol-create/deleted'])
+            },
+            errors=> {
+                this.errors=errors;
+            })
+        }
+    }
+
+    showDeleteButton() {
+        if (this.router.url.includes('edit-protocol')) {
+            return true
+        }
+        return false
     }
 
     changeAccessType(event) {

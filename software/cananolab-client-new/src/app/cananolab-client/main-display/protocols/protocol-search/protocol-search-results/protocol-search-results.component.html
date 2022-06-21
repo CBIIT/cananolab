@@ -78,8 +78,12 @@
 				<td class="search-results-td protocol-search-results-version-td"> {{res['version']}} </td>
 				<td class="search-results-td"> <span *ngIf="res['fileInfo'].length > 0 ">
                     <div><b><i>Title:</i></b>&nbsp;&nbsp;
-                        <span [innerHtml]="res['fileInfo']| protocolSearchResultsDisplayTitle"></span> </div>
-                        <div><b><i>Description:</i></b><span [innerHtml]="formatFileField(res['fileInfo'])"></span> &nbsp;&nbsp;</div>	</span>
+                        <span [innerHtml]="res['fileInfo']| protocolSearchResultsDisplayTitle"></span>
+                    </div>
+                        <div><b><i>Description:</i></b>
+                            <span [innerHtml]="formatFileField(res['fileInfo']|protocolSearchResultsDisplayDescription)"></span>
+                            &nbsp;&nbsp;</div>
+                    	</span>
 	</td>
 	<td class="search-results-td protocol-search-results-created-td"> {{res['createdDate'] | date : "shortDate"}} </td>
 	</tr>

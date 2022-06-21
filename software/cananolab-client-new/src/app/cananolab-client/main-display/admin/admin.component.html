@@ -71,7 +71,8 @@
         <div>
             <table class="dataMain submit">
                 <tr>
-                    <td>{{oldpassword}}
+                    <td>
+                        <button (click)="cancelResetPassword()" class="btn-canano btn-canano-default btn-canano-lg mr-1">Cancel</button>
                         <button [disabled]="resetData.oldpassword==''||resetData.newpassword==''" (click)="resetPassword()" class="btn-canano btn-canano-danger btn-canano-lg mr-1">Reset Password</button>
                     </td>
                 </tr>
@@ -135,6 +136,7 @@
             <table class="dataMain submit">
                 <tr>
                     <td>
+                        <button (click)="resetSearch()" class="btn-canano btn-canano-danger btn-canano-lg mr-1">Reset</button>
                         <button (click)="searchForUsers()" class="btn-canano btn-canano-primary btn-canano-lg mr-1">Search</button>
                     </td>
                 </tr>
