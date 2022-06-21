@@ -121,7 +121,9 @@ export class MainDisplayHeadingComponent implements OnInit, OnDestroy{
     exportAsXML() {
         this.downloadReady.emit(false);
         let sampleIds=this.sampleIds.join();
-        this.httpClient.post(Consts.QUERY_SAMPLE_EXPORT_XML,{sampleIds:sampleIds},{responseType:'text'}).subscribe(data=> {
+        this.httpClient.post(Consts.QUERY_SAMPLE_EXPORT_XML,
+            {sampleIds:sampleIds},
+            {responseType:'text'}).subscribe(data=> {
             let a = (window).document.createElement('a');
             a.href = (window).URL.createObjectURL(new Blob([data], {
               type: 'application/xml'
