@@ -35,17 +35,17 @@ export class BrowseCananolabComponent implements OnInit{
     }
 
     onSearchProtocolsClick(){
-        this.router.navigate( [this.utilService.getRouteByName( 'PROTOCOLS' )] );
+        this.router.navigate(['home/protocols/protocol-search'])
     }
 
     // Will not need this after router is in place?
     onSearchPublicationsClick(){
-        this.router.navigate( [this.utilService.getRouteByName( 'PUBLICATIONS' )] );
+        this.router.navigate(['home/publications/publication-search'])
 
     }
 
     onSearchSamplesClick(){
-        this.router.navigate( [this.utilService.getRouteByName( 'SAMPLES' )] );
+        this.router.navigate(['home/samples/sample-search'])
 
     }
     onSearchAllPublicationsClick() {
