@@ -99,6 +99,7 @@ export class SearchResultsComponent implements OnInit {
         }
         this.apiService.doPost(Consts.QUERY_ADD_FAVORITE, data).subscribe(
             (data) => {
+                result['addedToFavorites']=data;
                 this.errors = {};
             },
             (error) => {

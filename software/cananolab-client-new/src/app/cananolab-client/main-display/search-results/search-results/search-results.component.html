@@ -93,8 +93,10 @@
                         </a>
                     </ng-container>
                     <br />
-
-                    <a *ngIf="properties.LOGGED_IN" (click)="addToFavorites(result)">Add to Favorites</a>
+                    <div *ngIf="result['addedToFavorites']">
+                        {{result['addedToFavorites'][0]}}
+                    </div>
+                    <a *ngIf="properties.LOGGED_IN&&!result['addedToFavorites']" (click)="addToFavorites(result)">Add to Favorites</a>
                 </td>
 
                 <td class="search-results-td">{{ result.type }}</td>

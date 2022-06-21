@@ -165,12 +165,13 @@ export class ProtocolSearchResultsComponent implements OnInit, OnDestroy {
         );
     }
 
-    addToFavorites(
+    addToFavorites(res,
         protocolId,
         protocolName,
         fileId,
         editable,
-        protocolFileTitle
+        protocolFileTitle,
+        lo
     ) {
         // api.doPost
         let queryData = {
@@ -180,13 +181,14 @@ export class ProtocolSearchResultsComponent implements OnInit, OnDestroy {
             protocolFileId: fileId,
             protocolFileTitle: protocolFileTitle,
             editable: true,
-            loginName: this.userName,
+            loginName: Properties.current_user,
         };
 
         this.apiService
             .doPost(Consts.QUERY_ADD_FAVORITE, <any>queryData)
             .subscribe(
                 (data) => {
+                    res['addedToFavorites']=data;
                     console.log('Data back from addToFavorites: ', data);
                 },
                 (err) => {

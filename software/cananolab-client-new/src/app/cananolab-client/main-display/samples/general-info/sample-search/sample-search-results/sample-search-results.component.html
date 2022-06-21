@@ -84,8 +84,10 @@
 
                 <a *ngIf="! properties.LOGGED_IN" (click)="navigateToSampleView(samp['sampleId'])">View</a>
                 <br>
-
-                <a *ngIf="properties.LOGGED_IN" (click)="addToFavorites( samp )">Add to Favorites</a>
+                <div *ngIf="samp['addedToFavorites']">
+                    {{samp['addedToFavorites'][0]}}
+                </div>
+                <a *ngIf="properties.LOGGED_IN&&!samp['addedToFavorites']" (click)="addToFavorites( samp )">Add to Favorites</a>
 
             </td>
 

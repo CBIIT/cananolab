@@ -67,7 +67,10 @@
                 (click)="onViewClick(res)"
             >View</div>
             -->
-					<br /> <a *ngIf="properties.LOGGED_IN" (click)="addToFavorites( res.id, res.viewName, res.fileId, res.editable, res.fileTitle )">Add to
+            <div *ngIf="res['addedToFavorites']">
+                {{res['addedToFavorites'][0]}}
+            </div>
+					<br /> <a *ngIf="properties.LOGGED_IN&&!res['addedToFavorites']" (click)="addToFavorites( res,res.id, res.viewName, res.fileId, res.editable, res.fileTitle )">Add to
                     Favorites</a> </td>
 				<td class="search-results-td protocol-search-results-type-td"> {{res['type']}} </td>
 				<td class="search-results-td"> {{res['viewName']}} </td>

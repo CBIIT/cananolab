@@ -103,10 +103,14 @@ export class SampleSearchResultsComponent implements OnInit, OnDestroy {
         favObj['dataId'] = samp['sampleId'];
         favObj['description'] = samp['nanoEntityDesc'];
         favObj['editable'] = samp['editable'];
+        favObj['loginName']=Properties.current_user;
+
         console.log('favObj:', favObj);
 
         this.apiService.doPost(Consts.QUERY_ADD_FAVORITE, favObj).subscribe(
             (data) => {
+                samp['addedToFavorites']=data;
+                console.log(samp)
                 // console.log('set Fave results: ', data);
             },
             (err) => {

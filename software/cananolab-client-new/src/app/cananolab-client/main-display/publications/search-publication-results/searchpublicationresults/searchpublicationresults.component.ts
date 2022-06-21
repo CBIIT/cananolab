@@ -105,20 +105,20 @@ export class SearchpublicationresultsComponent implements OnInit {
     }
 
     addToFavorites(publication) {
-        console.log('ere?');
         let data = {
             dataId: publication.id,
-            dataName: publication.displayName,
+            dataName: publication.title,
             dataType: 'publication',
             editable: publication.editable,
-            loginName: this.userName,
-            pubMedId: publication.pubMedId,
+            loginName: Properties.current_user,
+            pubmedId: publication.pubmedId,
         };
         this.errors = {};
         this.apiService
             .doPost('caNanoLab/rest/core/addFavorite', data)
             .subscribe(
                 (data) => {
+                    publication['addedToFavorites']=data;
                     console.log('added to favorites');
                 },
                 (error) => {
