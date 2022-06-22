@@ -6,6 +6,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { timeout } from 'rxjs/operators';
 import { NavigationService } from 'src/app/cananolab-client/common/services/navigation.service';
 import { ApiService } from 'src/app/cananolab-client/common/services/api.service';
+import { formatDate } from '@angular/common';
 @Component( {
     selector: 'canano-sample-view',
     templateUrl: './sample-view.component.html',
@@ -18,7 +19,6 @@ export class SampleViewComponent implements OnInit{
     loading;
     helpUrl = Consts.HELP_URL_SAMPLE_VIEW;
     toolHeadingNameViewSample = 'Sample ' + this.sampleName;
-
     pointOfContacts = [];
     keyWords = [];
 
@@ -38,7 +38,6 @@ export class SampleViewComponent implements OnInit{
                 this.sampleName = params['sampleId'].replace( /^.*sampleName=/, '' );
                 this.toolHeadingNameViewSample = 'Sample ' + this.sampleName;
             } );
-
 
         this.route.params.subscribe(
             ( params: Params ) => {
@@ -126,5 +125,9 @@ export class SampleViewComponent implements OnInit{
             };
             this.pointOfContacts.push(pointOfContact);
         });
+    }
+
+    dateFormat(date) {
+        return formatDate(date,'shortDate','en-US')
     }
 }

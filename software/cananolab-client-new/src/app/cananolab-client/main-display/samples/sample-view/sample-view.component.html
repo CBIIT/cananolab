@@ -7,7 +7,6 @@
     <canano-loader [loading]="loading" [message]="'Exporting Data'">
 
     </canano-loader>
-
 <div class="mainBorder">
     <table class="dataMain">
         <tr>
@@ -23,7 +22,7 @@
                 Created Date
             </td>
             <td>
-                  {{sampleData['createdDate']}}
+                  {{dateFormat(sampleData['createdDate'])}}
             </td>
         </tr>
         <tr>
