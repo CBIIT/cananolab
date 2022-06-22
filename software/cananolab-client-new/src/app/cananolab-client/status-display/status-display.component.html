@@ -1,4 +1,11 @@
 <span class="status-display" *ngIf="userName&&userName!='unknown'">
 Logged in as<br>
 {{userName}}
+<P><br />
+    Associated Groups:<br />
+    <span [innerHtml]="getGroups()">
+        Groups
+    </span>
+</P>
+
 </span>

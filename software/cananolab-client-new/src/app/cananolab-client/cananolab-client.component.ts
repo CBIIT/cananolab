@@ -50,6 +50,7 @@ export class CananolabClientComponent implements OnInit{
         loginUrl.subscribe(data=> {
             let keys=Object.keys(data);
             if (keys[0]!='anonymousUser') {
+                this.properties['groups']=data[keys[0]];
                 this.properties['LOGGED_IN']=true;
                 this.properties['logged_in']=true;
                 this.properties['current_user']=keys[0];

@@ -10,15 +10,18 @@ import { TopMainMenuService } from '../top-main-menu/top-main-menu.service';
 })
 export class StatusDisplayComponent implements OnInit {
   userName;  // @TODO
+  properties=Properties;
   constructor(private topMainMenuService:TopMainMenuService,private statusDisplayService: StatusDisplayService) { }
 
   ngOnInit(): void {
-      this.statusDisplayService.updateUserEmitter.pipe( timeout( Properties.HTTP_TIMEOUT ) ).subscribe(
-          data => {
-              console.log('test')
-              this.userName = data;
-          });
+    this.statusDisplayService.updateUserEmitter.pipe( timeout( Properties.HTTP_TIMEOUT ) ).subscribe(
+    data => {
+        this.userName = data;
+    });
+  }
 
+  getGroups() {
+      return Properties['groups'].join('<br>')
   }
 
 }
