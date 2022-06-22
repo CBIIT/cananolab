@@ -4,7 +4,7 @@
 >
 </canano-main-display-heading>
 
-<div class="mainSection">
+<div [ngClass]="{'mainSection':loaded&&!homePage,'right-side-bar-content':homePage}">
 <div [ngClass]="{'mainBorder':loaded&&!homePage}">
     <table class="login">
         <tr>

@@ -54,11 +54,12 @@ class="d-block p-2 bg-primary text-white"
     margin:0px;
     }
     .contentDisplay td.left {
-        width:$leftColumnWidth;
+
+        width:$leftColumnWidth !important;
     }
 
     .contentDisplay td.right {
-        width:calc(100%-var($leftColumnWidth));
+        width:calc(100% - #{$leftColumnWidth}) !important;
         border-left:1px solid $leftMenuBorderColor;
         border-right:1px solid $leftMenuBorderColor;
     }
