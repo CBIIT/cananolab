@@ -157,6 +157,9 @@
                         Publication ID
                     </th>
                     <th>
+                        Publication Title
+                    </th>
+                    <th>
                         Publication Submission Status
                     </th>
                 <th>
@@ -179,6 +182,11 @@
                                 Delete
                             </a>
                         </div>
+                    </td>
+                    <td>
+                        <span [innerHtml]="workPub['pubMedDOIId']">
+
+                        </span>
                     </td>
                     <td>
                         {{workPub['name']}}
