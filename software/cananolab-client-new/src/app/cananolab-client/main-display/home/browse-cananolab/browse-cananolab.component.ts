@@ -61,9 +61,12 @@ export class BrowseCananolabComponent implements OnInit{
             this.searchPublicationService.setPublicationSearchResults(data);
             this.router.navigate(['home/publications/publication-search-results']);
         })
-
-
     }
+
+    onSearchAdvanced() {
+        this.router.navigate(['/home/samples/sample-advanced-search'])
+    }
+
     onSearchAllProtocolsClick() {
         console.log('test')
         let url = this.apiService.doPost(Consts.QUERY_SEARCH_PROTOCOL,{

@@ -8,7 +8,7 @@
     padding:0px;
     font-size:$mainFontSize;
     // width: calc(100% - #{$mainDisplayHeadingMargin});
-    max-width:1150px;
+    min-width:1150px;
 
 }
 .mainBorder {
