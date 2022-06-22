@@ -55,7 +55,12 @@
                     </tr>
                     <tr *ngFor="let contact of pointOfContacts">
                         <td>
-                            {{contact.primaryContact}}
+                            <ng-container *ngIf="contact.primaryContact">
+                                Yes
+                            </ng-container>
+                            <ng-container *ngIf="!contact.primaryContact">
+                                No
+                            </ng-container>
                         </td>
                         <td>
                             {{contact.organizationDisplayName}}

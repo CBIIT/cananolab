@@ -47,7 +47,12 @@
                         </tr>
                         <tr *ngFor="let contact of data.pointOfContacts; let odd=odd; let pocIndex=index" [ngClass]="{'rowOdd':odd}">
                             <td>
-                                {{contact.primaryContact}}
+                                <ng-container *ngIf="contact.primaryContact">
+                                    Yes
+                                </ng-container>
+                                <ng-container *ngIf="!contact.primaryContact">
+                                    No
+                                </ng-container>
                             </td>
                             <td>
                                 {{contact.firstName}} {{contact.lastName}}
