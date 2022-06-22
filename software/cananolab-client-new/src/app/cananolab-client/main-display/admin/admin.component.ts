@@ -70,14 +70,6 @@ export class AdminComponent implements OnInit {
         this.router.navigate(['home/admin/search-user/all'])
     }
 
-    navigateToEditUser(user) {
-        this.router.navigate(['/home/admin/update-user',user.username])
-    }
-
-    navigateToResetPassword(user) {
-        this.router.navigate(['/home/admin/reset-password',user.username])
-    }
-
     reset() {
         this.userData=this.setupUserData();
         if (this.currentUrl=='create-user') {

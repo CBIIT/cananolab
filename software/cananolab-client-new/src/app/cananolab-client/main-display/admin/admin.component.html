@@ -101,7 +101,8 @@
                 </tr>
                 <tr *ngIf="userSearchResults">
                     <td colspan="2">
-                        <table class="dataTable">
+                        <canano-user-results [searchResults]="userSearchResults"></canano-user-results>
+                        <!-- <table class="dataTable">
                             <tr>
                                 <th>Actions</th>
                                 <th>Username</th>
@@ -127,7 +128,7 @@
                                 <td>{{user.phoneNumber}}</td>
                                 <td>{{user.emailId}}</td>
                             </tr>
-                        </table>
+                        </table> -->
                     </td>
                 </tr>
             </table>

@@ -1,0 +1,28 @@
+@import '../../../../btn-bravo-canano.scss';
+@import '../../../../btn-canano.scss';
+@import '../../main-display.component.scss';
+.hidden {
+    display:none;
+}
+td,
+th{
+    vertical-align: top;
+}
+
+.number-spinner{
+    border: solid 1px #686868;
+    border-radius: 3px;
+    position: relative;
+    top: 0;
+    padding: 0 4px 0 4px;
+    width: 50px;
+    height: 28px;
+}
+
+.rows-per-page-spinner{
+    color: #686868;
+}
+
+a {
+    color:blue !important;
+}

@@ -1,0 +1,74 @@
+<div>
+<div *ngIf="!searchResults.length" class="mainBorder"> No search results found. </div>
+<div *ngIf="searchResults.length">
+    <span class="ml-2">
+        {{searchResults.length}} Item{{(searchResults.length > 1 ? 's' : '')}} found, displaying
+        {{(currentPage * pageLength) + 1}}
+        -{{ (((currentPage * pageLength) + pageLength) > searchResults.length) ? searchResults.length : (currentPage *
+        pageLength) + pageLength }}
+    </span>
+<span class="search-results-pager">
+    <!-- Page length number setting  -->
+    <span class="ml-5">
+        Show
+        <input class="number-spinner rows-per-page-spinner" min="1" max="{{maxPageLength}}" type="number"
+            [(ngModel)]="pageLength" (change)="onPageLengthChange()">
+        entries
+    </span>
+    <!-- Pager buttons -->
+    <canano-search-results-pager style="float: right;" [totalCount]="searchResultsCount" [startingPageLength]="pageLength"></canano-search-results-pager>
+    </span><br /><br />
+    <table class="dataTable">
+        <tr>
+            <ng-container *ngFor="let col of columnHeadings; let i = index">
+                <th *ngFor="let colKeyValue of col | keyvalue" class="unselectable hand" (click)="onSortClick(i,colKeyValue.key)">
+                    <label for="sortClick" class="hand">
+                        {{ colKeyValue.value }}
+                        <span *ngIf="i > 0" id="sortClick" class="inline">
+                            <span *ngIf="i > 0" class="sortImages" >
+                                <span *ngIf="sortingStates[i] === sortState.NO_SORT">
+                                    <svg width="10" height="10" fill="currentColor">
+                                        <use xlink:href="assets/images/bootstrap-icons.svg#caret-up-fill" />
+                                    </svg>
+                                    <svg width="10" height="10" fill="currentColor">
+                                        <use xlink:href="assets/images/bootstrap-icons.svg#caret-down-fill" />
+                                    </svg>
+                                </span>
+                                <svg *ngIf="sortingStates[i] === sortState.SORT_UP" width="10" height="10" fill="currentColor">
+                                    <use xlink:href="assets/images/bootstrap-icons.svg#caret-up-fill" />
+                                </svg>
+                                <svg *ngIf="sortingStates[i] === sortState.SORT_DOWN"  width="10" height="10" fill="currentColor">
+                                    <use xlink:href="assets/images/bootstrap-icons.svg#caret-down-fill" />
+                                </svg>
+                            </span>
+                        </span>
+                    </label>
+                    <!-- No sorting for "Actions" column -->
+
+                    <!-- END Add sorting icons -->
+                </th>
+            </ng-container>
+        </tr>
+        <tr *ngFor="let res of searchResultsPageToDisplay; let even=even; let odd=odd; let i=index" class="search-results-tr" [ngClass]="{
+            '': even,
+            'rowOdd': odd
+        }">
+            <td class="search-results-td">
+                <a (click)="navigateToEditUser(res['username'])">Edit</a><br />
+                <a (click)="navigateToResetPassword(res['username'])">Reset Password</a>
+            </td>
+            <td class="search-results-td"> {{res['username']}} </td>
+            <td class="search-results-td"> {{res['firstName']}} </td>
+            <td class="search-results-td"> {{res['lastName']}} </td>
+            <td class="search-results-td"> {{res['organization']}} </td>
+            <td class="search-results-td"> {{res['department']}} </td>
+            <td class="search-results-td"> {{res['title']}} </td>
+            <td class="search-results-td"> {{res['phoneNumber']}} </td>
+            <td class="search-results-td"> {{res['emailId']}} </td>
+        </tr>
+</table>
+<!-- Pager buttons -->
+<br />
+<canano-search-results-pager style="float: right; " [totalCount]=searchResultsCount [startingPageLength]=pageLength> </canano-search-results-pager>
+</div>
+</div>
