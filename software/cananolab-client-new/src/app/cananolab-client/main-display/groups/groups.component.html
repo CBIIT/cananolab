@@ -3,7 +3,7 @@
 
 </canano-main-display-heading>
 
-<div class="mainSection">
+<div class="mainSection" *ngIf="currentUrl=='collaboration-groups'">
     <div class="error" *ngIf="errors['error']">
         {{errors['error']}}
     </div>
@@ -182,4 +182,24 @@
         </ng-container>
     </div>
     </form>
+</div>
+
+<div class="mainSection" *ngIf="currentUrl=='manage-groups'">
+    <div class="mainBorder">
+        <P>
+            This is the manage community section which allows a user to manage collaboration groups. In this section, a user can create, edit, or delete a collaboration group and assign users to participate in the collaboration group.
+        </P>
+        <div class="links-panel card ml-1 mt-2">
+            <div  class="card-header mb-0 pb-0">
+                <span class="card-title unselectable m-0 p-0">
+                    <h5>Community Links</h5>
+                </span>
+
+            </div>
+            <div class="card-body">
+                <a class="link-clicker" routerLink="/home/groups/collaboration-groups">Manage Collaboration Groups</a><br>
+                Select to create, update, delete collaboration groups and manage users within the groups.<br><br>
+            </div>
+        </div>
+    </div>
 </div>

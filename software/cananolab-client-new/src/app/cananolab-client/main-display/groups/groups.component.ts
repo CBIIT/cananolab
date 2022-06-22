@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Consts } from 'src/app/constants';
 import { ApiService } from '../../common/services/api.service';
+import { Router } from '@angular/router';
 @Component({
   selector: 'canano-groups',
   templateUrl: './groups.component.html',
@@ -9,6 +10,7 @@ import { ApiService } from '../../common/services/api.service';
 export class GroupsComponent implements OnInit {
     helpUrl='javascript:openHelpWindow('+'https://wiki.nci.nih.gov/display/caNanoLab/Managing+Collaboration+Groups' + ')';
     toolHeadingNameManage='Manage Collaboration Groups';
+    currentUrl;
     data;
     errors={};
     sampleData;
@@ -19,9 +21,17 @@ export class GroupsComponent implements OnInit {
     userInfoBean;
     users;
 
-    constructor(private apiService:ApiService) { }
+    constructor(private router:Router,private apiService:ApiService) { }
 
     ngOnInit(): void {
+        if (this.router.url.includes('collaboration-groups')) {
+            this.currentUrl='collaboration-groups'
+            this.toolHeadingNameManage='Manage Collaboration Groups'
+        }
+        else {
+            this.currentUrl='manage-groups';
+            this.toolHeadingNameManage='Manage Community'
+        }
         this.sampleData={};
         let url = this.apiService.doGet(Consts.QUERY_COLLABORATION_GET_GROUPS,'');
         url.subscribe(data=> {

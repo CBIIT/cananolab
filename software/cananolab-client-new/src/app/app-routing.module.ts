@@ -33,6 +33,7 @@ const routes: Routes = [
     { path: 'home/protocols/protocol-search-results', loadChildren: () => import('./cananolab-client/main-display/protocols/protocol-search/protocol-search-results/protocol-search-results.module').then(m => m.ProtocolSearchResultsModule) },
     { path: 'home/search-results', loadChildren: () => import('./cananolab-client/main-display/search-results/search-results/search-results.module').then(m => m.SearchResultsModule) },
     { path: 'home/groups', loadChildren: () => import('./cananolab-client/main-display/groups/groups.module').then(m => m.GroupsModule) },
+    { path: 'home/groups/collaboration-groups', loadChildren: () => import('./cananolab-client/main-display/groups/groups.module').then(m => m.GroupsModule) },
     { path: 'home/curation', loadChildren: () => import('./cananolab-client/main-display/curation/curation.module').then(m => m.CurationModule) },
     { path: 'home/curation/review-data', loadChildren: () => import('./cananolab-client/main-display/curation/curation.module').then(m => m.CurationModule) },
     { path: 'home/curation/manage-availability', loadChildren: () => import('./cananolab-client/main-display/curation/curation.module').then(m => m.CurationModule) },
