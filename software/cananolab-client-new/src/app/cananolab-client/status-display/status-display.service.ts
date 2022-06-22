@@ -9,7 +9,9 @@ import { Router } from '@angular/router';
 export class StatusDisplayService{
 
     updateUserEmitter = new EventEmitter();
+    updateGroupEmitter = new EventEmitter();
     user = '';
+    groups = [];
 
     constructor( private router:Router, private apiService: ApiService ){
     }
@@ -23,8 +25,6 @@ export class StatusDisplayService{
         return !this.router.url.includes('view');
     }
 
-
-
     updateUser( user ){
         this.user = user;
         this.updateUserGroups();
@@ -32,18 +32,19 @@ export class StatusDisplayService{
     }
 
     updateUserGroups(){
-
+        setTimeout(()=> {
         //  this.apiService.doPost( Consts.QUERY_SEARCH, 'keyword=' + this.topKeyWordSearchText ).subscribe(
-        this.apiService.doGet( Consts.QUERY_GET_USER_GROUPS, '' ).subscribe(
-            data => {
-                // Set user as "Logged in"
-                Properties.logged_in = true;
+            this.apiService.doGet( Consts.QUERY_GET_USER_GROUPS, '' ).subscribe(
+                data => {
+                    // Set user as "Logged in"
+                    Properties.logged_in = true;
+                    this.updateGroupEmitter.emit(data)
+                },
+                ( err ) => {
+                    console.log( 'ERROR getUserGroups: ', err );
+                } );
+        },200)
 
-                console.log(data);
-            },
-            ( err ) => {
-                console.log( 'ERROR getUserGroups: ', err );
-            } );
 
     }
 

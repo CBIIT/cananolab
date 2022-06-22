@@ -10,6 +10,7 @@ import { TopMainMenuService } from '../top-main-menu/top-main-menu.service';
 })
 export class StatusDisplayComponent implements OnInit {
   userName;  // @TODO
+  groups;
   properties=Properties;
   constructor(private topMainMenuService:TopMainMenuService,private statusDisplayService: StatusDisplayService) { }
 
@@ -18,10 +19,14 @@ export class StatusDisplayComponent implements OnInit {
     data => {
         this.userName = data;
     });
+    this.statusDisplayService.updateGroupEmitter.subscribe(data=> {
+        let keys=Object.keys(data);
+        keys.forEach(key=> {
+            this.groups=data[key].join('<br />')
+        })
+        // this.groups=data;
+        // let
+        // console.log(data)
+    })
   }
-
-  getGroups() {
-      return Properties['groups'].join('<br>')
-  }
-
 }
