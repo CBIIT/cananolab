@@ -62,7 +62,9 @@
                             </ng-container>
                         </td>
                         <td>
-                            {{contact.organizationDisplayName}}
+                            <span [innerHtml]="contact.organizationDisplayName">
+                                Org Name
+                            </span>
                         </td>
                         <td>
                             {{contact.role}}
