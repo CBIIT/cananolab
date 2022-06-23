@@ -94,6 +94,11 @@ serverUrl = Properties.API_SERVER_URL;
 
   }
 
+  editFile(file) {
+      this.fileIndex=1;
+      this.currentFile=file;
+  }
+
   isFileUploadValid() {
       if (this.currentFile.type!=''&&this.currentFile.title!='') {
         if (this.currentFile.uriExternal) {

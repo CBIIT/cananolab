@@ -5,6 +5,7 @@ import { Consts } from '../../../../../constants';
 import { Router } from '@angular/router';
 import { NavigationService } from '../../../../common/services/navigation.service';
 import { ApiService } from '../../../../common/services/api.service';
+import { HttpClient } from '@angular/common/http';
 @Component({
   selector: 'canano-compositionfile',
   templateUrl: './compositionfile.component.html',
@@ -23,7 +24,7 @@ export class CompositionfileComponent implements OnInit {
     helpUrl = Consts.HELP_URL_SAMPLE_CHARACTERIZATION;
     toolHeadingNameManage = 'Sample ' + this.sampleName + ' Composition File';
 
-  constructor( private apiService:ApiService,private navigationService:NavigationService,private router: Router, private route: ActivatedRoute ){
+  constructor( private httpClient:HttpClient,private apiService:ApiService,private navigationService:NavigationService,private router: Router, private route: ActivatedRoute ){
   }
 
     ngOnInit(): void{
@@ -121,7 +122,7 @@ export class CompositionfileComponent implements OnInit {
           this.theFile.append('title',this.data['title']);
           this.theFile.append('keywordsStr',this.data['keywordsStr']);
           this.theFile.append('description',this.data['description']);
-          let uploadUrl=this.apiService.doPost(Consts.QUERY_UPLOAD_FILE,this.theFile);
+          let uploadUrl=this.httpClient.post(Consts.QUERY_UPLOAD_FILE,this.theFile);
           uploadUrl.subscribe(data=> {
                 this.errors={};
                 this.data['uri']=data['fileName'];
