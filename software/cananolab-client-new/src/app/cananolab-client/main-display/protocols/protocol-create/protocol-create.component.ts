@@ -3,6 +3,7 @@ import { Consts } from '../../../../constants';
 import { ApiService } from '../../../common/services/api.service';
 import { UtilService } from '../../../common/services/util.service';
 import { Router, Params, ActivatedRoute } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
 @Component( {
     selector: 'canano-protocol-create',
     templateUrl: './protocol-create.component.html',
@@ -27,7 +28,7 @@ export class ProtocolCreateComponent implements OnInit, AfterViewInit{
     setupData={};
     theAccess={};
 
-    constructor( private route:ActivatedRoute,private router:Router,private apiService: ApiService, private utilService: UtilService,
+    constructor(private httpClient:HttpClient, private route:ActivatedRoute,private router:Router,private apiService: ApiService, private utilService: UtilService,
                  ){
     }
 
@@ -70,18 +71,19 @@ export class ProtocolCreateComponent implements OnInit, AfterViewInit{
         return formData;
     };
 
-    buildFileUploadForm(): FormData{
-        let formData = new FormData();
-        formData.append( 'files', this.fileToUpload );
-        formData.append( 'uriExternal', 'false' );
-        formData.append( 'review', 'false' );
-        formData.append( 'isPublic', 'false' );
-        formData.append( 'type', this.data.type );
-        return formData;
-    };
-
     cancelAccess() {
         this.accessIndex=null;
+    }
+
+    uploadFile(event) {
+        this.fileToUpload = new FormData();
+        const tFile = event.target.files.item(0);
+        this.fileToUpload.append('myFile', tFile, tFile.name);
+        this.fileToUpload.append( 'uriExternal', 'false' );
+        this.fileToUpload.append( 'review', 'false' );
+        this.fileToUpload.append( 'isPublic', 'false' );
+        this.fileToUpload.append( 'type', this.data.type );
+        console.log(this.fileToUpload)
     }
 
     delete() {
@@ -161,14 +163,6 @@ export class ProtocolCreateComponent implements OnInit, AfterViewInit{
         this.accessIndex=index;
         this.recipientList=null;
         this.theAccess=JSON.parse(JSON.stringify(access));
-    };
-
-    /**
-     * When User uses browser upload function
-     * @param e
-     */
-     getFiles( e ){
-        this.fileToUpload = e.target.files[0];
     };
 
     getRecipientList() {
@@ -256,24 +250,17 @@ export class ProtocolCreateComponent implements OnInit, AfterViewInit{
         // Do we need to send a file?
         // Send the file
         if( !this.data.uriExternal ){
-            let formData = this.buildFileUploadForm();
             if (this.fileToUpload) {
-            // @CHECKME Should this be done here
-            this.fileToUpload.fileName = encodeURI( this.fileToUpload.fileName );
-            formData.delete( 'externalUrl' );
-
-
-            let upload$ = this.apiService.doPost( Consts.QUERY_UPLOAD_FILE, formData );
-            upload$.subscribe( data => {
+            let uploadUrl = this.httpClient.post('/'+Consts.QUERY_UPLOAD_FILE, this.fileToUpload);
+            uploadUrl.subscribe(data=> {
                     this.errors={};
                     this.data.fileId="0";
                     this.data.uri=data['fileName'];
                     this.submitProtocol();
-                },
-                err => {
-                    this.errors=err;
-                    console.error( 'BAD Post file upload: ', err );
-                } );
+            },
+            error=> {
+
+            })
             }
             else {
                 // we dont have a file //
@@ -289,21 +276,6 @@ export class ProtocolCreateComponent implements OnInit, AfterViewInit{
             this.data.uriExternal=true;
             this.submitProtocol();
         }
-
-
-        // -----  Add missing things to the form  -----
-        // Add user
-        // this.protocolCreateForm.form.patchValue( { 'createdBy': Properties.current_user } ); // @CHECKME This does not work (I think it should)
-
-
-        // Add the parts that are not from the UI form
-        // let parameters = this.buildPerimeterString();
-
-        // ///////////////////////////////////////////////////////
-        // Do the submit
-
-
-        // ///////////////////////////////////////////////////////
     };
 
 

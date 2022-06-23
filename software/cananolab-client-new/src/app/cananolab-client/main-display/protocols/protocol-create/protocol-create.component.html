@@ -90,7 +90,7 @@
                     <!-- END Radio buttons for "Upload"/"Enter File URL" -->
                     <!-- File browser button -->
                     <br />
-                    <input [ngClass]="{'hide': data.uriExternal}" type="file" (change)="getFiles($event)">
+                    <input [ngClass]="{'hide': data.uriExternal}" (change)="uploadFile($event)" type="file">
                     <div *ngIf="data.uri">
                         <a [href]="downloadUrl+'?fileId='+data.fileId">
                             {{data.uri}}
