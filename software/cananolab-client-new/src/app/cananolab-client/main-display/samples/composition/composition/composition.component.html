@@ -141,7 +141,7 @@
                     (click)="onFunctionalizingEntityClick(entry.dataId)">Edit</button></div>
             <div>
                 <table class="dataMain">
-                    <tr>
+                    <tr *ngIf="entry.Name">
                         <td class="label">Name</td>
                         <td>{{entry.Name}}</td>
                     </tr>
@@ -149,7 +149,7 @@
                         <td class="label">PubChem ID</td>
                         <td><a [href]="entry.pubChemLink" target="blank">{{entry.pubChemID}}</a></td>
                     </tr>
-                    <tr *ngIf="entry.Amount">
+                    <tr *ngIf="entry.value">
                         <td class="label">Amount</td>
                         <td>{{entry.value}} {{entry.valueUnit}}</td>
                     </tr>
