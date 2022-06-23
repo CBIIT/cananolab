@@ -954,6 +954,7 @@
                                                             </td>
                                                             <td>
                                                                 <input id="uriExternal" *ngIf="currentFile.uriExternal==1" type="text" name="currentFile.externalUrl" [(ngModel)]="currentFile.externalUrl">
+                                                                [<canano-disclaimer *ngIf="currentFile.uriExternal==1"></canano-disclaimer>]
                                                             </td>
                                                         </tr>
                                                         <tr *ngIf="currentFile.uriExternal==0">

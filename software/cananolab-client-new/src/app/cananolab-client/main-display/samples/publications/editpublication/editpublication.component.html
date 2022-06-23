@@ -270,6 +270,7 @@
                             <br />
                             <ng-container *ngIf="currentFile.uriExternal==1">
                                 <input id="uriExternal" *ngIf="currentFile.uriExternal==1" type="text" name="currentFile.externalUrl" [(ngModel)]="currentFile.externalUrl" size="60">
+                                [<canano-disclaimer></canano-disclaimer>]
                             </ng-container>
                             <ng-container *ngIf="currentFile.uriExternal==0">
                                 <input id="file" (change)="uploadFile($event)" type="file" name="currentFile.uploadFile" [(ngModel)]="currentFile.file">

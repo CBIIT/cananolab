@@ -64,7 +64,8 @@
                             </button>
                         </li>
                         <li class="footer-item">
-                            <button class="nav-link nav-menu-top-item" (click)="navigateToUrl('http://localhost:8080/caNanoLab/html/cananoDisclaimer.html')">
+                            <canano-disclaimer [hide]="true"></canano-disclaimer>
+                            <button data-toggle="modal" data-target="#disclaimer" class="nav-link nav-menu-top-item">
                                 Disclaimer
                             </button>
                         </li>

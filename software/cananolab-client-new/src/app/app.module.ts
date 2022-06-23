@@ -14,6 +14,7 @@ import { SetObjectValueModule } from './cananolab-client/common/modules/set-obje
 import { StatusDisplayComponent } from './cananolab-client/status-display/status-display.component';
 import { TopKeywordSearchComponent } from './cananolab-client/header/top-keyword-search/top-keyword-search.component';
 import { TopMainMenuComponent } from './cananolab-client/top-main-menu/top-main-menu.component';
+import { DisclaimerModule } from './cananolab-client/common/components/disclaimer/disclaimer.module';
 
 
 @NgModule({
@@ -35,6 +36,7 @@ import { TopMainMenuComponent } from './cananolab-client/top-main-menu/top-main-
         HttpClientModule,
         ReactiveFormsModule,
         SetObjectValueModule,
+        DisclaimerModule
     ],
   providers: [{provide: LocationStrategy, useClass: HashLocationStrategy}],
   bootstrap: [AppComponent]
