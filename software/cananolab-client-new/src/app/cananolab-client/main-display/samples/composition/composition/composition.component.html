@@ -1,9 +1,25 @@
 <canano-main-display-heading [helpUrl]="helpUrl" [toolHeadingName]="toolHeadingNameManage">
 
 </canano-main-display-heading>
-
-<div class="mainSection" *ngIf="data">
-    <div id="nanomaterialEntity" class="header">
+    <ul class="nav nav-tabs">
+        <li class="nav-item">
+          <a class="nav-link active" id="all-tab" data-toggle="tab" (click)="showSection('all')">All</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" id="nano-tab" data-toggle="tab" (click)="showSection('nanomaterialentity')">Nanomaterial Entity</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="functionalizing-tab" data-toggle="tab" (click)="showSection('functionalizingentity')">Functionalizing Entity</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" id="chemical-tab" data-toggle="tab" (click)="showSection('chemicalassociation')">Chemical Association</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" id="file-tab" data-toggle="tab" (click)="showSection('compositionfile')">Composition File</a>
+          </li>
+    </ul>
+<div class="mainSection" *ngIf="data&&(sectionToShow=='all'||sectionToShow=='nanomaterialentity')">
+    <div id="nanomaterialEntity" class="header" *ngIf="sectionToShow=='all'||sectionToShow=='nanomaterialentity'">
         Nanomaterial Entity <button *ngIf="editUrl" (click)="onNanomaterialEntityClick(-1)" class="btn btn-primary btn-sm">Add</button>
     </div>
     <span *ngFor="let nanomaterial of data['nanomaterialentity'] | keyvalue; let index = index">
@@ -127,7 +143,7 @@
     </span>
 </div>
 
-<div class="mainSection">
+<div class="mainSection" *ngIf="sectionToShow=='all'||sectionToShow=='functionalizingentity'">
     <div id="functionalizingEntity" class="header">
         Functionalizing Entity <button *ngIf="editUrl" class="btn btn-primary btn-sm"
             (click)="onFunctionalizingEntityClick(-1)">Add</button>
@@ -243,7 +259,7 @@
     </span>
 </div>
 
-<div class="mainSection">
+<div class="mainSection" *ngIf="sectionToShow=='all'||sectionToShow=='chemicalassociation'">
     <div id="chemicalAssociation" class="header">
         Chemical Association<button *ngIf="editUrl" (click)="onChemicalAssociationClick(-1)"
             class="btn btn-primary btn-sm">Add</button>
@@ -331,7 +347,7 @@
     </span>
 </div>
 
-<div class="mainSection">
+<div class="mainSection" *ngIf="sectionToShow=='all'||sectionToShow=='compositionfile'">
     <div id="compositionFile" class="header">
         Composition File <button *ngIf="editUrl" (click)="onCompositionFileClick(-1)"
             class="btn btn-primary btn-sm">Add</button>

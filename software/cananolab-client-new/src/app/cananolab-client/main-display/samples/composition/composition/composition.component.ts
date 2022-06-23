@@ -20,6 +20,7 @@ export class CompositionComponent implements OnInit{
     toolHeadingNameManage;
     data;
     editUrl=false;
+    sectionToShow='all';
     constructor( private statusDisplayService:StatusDisplayService,private apiService:ApiService,private navigationService:NavigationService,private router: Router, private route: ActivatedRoute ){
     }
 
@@ -134,6 +135,10 @@ export class CompositionComponent implements OnInit{
 
 
         return false
+    }
+
+    showSection(value) {
+        this.sectionToShow=value;
     }
 
     splitKeywordString(keyword) {

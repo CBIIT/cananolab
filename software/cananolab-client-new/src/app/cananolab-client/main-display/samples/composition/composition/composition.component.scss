@@ -16,66 +16,6 @@
     text-transform:capitalize;
 }
 
-//     .mainSection td {
-//         padding-bottom:13px !important;
-//         font-size:$mainFontSize;
-
-//     }
-//     .mainSection .blueHeader {
-//             padding:10px;
-//             background-color:#0073b9;
-//             color:#fff;
-//             text-transform: capitalize;
-//     }
-
-//     .mainSection .header {
-//         background-color:#005518;
-//         color:#fff;
-//         padding:10px;
-//     }
-
-//         .mainSection .header .btn {
-//             margin-left:10px;
-//         }
-
-//     .mainSection .editButton{
-//         padding-top:5px;
-//         text-align:right;
-//     }
-// .files {
-//     padding-bottom:40px;
-// }
-
-//     .mainSection table.dataMain td{
-//         vertical-align:top;
-//     }
-//     .mainSection table.dataMain .properties{
-//         text-transform: capitalize;
-//     }
-//     .mainSection table.dataMain .properties th{
-//         text-align:left;
-//         width:150px;
-//         vertical-align:top;
-//         padding-right:20px;
-//     }
-//     .mainSection table.dataMain td.label{
-//         font-weight:bold;
-//         width:200px;
-//         vertical-align:top;
-//     }
-
-//     .mainSection table.dataMain .properties td{
-//         text-align:left;
-//         width:150px;
-//         vertical-align:top;
-//         padding-right:20px;
-//     }
-
-//     .mainSection table.dataMain .properties.files{
-//         border:1px solid #ccc;
-//         width:100%;
-//         margin-bottom:5px;
-//     }
 .mainBorder {
     margin-bottom:15px;
 }
@@ -83,4 +23,28 @@
 .mainBorder.last {
     margin-bottom:15px;
 
+}
+.nav-item {
+    margin-bottom:0px !important;
+    padding-bottom:0px !important;
+
+}
+
+.nav.nav-tabs {
+    font-size:12px;
+    margin-left:7px;
+    border-bottom:none !important;
+    padding-top:15px !important;
+}
+.mainSection {
+    margin-top:0px;
+}
+a.nav-link {
+    text-decoration: none !important;
+}
+a.nav-link.active {
+    border-color: #000 #000 $canano-green !important;
+    text-decoration: none !important;
+    color:#fff !important;
+    background-color:$canano-green !important;
 }
