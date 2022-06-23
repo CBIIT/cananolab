@@ -415,18 +415,18 @@
                                     </td>
                                     <td class="field" colspan="2">
                                         <input (ngModelChange)="changeAccessType($event)" type="radio" name="accessType.group" id="accessType.group" [value]="'group'" [(ngModel)]="theAccess['accessType']">
-                                        <label for="accessType.group">
+                                        <label for="accessType.group" class="right">
                                             Collaboration Group
                                         </label>
                                         &nbsp;
                                         <input (ngModelChange)="changeAccessType($event)" type="radio" name="accessType.user" id="accessType.user" [value]="'user'" [(ngModel)]="theAccess['accessType']">
-                                        <label for="accessType.user">
+                                        <label for="accessType.user" class="right">
                                             User
                                         </label>
                                         &nbsp;
                                         <input (ngModelChange)="changeAccessType($event)" type="radio" name="accessType.role" id="accessType.role" [value]="'role'" [(ngModel)]="theAccess['accessType']">
-                                        <label for="accessType.role">
-                                            Role
+                                        <label for="accessType.role" class="right">
+                                            Public
                                         </label>
                                     </td>
                                 </tr>

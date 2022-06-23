@@ -189,6 +189,7 @@ export class EditpublicationComponent implements OnInit {
 
         if (event=='role') {
             this.theAccess.recipient='ROLE_ANONYMOUS';
+            this.theAccess['recipientDisplayName']='public';
             this.theAccess.roleName="R";
         }
     }
