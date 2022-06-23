@@ -17,6 +17,7 @@ export class FileComponent implements OnInit, OnChanges {
 @Input() nanomaterial;
 @Input() reset;
 @Output() changeFile = new EventEmitter<Object>();
+@Output() getError = new EventEmitter<Object>();
 currentFile;
 theFile;
 fileIndex;
@@ -145,7 +146,8 @@ serverUrl = Properties.API_SERVER_URL;
             this.fileIndex=null;
         },
         error=> {
-            console.log('file save error')
+            this.getError.emit(error)
+            console.log('file save error 1')
         })
       }
       else {
@@ -177,7 +179,7 @@ serverUrl = Properties.API_SERVER_URL;
                 this.fileIndex=null;
             },
             error=> {
-                console.log('file save error')
+                console.log('file save error 2')
             })
         },
         error=> {

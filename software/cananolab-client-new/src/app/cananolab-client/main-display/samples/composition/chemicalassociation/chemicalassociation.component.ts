@@ -93,6 +93,10 @@ export class ChemicalassociationComponent implements OnInit {
       );
   }
 
+  getError(error:Object) {
+    this.errors=error;
+}
+
   getdata(){
     let getUrl = Consts.QUERY_CHEMICAL_ASSOCIATION_EDIT;
 

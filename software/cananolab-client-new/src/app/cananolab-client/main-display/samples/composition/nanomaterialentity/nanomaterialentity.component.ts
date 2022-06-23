@@ -88,6 +88,7 @@ export class NanomaterialentityComponent implements OnInit {
         }, 100);
     }
 
+
     addComposingElement() {
         this.composingElementIndex = -1;
         this.composingElement = {
@@ -217,6 +218,10 @@ export class NanomaterialentityComponent implements OnInit {
         setTimeout(function () {
             document.getElementById('inherentFunctionForm').scrollIntoView();
         }, 100);
+    }
+
+    getError(error:Object) {
+        this.errors=error;
     }
 
     readyToSubmit() {

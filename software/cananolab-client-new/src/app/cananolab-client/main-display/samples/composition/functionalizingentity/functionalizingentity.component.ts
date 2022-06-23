@@ -339,4 +339,8 @@ getdata(sampleId){
         }
     }
 
+    getError(error:Object) {
+        this.errors=error;
+    }
+
 }
