@@ -161,7 +161,7 @@ serverUrl = Properties.API_SERVER_URL;
                 "uri":data['fileName'],
                 "uriExternal":false
             }
-            let saveUrl=this.httpClient.post(this.saveUrl,this.data) ;
+            let saveUrl=this.httpClient.post('/'+this.saveUrl,this.data) ;
             saveUrl.subscribe(data=> {
                 this.data=data;
                 this.changeFile.emit({
