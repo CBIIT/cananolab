@@ -58,7 +58,9 @@
                             </label>
                         </td>
                         <td colspan="5">
-                            <input (focusout)="lookupPubMedId($event)" id="pubMedId" type="text" name="pubMedId" size="70" [(ngModel)]="data.pubMedId">
+                            <a href="http://www.ncbi.nlm.nih.gov/pubmed/" target="_blank">Click to look up PubMed Identifier</a><br />
+                            <input (focusout)="lookupPubMedId($event)" id="pubMedId" type="text" name="pubMedId" size="70" [(ngModel)]="data.pubMedId"><br />
+                            <i>clicking outside of the text field after entering a valid PubMed ID enables auto-population of PubMed related fields</i>
                         </td>
                     </tr>
                     <tr *ngIf="['book chapter','report'].indexOf(data.category)==-1">
