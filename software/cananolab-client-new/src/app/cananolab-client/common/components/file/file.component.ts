@@ -15,6 +15,7 @@ export class FileComponent implements OnInit, OnChanges {
 @Input() saveUrl;
 @Input() deleteUrl;
 @Input() nanomaterial;
+@Input() reset;
 @Output() changeFile = new EventEmitter<Object>();
 currentFile;
 theFile;
@@ -30,6 +31,9 @@ serverUrl = Properties.API_SERVER_URL;
   ngOnChanges(changes): void {
     if (changes['fileIndex']==-1) {
         this.setupCurrentFile();
+    }
+    if (this.reset) {
+        this.fileIndex=null;
     }
   }
 

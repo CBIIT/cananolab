@@ -18,9 +18,13 @@
     .mainSection table.files th{
         width:200px;
     }
-    .mainSection table.dataMain td{
-        vertical-align:top;
-        width:200px;
+    // .mainSection table.dataMain td{
+    //     vertical-align:top;
+    //     width:200px;
+    // }
+
+    .dataMain {
+        width:fit-content !important;
     }
 
 
@@ -43,7 +47,7 @@
 
 
     .dataMain.submit {
-        width:100%;
+        width:100% !important;
     }
     .dataMain.submit td {
         text-align:right;

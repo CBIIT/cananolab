@@ -688,7 +688,7 @@
                         File
                     </td>
                     <td>
-                        <canano-file (changeFile)="changeFile($event)" [nanomaterial]="true" [saveUrl]="consts.QUERY_NANOMATERIAL_SAVE_FILE" [deleteUrl]="consts.QUERY_NANOMATERIAL_REMOVE_FILE" [sampleId]="sampleId" [data]="data" [fileVariable]="'fileBean'" [fileArray]="'files'">
+                        <canano-file [reset]="resetStatus" (changeFile)="changeFile($event)" [nanomaterial]="true" [saveUrl]="consts.QUERY_NANOMATERIAL_SAVE_FILE" [deleteUrl]="consts.QUERY_NANOMATERIAL_REMOVE_FILE" [sampleId]="sampleId" [data]="data" [fileVariable]="'fileBean'" [fileArray]="'files'">
 
                         </canano-file>
                     </td>

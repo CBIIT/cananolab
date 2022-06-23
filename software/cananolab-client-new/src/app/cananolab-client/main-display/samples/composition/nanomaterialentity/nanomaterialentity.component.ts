@@ -23,6 +23,7 @@ export class NanomaterialentityComponent implements OnInit {
     helpUrl = Consts.HELP_URL_SAMPLE_COMPOSITION_NANOMATERIAL;
     inherentFunctionIndex;
     inherentFunction;
+    resetStatus=false;
     otherValue;
     sampleId;
     setupData;
@@ -238,6 +239,9 @@ export class NanomaterialentityComponent implements OnInit {
 
     reset() {
         this.data=JSON.parse(JSON.stringify(this.dataTrailer));
+        this.composingElementIndex=null;
+        this.inherentFunctionIndex=null;
+        this.resetStatus=true;
     }
 
     saveComposingElement() {

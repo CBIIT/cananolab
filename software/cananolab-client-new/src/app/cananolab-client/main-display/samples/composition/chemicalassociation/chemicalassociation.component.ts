@@ -30,6 +30,7 @@ export class ChemicalassociationComponent implements OnInit {
   dataLoaded;
   entityOptionsA;
   entityOptionsB;
+  resetStatus=false;
   setupData;
   currentDropdownValues;
   currentField;
@@ -278,6 +279,7 @@ deleteChemicalAssociation() {
 }
 
 resetChemicalAssociation() {
+    this.resetStatus=true;
     this.data = JSON.parse(JSON.stringify(this.dataTrailer));
 }
 

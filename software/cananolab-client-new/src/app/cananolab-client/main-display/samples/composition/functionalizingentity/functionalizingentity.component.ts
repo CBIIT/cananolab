@@ -32,6 +32,7 @@ export class FunctionalizingentityComponent implements OnInit {
     fileIndex;
     helpUrl =  Consts.HELP_URL_SAMPLE_COMPOSITION;
     message;
+    resetStatus=false;
     sampleName = Properties.CURRENT_SAMPLE_NAME;
     sampleId;
     setupData;
@@ -312,7 +313,10 @@ getdata(sampleId){
 
     // resets functionalizing entity form //
     resetFunctionalizingEntity() {
-        this.data = JSON.parse(JSON.stringify(this.dataTrailer))
+        this.data = JSON.parse(JSON.stringify(this.dataTrailer));
+        this.inherentFunctionIndex=null;
+        this.targetIndex=null;
+        this.resetStatus=true;
     };
 
     // saves functionalizing entity //
