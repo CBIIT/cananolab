@@ -91,6 +91,8 @@ export class EditpublicationComponent implements OnInit {
                     }
                     editUrl.subscribe(data=> {
                         this.data=data;
+                        this.currentFile['uriExternal']=data['uriExternal'];
+                        this.currentFile['externalUrl']=data['uri'];
                         this.errors={};
                     },
                     error=>{
@@ -390,8 +392,8 @@ export class EditpublicationComponent implements OnInit {
       if (this.theFile) {
         this.theFile.append('uriExternal',this.currentFile['uriExternal']);
         this.theFile.append('externalUrl',this.currentFile['externalUrl']);
-        let uploadFileUrl = this.apiService.doPost(Consts.QUERY_UPLOAD_FILE,this.theFile);
-        uploadFileUrl.subscribe(data=> {
+        let uploadFileUrl = this.httpClient.post('/'+Consts.QUERY_UPLOAD_FILE,this.theFile);
+            uploadFileUrl.subscribe(data=> {
             this.data['uri']=data['fileName'];
             this.submitPublication();
             this.errors={};
@@ -401,6 +403,12 @@ export class EditpublicationComponent implements OnInit {
         })
       }
       else {
+          if (this.currentFile['uriExternal']) {
+              if (this.currentFile['externalUrl']&& this.currentFile['externalUrl']!='') {
+                this.data['uriExternal']=true;
+                this.data['externalUrl']=this.currentFile['externalUrl'];
+              }
+          }
           this.submitPublication();
       }
 
@@ -409,13 +417,28 @@ export class EditpublicationComponent implements OnInit {
   submitPublication() {
     let submitUrl = this.apiService.doPost(Consts.QUERY_PUBLICATION_SAVE,this.data);
     submitUrl.subscribe(data=> {
-        console.log(this.sampleId)
         if (this.sampleId) {
             this.router.navigate( ['home/samples/publications', this.sampleId] );  // @FIXME  Don't hard code these
         }
         else {
-            this.router.navigate( ['home/samples/publications/publication', data[1]] );  // @FIXME  Don't hard code these
-            this.message='Publication successfully updated with the title '+this.data['title'];
+            if (this.publicationId==-1) {
+                this.router.navigate( ['home/samples/publications/publication', data[1]] );  // @FIXME  Don't hard code these
+                this.message='Publication successfully updated with the title '+this.data['title'];
+            }
+            else {
+                let editUrl = this.apiService.doGet(Consts.QUERY_PUBLICATION_EDIT,'publicationId='+this.publicationId+'&sampleId=');
+                editUrl.subscribe(data=> {
+                    this.data=data;
+                    this.dataTrailer=JSON.parse(JSON.stringify(this.data));
+
+                },
+                errors=> {
+                    this.errors=errors;
+                })
+                this.message='Publication successfully updated with the title '+this.data['title'];
+
+            }
+
             setTimeout(function() {
                 document.getElementById('top').scrollIntoView();
             },100);
@@ -427,14 +450,16 @@ export class EditpublicationComponent implements OnInit {
     })
   }
 
-  uploadFile(event) {
-    console.log(this.currentFile)
-    this.theFile = new FormData();
-    const tFile = event.target.files.item(0);
-    this.theFile.append('myFile', tFile, tFile.name);
-    this.fileName=tFile.name;
-    this.theFile.append('uriExternal',this.currentFile['uriExternal']);
-    this.theFile.append('externalUrl',this.currentFile['externalUrl']);
+
+    uploadFile(event) {
+        this.theFile = new FormData();
+        const tFile = event.target.files.item(0);
+        this.theFile.append('myFile', tFile, tFile.name);
+        this.theFile.append( 'uriExternal', 'false' );
+        this.theFile.append('authors',this.data['authors'])
+        this.theFile.append('theAccess',this.theAccess);
+        this.theFile.append('category',this.data['category']);
+        this.theFile.append('status',this.data['status']);
   }
 
 
