@@ -78,7 +78,7 @@ export class ApiService{
      * @param queryType
      * @param query
      */
-    doPost( queryType, query: any ): Observable<any>{
+    doPost( queryType, query: any,responseType=null ): Observable<any>{
 
         if( typeof query === 'object' ){
             query = JSON.stringify( query ); // .replace(/^{"/, '').replace(/"}$/, '')
@@ -125,6 +125,10 @@ export class ApiService{
                 options = {
                     headers: headers
                 };
+            }
+
+            if (responseType) {
+                options['responseType']=responseType;
             }
             return this.httpClient.post( simpleSearchUrl, query, options ).pipe( timeout( Properties.HTTP_TIMEOUT ) );
         }
@@ -194,7 +198,7 @@ export class ApiService{
      * @param queryType
      * @param query
      */
-    doGet( queryType, query ): Observable<string>{
+    doGet( queryType, query,responseType=null ): Observable<string>{
 
         if( Properties.TEST_MODE ){
             return this.doTestGet( queryType, query );
@@ -228,6 +232,9 @@ export class ApiService{
                     method: 'get',
                     responseType: 'text'
                 }
+            }
+            if (responseType) {
+                options['responseType']=responseType;
             }
             results = this.httpClient.get( getUrl, options ).pipe( timeout( Properties.HTTP_TIMEOUT ) );
 
