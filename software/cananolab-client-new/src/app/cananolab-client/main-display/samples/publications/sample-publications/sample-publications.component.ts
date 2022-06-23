@@ -73,24 +73,28 @@ export class SamplePublicationsComponent implements OnInit{
 
 
     separateDataSets(data) {
-        let defaultCategories = ['Article','book chapter','editorial','peer review article','proceeding','report','review'];
-        defaultCategories.forEach(item=> {
-            this.publicationData[item]=[];
-        });
+        let setupUrl=this.apiService.doGet(Consts.QUERY_PUBLICATION_SETUP,'');
+        setupUrl.subscribe(setupData=> {
+            let defaultCategories = setupData['publicationCategories'];
+            defaultCategories.forEach(item=> {
+                this.publicationData[item]=[];
+            });
 
-        let keys = Object.keys(data.category2Publications);
-        keys.forEach(category=> {
-            if (!this.publicationData[category]){
-                this.publicationData[category]=[];
-            }
+            let keys = Object.keys(data.category2Publications);
+            keys.forEach(category=> {
+                if (!this.publicationData[category]){
+                    this.publicationData[category]=[];
+                }
 
-            let currentArray=data.category2Publications[category];
-            if (currentArray.length) {
-                currentArray.forEach(item=> {
-                    this.publicationData[category].push(item);
-                })
-            }
+                let currentArray=data.category2Publications[category];
+                if (currentArray.length) {
+                    currentArray.forEach(item=> {
+                        this.publicationData[category].push(item);
+                    })
+                }
+            })
         })
+
 
     }
 
