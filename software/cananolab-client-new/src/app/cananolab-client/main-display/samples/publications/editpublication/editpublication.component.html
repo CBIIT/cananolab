@@ -1,4 +1,4 @@
-<canano-main-display-heading
+    <canano-main-display-heading
     [helpUrl]="helpUrl"
     [toolHeadingName]="toolHeadingNameManage"
     id="top"
@@ -324,16 +324,24 @@
                     <tr *ngIf="sampleList.length">
                         <td></td>
                         <td>
-                            <table>
+                            <table class="noSpacing">
+                                <tr>
+                                    <td colspan="2">
+                                        <label for="sampleFilter">
+                                            Filter Samples
+                                        </label>
+                                        <input type="text" name="sampleFilter" id="sampleFilter" [(ngModel)]="sampleFilter">
+                                    </td>
+                                </tr>
                                 <tr>
                                     <td>
-                                        <select name="samples" [(ngModel)]="samples" multiple="multiple" size="10">
-                                            <option *ngFor="let option of sampleList">
+                                        <select class="multiple" name="samples" [(ngModel)]="samples" multiple="multiple" size="10">
+                                            <option *ngFor="let option of sampleList|filtersamples:sampleFilter">
                                                 {{option}}
                                             </option>
                                         </select>
                                     </td>
-                                    <td>
+                                    <td class="button">
                                         <button (click)="selectSamples()" class="btn-canano btn-canano-primary btn-canano-xs mr-1">Select</button>
                                     </td>
                                 </tr>

@@ -1,1 +1,20 @@
 @import "../../../../main-display/main-display.component.scss";
+.noSpacing {
+    border:0px;
+    margin:0px;
+    padding:0px;
+}
+
+.noSpacing td{
+    border:0px;
+    margin:0px;
+    padding:0px;
+}
+
+.noSpacing td.button{
+    padding-left:6px;
+}
+
+select.multiple {
+    width:420px;
+}

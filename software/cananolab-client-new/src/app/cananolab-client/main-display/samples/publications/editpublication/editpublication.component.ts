@@ -6,6 +6,8 @@ import { Properties } from '../../../../../../assets/properties';
 import { Consts } from '../../../../../constants';
 import { NavigationService } from '../../../../common/services/navigation.service';
 import { ApiService } from '../../../../common/services/api.service';
+import { EditpublicationPipe } from './editpublication.pipe';
+
 @Component({
   selector: 'canano-editpublication',
   templateUrl: './editpublication.component.html',
@@ -48,7 +50,6 @@ export class EditpublicationComponent implements OnInit {
 
 
     }
-    console.log('inits')
     this.route.params.subscribe(
         ( params: Params ) => {
             this.sampleId=params['sampleId'];
@@ -64,7 +65,6 @@ export class EditpublicationComponent implements OnInit {
                 this.sampleId = Properties.CURRENT_SAMPLE_ID;
             }else{
                 Properties.CURRENT_SAMPLE_ID = this.sampleId;
-                console.log('should be here')
             };
 
             this.type=params['type'];
