@@ -5,7 +5,7 @@
 </canano-main-display-heading>
 <div class="mainSection" *ngFor="let a of types">
     <div class="header">
-        {{a}} <button *ngIf="editUrl" class="btn btn-primary btn-sm" (click)="addCharacterization(a)">Add</button>
+        {{a}} <button *ngIf="editUrl" class="btn btn-primary btn-sm category" (click)="addCharacterization(a)">Add</button>
     </div>
     <ng-container *ngFor="let b of characterizationData[a]">
 
