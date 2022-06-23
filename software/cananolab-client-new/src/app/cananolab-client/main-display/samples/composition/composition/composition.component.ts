@@ -119,16 +119,19 @@ export class CompositionComponent implements OnInit{
     }
 
     propertyCheck(entry) {
-        let keys=Object.keys(entry.Properties);
-        let displayableItems=[];
-        keys.forEach(item=> {
-            if (entry.Properties[item]&&entry.Properties[item]!='') {
-                displayableItems.push(item);
+        if (entry['Properties']) {
+            let keys=Object.keys(entry['Properties']);
+            let displayableItems=[];
+            keys.forEach(item=> {
+                if (entry.Properties[item]&&entry.Properties[item]!='') {
+                    displayableItems.push(item);
+                };
+            });
+            if (displayableItems.length) {
+                return true
             };
-        });
-        if (displayableItems.length) {
-            return true
-        };
+        }
+
 
         return false
     }
