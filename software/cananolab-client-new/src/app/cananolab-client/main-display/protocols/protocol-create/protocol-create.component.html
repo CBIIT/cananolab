@@ -99,7 +99,7 @@
                     <!-- END File browser button -->
                     <!-- File URL text input -->
                     <input [ngClass]="{'hide': ! data.uriExternal}" placeholder="File URL" type="text" id="externalUrl" name="externalUrl" [(ngModel)]="data.externalUrl">
-                    [<canano-disclaimer *ngIf="data.uriExternal"></canano-disclaimer>]
+                    <span *ngIf="data.uriExternal"> [<canano-disclaimer></canano-disclaimer>]</span>
 
                     <!-- File URL text input -->
                 </td>
