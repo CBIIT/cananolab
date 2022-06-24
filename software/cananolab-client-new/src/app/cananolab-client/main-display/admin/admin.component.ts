@@ -97,7 +97,7 @@ export class AdminComponent implements OnInit {
             headers:headers,
             method:'post',
         }
-        this.httpClient.post( Consts.QUERY_ADMIN_RESET_PASSWORD,params.join('&'),options).subscribe(data=> {
+        this.httpClient.post( '/'+Consts.QUERY_ADMIN_RESET_PASSWORD,params.join('&'),options).subscribe(data=> {
             this.message='Password Reset Successfully';
         },
         errors=> {
