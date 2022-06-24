@@ -1,16 +1,22 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit,OnChanges } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Properties } from '../../../../../../assets/properties';
 import { Consts } from '../../../../../constants';
 import { NavigationService } from '../../../../common/services/navigation.service';
 import { ApiService } from '../../../../common/services/api.service';
 import { HttpClient } from '@angular/common/http';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { tap } from 'rxjs/operators';
+import { EventEmitter } from 'stream';
 @Component({
   selector: 'canano-editcharacterization',
   templateUrl: './editcharacterization.component.html',
   styleUrls: ['../../../../../btn-bravo-canano.scss','./editcharacterization.component.scss']
 })
-export class EditcharacterizationComponent implements OnInit {
+export class EditcharacterizationComponent implements OnInit,OnChanges {
+    @Input() set ready(isReady: boolean) {
+        if (isReady) this.printMe();
+      };
     sampleId = Properties.CURRENT_SAMPLE_ID;
     helpUrl = Consts.HELP_URL_SAMPLE_CHARACTERIZATION;
     toolHeadingNameManage;
@@ -28,6 +34,7 @@ export class EditcharacterizationComponent implements OnInit {
     errors={};
     findingIndex;
     fileIndex;
+    importingCSV=false;
     instrument;
     instrumentTrailer;
     instrumentIndex;
@@ -39,9 +46,20 @@ export class EditcharacterizationComponent implements OnInit {
     theFile:FormData=null;;
     fileName;
     type;
+    rowData;
+
+    csvColumnMaxCount = 25; // Maximum number of columns allowed
+    csvMaxNumberOfLines = 5000; // Maximum number of rows allowed
+    csvMaxLenOfEntry = 200;
+    runaway = 10240; // A counter used to prevent an endless loop if something goes wrong.  @TODO needs a better name
+    csvDataColCount = 0;
+    csvDataObj;
+    csvDataRowCount;
+    csvImportError = '';
 
     constructor( private httpClient:HttpClient,private apiService:ApiService,private navigationService:NavigationService,private router: Router, private route: ActivatedRoute){
     }
+
 
   ngOnInit(): void {
     this.navigationService.setCurrentSelectedItem(2);
@@ -105,6 +123,7 @@ export class EditcharacterizationComponent implements OnInit {
             }
         );
     }
+
 
     addFileForm() {
         this.currentFile={
@@ -176,7 +195,6 @@ export class EditcharacterizationComponent implements OnInit {
 
     cancelInstrument() {
         if (this.instrumentIndex>-1) {
-            console.log(this.techniqueInstrument)
             this.techniqueInstrument.instruments[this.instrumentIndex]=JSON.parse(JSON.stringify(this.instrumentTrailer));
         }
         this.instrumentIndex=null;
@@ -188,7 +206,6 @@ export class EditcharacterizationComponent implements OnInit {
     };
 
     changeColumnType(value,isDropdown) {
-        console.log(value,isDropdown)
         let url = this.apiService.doGet(Consts.QUERY_CHARACTERIZATION_GET_COLUMN_NAME_OPTIONS_BY_TYPE,'columnType='+value+'&charName='+this.data.name+'&assayType=');
         url.subscribe(data=> {
             this.errors={};
@@ -290,8 +307,7 @@ export class EditcharacterizationComponent implements OnInit {
                 this.errors=error;
             })
         }
-        console.log(this.currentFinding)
-        console.log(file,this.currentFinding, fileIndex)
+
 
     }
 
@@ -353,7 +369,6 @@ export class EditcharacterizationComponent implements OnInit {
         }
         else {
         }
-        console.log(this.columnHeaderIndex)
         this.columnHeader=JSON.parse(JSON.stringify(column));
     };
 
@@ -421,6 +436,404 @@ export class EditcharacterizationComponent implements OnInit {
         });
     };
 
+    importCSV(event) {
+        let csvFile = event.target.files.item(0);
+        let size= csvFile.size;
+        this.dataReaderReadFile(0,size,csvFile);
+
+    }
+
+    dataReaderReadFile = function (opt_startByte, opt_stopByte,csvFile) {
+        let reader = new FileReader();
+        var that=this;
+        reader.onloadend = function (evt) {
+            that.csvDataObj = that.parseCsv(evt.target.result);
+
+            if (that.csvDataObj === null) {
+                alert('CSV import parse error: ' + that.csvImportError);
+                return;
+            }
+
+            that.csvDataColCount = 0;
+            that.csvDataRowCount = that.csvDataObj.length;
+            for (var y = 0; y < that.csvDataRowCount; y++) {
+                if (that.csvDataObj[y].length > that.csvDataColCount) {
+                    that.csvDataColCount = that.csvDataObj[y].length;
+                }
+            }
+            that.currentFinding.numberOfColumns = that.csvDataColCount;
+            that.currentFinding.numberOfRows = that.csvDataRowCount;
+
+            that.updateRowsColsForFinding();
+        };
+
+        reader.readAsBinaryString(csvFile.slice(0, opt_stopByte));
+
+    };
+
+    createArray(len) {
+        let arr = new Array(len || 0),
+            i = len;
+        if (arguments.length > 1) {
+            var args = Array.prototype.slice.call(arguments, 1);
+            while (i--) arr[len - 1 - i] = this.createArray.apply(this, args);
+        }
+        return arr;
+    }
+
+    validateFindingCellInput(colType, cellData) {
+        if ((colType === null) || (colType === undefined)) {
+            return false;
+        }
+        return (
+            (colType === 'datum') &&
+            (cellData !== null) && (isNaN(cellData.replace(/(d|f)$/, '')))
+        );
+    }
+
+    updateRowsColsForFinding = function () {
+        this.badFindingCell = this.createArray(this.csvDataColCount, this.csvDataRowCount);
+        let url = this.apiService.doPost(Consts.QUERY_CHARACTERIZTAION_UPDATE_FINDING,this.currentFinding);
+
+        url.subscribe(data=> {
+                data = data;
+                if (data.rows[this.csvDataRowCount - 1] === undefined) {
+                    this.csvDataRowCount = data.numberOfRows;
+                }
+
+                for (var y = 0; y < this.csvDataRowCount; y++) {
+
+                    for (var x = 0; x < this.csvDataColCount; x++) {
+                        // If the user has reduced the number of columns, make sure we don't try to update columns that no longer exist.
+                        if ((data.rows[y].cells[x] !== null) && (data.rows[y].cells[x] !== undefined)) {
+                            data.rows[y].cells[x].value = Object(this.csvDataObj[y][x]);
+                            if (x < this.currentFinding.length) {
+                                data.rows[y].cells[x].datumOrCondition = this.currentFinding.columnHeaders[x].columnType;
+                            }
+                            // When the column type is set or reset, check all cell contents for valid entries for each column, one row at a time.
+                            if (x < this.currentFinding.columnHeaders.length) {
+                                this.badFindingCell[x][y] = this.validateFindingCellInput(this.currentFinding.columnHeaders[x].columnType,
+                                    data.rows[y].cells[x].value);
+
+                            }
+                            // If there are fewer column types/header set than there are columns.
+                            // Data put in a cell with a column that does not have it's type set is never considered invalid.
+                            else {
+                                this.badFindingCell[x][y] = false;
+                            }
+                        }
+                    }
+                }
+
+                // If there are already column headers set, preserve them.
+                for (var colX = 0; colX < this.csvDataColCount; colX++) {
+                    if ((this.currentFinding.columnHeaders[colX] !== null) && (this.currentFinding.columnHeaders[colX] !== undefined)) {
+                        data.columnHeaders[colX] = this.currentFinding.columnHeaders[colX];
+                    }
+                 }
+                this.currentFinding = data;
+                console.log('complete')
+
+        })
+    };
+
+    rendering() {
+        console.log('test')
+    }
+
+    validateCsv = function (csv) {
+        // Normalize line feeds
+        let temp = (csv.replace(/\r\n/g, '\r').replace(/\n\r/g, '\r').replace(/\n/g, '\r')).split(/\r/);
+
+        // Do we have too many rows?
+        if (temp.length > this.csvMaxNumberOfLines) {
+            this.csvImportError = 'Too many Lines (' + temp.length + ')';
+            return false;
+        }
+
+        // Are any cells too long?
+        // Determine length of longest cell entry
+        let biggestLine = 0;
+        for (let f0 = 0; f0 < temp.length; f0++) {
+            if (biggestLine < temp[f0].length) {
+                biggestLine = temp[f0].length;
+            }
+        }
+
+        // If at least one entry is too long, set error and return false
+        if (biggestLine > this.csvMaxLenOfEntry) {
+            this.csvImportError = 'line(s) too long (' + biggestLine + ')';
+            return false;
+        }
+
+
+        // Send each line to csv validation function.
+        // Remove anything that is not a quote or a comma. That is all we need for validating csv.
+        let regex = new RegExp('[^",]', 'g');
+        for (let f = 0; f < temp.length; f++) {
+            let csvString = temp[f].replace(regex, '');
+            let isValid = this.validateCsvLine(csvString);
+            if (!isValid) {
+                return false;
+            }
+        }
+
+        // Return true if: not too many rows, no row is too long, and csv format is correct.
+        return true;
+    };
+    validateCsvLine(csvLine) {
+        let inQ = false;
+        let badData = false;
+        for (let f = 0; f < csvLine.length; f++) {
+            if (!inQ) {
+
+                // A starting quote plus a nested quote (3 quotes)
+                if ((csvLine.length <= (f + 2)) && csvLine[f] === '"' && csvLine[f + 1] === '"' && csvLine[f + 2] === '"') {
+                    inQ = true;
+                }
+
+                // Two quotes, BUT not in a quote, and ends.
+                else if ((csvLine.length <= (f + 1)) && csvLine[f] === '"' && csvLine[f + 1] === '"') {
+                    badData = false;
+                    break;
+                } else if (csvLine[f] === '"') {
+                    inQ = true;
+                }
+            } else {
+                // An ending quote
+                if (csvLine[f] === '"' && csvLine[f + 1] !== '"') {
+                    inQ = false;
+                } else if (csvLine[f] === '"' && csvLine[f + 1] === '"') {
+                    f++;
+                }
+            }
+        }
+
+        // Are we still in a quote at the end
+        if (inQ) {
+            badData = true;
+            this.csvImportError = 'csv validation error';
+        }
+        return (!badData);
+    }
+
+    qFix(input) {
+        var output = '';
+        for (var i = 0; i < input.length; ++i) {
+
+            if (input.charCodeAt(i) === 226) {
+                // Unicode double quote
+                if (
+                    (input.charCodeAt(i + 1) === 128 && input.charCodeAt(i + 2) === 157) ||
+                    (input.charCodeAt(i + 1) === 128 && input.charCodeAt(i + 2) === 156)
+                ) {
+                    i += 2;
+                    output += '"';
+                }
+                // Unicode single quote
+                else if (input.charCodeAt(i + 1) === 128 && input.charCodeAt(i + 2) === 153) {
+                    i += 2;
+                    output += '\'';
+                }
+
+            } else if (input.charCodeAt(i) === 194 || input.charCodeAt(i) === 195) {
+                var hexDigit0 = input.charCodeAt(i).toString(16);
+                if (hexDigit0.length % 2) {
+                    hexDigit0 = '0' + hexDigit0;
+                }
+                var hexDigit1 = input.charCodeAt(i + 1).toString(16);
+                if (hexDigit1.length % 2) {
+                    hexDigit1 = '0' + hexDigit1;
+                }
+                var hex = '%' + hexDigit0 + '%' + hexDigit1;
+                let decoded = this.decode_utf8(hex);
+                if (decoded === 'ERROR-ERROR') {
+                    output = '';
+                    return output;
+                }
+                output += decoded;
+                i++;
+            } else {
+                output += input[i];
+            }
+        }
+        return (output);
+    };
+
+
+    cleanCsvValue(val) {
+        if (val.substr(0, 1) === '"') {
+            val = val.substr(1);
+        }
+        if (val.substr(val.length - 1) === ',') {
+            val = val.substr(0, val.length - 1);
+        }
+        if (val.substr(val.length - 1) === '"') {
+            val = val.substr(0, val.length - 1);
+        }
+
+        val = val.replace(/""/g, '"');
+        return val;
+    };
+
+
+    /**
+     *
+     * @param s
+     * @returns {string}
+     */
+    decode_utf8(s) {
+        var returnData = '';
+        try {
+            returnData = decodeURIComponent(s);
+        } catch (e) {
+            returnData = 'ERROR-ERROR'; // TODO  Make this a const
+        }
+        return returnData;
+    }
+
+    parseCsv(data) {
+        if (!this.validateCsv(data)) {
+            return null;
+        }
+        // Split on the CR or LF
+        let dataLines = this.qFix(data.replace(/\r\n/g, '\r').replace(/\n\r/g, '\r').replace(/\n/g, '\r')).split(/\r/);
+        let startCell = 1; //true
+        let currentCell = '';
+        let currentCellType = 0; // 0=unknown  1=comma no double quote  2=comma with double quote
+        let i = 0;
+        let csvData;
+        let csvDataObj = [];
+
+        for (let dataLine = 0; dataLine < dataLines.length && this.runaway > 0; dataLine++) {
+            csvData = dataLines[dataLine];
+
+            if (csvData.length < 1) {
+                continue;
+            }
+
+            let lineOfValues = [];
+            i = 0;
+            while (i < csvData.length && this.runaway > 0) {
+                let trailingCommas = [];
+                trailingCommas = csvData.match(/(,+)$/g);
+                if (trailingCommas !== null) {
+                    let replacementStr = '';
+                    for (let f = 0; f < trailingCommas[0].length; f++) {
+                        replacementStr += ',""';
+                    }
+                    let re = new RegExp(trailingCommas[0] + '$');
+                    csvData = csvData.replace(re, replacementStr);
+                }
+                // Determine cell type
+                if (csvData.substr(i, 1) === '"') {
+                    currentCellType = 2;
+                } else {
+                    currentCellType = 1;
+                }
+
+                if (currentCellType === 1) {
+                    // Just grab to the first comma
+                    currentCell = csvData.substr(i).match(/[^,]*,/);
+                    if (currentCell !== null) {
+                        currentCell = currentCell[0];
+                        lineOfValues.push(this.cleanCsvValue(currentCell));
+                    }
+                    // No comma, we are at the end.
+                    else {
+                        currentCell = csvData.substr(i);
+                        lineOfValues.push(this.cleanCsvValue(currentCell));
+                    }
+                    i += currentCell.length;
+                } else if (currentCellType === 2) {
+                    csvData = csvData.substr(i);
+                    i = 0;
+                    startCell = 1;
+                    let charStatus = 0; // Nothing yet
+                    let currentChar = '';
+                    let currentNextChar = '';
+                    let i1 = 0;
+
+                    while (i1 < csvData.length) {
+                        currentChar = csvData.substr(i1, 1);
+                        if (i1 + 1 < csvData.length) {
+                            currentNextChar = csvData.substr(i1 + 1, 1);
+                        } else {
+                            currentNextChar = '';
+                        }
+                        i1++;
+
+                        // The first char
+                        if (charStatus === 0 && startCell === 1) {
+                            // Is it a quote (it should be)
+                            if (currentChar === '"') {
+                                charStatus = 1; // We have seen the first quote
+                            }
+                            startCell = 0; // No longer looking at the first char
+                            currentChar = csvData.substr(i1, 1);
+                            if (i1 + 1 < csvData.length) {
+                                currentNextChar = csvData.substr(i1 + 1, 1);
+                            } else {
+                                currentNextChar = '';
+                            }
+                        } // END if (charStatus === 0 && startCell === 1)
+
+                        // Not the first char
+                        else if (startCell !== 1) {
+                            // We are past the first quote
+                            if (charStatus === 1) { // We have seen the first quote
+                                // Check for two double quotes, this is a quote within a quoted cell - ignore it and go past it
+                                if (currentChar === '"' && currentNextChar === '"') {
+                                    i1 += 1;
+                                }
+                                // A quote here means the end
+                                else if (currentChar === '"') {
+                                    // Find the next comma or the end of the line.
+                                    currentCell = csvData.substr(0, i1);
+                                    csvData = csvData.substr(currentCell.length + 1);
+                                    i1 = 0;
+                                    startCell = 1; //true
+                                    charStatus = 0;
+                                    lineOfValues.push(this.cleanCsvValue(currentCell));
+                                }
+                            }
+
+                        } // END else if( startCell !== 1)
+                        this.runaway--;
+                    }
+                }
+                this.runaway--;
+            } // End while loop
+
+            csvDataObj.push(lineOfValues);
+            this.runaway--;
+
+        } // End for loop
+
+        // Check here for too may columns
+        if (this.getMaxColumnCount(csvDataObj) > this.csvColumnMaxCount) {
+            this.csvImportError = 'Too many columns (' + this.getMaxColumnCount(csvDataObj) + ')';
+            return null;
+        }
+        let columnCount = this.getMaxColumnCount(csvDataObj);
+        for (let f = 0; f < csvDataObj.length; f++) {
+            while (csvDataObj[f].length < columnCount) {
+                csvDataObj[f].push('');
+            }
+        }
+        return csvDataObj;
+    }
+
+    getMaxColumnCount(csvData) {
+        var columnCount = 0;
+        for (var row = 0; row < csvData.length; row++) {
+            if (columnCount < csvData[row].length) {
+                columnCount = csvData[row].length;
+            }
+        }
+        return columnCount;
+    }
+
     resetCharacterization() {
         this.data = JSON.parse(JSON.stringify(this.dataTrailer));
         this.data['assayTypesByCharNameLookup'] = [];
@@ -436,7 +849,6 @@ export class EditcharacterizationComponent implements OnInit {
         if (this.columnHeader['constantValue']!='') {
             this.currentFinding['rows'].forEach(row=> {
                 row['cells'][this.columnHeaderIndex]['value']=this.columnHeader['constantValue'];
-                console.log(this.columnHeaderIndex)
             });
         }
         this.currentFinding.columnHeaders[this.columnHeaderIndex]=this.columnHeader;
@@ -475,7 +887,6 @@ export class EditcharacterizationComponent implements OnInit {
                 else {
                     this.currentFinding.files[this.fileIndex]=data;
                 }
-                console.log(this.theFile)
                 this.currentFinding['dirty']=1;
                 this.currentFinding.theFile=this.currentFile;
                 this.currentFinding['theFile']['uri']=data['fileName']
@@ -493,10 +904,8 @@ export class EditcharacterizationComponent implements OnInit {
             })
             if (this.fileIndex==-1) {
                 this.currentFinding.files
-                console.log('push file')
             }
             else {
-                console.log('call upload')
             }
         }
         else {
@@ -646,21 +1055,9 @@ export class EditcharacterizationComponent implements OnInit {
     };
 
     uploadFile(event) {
-        // console.log(event.target.files);
         this.theFile = new FormData();
         const tFile = event.target.files.item(0);
-        console.log(tFile)
         this.theFile.append('myFile', tFile, tFile.name);
         this.fileName=tFile.name;
-        console.log(this.theFile)
-        // this.currentFile['myFile']=file;
-        // console.log(files.item(0))
-        // const formData = new FormData();
-        // let thisFile=files.item(0);
-        // const formData: FormData = new FormData();
-        // formData.append('fileKey',thisFile,thisFile.name);
-        // console.log(formData);
-        // this.currentFile['myFile']=files.item(0);
-        // console.log(this.currentFile);
     }
 }

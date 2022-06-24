@@ -724,7 +724,10 @@
                                                     <input type="number" name="rows" id="finding.rows" [(ngModel)]="currentFinding.numberOfRows"><br />
                                                     <button (click)="updateRowsColumns()" class="btn-canano btn-canano-primary btn-canano-xs mr-1">Update</button>
                                                     <button *ngIf="findingIndex!=-1" (click)="editColumnOrder()" class="btn-canano btn-canano-primary btn-canano-xs mr-1">Set Column Order</button>
-                                                    <button class="btn-canano btn-canano-primary btn-canano-xs mr-1">Import CSV</button>
+                                                    <label class="btn-canano btn-canano-primary btn-canano-xs">
+                                                        Import csv
+                                                        <input type="file" id="csvFile" style="display: none" (change)="importCSV($event)">
+                                                    </label>
 
                                                 </td>
                                             </tr>
@@ -881,18 +884,20 @@
                                                             </th>
                                                             <th></th>
                                                         </tr>
-                                                        <tr *ngFor="let row of currentFinding.rows;let rIndex=index; let odd=odd" [ngClass]="{'rowOdd':odd}">
-                                                            <td *ngFor="let column of row.cells; let cIndex=index">
-                                                                <select [name]="'column.operand'+rIndex+cIndex" [(ngModel)]="column.operand">
-                                                                    <option *ngFor="let modifier of setupData.datumNumberModifier" [selected]="column.operand===modifier" [ngValue]="modifier">{{modifier}}</option>
-                                                                </select>
-                                                                <input type="number" *ngIf="currentFinding.columnHeaders[cIndex]['columnType']=='datum'" [name]="'column.value'+rIndex+cIndex" [(ngModel)]="column.value" size="10">
-                                                                <input type="text" *ngIf="currentFinding.columnHeaders[cIndex]['columnType']=='condition'||currentFinding.columnHeaders[cIndex]['columnType']==null" [name]="'column.value'+rIndex+cIndex" [(ngModel)]="column.value" size="10">
-                                                            </td>
-                                                            <td>
-                                                                <button (click)="deleteFindingRow(rIndex)" class="btn-canano btn-canano-danger btn-canano-xs mr-1">Delete</button>
-                                                            </td>
-                                                        </tr>
+                                                        <ng-container *ngFor="let row of currentFinding.rows;let rIndex=index; let odd=odd; let last=last">
+                                                            <tr [ngClass]="{'rowOdd':odd}">
+                                                                <td *ngFor="let column of row.cells; let cIndex=index;">
+                                                                    <select [name]="'column.operand'+rIndex+cIndex" [(ngModel)]="column.operand">
+                                                                        <option *ngFor="let modifier of setupData.datumNumberModifier" [selected]="column.operand===modifier" [ngValue]="modifier">{{modifier}}</option>
+                                                                    </select>
+                                                                    <input type="number" *ngIf="currentFinding.columnHeaders[cIndex]['columnType']=='datum'" [name]="'column.value'+rIndex+cIndex" [(ngModel)]="column.value" size="10">
+                                                                    <input type="text" *ngIf="currentFinding.columnHeaders[cIndex]['columnType']=='condition'||currentFinding.columnHeaders[cIndex]['columnType']==null" [name]="'column.value'+rIndex+cIndex" [(ngModel)]="column.value" size="10">
+                                                                </td>
+                                                                <td>
+                                                                    <button (click)="deleteFindingRow(rIndex)" class="btn-canano btn-canano-danger btn-canano-xs mr-1">Delete</button>
+                                                                </td>
+                                                            </tr>
+                                                        </ng-container>
                                                     </table>
                                                 </td>
                                             </tr>
