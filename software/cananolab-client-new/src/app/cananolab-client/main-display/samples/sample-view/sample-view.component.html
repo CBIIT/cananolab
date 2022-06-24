@@ -46,6 +46,9 @@
                             Primary Contact
                         </th>
                         <th>
+                            Contact Person
+                        </th>
+                        <th>
                             Organization
                         </th>
                         <th>
@@ -60,6 +63,9 @@
                             <ng-container *ngIf="!contact.primaryContact">
                                 No
                             </ng-container>
+                        </td>
+                        <td>
+                            {{contact.contactPerson}}
                         </td>
                         <td>
                             <span [innerHtml]="contact.organizationDisplayName">

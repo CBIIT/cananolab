@@ -121,13 +121,16 @@ export class SampleViewComponent implements OnInit{
             let pointOfContact={
                 primaryContact:data['pointOfContactMap']['primaryContact'][index],
                 organizationDisplayName:data['pointOfContactMap']['organizationDisplayName'][index],
-                role:data['pointOfContactMap']['role'][index]
+                role:data['pointOfContactMap']['role'][index],
+                contactPerson:data['pointOfContactMap']['contactPerson'][index]
             };
             this.pointOfContacts.push(pointOfContact);
         });
     }
 
     dateFormat(date) {
-        return formatDate(date,'shortDate','en-US')
+        if (date) {
+            return formatDate(date,'shortDate','en-US')
+        }
     }
 }
