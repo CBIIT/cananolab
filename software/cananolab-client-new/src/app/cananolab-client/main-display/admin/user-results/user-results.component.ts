@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit,OnChanges } from '@angular/core';
 import { Properties } from 'src/assets/properties';
 import { Consts } from 'src/app/constants';
 import { SortState } from 'src/app/constants';
@@ -73,6 +73,27 @@ export class UserResultsComponent implements OnInit {
             this.searchResultsCount = this.searchResults.length;
             this.pageCount = Math.ceil(this.searchResultsCount / this.pageLength);
             this.onPageLengthChange();
+    }
+
+    ngOnChanges(): void {
+
+        this.maxPageLength = Properties.MAX_PAGE_LENGTH;
+        this.pageLength = Properties.DEFAULT_PAGE_LENGTH;
+        this.pageCount = 10;
+        this.searchResultsCount = -1;
+        this.currentPage = 0;
+        this.searchResultsPageToDisplay;
+        this.searchResultsPagerService.currentPageChangeEmitter
+            .pipe(takeUntil(this.ngUnsubscribe))
+            .subscribe((data) => {
+                this.currentPage = data;
+                this.setupPage();
+            });
+            this.searchResultsCount = this.searchResults.length;
+            this.pageCount = Math.ceil(this.searchResultsCount / this.pageLength);
+            this.onPageLengthChange();
+
+    console.log(this.currentPage)
     }
 
     setupPage() {
