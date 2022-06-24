@@ -29,6 +29,7 @@ export class MainDisplayHeadingComponent implements OnInit, OnDestroy{
     @Input() exportXML;
     @Input() sampleIds;
     @Input() toolHeadingName = '';
+    @Input() print=false;
     @Output() downloadReady = new EventEmitter<Boolean>();
 
     // For HTML access
@@ -159,6 +160,11 @@ export class MainDisplayHeadingComponent implements OnInit, OnDestroy{
 
     navigateToOtherUrl() {
         this.router.navigate([this.otherUrl['link']])
+    }
+
+    printPage() {
+        let url = window.location;
+        window.open(url+'?print=true')
     }
 
 

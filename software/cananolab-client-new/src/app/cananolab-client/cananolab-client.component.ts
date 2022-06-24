@@ -9,7 +9,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ConfigurationService } from './common/services/configuration.service';
 import { Properties } from '../../assets/properties';
-import { Router,Event,NavigationStart,NavigationEnd } from '@angular/router';
+import { Router,Event,NavigationStart,NavigationEnd,ActivatedRoute } from '@angular/router';
 import { UtilService } from './common/services/util.service';
 import { ApiService } from './common/services/api.service';
 import { TopMainMenuService } from './top-main-menu/top-main-menu.service';
@@ -26,13 +26,19 @@ export class CananolabClientComponent implements OnInit{
     properties = Properties;
     currentRoute;
     menuItems=[];
-    constructor( private idleService:IdleService,private statusDisplayService:StatusDisplayService,private topMainMenuService:TopMainMenuService,private apiService:ApiService,private configurationService: ConfigurationService, private router: Router,
+    print=false;
+    constructor( private activatedRoute:ActivatedRoute,private idleService:IdleService,private statusDisplayService:StatusDisplayService,private topMainMenuService:TopMainMenuService,private apiService:ApiService,private configurationService: ConfigurationService, private router: Router,
                  private utilService: UtilService ){
 
     }
 
     ngOnInit(): void{
         this.currentRoute = "";
+        let url = window.location.toString();
+        if (url.includes('?print')) {
+            this.print=true;
+        }
+        console.log(this.print)
         this.router.events.subscribe((event: Event) => {
             if (event instanceof NavigationStart) {
                 if (!event.url.includes('home/samples')) { // prevents menu refresh pause //

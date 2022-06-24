@@ -48,9 +48,15 @@
         {{otherUrl['title']}}
     </span>
 
+
+    <span class="float-right clicker mr-2" *ngIf="print" (click)="printPage()">
+            Print
+    </span>
+
     <span class="float-right clicker mr-2" *ngIf="backUrl">
         <button (click)="navigateBack()" class="btn-canano btn-canano-success btn-canano-xs mr-1">
             Back
         </button>
     </span>
+
 </div>

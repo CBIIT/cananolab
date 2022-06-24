@@ -21,7 +21,7 @@
     <!-- -----  The left side Navigation menu & left static menu  ----- -->
 <div>
     <table class="home">
-        <tr>
+        <tr *ngIf="!print">
             <td colspan="2" class="header">
                 <canano-header></canano-header>
 
@@ -30,7 +30,7 @@
         </tr>
 
         <tr>
-            <td class="leftMenu">
+            <td class="leftMenu" *ngIf="!print">
                 <div>
                     <canano-left-navigation-menu *ngIf="properties.SAMPLE_TOOLS">
                     </canano-left-navigation-menu>
@@ -45,7 +45,7 @@
                     <router-outlet></router-outlet>
             </td>
         </tr>
-        <tr>
+        <tr *ngIf="!print">
             <td colspan="2" class="footer">
                     <ul>
                         <li class="footer-item">
@@ -72,7 +72,7 @@
                     </ul>
             </td>
         </tr>
-        <tr>
+        <tr *ngIf="!print">
             <td colspan="2" class="footer white">
                 <a href="http://www.dhhs.gov/" target="_blank">
                     Department of Health and Human Services
@@ -95,12 +95,12 @@
                 </a>
             </td>
         </tr>
-        <tr>
+        <tr *ngIf="!print">
             <td colspan="2" class="footer white">
                 NIH...Turning Discovery Into Health®
             </td>
         </tr>
-        <tr>
+        <tr *ngIf="!print">
             <td colspan="2" class="footer white release">
                 caNanoLab Release 3.0 Build cananolab-3.0.0-it1
             </td>
