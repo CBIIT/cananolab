@@ -427,6 +427,12 @@ export class EditcharacterizationComponent implements OnInit {
     }
 
     saveColumnForm() {
+        if (this.columnHeader['constantValue']!='') {
+            this.currentFinding['rows'].forEach(row=> {
+                row['cells'][this.columnHeaderIndex]['value']=this.columnHeader['constantValue'];
+                console.log(this.columnHeaderIndex)
+            });
+        }
         this.currentFinding.columnHeaders[this.columnHeaderIndex]=this.columnHeader;
         this.columnHeaderIndex=null;
         this.fileIndex=null;
