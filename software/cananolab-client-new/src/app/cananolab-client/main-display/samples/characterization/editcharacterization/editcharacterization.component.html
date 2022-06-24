@@ -901,7 +901,7 @@
                                                     Files &nbsp;&nbsp;&nbsp;&nbsp;<button (click)="addFileForm()" class="btn-canano btn-canano-primary btn-canano-xs mr-1">Add</button>
                                                 </td>
                                             </tr>
-                                            <tr>
+                                            <tr *ngIf="currentFinding.files.length">
                                                 <td>
                                                     <table class="dataTable">
                                                         <tr>
@@ -927,6 +927,7 @@
                                                             </td>
                                                             <td>{{file.description}}</td>
                                                             <td>
+                                                                <button (click)="editFile(file, fileIndex)" class="btn-canano btn-canano-primary btn-canano-xs mr-1">Edit</button>
                                                                 <button (click)="deleteFile(file, fileIndex)" class="btn-canano btn-canano-danger btn-canano-xs mr-1">Delete</button>
                                                             </td>
                                                         </tr>
@@ -938,11 +939,11 @@
                                                     <table>
                                                         <tr>
                                                             <td colspan="2">
-                                                                <label for="fileUpload">
+                                                                <label for="fileUpload" class="right">
                                                                     Upload
                                                                 </label>
                                                                 <input type="radio" name="curentFile.uriExternal" id="fileUpload" [value]="false" [(ngModel)]="currentFile.uriExternal">
-                                                                <label for="fileURL">
+                                                                <label for="fileURL" class="right">
                                                                     Enter File URL
                                                                 </label>
                                                                 <input type="radio" name="curentFile.uriExternal" id="fileURL" [value]="true" [(ngModel)]="currentFile.uriExternal">

@@ -4,7 +4,7 @@ import { Properties } from '../../../../../../assets/properties';
 import { Consts } from '../../../../../constants';
 import { NavigationService } from '../../../../common/services/navigation.service';
 import { ApiService } from '../../../../common/services/api.service';
-
+import { HttpClient } from '@angular/common/http';
 @Component({
   selector: 'canano-editcharacterization',
   templateUrl: './editcharacterization.component.html',
@@ -40,7 +40,7 @@ export class EditcharacterizationComponent implements OnInit {
     fileName;
     type;
 
-    constructor( private apiService:ApiService,private navigationService:NavigationService,private router: Router, private route: ActivatedRoute){
+    constructor( private httpClient:HttpClient,private apiService:ApiService,private navigationService:NavigationService,private router: Router, private route: ActivatedRoute){
     }
 
   ngOnInit(): void {
@@ -95,7 +95,6 @@ export class EditcharacterizationComponent implements OnInit {
                             this.data = data;
                             this.propertiesLoaded=true;
                             this.setCharacterizationData();
-                            console.log('am i here')
                         },
                         error=> {
                             this.errors=error;
@@ -367,6 +366,13 @@ export class EditcharacterizationComponent implements OnInit {
         this.fileIndex=index;
     };
 
+    editFile(file,index) {
+        this.fileIndex=index;
+        this.currentFile=file;
+        this.currentFinding['dirty']=true;
+        this.currentFinding['theFileIndex']=index;
+    }
+
     editFinding(index,finding) {
         this.columnOrder=null;
         this.currentFinding=JSON.parse(JSON.stringify(finding));
@@ -453,28 +459,48 @@ export class EditcharacterizationComponent implements OnInit {
     }
 
     saveFile() {
-        console.log(this.fileIndex)
-        this.theFile.append('uriExternal',this.currentFile['uriExternal']);
-        this.theFile.append('externalUrl',this.currentFile['externalUrl']);
-        this.theFile.append('type',this.currentFile['type']);
-        this.theFile.append('title',this.currentFile['title']);
-        this.theFile.append('keywordsStr',this.currentFile['keywordsStr']);
-        this.theFile.append('description',this.currentFile['description']);
-        console.log(this.currentFile)
-        let uploadUrl = this.apiService.doPost(Consts.QUERY_UPLOAD_FILE,this.theFile);
-        uploadUrl.subscribe(data=> {
+        if (!this.currentFile['uriExternal']) {
+
+            this.theFile.append('uriExternal',this.currentFile['uriExternal']);
+            this.theFile.append('externalUrl',this.currentFile['externalUrl']);
+            this.theFile.append('type',this.currentFile['type']);
+            this.theFile.append('title',this.currentFile['title']);
+            this.theFile.append('keywordsStr',this.currentFile['keywordsStr']);
+            this.theFile.append('description',this.currentFile['description']);
+            let uploadUrl = this.httpClient.post('/'+Consts.QUERY_UPLOAD_FILE,this.theFile);
+            uploadUrl.subscribe(data=> {
+                if (this.fileIndex==-1) {
+                    this.currentFinding.files.push(data);
+                }
+                else {
+                    this.currentFinding.files[this.fileIndex]=data;
+                }
+                console.log(this.theFile)
+                this.currentFinding['dirty']=1;
+                this.currentFinding.theFile=this.currentFile;
+                this.currentFinding['theFile']['uri']=data['fileName']
+                let saveUrl = this.apiService.doPost(Consts.QUERY_CHARACTERIZATION_SAVE_FILE,this.currentFinding);
+                saveUrl.subscribe(data=> {
+                    this.errors={};
+                    this.currentFinding=data;
+                },
+                error=> {
+                    this.errors=error;
+                })
+            },
+            error=> {
+                this.errors=error;
+            })
             if (this.fileIndex==-1) {
-                this.currentFinding.files.push(data);
+                this.currentFinding.files
+                console.log('push file')
             }
             else {
-                console.log(this.currentFinding)
-                this.currentFinding.files[this.fileIndex]=data;
+                console.log('call upload')
             }
-            console.log(this.theFile)
-            this.currentFinding['dirty']=1;
-            this.currentFinding.theFile=this.currentFile;
-            this.currentFinding['theFile']['uri']=data['fileName']
-            // this.currentFinding['theFile']=data;
+        }
+        else {
+            this.currentFinding['theFile']=this.currentFile;
             let saveUrl = this.apiService.doPost(Consts.QUERY_CHARACTERIZATION_SAVE_FILE,this.currentFinding);
             saveUrl.subscribe(data=> {
                 this.errors={};
@@ -483,16 +509,6 @@ export class EditcharacterizationComponent implements OnInit {
             error=> {
                 this.errors=error;
             })
-        },
-        error=> {
-            this.errors=error;
-        })
-        if (this.fileIndex==-1) {
-            this.currentFinding.files
-            console.log('push file')
-        }
-        else {
-            console.log('call upload')
         }
         this.fileIndex=null;
     }
