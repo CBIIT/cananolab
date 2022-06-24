@@ -109,7 +109,7 @@ export class MainDisplayHeadingComponent implements OnInit, OnDestroy{
         let type=this.export[1];
         let query='QUERY_'+type+'_EXPORT_XLS';
         // console.log(query)
-        window.open(Consts[query]+'?sampleId='+sampleId+'&type=all');
+        window.open('/'+Consts[query]+'?sampleId='+sampleId+'&type=all');
         // <a ng-disabled="loader" class="helpText" ng-href="/caNanoLab/rest/publication/summaryExport?sampleId=66945032&amp;type=all" href="/caNanoLab/rest/publication/summaryExport?sampleId=66945032&amp;type=all">Export</a>
     }
 
