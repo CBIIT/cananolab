@@ -1,22 +1,16 @@
-import { Component, Input, OnInit,OnChanges } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Properties } from '../../../../../../assets/properties';
 import { Consts } from '../../../../../constants';
 import { NavigationService } from '../../../../common/services/navigation.service';
 import { ApiService } from '../../../../common/services/api.service';
 import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject, Observable } from 'rxjs';
-import { tap } from 'rxjs/operators';
-import { EventEmitter } from 'stream';
 @Component({
   selector: 'canano-editcharacterization',
   templateUrl: './editcharacterization.component.html',
   styleUrls: ['../../../../../btn-bravo-canano.scss','./editcharacterization.component.scss']
 })
-export class EditcharacterizationComponent implements OnInit,OnChanges {
-    @Input() set ready(isReady: boolean) {
-        if (isReady) this.printMe();
-      };
+export class EditcharacterizationComponent implements OnInit {
     sampleId = Properties.CURRENT_SAMPLE_ID;
     helpUrl = Consts.HELP_URL_SAMPLE_CHARACTERIZATION;
     toolHeadingNameManage;
@@ -56,6 +50,7 @@ export class EditcharacterizationComponent implements OnInit,OnChanges {
     csvDataObj;
     csvDataRowCount;
     csvImportError = '';
+    serverUrl = Properties.API_SERVER_URL;
 
     constructor( private httpClient:HttpClient,private apiService:ApiService,private navigationService:NavigationService,private router: Router, private route: ActivatedRoute){
     }

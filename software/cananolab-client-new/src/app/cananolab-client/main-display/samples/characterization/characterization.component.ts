@@ -18,6 +18,9 @@ export class CharacterizationComponent implements OnInit{
     toolHeadingNameManage;
     helpUrl = Consts.HELP_URL_SAMPLE_CHARACTERIZATION;
     sectionToShow='all';
+    serverUrl = Properties.API_SERVER_URL;
+
+
     characterizationData =
         {
             "physico-chemical characterization":[],

@@ -689,7 +689,10 @@
                                                     <tr *ngFor="let file of finding.files">
                                                         <td>{{file.type}}</td>
                                                         <td>
-                                                            <a href="" [href]="serverUrl+'/caNanoLab/rest/sample/download?fileId='+file.id">
+                                                            <a href="" *ngIf="!file.uriExternal" [href]="serverUrl+'/caNanoLab/rest/sample/download?fileId='+file.id">
+                                                                {{file['title']}}
+                                                            </a>
+                                                            <a  *ngIf="file.uriExternal" [href]="file.externalUrl" target="_blank">
                                                                 {{file['title']}}
                                                             </a>
                                                         </td>
@@ -922,6 +925,7 @@
                                                                 <a href="" [href]="serverUrl+'/caNanoLab/rest/sample/download?fileId='+file.id">
                                                                     {{file['title']}}
                                                                 </a>
+
                                                             </td>
                                                             <td>
                                                                 <ul>
