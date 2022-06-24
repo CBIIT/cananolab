@@ -279,7 +279,7 @@
                     (click)="onChemicalAssociationClick(entry.dataId)">Edit</button></div>
             <div>
                 <table class="dataMain">
-                    <tr>
+                    <tr *ngIf="entry.BondType">
                         <td class="label">Bond Type</td>
                         <td>{{entry.BondType}}</td>
                     </tr>
