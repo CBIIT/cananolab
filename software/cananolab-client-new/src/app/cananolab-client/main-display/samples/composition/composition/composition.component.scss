@@ -27,7 +27,7 @@
 .nav-item {
     margin-bottom:0px !important;
     padding-bottom:0px !important;
-    text-transform: capitalize;
+    text-transform: capitalize !important;
 
 }
 
@@ -41,6 +41,7 @@
     margin-top:0px;
 }
 a.nav-link {
+    text-transform: capitalize !important;
     text-decoration: none !important;
 }
 a.nav-link.active {

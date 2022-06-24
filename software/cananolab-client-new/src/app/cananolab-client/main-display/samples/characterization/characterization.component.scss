@@ -148,6 +148,7 @@
     }
     a.nav-link {
         text-decoration: none !important;
+        text-transform: capitalize !important;
     }
     a.nav-link.active {
         border-color: #000 #000 $canano-green !important;
