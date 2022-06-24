@@ -159,14 +159,16 @@ serverUrl = Properties.API_SERVER_URL;
         this.theFile.append('description',this.currentFile['description']);
         let uploadUrl = this.httpClient.post('/'+Consts.QUERY_UPLOAD_FILE, this.theFile);
         uploadUrl.subscribe(data=> {
-            // this.data[this.fileVariable].push(data);
             this.data[this.fileVariable]={
                 "description":this.currentFile.description,
                 "keywordsStr":this.currentFile.keywordsStr,
                 "title":this.currentFile.title,
                 "type":this.currentFile.type,
                 "uri":data['fileName'],
-                "uriExternal":false
+                "uriExternal":false,
+            };
+            if (this.fileIndex==1) {
+                this.data[this.fileVariable]['id']=this.currentFile['id'];
             }
             let saveUrl=this.httpClient.post('/'+this.saveUrl,this.data) ;
             saveUrl.subscribe(data=> {
