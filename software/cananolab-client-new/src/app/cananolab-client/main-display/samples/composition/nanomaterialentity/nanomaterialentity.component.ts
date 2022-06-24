@@ -277,6 +277,9 @@ export class NanomaterialentityComponent implements OnInit {
     saveInherentFunction() {
         if (this.inherentFunctionIndex==-1) {
             this.inherentFunction.id="-1000";
+            if (!this.composingElement.inherentFunction) {
+                this.composingElement['inherentFunction']=[];
+            }
             this.composingElement.inherentFunction.push(this.inherentFunction);
         }
         else {

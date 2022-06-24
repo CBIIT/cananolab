@@ -65,6 +65,14 @@
                                            {{ce.DisplayName}}
                                         </th>
                                     </tr>
+                                    <tr *ngIf="ce.PubChemId!=''">
+                                        <td class="label">
+                                            PubChem ID
+                                        </td>
+                                        <td>
+                                            {{ce.PubChemId}}
+                                        </td>
+                                    </tr>
                                     <tr *ngIf="ce.MolecularFormulaDisplayName!=''">
                                         <td class="label">
                                             Molecular Formula
