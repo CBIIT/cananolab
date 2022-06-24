@@ -13,8 +13,8 @@
             <a class="nav-link" id="category-tab" data-toggle="tab" (click)="showSection(category.key)">{{category.key}}</a>
         </li>
     </ul>
-    <div class="mainSection" *ngFor="let publicationCategory of publicationData | keyvalue">
-        <ng-container *ngIf="publicationCategory.key==sectionToShow||sectionToShow=='all'">
+    <ng-container *ngFor="let publicationCategory of publicationData | keyvalue">
+    <div class="mainSection" *ngIf="publicationCategory.key==sectionToShow||sectionToShow=='all'">
         <div class="header">
             {{publicationCategory.key}} <button *ngIf="editUrl" (click)="addPublication(publicationCategory.key)" class="btn btn-primary btn-sm">Add</button>
         </div><br />
@@ -63,6 +63,6 @@
             </div>
 
         </ng-container>
-    </ng-container>
     </div>
+</ng-container>
 </div>

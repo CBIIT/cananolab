@@ -20,8 +20,9 @@
         <a class="nav-link" id="other-tab" data-toggle="tab" (click)="showSection('other')">Other</a>
       </li>
 </ul>
-<div class="mainSection" *ngFor="let a of types">
-    <ng-container *ngIf="sectionToShow=='all'|| sectionToShow==a">
+ <ng-container *ngFor="let a of types">
+<div class="mainSection" *ngIf="sectionToShow=='all'|| sectionToShow==a">
+
     <div class="header">
         {{a}} <button *ngIf="editUrl" class="btn btn-primary btn-sm" (click)="addCharacterization(a)">Add</button>
     </div>
@@ -130,10 +131,8 @@
                 </div>
         </ng-container>
     </ng-container>
-
-</ng-container>
-
 </div>
+</ng-container>
 
 
 
