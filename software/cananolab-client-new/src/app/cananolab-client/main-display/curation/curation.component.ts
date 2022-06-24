@@ -23,7 +23,7 @@ export class CurationComponent implements OnInit {
         if (this.router.url.includes('manage-availability')) {
             this.currentUrl = 'manage-availability';
             this.helpUrl='https://wiki.nci.nih.gov/display/caNanoLab/Managing+Data+Curation#ManagingDataCuration-ManageBatch';
-            this.toolHeadingNameManage='Manage Data Batch Availability';
+            this.toolHeadingNameManage='Manage Batch Data Availability';
         }
         if (this.router.url.includes('review-data')) {
             this.currentUrl = 'review-data';
