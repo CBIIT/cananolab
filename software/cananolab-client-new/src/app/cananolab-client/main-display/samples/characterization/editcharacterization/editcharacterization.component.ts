@@ -17,6 +17,7 @@ export class EditcharacterizationComponent implements OnInit {
     charClassName;
     charId;
     columnHeader;
+    columnHeaderTrailer;
     columnOrder;
     columnHeaderIndex;
     currentDropdownValues;
@@ -345,6 +346,8 @@ export class EditcharacterizationComponent implements OnInit {
     editColumnForm(column, index) {
         this.columnHeaderIndex=index;
         this.columnHeader=column;
+        this.columnHeaderTrailer=JSON.parse(JSON.stringify(this.columnHeader));
+
         if (column.columnType) {
             this.changeColumnType(column.columnType,false);
             this.changeColumnName(column.columnName,false);
@@ -418,6 +421,10 @@ export class EditcharacterizationComponent implements OnInit {
         this.changeType(this.data.type)
 
     };
+
+    resetColumnForm() {
+        this.columnHeader=JSON.parse(JSON.stringify(this.columnHeaderTrailer));
+    }
 
     saveColumnForm() {
         this.currentFinding.columnHeaders[this.columnHeaderIndex]=this.columnHeader;

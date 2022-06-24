@@ -757,7 +757,7 @@
                                             </tr>
                                             <tr *ngIf="columnHeaderIndex!=null">
                                                 <td>
-                                                    <div class="mainBorder">
+                                                    <div class="mainBorder">{{columnHeader|json}}
                                                         <table class="columnHeaderDefinitions">
                                                             <tr>
                                                                 <td colspan="2">
@@ -853,6 +853,8 @@
                                                             </tr>
                                                             <tr>
                                                                 <td>
+                                                                    <button (click)="resetColumnForm()" class="btn-canano btn-canano-danger btn-canano-xs mr-1">Reset</button>
+
                                                                 </td>
                                                                 <td>
                                                                     <button (click)="saveColumnForm()" [disabled]="columnHeader.columnType==null||columnHeader.columnName==null" class="btn-canano btn-canano-primary btn-canano-xs mr-1">Save</button>
