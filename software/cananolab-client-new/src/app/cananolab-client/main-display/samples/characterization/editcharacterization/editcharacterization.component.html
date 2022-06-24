@@ -1065,6 +1065,30 @@
                 </tr>
             </table>
         </div><br />
+        <div class="mainBorder">
+            <table class="dataMain copy">
+                <tr>
+                    <td class="label">
+                        <label for="otherSampleNames">
+                            Copy to other samples with the same primary organization?
+                        </label>
+                    </td>
+                    <td>
+                        <select class="multiple" id="otherSampleNames" name="otherSampleNames" multiple="true" size="10" [(ngModel)]="data.selectedOtherSampleNames">
+                            <option *ngFor="let sn of data['otherSampleNameLookup']" value="{{sn}}" >
+                                {{sn}}
+                            </option>
+                        </select>
+                    </td>
+                    <td class="label">
+                        <input type="checkbox" name="copyToOtherSamples" id="copyToOtherSamples" [(ngModel)]="data.copyToOtherSamples">
+                        <label for="copyToOtherSamples" class="right">
+                            Also copy finding data and conditions?
+                        </label>
+                    </td>
+                </tr>
+            </table>
+        </div><br />
         <div>
             <table class="dataMain submit">
                 <tr>
