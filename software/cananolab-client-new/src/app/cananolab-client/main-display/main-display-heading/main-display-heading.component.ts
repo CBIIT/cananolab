@@ -24,6 +24,7 @@ export class MainDisplayHeadingComponent implements OnInit, OnDestroy{
     @Input() helpUrl = '';
     @Input() backUrl;
     @Input() otherUrl;
+    @Input() export;
     @Input() exportJSON;
     @Input() exportXML;
     @Input() sampleIds;
@@ -100,6 +101,15 @@ export class MainDisplayHeadingComponent implements OnInit, OnDestroy{
     ngOnDestroy(): void {
         this.ngUnsubscribe.next();
         this.ngUnsubscribe.complete();
+    }
+
+    exportAsXLS() {
+        let sampleId=this.export[0];
+        let type=this.export[1];
+        let query='QUERY_'+type+'_EXPORT_XLS';
+        // console.log(query)
+        window.open(Consts[query]+'?sampleId='+sampleId+'&type=all');
+        // <a ng-disabled="loader" class="helpText" ng-href="/caNanoLab/rest/publication/summaryExport?sampleId=66945032&amp;type=all" href="/caNanoLab/rest/publication/summaryExport?sampleId=66945032&amp;type=all">Export</a>
     }
 
     exportAsJSON() {

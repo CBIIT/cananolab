@@ -37,6 +37,12 @@
     >Export(JSON)
     </span>
 
+    <span *ngIf="export"
+        class="float-right clicker mr-2"
+    (click)="exportAsXLS()"
+    >Export
+    </span>
+
     <span *ngIf="otherUrl"
         class="float-right clicker mr-2" (click)="navigateToOtherUrl()">
         {{otherUrl['title']}}
