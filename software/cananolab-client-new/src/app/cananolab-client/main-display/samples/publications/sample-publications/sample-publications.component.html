@@ -5,7 +5,16 @@
 </canano-main-display-heading>
 
 <div *ngIf="data">
+    <ul class="nav nav-tabs">
+        <li class="nav-item">
+            <a class="nav-link active" id="all-tab" data-toggle="tab" (click)="showSection('all')">All</a>
+          </li>
+        <li *ngFor="let category of publicationData | keyvalue" class="nav-item">
+            <a class="nav-link" id="category-tab" data-toggle="tab" (click)="showSection(category.key)">{{category.key}}</a>
+        </li>
+    </ul>
     <div class="mainSection" *ngFor="let publicationCategory of publicationData | keyvalue">
+        <ng-container *ngIf="publicationCategory.key==sectionToShow||sectionToShow=='all'">
         <div class="header">
             {{publicationCategory.key}} <button *ngIf="editUrl" (click)="addPublication(publicationCategory.key)" class="btn btn-primary btn-sm">Add</button>
         </div><br />
@@ -54,5 +63,6 @@
             </div>
 
         </ng-container>
+    </ng-container>
     </div>
 </div>

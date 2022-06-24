@@ -11,3 +11,27 @@
 .header {
     text-transform: capitalize;
 }
+.nav-item {
+    margin-bottom:0px !important;
+    padding-bottom:0px !important;
+
+}
+
+.nav.nav-tabs {
+    font-size:12px;
+    margin-left:-6px;
+    border-bottom:none !important;
+    padding-top:15px !important;
+}
+.mainSection {
+    margin-top:0px;
+}
+a.nav-link {
+    text-decoration: none !important;
+}
+a.nav-link.active {
+    border-color: #000 #000 $canano-green !important;
+    text-decoration: none !important;
+    color:#fff !important;
+    background-color:$canano-green !important;
+}

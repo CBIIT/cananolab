@@ -17,6 +17,7 @@ export class CharacterizationComponent implements OnInit{
     tempData;
     toolHeadingNameManage;
     helpUrl = Consts.HELP_URL_SAMPLE_CHARACTERIZATION;
+    sectionToShow='all';
     characterizationData =
         {
             "physico-chemical characterization":[],
@@ -136,5 +137,10 @@ export class CharacterizationComponent implements OnInit{
     // brings up existing characterization form //
     editCharacterization(charId,type, charClassName) {
         this.router.navigate( ['home/samples/characterization/edit-characterization', Properties.CURRENT_SAMPLE_ID,charId, charClassName, type] );  // @FIXME  Don't hard code these
+    }
+
+
+    showSection(value) {
+        this.sectionToShow=value;
     }
 }

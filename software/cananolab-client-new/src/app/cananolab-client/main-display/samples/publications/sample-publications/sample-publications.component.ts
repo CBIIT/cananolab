@@ -25,6 +25,7 @@ export class SamplePublicationsComponent implements OnInit{
     publicationData;
     toolHeadingNameManage;
     editUrl=false;
+    sectionToShow='all';
     constructor( private statusDisplayService:StatusDisplayService,private apiService:ApiService,private router:Router,private navigationService:NavigationService,private route: ActivatedRoute ){
     }
 
@@ -102,4 +103,7 @@ export class SamplePublicationsComponent implements OnInit{
         return keywords.split('\n')
     }
 
+    showSection(value) {
+        this.sectionToShow=value;
+    }
 }
