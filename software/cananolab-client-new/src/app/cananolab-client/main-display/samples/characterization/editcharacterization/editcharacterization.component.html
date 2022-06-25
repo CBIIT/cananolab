@@ -656,14 +656,15 @@
                     <td></td>
                     <td>
                         <ng-container *ngFor="let finding of data.finding; let fIndex=index">
-                            <div *ngIf="finding.rows.length||finding.files.length">
-                                            <B>Data and Conditions</B><br />
+                            <div *ngIf="finding.rows.length||finding.files.length" class="mainBorder">
+                                                <div class="dataConditions"><B>Data and Conditions</B>
+                                                        <button  (click)="editFinding(fIndex, finding)" class="btn-canano btn-canano-primary btn-canano-xs mr-1">Edit</button>
+                                                </div>
                                                 <table class="dataTable">
                                                     <tr>
                                                         <th *ngFor="let header of finding.columnHeaders">
                                                             {{header.columnName}}
                                                         </th>
-                                                        <th></th>
                                                     </tr>
                                                     <tr *ngFor="let row of finding.rows; let rowIndex=index; let odd=odd" [ngClass]="{'rowOdd':odd}">
                                                         <td [ngStyle]="{'width':85/row.cells.length+'%'}" *ngFor="let column of row.cells">
@@ -671,9 +672,6 @@
                                                                 {{column.operand}}
                                                             </span>
                                                             {{column.value}}
-                                                        </td>
-                                                        <td>
-                                                            <button *ngIf="rowIndex==0" (click)="editFinding(fIndex, finding)" class="btn-canano btn-canano-primary btn-canano-xs mr-1">Edit</button>
                                                         </td>
                                                     </tr>
                                                 </table>
