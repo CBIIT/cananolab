@@ -6,6 +6,7 @@ import { timeout } from 'rxjs/operators';
 import { NavigationService } from '../../../common/services/navigation.service';
 import { ApiService } from '../../../common/services/api.service';
 import { StatusDisplayService } from 'src/app/cananolab-client/status-display/status-display.service';
+import { UtilService } from '../../../common/services/util.service';
 @Component( {
     selector: 'canano-characterization',
     templateUrl: './characterization.component.html',
@@ -31,7 +32,7 @@ export class CharacterizationComponent implements OnInit{
     types = ['physico-chemical characterization', 'in vitro characterization','in vivo characterization','other']
     editUrl=false;
 
-    constructor( private statusDisplayService:StatusDisplayService,private apiService:ApiService,private navigationService:NavigationService, private router: Router, private route: ActivatedRoute ){
+    constructor( private statusDisplayService:StatusDisplayService,private apiService:ApiService,private navigationService:NavigationService, private router: Router, private route: ActivatedRoute, private utilService: UtilService  ){
     }
 
     ngOnInit(): void{

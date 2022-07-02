@@ -89,7 +89,17 @@
                                                 </tr>
                                                 <tr *ngFor="let file of f['Files']">
                                                     <td>
-                                                        <a href="" [href]="serverUrl+'/caNanoLab/rest/sample/download?fileId='+file.fileId">
+
+                                                        <!-- Image -->
+                                                        <div *ngIf="file['imageTitle'] !== undefined">
+                                                            <img  [src]="serverUrl+'/caNanoLab/rest/sample/download?fileId='+file.fileId" width="150"
+                                                                  (click)="utilService.popImage('/caNanoLab/rest/sample/download?fileId=', file['fileId'], file['fileId'])"
+                                                            >
+                                                        </div>
+
+                                                        <!-- Text file -->
+                                                        <a  *ngIf="file['title'] !== undefined"
+                                                            [href]="serverUrl+'/caNanoLab/rest/sample/download?fileId='+file.fileId">
                                                             {{file['title']}}
                                                         </a>
                                                     </td>
