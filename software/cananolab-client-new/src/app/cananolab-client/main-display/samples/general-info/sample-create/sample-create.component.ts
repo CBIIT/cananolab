@@ -45,12 +45,17 @@ export class SampleCreateComponent implements OnInit{
     reset() {
         this.data=JSON.parse(JSON.stringify(this.dataTrailer));
         this.pointOfContact={dirty:true,organization:{name:""},address:{},role:""};
+        this.errors={};
     }
 
     onSaveSample(){
         this.data.pointOfContacts.push(this.pointOfContact);
         this.apiService.doPost(Consts.QUERY_SAMPLE_POC_UPDATE_SAVE,this.data).subscribe(data=> {
-            this.router.navigate(['home/samples/sample',data.sampleId]);
+            if( data['errors'].length > 0 ){
+                this.errors['error'] = data['errors'];
+            }else{
+                this.router.navigate( ['home/samples/sample', data.sampleId] );
+            }
         },
         errors=>{
             this.errors=errors;
