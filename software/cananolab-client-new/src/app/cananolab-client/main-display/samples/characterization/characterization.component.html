@@ -7,18 +7,9 @@
     <li class="nav-item">
       <a class="nav-link active" id="all-tab" data-toggle="tab" (click)="showSection('all')">All</a>
     </li>
-    <li class="nav-item">
-      <a class="nav-link" id="physico-tab" data-toggle="tab" (click)="showSection('physico-chemical characterization')">Physico-Chemical Characterization</a>
+    <li class="nav-item" *ngFor="let type of types">
+        <a class="nav-link" id="all-tab" data-toggle="tab" (click)="showSection(type)">{{type}}</a>
     </li>
-    <li class="nav-item">
-        <a class="nav-link" id="invitro-tab" data-toggle="tab" (click)="showSection('in vitro characterization')">In Vitro Characterization</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" id="invivo-tab" data-toggle="tab" (click)="showSection('in vivo characterization')">In Vivo Characterization</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" id="other-tab" data-toggle="tab" (click)="showSection('other')">Other</a>
-      </li>
 </ul>
  <ng-container *ngFor="let a of types">
 <div class="mainSection" *ngIf="sectionToShow=='all'|| sectionToShow==a">
@@ -56,7 +47,7 @@
                                 <td *ngIf="e.value.name=='Characterization Results'">
                                     <ng-container *ngFor="let f of e.value.value">
                                         <label for="dataConditions">
-                                            Data and Conditions
+                                                 Conditions
                                         </label>
                                         <div *ngIf="f['Data and Conditions']">
                                             <table class="dataTable" id="dataConditions">
