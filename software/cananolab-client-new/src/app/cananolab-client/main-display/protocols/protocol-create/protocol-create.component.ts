@@ -334,4 +334,13 @@ export class ProtocolCreateComponent implements OnInit, AfterViewInit{
         );
     }
 
+    getProtocol(event) {
+        let url = this.apiService.doGet(Consts.QUERY_GET_PROTOCOL,'protocolType='+this.data.type+'&protocolName='+this.data.name+'&protocolVersion='+this.data.version);
+        url.subscribe(data=> {
+            if (confirm("A database record with the same protocol type and protocol name already exists. Load it and update?")) {
+                this.router.navigate(['home/protocols/edit-protocol',data['id']])
+            }
+        })
+    }
+
 }
