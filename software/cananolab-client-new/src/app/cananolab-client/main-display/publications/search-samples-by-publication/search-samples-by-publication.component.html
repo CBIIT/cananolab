@@ -42,6 +42,6 @@
 
 <div class="buttons">
     <button (click)="reset()" class="btn-canano btn-canano-danger btn-canano-lg mr-1">Reset</button>
-    <button (click)="onSearchSampByPubClick()" class="btn-canano btn-canano-primary btn-canano-lg mr-1">Search</button>
+    <button [disabled]="inputId=='' || !inputId" (click)="onSearchSampByPubClick()" class="btn-canano btn-canano-primary btn-canano-lg mr-1">Search</button>
 </div>
 </div>

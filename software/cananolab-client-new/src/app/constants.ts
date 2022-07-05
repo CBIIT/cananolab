@@ -99,6 +99,7 @@ export const Consts = {
     QUERY_CHARACTERIZATION_VIEW: 'caNanoLab/rest/sample/characterizationView',
     QUERY_GET_CHARACTERIZATION_BY_TYPE: 'caNanoLab/rest/sample/getCharacterizationByType',
     QUERY_CHARACTERIZATION_SETUP_ADD:'caNanoLab/rest/characterization/setupAdd',
+    QUERY_CHARACTERIZATION_SETUP_EDIT:'caNanoLab/rest/characterization/setupEdit',
     QUERY_CHARACTERIZATION_SETUP_UPDATE: 'caNanoLab/rest/characterization/setupUpdate',
     QUERY_CHARACTERIZATION_GET_COLUMN_NAME_OPTIONS_BY_TYPE:'caNanoLab/rest/characterization/getColumnNameOptionsByType',
     QUERY_CHARACTERIZATION_GET_COLUMN_VALUE_UNIT_OPTIONS:'caNanoLab/rest/characterization/getColumnValueUnitOptions',

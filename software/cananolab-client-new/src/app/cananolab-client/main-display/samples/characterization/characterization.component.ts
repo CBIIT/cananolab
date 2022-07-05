@@ -13,6 +13,7 @@ import { UtilService } from '../../../common/services/util.service';
     styleUrls: ['./characterization.component.scss']
 } )
 export class CharacterizationComponent implements OnInit{
+    errors;
     sampleId = Properties.CURRENT_SAMPLE_ID;
     sampleName;
     tempData;
@@ -20,16 +21,12 @@ export class CharacterizationComponent implements OnInit{
     helpUrl = Consts.HELP_URL_SAMPLE_CHARACTERIZATION;
     sectionToShow='all';
     serverUrl = Properties.API_SERVER_URL;
-
+    setupData;
 
     characterizationData =
         {
-            "physico-chemical characterization":[],
-            "in vitro characterization":[],
-            "in vivo characterization":[],
-            "other":[]
         }
-    types = ['physico-chemical characterization', 'in vitro characterization','in vivo characterization','other']
+    types = []
     editUrl=false;
 
     constructor( private statusDisplayService:StatusDisplayService,private apiService:ApiService,private navigationService:NavigationService, private router: Router, private route: ActivatedRoute, private utilService: UtilService  ){
@@ -54,13 +51,25 @@ export class CharacterizationComponent implements OnInit{
                 }else{
                     Properties.CURRENT_SAMPLE_ID = this.sampleId;
                 };
-                this.getCharacterizationData().subscribe( data => {
-                    this.tempData=data;
-                    this.separateDataSets(data);
+
+                this.apiService.doGet(Consts.QUERY_CHARACTERIZATION_SETUP_EDIT,'sampleId='+this.sampleId).subscribe(data=> {
+                    for (var x=0; x<data.length;x++) {
+                        this.types.push(data[x]['type']);
+                        this.characterizationData[data[x]['type']]=[];
+                    }
+                    console.log(this.types)
+                    console.log(this.characterizationData)
+                    this.getCharacterizationData().subscribe( data => {
+                        this.tempData=data;
+                        this.separateDataSets(data);
+                    },
+                    err => {
+                        console.error( 'Error ', err );
+                    });
                 },
-                err => {
-                    console.error( 'Error ', err );
-                });
+                errors=> {
+                    this.errors=errors;
+                })
             }
         );
     }
@@ -103,23 +112,11 @@ export class CharacterizationComponent implements OnInit{
 
     // separates out all data into subsets of physico, in vivo, in vitro and other characterization types //
     separateDataSets(data) {
-        let types =['in vitro characterization','in vivo characterization','physico-chemical characterization']
+        console.log(data)
+        // let types =['in vitro characterization','in vivo characterization','physico-chemical characterization']
         data.forEach(item=> {
             item.charName=Object.keys(item.charsByAssayType)[0];
-            if (item.type=='in vitro characterization') {
-                this.characterizationData['in vitro characterization'].push(item);
-            }
-            else if (item.type=='physico-chemical characterization') {
-                this.characterizationData['physico-chemical characterization'].push(item);
-
-            }
-            else if (item.type=='in vivo characterization') {
-                this.characterizationData['in vivo characterization'].push(item);
-            }
-            else if (types.indexOf(item.type)==-1) {
-                this.characterizationData['other'].push(item);
-
-            }
+            this.characterizationData[item.type].push(item)
         })
     }
 

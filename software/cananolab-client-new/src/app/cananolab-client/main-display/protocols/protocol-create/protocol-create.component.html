@@ -37,7 +37,7 @@
                     </label>
                 </td>
                 <td>
-                    <input type="text" name="name" id="protocolName" [(ngModel)]="data.name">
+                    <input (focusout)="getProtocol($event)" type="text" name="name" id="protocolName" [(ngModel)]="data.name">
                 </td>
             </tr>
             <!--  -----  END Protocol Name  ----- -->
