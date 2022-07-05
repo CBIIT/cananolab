@@ -82,11 +82,11 @@
                                                     <td>
 
                                                         <!-- Image -->
-                                                        <div *ngIf="file['imageTitle'] !== undefined">
-                                                            <img  [src]="serverUrl+'/caNanoLab/rest/sample/download?fileId='+file.fileId" width="150"
-                                                                  (click)="utilService.popImage('/caNanoLab/rest/sample/download?fileId=', file['fileId'], file['fileId'])"
-                                                            >
-                                                        </div>
+                                                        <a *ngIf="file['imageTitle'] !== undefined"
+                                                           [href]="serverUrl+'/caNanoLab/rest/sample/download?fileId='+file.fileId"
+                                                        >
+                                                            <img  [src]="serverUrl+'/caNanoLab/rest/sample/download?fileId='+file.fileId" width="150">
+                                                        </a>
 
                                                         <!-- Text file -->
                                                         <a  *ngIf="file['title'] !== undefined"
