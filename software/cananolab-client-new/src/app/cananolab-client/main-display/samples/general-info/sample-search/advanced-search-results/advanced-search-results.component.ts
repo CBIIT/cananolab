@@ -49,6 +49,9 @@ export class AdvancedSearchResultsComponent implements OnInit,OnDestroy {
 
 
     ngOnInit(): void {
+        setTimeout(()=> {
+            Properties.SAMPLE_TOOLS = false;
+        })
         this.data=this.advancedSearchService.getAdvancedSearchResults();
         this.sampleIds=this.advancedSearchService.getSampleIds();
 

@@ -691,11 +691,10 @@
                                                                [href]="serverUrl+'/caNanoLab/rest/sample/download?fileId='+file.id">
                                                                 {{file['title']}}
                                                             </a>
-
                                                             <a *ngIf="file['type'] === 'image'"
-                                                               [href]="serverUrl+'/caNanoLab/rest/sample/download?fileId='+file.fileId"
+                                                               [href]="serverUrl+'/caNanoLab/rest/sample/download?fileId='+file.id"
                                                             >
-                                                                <img  [src]="serverUrl+'/caNanoLab/rest/sample/download?fileId='+file.fileId" width="150">
+                                                                <img  [src]="serverUrl+'/caNanoLab/rest/sample/download?fileId='+file.id" width="150">
                                                             </a>
 
                                                             <a  *ngIf="file.uriExternal" [href]="file.externalUrl" target="_blank">

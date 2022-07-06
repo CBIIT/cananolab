@@ -5,7 +5,7 @@ import { ApiService } from '../../../../common/services/api.service';
 import { UtilService } from '../../../../common/services/util.service';
 import { Router } from '@angular/router';
 import { SampleSearchResultsService } from './sample-search-results/sample-search-results.service';
-
+import { Properties } from 'src/assets/properties';
 @Component({
   selector: 'canano-sample-search',
   templateUrl: './sample-search.component.html',
@@ -41,6 +41,9 @@ export class SampleSearchComponent implements OnInit {
     }
 
     ngOnInit(): void{
+        setTimeout(()=> {
+            Properties.SAMPLE_TOOLS = false;
+        })
         this.errors={};
         this.data={
             "text":"",

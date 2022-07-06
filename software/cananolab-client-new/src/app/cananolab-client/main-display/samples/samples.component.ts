@@ -21,9 +21,13 @@ export class SamplesComponent implements OnInit{
     toolHeadingNameSearch = 'Sample Search';
 
     constructor( private apiService: ApiService, private utilService: UtilService ){
+
     }
 
     ngOnInit(): void{
+        setTimeout(()=> {
+            Properties.SAMPLE_TOOLS = false;
+        })
     }
 
     onCreateSampleClick(){

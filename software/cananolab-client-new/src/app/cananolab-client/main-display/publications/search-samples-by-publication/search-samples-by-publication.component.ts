@@ -3,6 +3,7 @@ import { Consts } from '../../../../constants';
 import { ApiService } from '../../../common/services/api.service';
 import { SearchSamplesByPublicationService } from './search-samples-by-publication.service';
 import { Router } from '@angular/router';
+import { Properties } from 'src/assets/properties';
 @Component( {
     selector: 'canano-search-samples-by-publication',
     templateUrl: './search-samples-by-publication.component.html',
@@ -20,6 +21,9 @@ export class SearchSamplesByPublicationComponent implements OnInit{
 
     ngOnInit(): void{
         this.errors={};
+        setTimeout(()=> {
+            Properties.SAMPLE_TOOLS = false;
+        })
     }
 
     onSearchSampByPubClick(){

@@ -26,6 +26,7 @@ export class LeftNavigationMenuComponent implements OnInit{
     }
 
     ngOnInit(): void{
+        console.log('test')
         if (this.statusDisplayService.isEditUrl()) {
             this.isEdit=true;
         }

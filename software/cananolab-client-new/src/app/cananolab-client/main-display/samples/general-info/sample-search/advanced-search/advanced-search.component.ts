@@ -3,6 +3,7 @@ import { ApiService } from 'src/app/cananolab-client/common/services/api.service
 import { Consts } from 'src/app/constants';
 import { AdvancedSearchService } from './advanced-search.service';
 import { Router } from '@angular/router';
+import { Properties } from 'src/assets/properties';
 @Component({
   selector: 'canano-advanced-search',
   templateUrl: './advanced-search.component.html',
@@ -30,6 +31,9 @@ export class AdvancedSearchComponent implements OnInit {
         setupData={};
 
     ngOnInit(): void {
+        setTimeout(()=> {
+            Properties.SAMPLE_TOOLS = false;
+        })
         this.loading=true;
         this.loadingMessage=Consts.loadingMessage;
         this.apiService.doGet(Consts.QUERY_SAMPLE_ADVANCED_SEARCH_SETUP,'').subscribe(data=> {

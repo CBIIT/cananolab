@@ -3,7 +3,7 @@ import { Consts } from '../../../../../constants';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { ApiService } from 'src/app/cananolab-client/common/services/api.service';
-
+import { Properties } from 'src/assets/properties';
 @Component( {
     selector: 'canano-sample-create',
     templateUrl: './sample-create.component.html',
@@ -23,6 +23,9 @@ export class SampleCreateComponent implements OnInit{
     }
 
     ngOnInit(): void{
+        setTimeout(()=> {
+            Properties.SAMPLE_TOOLS = false;
+        })
         this.apiService.doGet(Consts.QUERY_SAMPLE_SUBMISSION_SETUP,'').subscribe(data=> {
             this.data=data;
             this.data['sampleId']=0;

@@ -66,6 +66,9 @@ export class SampleSearchResultsComponent implements OnInit, OnDestroy {
     ) {}
 
     ngOnInit(): void {
+        setTimeout(()=> {
+            Properties.SAMPLE_TOOLS = false;
+        })
         this.searchResults = this.sampleSearchResultsService.getSearchResults();
         this.searchResultsCount = this.searchResults.length;
         this.sampleIds=this.sampleSearchResultsService.getSampleIds();
@@ -141,50 +144,6 @@ export class SampleSearchResultsComponent implements OnInit, OnDestroy {
             this.loading=true;
         }
     }
-
-    /*
-http://cent16:8090/caNanoLab/rest/sample/viewDataAvailability?sampleId=25799936
-
-    $scope.openDataAvailability = function (sampleId) {
-      $http({
-        method: 'GET',
-        url: '/caNanoLab/rest/sample/viewDataAvailability',
-        params: {
-          "sampleId": sampleId
-        }
-      }).
-      then(function (data, status, headers, config) {
-        data = data['data']
-        var modalInstance = $modal.open({
-          templateUrl: 'views/sample/view/sampleDataAvailability.html',
-          controller: 'SampleDataAvailabilityCtrl',
-          size: 'sm',
-          resolve: {
-            sampleId: function () {
-              return sampleId;
-            },
-            availabilityData: function () {
-              return data;
-            },
-            sampleData: function () {
-              return data;
-            },
-            edit: function () {
-              return 0;
-            }
-          }
-        });
-      }).
-      catch(function (data, status, headers, config) {
-        data = data['data']
-        // called asynchronously if an error occurs
-        // or server returns response with an error status.
-        $scope.message = data;
-      });
-    };
-
-
-     */
 
     setupPage() {
         this.searchResultsPageToDisplay = this.searchResults.slice(

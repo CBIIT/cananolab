@@ -3,6 +3,8 @@ import { Consts } from '../../../../../constants';
 import { ApiService } from '../../../../common/services/api.service';
 import { Router } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
+
+import { Properties } from 'src/assets/properties';
 @Component( {
     selector: 'canano-sample-copy',
     templateUrl: './sample-copy.component.html',
@@ -24,6 +26,9 @@ export class SampleCopyComponent implements OnInit{
     }
 
     ngOnInit(): void{
+        setTimeout(()=> {
+            Properties.SAMPLE_TOOLS = false;
+        })
         this.activatedRoute.params.subscribe(data=> {
             this.sampleId=data['sampleId'];
             if (this.sampleId) {
