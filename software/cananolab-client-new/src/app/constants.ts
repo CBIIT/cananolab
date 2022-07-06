@@ -95,6 +95,7 @@ export const Consts = {
     QUERY_PUBLICATION_GET_SAMPLES: 'caNanoLab/rest/publication/getSamples',
     QUERY_PUBLICATION_GET_PUBMED_PUBLICATION: 'caNanoLab/rest/publication/getPubmedPublication',
     QUERY_PUBLICATION_EXPORT_XLS:'caNanoLab/rest/publication/summaryExport',
+    QUERY_PUBLICATION_DOWNLOAD:'/caNanoLab/rest/publication/download',
     QUERY_UPLOAD_FILE: 'caNanoLab/rest/core/uploadFile',
     QUERY_CHARACTERIZATION_VIEW: 'caNanoLab/rest/sample/characterizationView',
     QUERY_GET_CHARACTERIZATION_BY_TYPE: 'caNanoLab/rest/sample/getCharacterizationByType',
