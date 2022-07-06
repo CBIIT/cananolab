@@ -64,7 +64,8 @@
                         {{publication['addedToFavorites'][0]}}
                     </div>
                     <a *ngIf="properties.LOGGED_IN&&!publication['addedToFavorites']" (click)="addToFavorites(publication)">Add to Favorites</a> </td>
-				<td class="search-results-td"> <span [innerHtml]="publication.displayName"></span> </td>
+				<td class="search-results-td"> <span [innerHtml]="publication.displayName"></span>
+                {{publication|json}}</td>
 				<td class="search-results-td" [innerHTML]="publication['publicationType']"></td>
 				<td class="search-results-td">
 					<ul>
