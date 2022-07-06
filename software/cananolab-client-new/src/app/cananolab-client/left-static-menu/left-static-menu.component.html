@@ -49,9 +49,11 @@
 
 
     <div class="left-menu-heading p-2">
-        EXTERNAL <a
-         (click)="openWindow( properties.API_SERVER_URL + '/' + properties.DISCLAIMER_URL, '')"
-        style="text-decoration: underline; color:#fff;">Disclaimer</a>
+        EXTERNAL
+        <canano-disclaimer [hide]="true"></canano-disclaimer>
+        <a class="underline" data-toggle="modal" data-target="#disclaimer">
+            Disclaimer
+        </a>
     </div>
 
 
