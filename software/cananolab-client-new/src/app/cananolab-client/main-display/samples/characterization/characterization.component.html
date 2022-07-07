@@ -80,7 +80,6 @@
                                                 </tr>
                                                 <tr *ngFor="let file of f['Files']">
                                                     <td>
-
                                                         <!-- Image -->
                                                         <a *ngIf="file['imageTitle'] !== undefined"
                                                            [href]="serverUrl+'/caNanoLab/rest/sample/download?fileId='+file.fileId"
@@ -93,6 +92,11 @@
                                                             [href]="serverUrl+'/caNanoLab/rest/sample/download?fileId='+file.fileId">
                                                             {{file['title']}}
                                                         </a>
+
+                                                        <a  *ngIf="file['title'] == undefined"
+                                                        [href]="file['uri']" target="_blank">
+                                                        {{file['uri']}}
+                                                    </a>
                                                     </td>
                                                     <td>
                                                         <ul>
