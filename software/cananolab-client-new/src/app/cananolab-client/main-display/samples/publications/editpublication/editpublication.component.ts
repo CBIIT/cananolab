@@ -35,6 +35,7 @@ export class EditpublicationComponent implements OnInit {
     theAccess;
     theFile;
     type;
+    downloadUrl=Consts.QUERY_PUBLICATION_DOWNLOAD;
 
   constructor(private apiService:ApiService,private navigationService:NavigationService,private httpClient:HttpClient,private route:ActivatedRoute,private router:Router) { }
 

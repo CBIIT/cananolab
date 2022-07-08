@@ -276,7 +276,7 @@
                                 <input id="file" (change)="uploadFile($event)" type="file" name="currentFile.uploadFile" [(ngModel)]="currentFile.file">
                                 <ng-container *ngIf="data['uri']">
                                     <br />
-                                    <a [href]="serverUrl+'/caNanoLab/rest/publication/download?fileId='+data.fileId">Current File</a>
+                                    <a [href]="downloadUrl+'?fileId='+data.fileId">{{data.uri}}</a>
                                 </ng-container>
                             </ng-container>
                         </td>
