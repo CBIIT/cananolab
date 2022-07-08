@@ -36,7 +36,7 @@
                             Description
                         </td>
                         <td>
-                            {{publication.description}}
+                            <span [innerHtml]="publication.description"></span>
                         </td>
                     </tr>
                     <tr *ngIf="publication.keywordsStr!=''">
