@@ -416,6 +416,7 @@ export class EditpublicationComponent implements OnInit {
   }
 
   submitPublication() {
+    this.data['sampleId']=this.sampleId;
     let submitUrl = this.apiService.doPost(Consts.QUERY_PUBLICATION_SAVE,this.data);
     submitUrl.subscribe(data=> {
         if (this.sampleId) {
