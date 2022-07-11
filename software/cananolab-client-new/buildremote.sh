@@ -4,4 +4,4 @@ rm -rf '/local/home/wildfly8a/cananolab_new_client'
 ng build --base-href '.' --configuration 'production' --output-path '/local/home/wildfly8a/cananolab_new_client'
 cd '/local/home/wildfly8a/cananolab_new_client'
 jar -cvf ROOT.war *
-cp cananolab_new_client.war /local/content/caNanoLab/artifacts/
+cp ROOT.war /local/content/caNanoLab/artifacts/
