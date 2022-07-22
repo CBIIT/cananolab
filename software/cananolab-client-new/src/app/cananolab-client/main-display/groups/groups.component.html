@@ -62,7 +62,10 @@
                                         {{sample.sampleName}}
                                     </a>
                                 </td>
-                                <td>{{sample.pointOfContact}}<br />
+                                <td>
+                                    <span [innerHtml]="sample.pointOfContact">
+
+                                    </span><br />
                                 </td>
                                 <td>
                                     <div *ngFor="let composition of sample.composition">
