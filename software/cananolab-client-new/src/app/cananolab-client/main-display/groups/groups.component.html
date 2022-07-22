@@ -57,9 +57,13 @@
                                 <th>Created Date</th>
                             </tr>
                             <tr *ngFor="let sample of sampleData[group.id]">
-                                <td>{{sample.sampleName}}</td>
+                                <td>
+                                    <a [routerLink]="['/home/samples/sample', sample.sampleId]">
+                                        {{sample.sampleName}}
+                                    </a>
+                                </td>
                                 <td>{{sample.pointOfContact}}<br />
-                                {{sample|json}}</td>
+                                </td>
                                 <td>
                                     <div *ngFor="let composition of sample.composition">
                                         {{composition}}
@@ -76,7 +80,7 @@
                                     </div>
                                 </td>
                                 <td>{{sample.dataAvailability}}</td>
-                                <td>{{sample.createdDate}}</td>
+                                <td>{{sample.createdDate|date:"shortDate"}}</td>
                             </tr>
                         </table>
                     </td>

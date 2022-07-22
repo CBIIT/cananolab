@@ -283,6 +283,7 @@
                     <td>
                         <button (click)="onReset()" class="btn-canano btn-canano-danger btn-canano-lg mr-1">Reset</button>
                         <button [disabled]="data.type==''||data.name==''" (click)="onSubmit()" class="btn-canano btn-canano-primary btn-canano-lg mr-1">Submit</button>
+                        <button *ngIf="data.review&&submitReviewButton" [disabled]="data.type==''||data.name==''" (click)="submitForReview()" class="btn-canano btn-canano-primary btn-canano-lg mr-1">Submit For Review</button>
                     </td>
                 </tr>
             </table>

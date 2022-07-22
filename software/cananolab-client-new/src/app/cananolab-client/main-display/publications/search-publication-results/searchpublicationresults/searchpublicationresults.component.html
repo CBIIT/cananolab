@@ -58,7 +58,7 @@
                         '': even,
                         'rowOdd': odd
                     }">
-				<td class="search-results-td"> <a *ngIf="properties.LOGGED_IN" (click)="navigateToPublication(publication['id'])">Edit</a> <a *ngIf="! properties.LOGGED_IN" (click)="navigateToPublication(publication['id'])">View</a>
+				<td class="search-results-td"> <a *ngIf="properties.LOGGED_IN" (click)="navigateToPublication(publication['id'])">Edit</a>
 					<br>
                     <div *ngIf="publication['addedToFavorites']">
                         {{publication['addedToFavorites'][0]}}

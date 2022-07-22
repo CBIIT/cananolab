@@ -24,7 +24,9 @@
         <tr *ngIf="!print">
             <td colspan="2" class="header">
                 <canano-header></canano-header>
-
+                <div *ngIf="maintenanceDate()" style="background-color:darkred; font-weight:Bold; color:white;padding:2px 0px 2px 20px;">
+                    caNanoLab will be unavailable on July 20, 2022.
+                </div>
                 <canano-top-main-menu></canano-top-main-menu>
             </td>
         </tr>
@@ -102,7 +104,7 @@
         </tr>
         <tr *ngIf="!print">
             <td colspan="2" class="footer white release">
-                caNanoLab Release 3.0 Build cananolab-3.0.0-it2
+                caNanoLab Release 3.0 Build cananolab-3.0.0-it3
             </td>
         </tr>
     </table>

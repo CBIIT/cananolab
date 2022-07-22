@@ -344,11 +344,15 @@
                                     </label>
                                 </td>
                                 <td>
+
                                     <select name="theAccess.recipient" id="theAccess.recipient" [(ngModel)]="theAccess.recipient">
                                         <option [ngValue]="''">--Select--</option>
-                                        <option *ngFor="let recipient of userGroups|keyvalue" [ngValue]="recipient.key">
-                                            {{recipient.value}}, {{recipient.key}}
-                                        </option>
+                                        <ng-container *ngFor="let recipient of userGroups|keyvalue">
+                                            <option *ngFor="let group of recipient['value']" [ngValue]="group">
+                                                {{group}}
+                                            </option>
+                                        </ng-container>
+
                                     </select>
                                 </td>
                             </tr>
@@ -454,6 +458,10 @@
                         class="btn btn-primary m-1"
                         (click)="onSampleUpdateClick()"
                     >Update</button>
+                    <button class="btn btn-primary m-1"
+                    (click)="submitForReview()" *ngIf="data.showReviewButton&&submitReviewButton">
+                        Submit For Review
+                    </button>
                 </td>
             </tr>
         </table>
