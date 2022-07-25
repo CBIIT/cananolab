@@ -95,7 +95,7 @@ export class CananolabClientComponent implements OnInit{
     }
 
     maintenanceDate() {
-        let maintenance_date = new Date('7/25/2022').getTime();
+        let maintenance_date = new Date('8/1/2022').getTime();
         let current_date = new Date().getTime();
         if (current_date>maintenance_date) {
             return true
