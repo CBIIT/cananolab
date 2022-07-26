@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Consts } from 'src/app/constants';
 import { ApiService } from '../../common/services/api.service';
 import { Router } from '@angular/router';
+import { StatusDisplayService } from '../../status-display/status-display.service';
+import { Properties } from '../../../../assets/properties';
 @Component({
   selector: 'canano-groups',
   templateUrl: './groups.component.html',
@@ -20,10 +22,11 @@ export class GroupsComponent implements OnInit {
     userFormIndex;
     userInfoBean;
     users;
-
-    constructor(private router:Router,private apiService:ApiService) { }
+    groups;
+    constructor(private statusDisplayService:StatusDisplayService,private router:Router,private apiService:ApiService) { }
 
     ngOnInit(): void {
+        this.groups=Properties['GROUPS'];
         if (this.router.url.includes('collaboration-groups')) {
             this.currentUrl='collaboration-groups'
             this.toolHeadingNameManage='Manage Collaboration Groups'
@@ -187,6 +190,13 @@ export class GroupsComponent implements OnInit {
         error=> {
             this.errors=error;
         })
+    }
+
+    isCurator() {
+        if (this.groups.indexOf('Curator')>-1) {
+            return true
+        }
+        return false
     }
 
 }

@@ -24,7 +24,7 @@
             <ng-container *ngFor="let group of data; let groupIndex=index; let odd=odd">
                 <tr [ngClass]="{'rowOdd':odd}">
                     <td>
-                        <button *ngIf="!group['expand']" (click)="expand(group,groupIndex,true)" class="btn-canano btn-canano-primary btn-canano-xs mr-1">+</button>
+                        <button *ngIf="!group['expand']&&isCurator()" (click)="expand(group,groupIndex,true)" class="btn-canano btn-canano-primary btn-canano-xs mr-1">+</button>
                         <button *ngIf="group['expand']" (click)="expand(group,groupIndex,false)" class="btn-canano btn-canano-primary btn-canano-xs mr-1">-</button>
                         {{group.name}}
 

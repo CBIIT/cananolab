@@ -34,7 +34,7 @@ export let Properties = {
     PROTOCOL_CSM_ROLES: [],
     SAMPLE_TOOLS: false,
     CURRENT_SAMPLE_ID: 0,
-    CURRENT_SAMPLE_NAME: ''
-
+    CURRENT_SAMPLE_NAME: '',
+    GROUPS:[]
 
 }
