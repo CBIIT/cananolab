@@ -372,7 +372,7 @@ export class EditcharacterizationComponent implements OnInit {
     };
 
     editFileForm(file,index) {
-        this.currentFile=file;
+        this.currentFile=JSON.parse(JSON.stringify(file));
         this.fileIndex=index;
     };
 
