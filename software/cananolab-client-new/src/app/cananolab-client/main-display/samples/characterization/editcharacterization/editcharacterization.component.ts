@@ -44,7 +44,6 @@ export class EditcharacterizationComponent implements OnInit {
 
     csvColumnMaxCount = 25; // Maximum number of columns allowed
     csvMaxNumberOfLines = 5000; // Maximum number of rows allowed
-    csvMaxLenOfEntry = 200;
     runaway = 10240; // A counter used to prevent an endless loop if something goes wrong.  @TODO needs a better name
     csvDataColCount = 0;
     csvDataObj;
@@ -555,13 +554,6 @@ export class EditcharacterizationComponent implements OnInit {
             }
         }
 
-        // If at least one entry is too long, set error and return false
-        if (biggestLine > this.csvMaxLenOfEntry) {
-            this.csvImportError = 'line(s) too long (' + biggestLine + ')';
-            return false;
-        }
-
-
         // Send each line to csv validation function.
         // Remove anything that is not a quote or a comma. That is all we need for validating csv.
         let regex = new RegExp('[^",]', 'g');
@@ -805,11 +797,6 @@ export class EditcharacterizationComponent implements OnInit {
 
         } // End for loop
 
-        // Check here for too may columns
-        if (this.getMaxColumnCount(csvDataObj) > this.csvColumnMaxCount) {
-            this.csvImportError = 'Too many columns (' + this.getMaxColumnCount(csvDataObj) + ')';
-            return null;
-        }
         let columnCount = this.getMaxColumnCount(csvDataObj);
         for (let f = 0; f < csvDataObj.length; f++) {
             while (csvDataObj[f].length < columnCount) {
