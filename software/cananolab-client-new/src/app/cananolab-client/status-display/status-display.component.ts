@@ -22,6 +22,7 @@ export class StatusDisplayComponent implements OnInit {
     this.statusDisplayService.updateGroupEmitter.subscribe(data=> {
         let keys=Object.keys(data);
         keys.forEach(key=> {
+            this.properties['GROUPS']=data[key];
             this.groups=data[key].join('<br />')
         })
         // this.groups=data;

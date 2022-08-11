@@ -85,7 +85,7 @@ export class EditcharacterizationComponent implements OnInit {
                             this.data = data;
                             this.data.name='';
                             this.data.assayType='';
-                            this.data.characterizationDate=null,
+                            this.data.characterizationDate=new Date(),
                             this.setCharacterizationData();
                             if (this.data.type=='other') {
                                 this.addOtherValue('type',this.data.type)
@@ -965,12 +965,12 @@ export class EditcharacterizationComponent implements OnInit {
     saveTechniqueInstrument() {
         if (this.techniqueIndex==-1) {
             this.data.techniqueInstruments.experiments.push(this.techniqueInstrument);
-            let url = this.apiService.doPost(Consts.QUERY_CHARACTERIZATION_REMOVE_EXPERIMENT,this.data);
+            let url = this.apiService.doPost(Consts.QUERY_CHARACTERIZATION_SAVE_EXPERIMENT,this.data);
             // push technique, call save and overwrite this.data //
         }
 
         this.data.techniqueInstruments.experiments[this.techniqueIndex]=this.techniqueInstrument;
-        let url = this.apiService.doPost(Consts.QUERY_CHARACTERIZATION_REMOVE_EXPERIMENT,this.data);
+        let url = this.apiService.doPost(Consts.QUERY_CHARACTERIZATION_SAVE_EXPERIMENT,this.data);
         url.subscribe(
                 data=> {
                     this.errors={};

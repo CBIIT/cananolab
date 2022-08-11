@@ -35,7 +35,6 @@ export class ProtocolSearchResultsComponent implements OnInit, OnDestroy {
     searchResultsCount = -1;
     currentPage = 0;
     searchResultsPageToDisplay;
-
     sortingStates = [
         SortState.NO_SORT,
         SortState.NO_SORT,

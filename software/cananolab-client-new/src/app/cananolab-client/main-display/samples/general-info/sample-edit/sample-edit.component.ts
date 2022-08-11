@@ -33,7 +33,7 @@ export class SampleEditComponent implements OnInit, OnDestroy{
     pointOfContactIndex;
     sampleId = -1;
     toolHeadingNameSearchSample = 'Update Sample';
-
+    submitReviewButton=true;
 
 
     constructor( private router:Router,private navigationService: NavigationService, private route: ActivatedRoute, private httpClient: HttpClient,
@@ -85,6 +85,7 @@ export class SampleEditComponent implements OnInit, OnDestroy{
     }
 
     saveAccess() {
+        console.log('test')
         this.data.theAccess=this.theAccess;
         this.data['keywords']=this.data['keywords'].split('\n');
         this.apiService.doPost(Consts.QUERY_SAMPLE_SAVE_ACCESS,this.data).subscribe(data=> {
@@ -359,6 +360,13 @@ export class SampleEditComponent implements OnInit, OnDestroy{
     }
 
     ngOnDestroy(): void{
+    }
+
+    submitForReview() {
+        let url = this.apiService.doPost(Consts.QUERY_SAMPLE_SUBMIT_REVIEW,{dataId:this.data.sampleId,dataName:this.data.sampleName,dataType:"sample"},'text');
+        url.subscribe(data=> {
+            this.submitReviewButton=false;
+        })
     }
 
 }

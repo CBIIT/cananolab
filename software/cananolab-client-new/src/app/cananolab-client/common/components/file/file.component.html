@@ -15,7 +15,7 @@
         </th>
         <th></th>
     </tr>
-    <tr *ngFor="let file of data[fileArray]; let odd=odd" [ngClass]="{'rowOdd':odd}">
+    <tr *ngFor="let file of data[fileArray]; let odd=odd; let fileIndex=index" [ngClass]="{'rowOdd':odd}">
         <td>{{file.type}}</td>
         <td>
             <a href="" [href]="serverUrl+'/caNanoLab/rest/sample/download?fileId='+file.id" *ngIf="!file.uriExternal">
@@ -31,7 +31,7 @@
             </div>
         <td>{{file.description}}</td>
         <td>
-            <button (click)="editFile(file)" class="btn-canano btn-canano-primary btn-canano-xs mr-1">Edit</button>
+            <button (click)="editFile(file,fileIndex)" class="btn-canano btn-canano-primary btn-canano-xs mr-1">Edit</button>
             <button (click)="deleteFile(file)" class="btn-canano btn-canano-danger btn-canano-xs mr-1">Delete</button>
         </td>
     </tr>
@@ -131,6 +131,7 @@
                     <!-- <button class="btn-canano btn-canano-danger btn-canano-xs mr-1">Delete</button> -->
                 </td>
                 <td>
+                    <!-- <button (click)="saveFile()" class="btn-canano btn-canano-primary btn-canano-xs mr-1">Save</button> -->
                     <button [disabled]="isFileUploadValid()" (click)="saveFile()" class="btn-canano btn-canano-primary btn-canano-xs mr-1">Save</button>
                     <button (click)="cancelFile()" class="btn-canano btn-canano-default btn-canano-xs mr-1">Cancel</button>
 

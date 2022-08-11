@@ -24,7 +24,7 @@
             <ng-container *ngFor="let group of data; let groupIndex=index; let odd=odd">
                 <tr [ngClass]="{'rowOdd':odd}">
                     <td>
-                        <button *ngIf="!group['expand']" (click)="expand(group,groupIndex,true)" class="btn-canano btn-canano-primary btn-canano-xs mr-1">+</button>
+                        <button *ngIf="!group['expand']&&isCurator()" (click)="expand(group,groupIndex,true)" class="btn-canano btn-canano-primary btn-canano-xs mr-1">+</button>
                         <button *ngIf="group['expand']" (click)="expand(group,groupIndex,false)" class="btn-canano btn-canano-primary btn-canano-xs mr-1">-</button>
                         {{group.name}}
 
@@ -57,9 +57,16 @@
                                 <th>Created Date</th>
                             </tr>
                             <tr *ngFor="let sample of sampleData[group.id]">
-                                <td>{{sample.sampleName}}</td>
-                                <td>{{sample.pointOfContact}}<br />
-                                {{sample|json}}</td>
+                                <td>
+                                    <a [routerLink]="['/home/samples/sample', sample.sampleId]">
+                                        {{sample.sampleName}}
+                                    </a>
+                                </td>
+                                <td>
+                                    <span [innerHtml]="sample.pointOfContact">
+
+                                    </span><br />
+                                </td>
                                 <td>
                                     <div *ngFor="let composition of sample.composition">
                                         {{composition}}
@@ -76,7 +83,7 @@
                                     </div>
                                 </td>
                                 <td>{{sample.dataAvailability}}</td>
-                                <td>{{sample.createdDate}}</td>
+                                <td>{{sample.createdDate|date:"shortDate"}}</td>
                             </tr>
                         </table>
                     </td>

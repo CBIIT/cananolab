@@ -28,7 +28,7 @@
                         <td class="label">
                             Bibliography Info
                         </td>
-                        <td [innerHTML]="publication.displayName">
+                        <td [innerHTML]="publication.displayName|samplePublications">
                         </td>
                     </tr>
                     <tr>
@@ -36,7 +36,7 @@
                             Description
                         </td>
                         <td>
-                            {{publication.description}}
+                            <span [innerHtml]="publication.description"></span>
                         </td>
                     </tr>
                     <tr *ngIf="publication.keywordsStr!=''">

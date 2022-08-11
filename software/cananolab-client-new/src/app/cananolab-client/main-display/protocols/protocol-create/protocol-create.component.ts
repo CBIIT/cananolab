@@ -27,7 +27,7 @@ export class ProtocolCreateComponent implements OnInit, AfterViewInit{
     recipientList;
     setupData={};
     theAccess={};
-
+    submitReviewButton=true;
     constructor(private httpClient:HttpClient, private route:ActivatedRoute,private router:Router,private apiService: ApiService, private utilService: UtilService,
                  ){
     }
@@ -340,6 +340,14 @@ export class ProtocolCreateComponent implements OnInit, AfterViewInit{
             if (confirm("A database record with the same protocol type and protocol name already exists. Load it and update?")) {
                 this.router.navigate(['home/protocols/edit-protocol',data['id']])
             }
+        })
+    }
+
+    submitForReview() {
+        console.log(this.data)
+        let url = this.apiService.doPost(Consts.QUERY_PROTOCOL_SUBMIT_REVIEW,{dataId:this.data.id,dataName:this.data.name,dataType:"protocol"},'text');
+        url.subscribe(data=> {
+            this.submitReviewButton=false;
         })
     }
 

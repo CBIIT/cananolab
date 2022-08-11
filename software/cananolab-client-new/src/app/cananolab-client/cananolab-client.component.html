@@ -24,7 +24,10 @@
         <tr *ngIf="!print">
             <td colspan="2" class="header">
                 <canano-header></canano-header>
-
+                <div *ngIf="maintenanceDate()" style="background-color:darkred; font-weight:Bold; color:white;padding:2px 0px 2px 20px;">
+                    caNanoLab is moving and will be unavailable August 8th – August 10th for migration.<br />
+                    Users will be redirected once the move is complete. Please reach out to <a style="color:white;" href="mailto:natalie.madero@nih.gov">natalie.madero@nih.gov</a> for any questions.
+                </div>
                 <canano-top-main-menu></canano-top-main-menu>
             </td>
         </tr>
@@ -102,7 +105,7 @@
         </tr>
         <tr *ngIf="!print">
             <td colspan="2" class="footer white release">
-                caNanoLab Release 3.0 Build cananolab-3.0.0-it1
+                caNanoLab Release 3.0 Build cananolab-3.0.0-it9
             </td>
         </tr>
     </table>
