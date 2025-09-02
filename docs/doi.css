@@ -1,0 +1,12 @@
+body {
+
+}
+
+th, td {
+  padding:10px;
+}
+
+th {
+  width: 200px;
+  text-align: right;
+}
